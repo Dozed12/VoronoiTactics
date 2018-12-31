@@ -142,7 +142,10 @@ public class MapData
         }
         graphics.TERRAIN.SetPixels(blank);
 
-        //Add site center
+        //Draw Border
+        graphics.TERRAIN = Graphics.Border(graphics.TERRAIN, Color.black);
+
+        //Add Site centers
         for (int i = 0; i < points.Count; i++)
         {
             graphics.TERRAIN.SetPixel((int)points[i].X, (int)points[i].Y, Color.black);
@@ -191,7 +194,7 @@ public class Map : MonoBehaviour
 
         //Pass settings and generate data
         data = new MapData();
-        data.settings = new MapSettings(800, 800, 200, 3);
+        data.settings = new MapSettings(800, 800, 200, 2);
         data.Generate();
 
         //Create terrain sprite
