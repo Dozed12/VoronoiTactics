@@ -47,7 +47,7 @@ public class MapData
     {
 
         //Generate points (TODO in seperate function)
-        points = GenerateSites();
+        points = GeneratePoints();
 
         //Run Voronoi
         edges = FortunesAlgorithm.Run(points, 0, 0, settings.WIDTH, settings.HEIGHT);
@@ -63,9 +63,9 @@ public class MapData
     }
 
     //Generate a list of FortuneSites
-    private List<FortuneSite> GenerateSites()
+    private List<FortuneSite> GeneratePoints()
     {
-        List<FortuneSite> sites = new List<FortuneSite>();
+        List<FortuneSite> points = new List<FortuneSite>();
 
         for (int i = 0; i < settings.NUMBER_SITES; i++)
         {
@@ -81,9 +81,9 @@ public class MapData
                 x = Random.Range(0.0f, settings.WIDTH - 1);
                 y = Random.Range(0.0f, settings.HEIGHT - 1);
                 //Check mimimum distance
-                for (int j = 0; j < sites.Count; j++)
+                for (int j = 0; j < points.Count; j++)
                 {
-                    if (Vector2.Distance(new Vector2((float)sites[j].X, (float)sites[j].Y), new Vector2(x, y)) < settings.MIN_DISTANCE)
+                    if (Vector2.Distance(new Vector2((float)points[j].X, (float)points[j].Y), new Vector2(x, y)) < settings.MIN_DISTANCE)
                     {
                         tooClose = true;
                         break;
@@ -92,13 +92,13 @@ public class MapData
             } while (tooClose);
 
             //Add point
-            sites.Add(new FortuneSite(x, y));
+            points.Add(new FortuneSite(x, y));
 
         }
 
         Debug.Log("FortuneSites Generated");
 
-        return sites;
+        return points;
     }
 
     //Create provinces from voronoi data
