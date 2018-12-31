@@ -29,12 +29,17 @@ public struct MapSettings
 public class MapData
 {
 
+    private List<FortuneSite> points;
+    private LinkedList<VEdge> edges;
+
     public MapSettings settings;
     public MapGraphics graphics;
+    public List<SiteData> provinces;
 
     public class SiteData
     {
-
+        public int x, y;
+        public List<SiteData> neighbors;
     }
 
     //Generate the map data
@@ -42,16 +47,13 @@ public class MapData
     {
 
         //Generate points (TODO in seperate function)
-        List<FortuneSite> points = GenerateSites();
+        points = GenerateSites();
 
         //Run Voronoi
-        LinkedList<VEdge> edges = FortunesAlgorithm.Run(points, 0, 0, settings.WIDTH, settings.HEIGHT);
+        edges = FortunesAlgorithm.Run(points, 0, 0, settings.WIDTH, settings.HEIGHT);
 
-        //TODO Create Sites (with neighbors)
-
-        //VEdge.Start is a VPoint with location VEdge.Start.X and VEdge.End.Y
-        //VEdge.End is the ending point for the edge
-        //FortuneSite.Neighbors contains the site's neighbors in the Delaunay Triangulation
+        //TODO Create Provinces (with neighbors)
+        provinces = CreateProvinces();
 
         //Generate all graphics
         GenerateGraphics();
@@ -76,8 +78,8 @@ public class MapData
             do
             {
                 //Generate coordinates
-                x = Random.Range(0.0f, settings.WIDTH);
-                y = Random.Range(0.0f, settings.HEIGHT);
+                x = Random.Range(0.0f, settings.WIDTH - 1);
+                y = Random.Range(0.0f, settings.HEIGHT - 1);
                 //Check mimimum distance
                 for (int j = 0; j < sites.Count; j++)
                 {
@@ -99,11 +101,24 @@ public class MapData
         return sites;
     }
 
+    //Create provinces from voronoi data
+    //TODO
+    private List<SiteData> CreateProvinces()
+    {
+        List<SiteData> provinces = new List<SiteData>();
+
+        //VEdge.Start is a VPoint with location VEdge.Start.X and VEdge.End.Y
+        //VEdge.End is the ending point for the edge
+        //FortuneSite.Neighbors contains the site's neighbors in the Delaunay Triangulation
+
+        return provinces;
+    }
+
     //Generate graphics
     //TODO seperate functions for each graphic
     private void GenerateGraphics()
     {
-        
+
         //Create terrain texture
         graphics.TERRAIN = new Texture2D(settings.WIDTH, settings.HEIGHT);
 
@@ -115,8 +130,26 @@ public class MapData
         }
         graphics.TERRAIN.SetPixels(blank);
 
+        //Add site center
+        for (int i = 0; i < points.Count; i++)
+        {
+            graphics.TERRAIN.SetPixel((int)points[i].X, (int)points[i].Y, Color.black);
+        }
+
+        //Draw edges
+        var edge = edges.First;
+        for (int i = 0; i < edges.Count; i++)
+        {
+            VEdge edgeVal = edge.Value;
+            graphics.TERRAIN = Graphics.Bresenham(graphics.TERRAIN, (int)edgeVal.Start.X, (int)edgeVal.Start.Y, (int)edgeVal.End.X, (int)edgeVal.End.Y, Color.black);   
+            edge = edge.Next;
+        }
+
         //Apply to texture
         graphics.TERRAIN.Apply();
+
+        //Settings
+        graphics.TERRAIN.filterMode = FilterMode.Point;
 
         Debug.Log("Graphics Generated");
 
