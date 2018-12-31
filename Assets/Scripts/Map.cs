@@ -12,17 +12,21 @@ public struct MapGraphics
 
 public struct MapSettings
 {
+    //Pixel width of map
     public int WIDTH;
+    //Pixel height of map
     public int HEIGHT;
+    //Number of estimated sites
     public int NUMBER_SITES;
-    public float MIN_DISTANCE;
+    //Disperses sites more
+    public int SITE_RELAXATION;
 
-    public MapSettings(int width, int height, int number_sites, float min_distance)
+    public MapSettings(int width, int height, int number_sites, int site_relaxation)
     {
         this.WIDTH = width;
         this.HEIGHT = height;
         this.NUMBER_SITES = number_sites;
-        this.MIN_DISTANCE = min_distance;
+        this.SITE_RELAXATION = site_relaxation;
     }
 }
 
@@ -62,47 +66,55 @@ public class MapData
 
     }
 
-    //Generate a list of FortuneSites
+    /*
+        Generate a list of FortuneSites(just coordinates)
+        1 Divides the sites in a grid
+        2 Offsets the site by an allowed amount
+        Note this doesn't guarantee the correct number of sites because of division 
+    */
     private List<FortuneSite> GeneratePoints()
     {
-        List<FortuneSite> points = new List<FortuneSite>();
+        List<FortuneSite> nPoints = new List<FortuneSite>();
 
-        for (int i = 0; i < settings.NUMBER_SITES; i++)
+        //Formulas to distribute points evenly in map
+        float pointsHorizontal = Mathf.Floor(Mathf.Sqrt(settings.NUMBER_SITES * settings.WIDTH / settings.HEIGHT));
+        float pointsVertical = Mathf.Floor(Mathf.Sqrt(settings.HEIGHT) * Mathf.Sqrt(settings.NUMBER_SITES) / Mathf.Sqrt(settings.WIDTH));
+        float pointsHorizontalSeparation = settings.WIDTH / pointsHorizontal;
+        float pointsVerticalSeparation = settings.HEIGHT / pointsVertical;
+
+        //Max allowed separation with relaxation
+        float pointsHorizontalAllowedRadius = pointsHorizontalSeparation / settings.SITE_RELAXATION;
+        float pointsVerticalAllowedRadius = pointsVerticalSeparation / settings.SITE_RELAXATION;
+
+        //Place points
+        for (int i = 0; i < pointsHorizontal; i++)
         {
-
-            //Setup
-            float x, y;
-            bool tooClose = false;
-
-            //Try point
-            do
+            for (int j = 0; j < pointsVertical; j++)
             {
-                //Generate coordinates
-                x = Random.Range(0.0f, settings.WIDTH - 1);
-                y = Random.Range(0.0f, settings.HEIGHT - 1);
-                //Check mimimum distance
-                for (int j = 0; j < points.Count; j++)
-                {
-                    if (Vector2.Distance(new Vector2((float)points[j].X, (float)points[j].Y), new Vector2(x, y)) < settings.MIN_DISTANCE)
-                    {
-                        tooClose = true;
-                        break;
-                    }
-                }
-            } while (tooClose);
-
-            //Add point
-            points.Add(new FortuneSite(x, y));
-
+                //Grid placement
+                double x = pointsHorizontalSeparation * (i + 0.5f);
+                double y = pointsVerticalSeparation * (j + 0.5f);
+                //Randomize angular offset
+                float angle = Random.Range(0, Mathf.PI * 2);
+                float a = Random.Range(0,pointsHorizontalAllowedRadius);
+                float b = Random.Range(0,pointsVerticalAllowedRadius);
+                double offX = (a * b) / Mathf.Sqrt((b * b) + (a * a) * (Mathf.Tan(angle) * Mathf.Tan(angle)));
+                double offY = (a * b) / Mathf.Sqrt((a * a) + (b * b) / (Mathf.Tan(angle) * Mathf.Tan(angle)));
+                //Quadrant check
+                if(angle > -Mathf.PI/2 && angle < Mathf.PI/2)
+                    nPoints.Add(new FortuneSite(x + offX, y + offY));
+                else
+                    nPoints.Add(new FortuneSite(x - offX, y - offY));
+            }
         }
 
         Debug.Log("FortuneSites Generated");
 
-        return points;
+        return nPoints;
     }
 
     //Create provinces from voronoi data
-    //TODO
+    //TODO neighbors and other specifics(might need to wait on terrain features generation like rivers, impassible cliffs)
     private List<SiteData> CreateProvinces()
     {
         List<SiteData> provinces = new List<SiteData>();
@@ -115,7 +127,7 @@ public class MapData
     }
 
     //Generate graphics
-    //TODO seperate functions for each graphic
+    //TODO separate functions for each graphic
     private void GenerateGraphics()
     {
 
@@ -137,11 +149,20 @@ public class MapData
         }
 
         //Draw edges
+        //TODO Jitter edges for more detail(could be done here or in internal data, the jitter wont affect any calculations so can be just graphical)
         var edge = edges.First;
         for (int i = 0; i < edges.Count; i++)
         {
             VEdge edgeVal = edge.Value;
-            graphics.TERRAIN = Graphics.Bresenham(graphics.TERRAIN, (int)edgeVal.Start.X, (int)edgeVal.Start.Y, (int)edgeVal.End.X, (int)edgeVal.End.Y, Color.black);   
+
+            //Round
+            int startX = Mathf.FloorToInt((float)edge.Value.Start.X);
+            int endX = Mathf.FloorToInt((float)edge.Value.End.X);
+            int startY = Mathf.FloorToInt((float)edge.Value.Start.Y);
+            int endY = Mathf.FloorToInt((float)edge.Value.End.Y);
+
+            //Draw Edge
+            graphics.TERRAIN = Graphics.Bresenham(graphics.TERRAIN, startX, startY, endX, endY, Color.black);
             edge = edge.Next;
         }
 
@@ -170,7 +191,7 @@ public class Map : MonoBehaviour
 
         //Pass settings and generate data
         data = new MapData();
-        data.settings = new MapSettings(800, 800, 200, 1);
+        data.settings = new MapSettings(800, 800, 200, 3);
         data.Generate();
 
         //Create terrain sprite
