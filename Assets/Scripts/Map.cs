@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//https://github.com/Zalgo2462/VoronoiLib
 using VoronoiLib;
 using VoronoiLib.Structures;
 
@@ -38,12 +40,15 @@ public class MapData
 
     public MapSettings settings;
     public MapGraphics graphics;
-    public List<SiteData> provinces;
+    public List<ProvinceData> provinces;
 
-    public class SiteData
+    public class ProvinceData
     {
-        public int x, y;
-        public List<SiteData> neighbors;
+        public int id;
+        public Vector2 pos;
+        public Vector2 geoCenter;
+        public List<FortuneSite> neighborsRAW;
+        public List<ProvinceData> neighbors;
     }
 
     //Generate the map data
@@ -87,6 +92,7 @@ public class MapData
         float pointsVerticalAllowedRadius = pointsVerticalSeparation / settings.SITE_RELAXATION;
 
         //Place points
+        int id = 0;
         for (int i = 0; i < pointsHorizontal; i++)
         {
             for (int j = 0; j < pointsVertical; j++)
@@ -102,9 +108,10 @@ public class MapData
                 double offY = (a * b) / Mathf.Sqrt((a * a) + (b * b) / (Mathf.Tan(angle) * Mathf.Tan(angle)));
                 //Quadrant check
                 if(angle > -Mathf.PI/2 && angle < Mathf.PI/2)
-                    nPoints.Add(new FortuneSite(x + offX, y + offY));
+                    nPoints.Add(new FortuneSite(x + offX, y + offY, id));
                 else
-                    nPoints.Add(new FortuneSite(x - offX, y - offY));
+                    nPoints.Add(new FortuneSite(x - offX, y - offY, id));
+                id++;
             }
         }
 
@@ -114,16 +121,46 @@ public class MapData
     }
 
     //Create provinces from voronoi data
-    //TODO neighbors and other specifics(might need to wait on terrain features generation like rivers, impassible cliffs)
-    private List<SiteData> CreateProvinces()
+    //TODO Other specifics(might need to wait on terrain features generation like rivers, impassible cliffs)
+    private List<ProvinceData> CreateProvinces()
     {
-        List<SiteData> provinces = new List<SiteData>();
+        List<ProvinceData> nProvinces = new List<ProvinceData>();
+
+        //Create Site
+        for (int i = 0; i < points.Count; i++)
+        {
+            ProvinceData nSite = new ProvinceData();
+            nSite.id = i;
+            nSite.neighborsRAW = points[i].Neighbors;
+            nSite.neighbors = new List<ProvinceData>();
+            nSite.pos = new Vector2((float)points[i].X, (float)points[i].Y);
+
+            nProvinces.Add(nSite);
+        }
+
+        //Neighbor Connections
+        for (int i = 0; i < nProvinces.Count; i++)
+        {
+            for (int p = 0; p < nProvinces[i].neighborsRAW.Count; p++)
+            {
+                for (int j = 0; j < nProvinces.Count; j++)
+                {
+                    //Dont check with itself
+                    if(i == j)
+                        continue;
+                    
+                    //Check ID match
+                    if(nProvinces[i].neighborsRAW[p].ID == nProvinces[j].id)
+                        nProvinces[i].neighbors.Add(nProvinces[j]);
+                }
+            }
+        }
 
         //VEdge.Start is a VPoint with location VEdge.Start.X and VEdge.End.Y
         //VEdge.End is the ending point for the edge
         //FortuneSite.Neighbors contains the site's neighbors in the Delaunay Triangulation
 
-        return provinces;
+        return nProvinces;
     }
 
     //Generate graphics
