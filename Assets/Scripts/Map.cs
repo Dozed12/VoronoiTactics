@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 //https://github.com/Zalgo2462/VoronoiLib
 using VoronoiLib;
 using VoronoiLib.Structures;
@@ -34,6 +33,8 @@ public struct MapSettings
 
 public class MapData
 {
+
+    FastNoise fastnoise;
 
     private List<FortuneSite> points;
     private LinkedList<VEdge> edges;
