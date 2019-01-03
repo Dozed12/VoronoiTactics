@@ -37,7 +37,8 @@ public class ProvinceData
 
 public struct MapGraphics
 {
-    public Texture2D TERRAIN;
+    public Texture2D HEIGHTMAP;
+    public Texture2D FINAL;
 }
 
 public struct MapGeography
@@ -48,7 +49,7 @@ public struct MapGeography
 public class MapData
 {
 
-    private FastNoise fastnoise;
+    private FastNoise fastnoise = new FastNoise();
     private List<FortuneSite> points;
     private LinkedList<VEdge> edges;
 
@@ -182,9 +183,10 @@ public class MapData
         fastnoise.SetSeed((int)Time.time);
 
         //Set Settings
+        //TODO Should be set elsewhere
         fastnoise.SetFractalOctaves(8);
-        fastnoise.SetFractalLacunarity(0.01f);
-        fastnoise.SetFrequency(0.01f);
+        fastnoise.SetFractalLacunarity(2.0f);
+        fastnoise.SetFrequency(0.002f);
 
         //Allocate
         geography.HEIGHTMAP = new float[settings.WIDTH, settings.HEIGHT];
@@ -194,7 +196,7 @@ public class MapData
         {
             for (int j = 0; j < settings.HEIGHT; j++)
             {
-                geography.HEIGHTMAP[i, j] = fastnoise.GetSimplexFractal(i, j, 0);
+                geography.HEIGHTMAP[i, j] = (fastnoise.GetSimplexFractal(i, j, 0) + 1) / 2;
             }
         }
 
@@ -205,51 +207,87 @@ public class MapData
     private void GenerateGraphics()
     {
 
-        //Create terrain texture
-        graphics.TERRAIN = new Texture2D(settings.WIDTH, settings.HEIGHT);
-
-        //Blank terrain texture
-        Color[] blank = new Color[settings.WIDTH * settings.HEIGHT];
-        for (int i = 0; i < settings.WIDTH * settings.HEIGHT; i++)
-        {
-            blank[i] = Color.white;
-        }
-        graphics.TERRAIN.SetPixels(blank);
-
-        //Draw Border
-        graphics.TERRAIN = Graphics.Border(graphics.TERRAIN, Color.black);
-
-        //Add Site centers
-        for (int i = 0; i < points.Count; i++)
-        {
-            graphics.TERRAIN.SetPixel((int)points[i].X, (int)points[i].Y, Color.black);
-        }
-
-        //Draw edges
-        //TODO Jitter edges for more detail(could be done here or in internal data, the jitter wont affect any calculations so can be just graphical)
-        var edge = edges.First;
-        for (int i = 0; i < edges.Count; i++)
-        {
-            VEdge edgeVal = edge.Value;
-
-            //Round
-            int startX = Mathf.FloorToInt((float)edge.Value.Start.X);
-            int endX = Mathf.FloorToInt((float)edge.Value.End.X);
-            int startY = Mathf.FloorToInt((float)edge.Value.Start.Y);
-            int endY = Mathf.FloorToInt((float)edge.Value.End.Y);
-
-            //Draw Edge
-            graphics.TERRAIN = Graphics.Bresenham(graphics.TERRAIN, startX, startY, endX, endY, Color.black);
-            edge = edge.Next;
-        }
-
-        //Apply to texture
-        graphics.TERRAIN.Apply();
-
-        //Settings
-        graphics.TERRAIN.filterMode = FilterMode.Point;
+        HeightMapTexture();
+        FinalTexture();
 
         Debug.Log("Graphics Generated");
+
+        //Generate Heightmap texture (greyscale)
+        void HeightMapTexture()
+        {
+            //Create texture
+            graphics.HEIGHTMAP = new Texture2D(settings.WIDTH, settings.HEIGHT);
+
+            //Height Greyscale
+            for (int i = 0; i < settings.WIDTH; i++)
+            {
+                for (int j = 0; j < settings.HEIGHT; j++)
+                {
+                    float val = geography.HEIGHTMAP[i, j];
+                    graphics.HEIGHTMAP.SetPixel(i, j, new Color(val, val, val));
+                }
+            }
+
+            //Apply to texture
+            graphics.HEIGHTMAP.Apply();
+
+            //Settings
+            graphics.HEIGHTMAP.filterMode = FilterMode.Point;
+
+        }
+
+        /*
+            Generate Final Texture
+            - Terrain texture
+            - Voronoi frame
+            - Terrain decals
+         */
+        void FinalTexture()
+        {
+            //Create texture
+            graphics.FINAL = new Texture2D(settings.WIDTH, settings.HEIGHT);
+
+            //Blank texture
+            Color[] blank = new Color[settings.WIDTH * settings.HEIGHT];
+            for (int i = 0; i < settings.WIDTH * settings.HEIGHT; i++)
+            {
+                blank[i] = Color.white;
+            }
+            graphics.FINAL.SetPixels(blank);
+
+            //Draw Border
+            graphics.FINAL = Graphics.Border(graphics.FINAL, Color.black);
+
+            //Add Site centers
+            for (int i = 0; i < points.Count; i++)
+            {
+                graphics.FINAL.SetPixel((int)points[i].X, (int)points[i].Y, Color.black);
+            }
+
+            //Draw edges
+            //TODO Jitter edges for more detail(could be done here or in internal data, the jitter wont affect any calculations so can be just graphical)
+            var edge = edges.First;
+            for (int i = 0; i < edges.Count; i++)
+            {
+                VEdge edgeVal = edge.Value;
+
+                //Round
+                int startX = Mathf.FloorToInt((float)edge.Value.Start.X);
+                int endX = Mathf.FloorToInt((float)edge.Value.End.X);
+                int startY = Mathf.FloorToInt((float)edge.Value.Start.Y);
+                int endY = Mathf.FloorToInt((float)edge.Value.End.Y);
+
+                //Draw Edge
+                graphics.FINAL = Graphics.Bresenham(graphics.FINAL, startX, startY, endX, endY, Color.black);
+                edge = edge.Next;
+            }
+
+            //Apply to texture
+            graphics.FINAL.Apply();
+
+            //Settings
+            graphics.FINAL.filterMode = FilterMode.Point;
+        }
 
     }
 
@@ -272,7 +310,7 @@ public class Map : MonoBehaviour
         data.Generate();
 
         //Create terrain sprite
-        mapTerrain = Sprite.Create(data.graphics.TERRAIN, new Rect(0, 0, data.graphics.TERRAIN.width, data.graphics.TERRAIN.height), new Vector2(0.5f, 0.5f));
+        mapTerrain = Sprite.Create(data.graphics.HEIGHTMAP, new Rect(0, 0, data.graphics.HEIGHTMAP.width, data.graphics.HEIGHTMAP.height), new Vector2(0.5f, 0.5f));
         GetComponent<SpriteRenderer>().sprite = mapTerrain;
 
     }
