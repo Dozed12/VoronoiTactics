@@ -173,9 +173,7 @@ public class MapData
         return nProvinces;
     }
 
-    /*
-        Generates all the geography of the map
-    */
+    //Generates all the geography of the map
     private void GenerateGeography()
     {
 
@@ -188,22 +186,26 @@ public class MapData
         fastnoise.SetFractalLacunarity(2.0f);
         fastnoise.SetFrequency(0.002f);
 
-        //Allocate
-        geography.HEIGHTMAP = new float[settings.WIDTH, settings.HEIGHT];
+        HeightMap();
 
-        //Get noise
-        for (int i = 0; i < settings.WIDTH; i++)
-        {
-            for (int j = 0; j < settings.HEIGHT; j++)
+        //Generate Heightmap
+        void HeightMap(){
+            //Allocate
+            geography.HEIGHTMAP = new float[settings.WIDTH, settings.HEIGHT];
+
+            //Get noise
+            for (int i = 0; i < settings.WIDTH; i++)
             {
-                geography.HEIGHTMAP[i, j] = (fastnoise.GetSimplexFractal(i, j, 0) + 1) / 2;
+                for (int j = 0; j < settings.HEIGHT; j++)
+                {
+                    geography.HEIGHTMAP[i, j] = (fastnoise.GetSimplexFractal(i, j, 0) + 1) / 2;
+                }
             }
         }
 
     }
 
     //Generate graphics
-    //TODO separate functions for each graphic
     private void GenerateGraphics()
     {
 
