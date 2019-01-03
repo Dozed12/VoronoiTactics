@@ -30,9 +30,9 @@ public class ProvinceData
 {
     public int id;
     public Vector2 pos;
-    public Vector2 geoCenter;
     public List<FortuneSite> neighborsRAW;
     public List<ProvinceData> neighbors;
+    public UnitData unit = null;
 }
 
 public struct MapGraphics
