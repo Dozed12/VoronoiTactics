@@ -6,11 +6,6 @@ using UnityEngine;
 using VoronoiLib;
 using VoronoiLib.Structures;
 
-public struct MapGraphics
-{
-    public Texture2D TERRAIN;
-}
-
 public struct MapSettings
 {
     //Pixel width of map
@@ -31,26 +26,36 @@ public struct MapSettings
     }
 }
 
+public class ProvinceData
+{
+    public int id;
+    public Vector2 pos;
+    public Vector2 geoCenter;
+    public List<FortuneSite> neighborsRAW;
+    public List<ProvinceData> neighbors;
+}
+
+public struct MapGraphics
+{
+    public Texture2D TERRAIN;
+}
+
+public struct MapGeography
+{
+    public float[,] HEIGHTMAP;
+}
+
 public class MapData
 {
 
-    FastNoise fastnoise;
-
+    private FastNoise fastnoise;
     private List<FortuneSite> points;
     private LinkedList<VEdge> edges;
 
     public MapSettings settings;
     public MapGraphics graphics;
+    public MapGeography geography;
     public List<ProvinceData> provinces;
-
-    public class ProvinceData
-    {
-        public int id;
-        public Vector2 pos;
-        public Vector2 geoCenter;
-        public List<FortuneSite> neighborsRAW;
-        public List<ProvinceData> neighbors;
-    }
 
     //Generate the map data
     public void Generate()
@@ -62,11 +67,14 @@ public class MapData
         //Run Voronoi
         edges = FortunesAlgorithm.Run(points, 0, 0, settings.WIDTH, settings.HEIGHT);
 
-        //TODO Create Provinces (with neighbors)
-        provinces = CreateProvinces();
+        //Generate Geography
+        GenerateGeography();
 
         //Generate all graphics
         GenerateGraphics();
+
+        //TODO Create Provinces (with neighbors)
+        provinces = CreateProvinces();
 
         Debug.Log("Map Generation Complete");
 
@@ -103,12 +111,12 @@ public class MapData
                 double y = pointsVerticalSeparation * (j + 0.5f);
                 //Randomize angular offset
                 float angle = Random.Range(0, Mathf.PI * 2);
-                float a = Random.Range(0,pointsHorizontalAllowedRadius);
-                float b = Random.Range(0,pointsVerticalAllowedRadius);
+                float a = Random.Range(0, pointsHorizontalAllowedRadius);
+                float b = Random.Range(0, pointsVerticalAllowedRadius);
                 double offX = (a * b) / Mathf.Sqrt((b * b) + (a * a) * (Mathf.Tan(angle) * Mathf.Tan(angle)));
                 double offY = (a * b) / Mathf.Sqrt((a * a) + (b * b) / (Mathf.Tan(angle) * Mathf.Tan(angle)));
                 //Quadrant check
-                if(angle > -Mathf.PI/2 && angle < Mathf.PI/2)
+                if (angle > -Mathf.PI / 2 && angle < Mathf.PI / 2)
                     nPoints.Add(new FortuneSite(x + offX, y + offY, id));
                 else
                     nPoints.Add(new FortuneSite(x - offX, y - offY, id));
@@ -147,11 +155,11 @@ public class MapData
                 for (int j = 0; j < nProvinces.Count; j++)
                 {
                     //Dont check with itself
-                    if(i == j)
+                    if (i == j)
                         continue;
-                    
+
                     //Check ID match
-                    if(nProvinces[i].neighborsRAW[p].ID == nProvinces[j].id)
+                    if (nProvinces[i].neighborsRAW[p].ID == nProvinces[j].id)
                         nProvinces[i].neighbors.Add(nProvinces[j]);
                 }
             }
@@ -162,6 +170,34 @@ public class MapData
         //FortuneSite.Neighbors contains the site's neighbors in the Delaunay Triangulation
 
         return nProvinces;
+    }
+
+    /*
+        Generates all the geography of the map
+    */
+    private void GenerateGeography()
+    {
+
+        //Set seed
+        fastnoise.SetSeed((int)Time.time);
+
+        //Set Settings
+        fastnoise.SetFractalOctaves(8);
+        fastnoise.SetFractalLacunarity(0.01f);
+        fastnoise.SetFrequency(0.01f);
+
+        //Allocate
+        geography.HEIGHTMAP = new float[settings.WIDTH, settings.HEIGHT];
+
+        //Get noise
+        for (int i = 0; i < settings.WIDTH; i++)
+        {
+            for (int j = 0; j < settings.HEIGHT; j++)
+            {
+                geography.HEIGHTMAP[i, j] = fastnoise.GetSimplexFractal(i, j, 0);
+            }
+        }
+
     }
 
     //Generate graphics
