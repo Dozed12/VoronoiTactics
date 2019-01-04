@@ -52,6 +52,7 @@ public class MapData
     private FastNoise fastnoise = new FastNoise();
     private List<FortuneSite> points;
     private LinkedList<VEdge> edges;
+    private Graph graph = new Graph();
 
     public MapSettings settings;
     public MapGraphics graphics;
@@ -151,8 +152,18 @@ public class MapData
         //Neighbor Connections
         for (int i = 0; i < nProvinces.Count; i++)
         {
+
+            //Connections for graph
+            Dictionary<int, int> connections = new Dictionary<int, int>();
+
             for (int p = 0; p < nProvinces[i].neighborsRAW.Count; p++)
             {
+
+                //Add to connections
+                //TODO assumes cost of 1, terrain might impact this
+                connections.Add(nProvinces[i].neighborsRAW[p].ID, 1);
+
+                //Instance match
                 for (int j = 0; j < nProvinces.Count; j++)
                 {
                     //Dont check with itself
@@ -161,9 +172,15 @@ public class MapData
 
                     //Check ID match
                     if (nProvinces[i].neighborsRAW[p].ID == nProvinces[j].id)
+                    {
                         nProvinces[i].neighbors.Add(nProvinces[j]);
+                    }
                 }
             }
+
+            //Add to graph
+            graph.vertex(nProvinces[i].id, connections);
+
         }
 
         //VEdge.Start is a VPoint with location VEdge.Start.X and VEdge.End.Y
@@ -189,7 +206,8 @@ public class MapData
         HeightMap();
 
         //Generate Heightmap
-        void HeightMap(){
+        void HeightMap()
+        {
             //Allocate
             geography.HEIGHTMAP = new float[settings.WIDTH, settings.HEIGHT];
 
