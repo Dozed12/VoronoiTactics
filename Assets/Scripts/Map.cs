@@ -30,6 +30,9 @@ public struct MapSettings
     TODO Terrain Model
 
     - User picks TerrainBiome upon map generation
+    - Biome affects possible weathers
+    - Weather can be picked at start but can change
+    - Weather is wind, rain and temperature
     - Each Biome has several terrain types possible
     - Use Noise to distribute terrains
     - Assign height values as a secondary feature
