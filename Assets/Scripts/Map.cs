@@ -26,7 +26,6 @@ public struct MapSettings
     }
 }
 
-
 /* 
     TODO Terrain Model
 
@@ -37,23 +36,25 @@ public struct MapSettings
     - HIGH_MOUNTAINS completly replaces the terrain as their own terrain type
     - Overlap with special terrain types (Village, Outskirts, City) (probably using noise too)
 
+    Biomes:
+    https://www.researchgate.net/profile/Rudi_Van_Aarde/publication/274288653/figure/fig1/AS:458704500858882@1486375083230/World-map-of-coverage-of-14-terrestrial-biomes-The-14-terrestrial-biomes-adapted-from.png
+
 */
 
 //Biomes to choose, on MapData
 public enum TerrainBiome
 {
-
     TUNDRA,
-    DESERT,
-    BADLANDS,
-    GRASSLAND,
+    TAIGA,
     WOODLAND,
-    MARSH,
-    SWAMP,
-    FOREST,
-    JUNGLE,
-    TAIGA
-
+    SAVANNA,
+    DESERT,
+    TEMPERATE_FOREST,
+    TROPICAL_FOREST,
+    TEMPERATE_GRASSLAND,
+    TROPICAL_GRASSLAND,
+    FLOODED_GRASSLAND,
+    MONTANE_GRASSLAND
 }
 
 //Height types, on ProvinceData
