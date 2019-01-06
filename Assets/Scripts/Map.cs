@@ -26,6 +26,50 @@ public struct MapSettings
     }
 }
 
+
+/* 
+    TODO Terrain Model
+
+    - User picks TerrainBiome upon map generation
+    - Each Biome has several terrain types possible
+    - Use Noise to distribute terrains
+    - Finally, use height noise to override terrain with mountains or hills
+    (Alternatively we can have 2 seperate features. Mountain completly overlaps the terrain still
+    But hills/flat/low mountains can be a secondary feature)
+*/
+
+//Height types
+public enum TerrainHeight
+{
+    FLAT,
+    HILLS,
+    LOW_MOUNTAINS,
+    HIGH_MOUNTAINS
+}
+
+//Biomes to choose
+public enum TerrainBiome
+{
+
+    TUNDRA,
+    DESERT,
+    BADLANDS,
+    GRASSLAND,
+    WOODLAND,
+    MARSH,
+    SWAMP,
+    FOREST,
+    JUNGLE,
+    TAIGA
+
+}
+
+//TODO Terrains possible for biomes
+public enum TerrainType
+{
+    
+}
+
 public class ProvinceData
 {
     public int id;
@@ -33,6 +77,8 @@ public class ProvinceData
     public List<FortuneSite> neighborsRAW;
     public List<ProvinceData> neighbors;
     public UnitData unit = null;
+    public TerrainHeight height;
+    public TerrainType type;
 }
 
 public struct MapGraphics
@@ -266,6 +312,7 @@ public class MapData
             nSite.neighborsRAW = points[i].Neighbors;
             nSite.neighbors = new List<ProvinceData>();
             nSite.pos = new Vector2((float)points[i].X, (float)points[i].Y);
+            //TODO Setup Terrain characteristics here (Height, Biome) using Geography data
 
             nProvinces.Add(nSite);
         }
@@ -280,7 +327,7 @@ public class MapData
             for (int p = 0; p < nProvinces[i].neighborsRAW.Count; p++)
             {
 
-                //Add to connections
+                //Add to pathfind connections
                 //TODO assumes cost of 1, terrain might impact this
                 connections.Add(nProvinces[i].neighborsRAW[p].ID, 1);
 
@@ -299,7 +346,7 @@ public class MapData
                 }
             }
 
-            //Add to graph
+            //Add to graph for pathfind
             graph.vertex(nProvinces[i].id, connections);
 
         }
