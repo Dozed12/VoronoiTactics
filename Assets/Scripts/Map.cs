@@ -33,21 +33,13 @@ public struct MapSettings
     - User picks TerrainBiome upon map generation
     - Each Biome has several terrain types possible
     - Use Noise to distribute terrains
-    - Finally, use height noise to override terrain with mountains or hills
-    (Alternatively we can have 2 seperate features. Mountain completly overlaps the terrain still
-    But hills/flat/low mountains can be a secondary feature)
+    - Assign height values as a secondary feature
+    - HIGH_MOUNTAINS completly replaces the terrain as their own terrain type
+    - Overlap with special terrain types (Village, Outskirts, City) (probably using noise too)
+
 */
 
-//Height types
-public enum TerrainHeight
-{
-    FLAT,
-    HILLS,
-    LOW_MOUNTAINS,
-    HIGH_MOUNTAINS
-}
-
-//Biomes to choose
+//Biomes to choose, on MapData
 public enum TerrainBiome
 {
 
@@ -64,7 +56,17 @@ public enum TerrainBiome
 
 }
 
-//TODO Terrains possible for biomes
+//Height types, on ProvinceData
+public enum TerrainHeight
+{
+    FLAT,
+    HILLS,
+    LOW_MOUNTAINS,
+    HIGH_MOUNTAINS
+}
+
+//TODO Terrains possible for biomes, on ProvinceData
+//Can be overlapped with special terrain types
 public enum TerrainType
 {
     
@@ -103,6 +105,7 @@ public class MapData
     public MapSettings settings;
     public MapGraphics graphics;
     public MapGeography geography;
+    public TerrainBiome biome;
     public List<ProvinceData> provinces;
 
     //Generate the map data
