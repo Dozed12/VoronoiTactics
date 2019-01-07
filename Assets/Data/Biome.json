@@ -6,61 +6,83 @@
     "BLANK_BIOME": {
         "_comment": "In-game name",
         "name": "BLANK_BIOME",
+        "_comment": "Civilization presense from 0.0 to 1.0",
+        "civilization": 0.8,
         "_comment": "Height noise frequency setting",
-        "heightnoise": "0.002",
+        "heightnoise": 0.002,
         "_comment": "Heights used in this biome",
         "heights": [
             {
                 "_comment": "Height identifier",
                 "id": "BLANK_HEIGHT",
                 "_comment": "Maximum noise value",
-                "noise_max": "0.6",
+                "noise_max": 0.6,
                 "_comment": "Minimum noise value",
-                "noise_min": "0"
+                "noise_min": 0
             },
             {
                 "_comment": "Terrain identifier",
                 "id": "BLANK_HEIGHT",
                 "_comment": "Maximum noise value",
-                "noise_max": "1",
+                "noise_max": 1,
                 "_comment": "Minimum noise value",
-                "noise_min": "0.6"
+                "noise_min": 0.6
             }
         ],
         "_comment": "Terrain noise frequency setting",
-        "terrainnoise": "0.002",
+        "terrainnoise": 0.002,
         "_comment": "Terrains used in this biome",
         "terrains": [
             {
                 "_comment": "Terrain identifier",
                 "id": "BLANK_TERRAIN",
                 "_comment": "Maximum noise value",
-                "noise_max": "0.6",
+                "noise_max": 0.6,
                 "_comment": "Minimum noise value",
-                "noise_min": "0"
+                "noise_min": 0
             },
             {
                 "_comment": "Terrain identifier",
                 "id": "BLANK_TERRAIN",
                 "_comment": "Maximum noise value",
-                "noise_max": "1",
+                "noise_max": 1,
                 "_comment": "Minimum noise value",
-                "noise_min": "0.6"
+                "noise_min": 0.6
             }
         ]
     },
     "WOODLAND": {
         "name": "Woodland",
+        "civilization": 0.5,
+        "heightnoise": 0.002,
+        "heights": [
+            {
+                "id": "HIGH_MOUNTAINS",
+                "noise_max": 1,
+                "noise_min": 0.9
+            },
+            {
+                "id": "LOW_MOUNTAINS",
+                "noise_max": 0.9,
+                "noise_min": 0.7
+            },
+            {
+                "id": "HILLS",
+                "noise_max": 0.7,
+                "noise_min": 0.5
+            },
+            {
+                "id": "PLAINS",
+                "noise_max": 0.5,
+                "noise_min": 0
+            }
+        ],
+        "terrainnoise": 0.002,
         "terrains": [
             {
                 "id": "GRASSLAND",
-                "noise_max": "1",
-                "noise_min": "0"
-            },
-            {
-                "id": "SHRUBLAND",
-                "noise_max": "1",
-                "noise_min": "0.6"
+                "noise_max": 1,
+                "noise_min": 0
             }
         ]
     }
