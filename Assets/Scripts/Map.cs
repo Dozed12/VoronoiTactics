@@ -6,6 +6,8 @@ using UnityEngine;
 using VoronoiLib;
 using VoronoiLib.Structures;
 
+using Newtonsoft.Json;
+
 public struct MapSettings
 {
     //Pixel width of map
