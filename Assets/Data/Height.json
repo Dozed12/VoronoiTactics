@@ -1,58 +1,43 @@
-{
-    "_comment": "_comment fields are ignored",
-    "_comment": "This is a comment",
-    "_comment": "This is an example Height",
-    "_comment": "This is the height identifier",
-    "BLANK_HEIGHT": {
-        "_comment": "In-game name",
+[
+    {
+        "_comment": "Name",
         "name": "BLANK_HEIGHT",
         "_comment": "Grey value",
         "color": 255,
-        "_comment": "Terrain modifiers",
-        "modifiers": {
-            "_comment": "Modifier applied to attacker of this terrain",
-            "attack": 1,
-            "_comment": "Modifier applied to defender of this terrain",
-            "defense": 1,
-            "_comment": "Modifier applied to movement into this terrain",
-            "movement": 1
-        }
+        "_comment": "Modifier applied to attacker of this terrain",
+        "attack": 1,
+        "_comment": "Modifier applied to defender of this terrain",
+        "defense": 1,
+        "_comment": "Modifier applied to movement into this terrain",
+        "movement": 1
     },
-    "PLAINS": {
+    {
         "name": "Plains",
         "color": 50,
         "_comment": "Terrain modifiers",
-        "modifiers": {
-            "attack": 1,
-            "defense": 1,
-            "movement": 1
-        }
+        "attack": 1,
+        "defense": 1,
+        "movement": 1
     },
-    "HILLS": {
+    {
         "name": "Hills",
         "color": 100,
-        "modifiers": {
-            "attack": 0.9,
-            "defense": 1.1,
-            "movement": 1.2
-        }
+        "attack": 0.9,
+        "defense": 1.1,
+        "movement": 1.2
     },
-    "LOW_MOUNTAINS": {
+    {
         "name": "Low Mountains",
         "color": 150,
-        "modifiers": {
-            "attack": 0.8,
-            "defense": 1.2,
-            "movement": 1.3
-        }
+        "attack": 0.8,
+        "defense": 1.2,
+        "movement": 1.3
     },
-    "HIGH_MOUNTAINS": {
+    {
         "name": "High Mountains",
         "color": 200,
-        "modifiers": {
-            "attack": 0.7,
-            "defense": 1.3,
-            "movement": 1.4
-        }
+        "attack": 0.7,
+        "defense": 1.3,
+        "movement": 1.4
     }
-}
+]

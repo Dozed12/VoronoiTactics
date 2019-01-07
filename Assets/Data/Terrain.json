@@ -1,10 +1,6 @@
-{
-    "_comment": "_comment fields are ignored",
-    "_comment": "This is a comment",
-    "_comment": "This is an example Terrain",
-    "_comment": "This is the terrain identifier",
-    "BLANK_TERRAIN": {
-        "_comment": "In-game name",
+[
+    {
+        "_comment": "Name",
         "name": "BLANK_TERRAIN",
         "_comment": "RGB Color used in map",
         "color": [
@@ -29,7 +25,7 @@
             "movement": 1
         }
     },
-    "GRASSLAND": {
+    {
         "name": "Grassland",
         "color": [
             22,
@@ -48,4 +44,4 @@
             "movement": 1.1
         }
     }
-}
+]

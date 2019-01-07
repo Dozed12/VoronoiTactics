@@ -1,10 +1,6 @@
-{
-    "_comment": "_comment fields are ignored",
-    "_comment": "This is a comment",
-    "_comment": "This is an example Biome",
-    "_comment": "Biome identifier",
-    "BLANK_BIOME": {
-        "_comment": "In-game name",
+[
+    {
+        "_comment": "Name",
         "name": "BLANK_BIOME",
         "_comment": "Height noise frequency setting",
         "heightnoise": 0.002,
@@ -58,7 +54,7 @@
             }
         ]
     },
-    "WOODLAND": {
+    {
         "name": "Woodland",
         "heightnoise": 0.002,
         "heights": [
@@ -91,7 +87,7 @@
                 "noise_min": 0
             }
         ],
-        "structurenoise": 0.002,
+        "structurenoise": 0.01,
         "structures": [
             {
                 "id": "VILLAGE",
@@ -100,4 +96,4 @@
             }
         ]
     }
-}
+]

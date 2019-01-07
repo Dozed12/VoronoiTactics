@@ -1,8 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
+
+//https://github.com/JamesNK/Newtonsoft.Json
+using Newtonsoft.Json;
 
 /* 
-    TODO Terrain Model
+    Terrain Model
 
     - User picks TerrainBiome upon map generation
     - Biome affects possible weathers
@@ -11,7 +16,6 @@ using System.Collections.Generic;
     - Each Biome has several terrain types possible with different densities
     - Use Noise to distribute terrains
     - Assign height values as a secondary feature
-    - HIGH_MOUNTAINS completly replaces the terrain as their own terrain type
     - Overlap with special terrain types (Village, Outskirts, City) (probably using noise too)
 
     Biomes:
@@ -19,56 +23,98 @@ using System.Collections.Generic;
 
 */
 
-//Biomes to choose, on MapData
-public enum Biome
+//Terrain heights
+public struct TerrainHeight
 {
-    TUNDRA,
-    TAIGA,
-    WOODLAND,
-    DESERT,
-    TEMPERATE_FOREST,
-    TROPICAL_FOREST,
-    TEMPERATE_GRASSLAND,
-    TROPICAL_GRASSLAND,
-    FLOODED_GRASSLAND
+    public string name;
+    public int color;
+    public float attack;
+    public float defense;
+    public float movement;
 }
 
-//Height types, on ProvinceData
-public enum TerrainHeight
+//Human terrain structures
+public struct TerrainStructure
 {
-    PLAIN,
-    HILLS,
-    LOW_MOUNTAINS,
-    HIGH_MOUNTAINS
+    public string ID;
+    public string name;
+    public int[] color;
+    public float attMod;
+    public float defMod;
+    public float movMod;
 }
 
-//TODO Terrains possible for biomes, on ProvinceData
-//Can be overlapped with special terrain types
-public enum TerrainType
+//Terrain types
+public struct TerrainType
 {
-    DESERT,
-    SEMIDESERT,
-    BARREN,
-    WOODS,
-    FOREST,
-    DENSE_FOREST,
-    JUNGLE,
-    GRASSLAND,
-    SHRUBLAND,
-    SWAMP,
-    STEPPE,
-    SAVANNA,
+    public string ID;
+    public string name;
+    public Color color;
+    public TerrainHeight[] heights;
+    public float attMod;
+    public float defMod;
+    public float movMod;
 }
 
-//Special terrain that overlaps other
-public enum TerrainSpecial{
-    FARMLAND,
-    VILLAGE,
-    OUTSKIRTS,
-    CITY
+//Biomes to choose
+public struct Biome
+{
+    public string ID;
+    public string name;
+    public float heightFreq;
+    public TerrainHeight[] heights;
+    public float terrainFreq;
+    public TerrainType[] terrains;
+    public float structureFreq;
+    public TerrainStructure[] structures;
+    public float attMod;
+    public float defMod;
+    public float movMod;
 }
 
 public class Data
 {
-    
+
+    public Dictionary<string, TerrainHeight> heights;
+    public Dictionary<string, TerrainStructure> structures;
+    public Dictionary<string, TerrainType> terrains;
+    public Dictionary<string, Biome> biomes;
+
+    private void LoadHeight()
+    {
+
+        //Deserialize
+        JsonTextReader reader = new JsonTextReader(new StreamReader("Assets/Data/Height.json"));
+        List<TerrainHeight> e = new List<TerrainHeight>();
+        while (reader.Read())
+        {
+            JsonSerializer serializer = new JsonSerializer();
+            e = serializer.Deserialize<List<TerrainHeight>>(reader);
+        }
+
+        //Add to dictionary
+        foreach (var item in e)
+        {
+            heights.Add(item.name, item);
+        }
+
+    }
+
+    public void LoadData()
+    {
+
+        //Reset Dictionaries
+        heights = new Dictionary<string, TerrainHeight>();
+        structures = new Dictionary<string, TerrainStructure>();
+        terrains = new Dictionary<string, TerrainType>();
+        biomes = new Dictionary<string, Biome>();
+
+        //Load
+        LoadHeight();
+
+        //TODO
+        //Load Terrain
+        //Load Structures
+        //Load Biomes
+    }
 }

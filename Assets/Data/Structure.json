@@ -1,10 +1,6 @@
-{
-    "_comment": "_comment fields are ignored",
-    "_comment": "This is a comment",
-    "_comment": "This is an example Structure",
-    "_comment": "This is the structure identifier",
-    "BLANK_STRUCTURE": {
-        "_comment": "In-game name",
+[
+    {
+        "_comment": "Name",
         "name": "BLANK_STRUCTURE",
         "_comment": "RGB Color used in map",
         "color": [
@@ -22,7 +18,7 @@
             "movement": 1
         }
     },
-    "VILLAGE": {
+    {
         "name": "Village",
         "color": [
             255,
@@ -35,4 +31,4 @@
             "movement": 1
         }
     }
-}
+]

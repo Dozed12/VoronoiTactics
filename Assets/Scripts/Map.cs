@@ -6,9 +6,6 @@ using UnityEngine;
 using VoronoiLib;
 using VoronoiLib.Structures;
 
-//https://github.com/JamesNK/Newtonsoft.Json
-using Newtonsoft.Json;
-
 //https://github.com/Auburns/FastNoise_CSharp
 
 public struct MapSettings
@@ -326,7 +323,8 @@ public class MapData
 public class Map : MonoBehaviour
 {
 
-    MapData data;
+    Data data;
+    MapData mapData;
 
     public Sprite mapTerrain;
 
@@ -334,13 +332,18 @@ public class Map : MonoBehaviour
     void Start()
     {
 
+        //TODO Wont be here probably
+        //Load data
+        data = new Data();
+        data.LoadData();
+
         //Pass settings and generate data
-        data = new MapData();
-        data.settings = new MapSettings(800, 800, 200, 2);
-        data.Generate();
+        mapData = new MapData();
+        mapData.settings = new MapSettings(800, 800, 200, 2);
+        mapData.Generate();
 
         //Create terrain sprite
-        mapTerrain = Sprite.Create(data.graphics.HEIGHTMAP, new Rect(0, 0, data.graphics.HEIGHTMAP.width, data.graphics.HEIGHTMAP.height), new Vector2(0.5f, 0.5f));
+        mapTerrain = Sprite.Create(mapData.graphics.HEIGHTMAP, new Rect(0, 0, mapData.graphics.HEIGHTMAP.width, mapData.graphics.HEIGHTMAP.height), new Vector2(0.5f, 0.5f));
         GetComponent<SpriteRenderer>().sprite = mapTerrain;
 
     }
