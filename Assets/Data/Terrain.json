@@ -1,0 +1,51 @@
+{
+    "_comment": "_comment fields are ignored",
+    "_comment": "This is a comment",
+    "_comment": "This is an example Terrain",
+    "_comment": "This is the terrain identifier",
+    "BLANK_TERRAIN": {
+        "_comment": "In-game name",
+        "name": "BLANK_TERRAIN",
+        "_comment": "RGB Color used in map",
+        "color": [
+            255,
+            255,
+            255
+        ],
+        "_comment": "Terrain modifiers",
+        "modifiers": {
+            "_comment": "Modifier applied to attacker of this terrain",
+            "attack": 1,
+            "_comment": "Modifier applied to defender of this terrain",
+            "defense": 1,
+            "_comment": "Modifier applied to movement into this terrain",
+            "movement": 1
+        }
+    },
+    "GRASSLAND": {
+        "name": "Grassland",
+        "color": [
+            22,
+            125,
+            22
+        ],
+        "modifiers": {
+            "attack": 1.1,
+            "defense": 0.8,
+            "movement": 1.1
+        }
+    },
+    "SHRUBLAND": {
+        "name": "Shurbland",
+        "color": [
+            7,
+            91,
+            1
+        ],
+        "modifiers": {
+            "attack": 1.0,
+            "defense": 1.1,
+            "movement": 1.1
+        }
+    }
+}
