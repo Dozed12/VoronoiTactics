@@ -1,0 +1,25 @@
+{
+    "_comment": "_comment fields are ignored",
+    "_comment": "This is a comment",
+    "_comment": "This is an example Height",
+    "_comment": "This is the height identifier",
+    "BLANK_HEIGHT": {
+        "_comment": "In-game name",
+        "name": "BLANK_HEIGHT",
+        "_comment": "RGB Color used in map",
+        "color": [
+            255,
+            255,
+            255
+        ],
+        "_comment": "Terrain modifiers",
+        "modifiers": {
+            "_comment": "Modifier applied to attacker of this terrain",
+            "attack": 1,
+            "_comment": "Modifier applied to defender of this terrain",
+            "defense": 1,
+            "_comment": "Modifier applied to movement into this terrain",
+            "movement": 1
+        }
+    }
+}

@@ -6,7 +6,10 @@ using UnityEngine;
 using VoronoiLib;
 using VoronoiLib.Structures;
 
+//https://github.com/JamesNK/Newtonsoft.Json
 using Newtonsoft.Json;
+
+//https://github.com/Auburns/FastNoise_CSharp
 
 public struct MapSettings
 {
@@ -63,7 +66,7 @@ public enum TerrainBiome
 //Height types, on ProvinceData
 public enum TerrainHeight
 {
-    FLAT,
+    PLAIN,
     HILLS,
     LOW_MOUNTAINS,
     HIGH_MOUNTAINS
@@ -74,18 +77,22 @@ public enum TerrainHeight
 public enum TerrainType
 {
     DESERT,
+    SEMIDESERT,
+    BARREN,
     WOODS,
     FOREST,
     DENSE_FOREST,
     JUNGLE,
     GRASSLAND,
     SHRUBLAND,
-    SWAMP,    
+    SWAMP,
+    STEPPE,
+    SAVANNA,
 }
 
 //Special terrain that overlaps other
 public enum TerrainSpecial{
-    FARM,
+    FARMLAND,
     VILLAGE,
     OUTSKIRTS,
     CITY

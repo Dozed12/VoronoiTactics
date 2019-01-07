@@ -12,6 +12,13 @@
             255,
             255
         ],
+        "_comment": "Possible heights for this terrain",
+        "heights": [
+            "HIGH_MOUNTAINS",
+            "LOW_MOUNTAINS",
+            "HILLS",
+            "PLAINS"
+        ],
         "_comment": "Terrain modifiers",
         "modifiers": {
             "_comment": "Modifier applied to attacker of this terrain",
@@ -29,22 +36,15 @@
             125,
             22
         ],
+        "heights": [
+            "HIGH_MOUNTAINS",
+            "LOW_MOUNTAINS",
+            "HILLS",
+            "PLAINS"
+        ],
         "modifiers": {
             "attack": 1.1,
             "defense": 0.8,
-            "movement": 1.1
-        }
-    },
-    "SHRUBLAND": {
-        "name": "Shurbland",
-        "color": [
-            7,
-            91,
-            1
-        ],
-        "modifiers": {
-            "attack": 1.0,
-            "defense": 1.1,
             "movement": 1.1
         }
     }
