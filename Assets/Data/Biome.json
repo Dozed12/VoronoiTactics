@@ -6,8 +6,6 @@
     "BLANK_BIOME": {
         "_comment": "In-game name",
         "name": "BLANK_BIOME",
-        "_comment": "Civilization presense from 0.0 to 1.0",
-        "civilization": 0.8,
         "_comment": "Height noise frequency setting",
         "heightnoise": 0.002,
         "_comment": "Heights used in this biome",
@@ -49,11 +47,19 @@
                 "_comment": "Minimum noise value",
                 "noise_min": 0.6
             }
+        ],
+        "_comment": "Structure noise frequency setting",
+        "structurenoise": 0.002,
+        "_comment": "Structures used in this biome",
+        "structures": [
+            {
+                "_comment": "Structure identifier",
+                "id": "BLANK_STRUCTURE"
+            }
         ]
     },
     "WOODLAND": {
         "name": "Woodland",
-        "civilization": 0.5,
         "heightnoise": 0.002,
         "heights": [
             {
@@ -83,6 +89,14 @@
                 "id": "GRASSLAND",
                 "noise_max": 1,
                 "noise_min": 0
+            }
+        ],
+        "structurenoise": 0.002,
+        "structures": [
+            {
+                "id": "VILLAGE",
+                "noise_max": 1,
+                "noise_min": 0.90
             }
         ]
     }
