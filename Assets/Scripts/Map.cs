@@ -33,7 +33,7 @@ public struct MapSettings
     - Biome affects possible weathers
     - Weather can be picked at start but can change
     - Weather is wind, rain and temperature
-    - Each Biome has several terrain types possible
+    - Each Biome has several terrain types possible with different densities
     - Use Noise to distribute terrains
     - Assign height values as a secondary feature
     - HIGH_MOUNTAINS completly replaces the terrain as their own terrain type
@@ -50,14 +50,12 @@ public enum TerrainBiome
     TUNDRA,
     TAIGA,
     WOODLAND,
-    SAVANNA,
     DESERT,
     TEMPERATE_FOREST,
     TROPICAL_FOREST,
     TEMPERATE_GRASSLAND,
     TROPICAL_GRASSLAND,
-    FLOODED_GRASSLAND,
-    MONTANE_GRASSLAND
+    FLOODED_GRASSLAND
 }
 
 //Height types, on ProvinceData
@@ -73,7 +71,22 @@ public enum TerrainHeight
 //Can be overlapped with special terrain types
 public enum TerrainType
 {
-    
+    DESERT,
+    WOODS,
+    FOREST,
+    DENSE_FOREST,
+    JUNGLE,
+    GRASSLAND,
+    SHRUBLAND,
+    SWAMP,    
+}
+
+//Special terrain that overlaps other
+public enum TerrainSpecial{
+    FARM,
+    VILLAGE,
+    OUTSKIRTS,
+    CITY
 }
 
 public class ProvinceData
@@ -144,6 +157,7 @@ public class MapData
 
         //Set Settings
         //TODO Should be set elsewhere
+        //TODO Wont need so many octaves considering we dont use all the detail, but maybe we will
         fastnoise.SetFractalOctaves(8);
         fastnoise.SetFractalLacunarity(2.0f);
         fastnoise.SetFrequency(0.002f);
