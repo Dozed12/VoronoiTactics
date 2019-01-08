@@ -33,6 +33,9 @@ public class ProvinceData
     public int id;
     public Vector2 pos;
     public List<FortuneSite> neighborsRAW;
+    public List<VPoint> vertices;
+    public VPoint polygonCenter;
+    //TODO neighbor will be a costum struct
     public List<ProvinceData> neighbors;
     public UnitData unit = null;
     public TerrainHeight height;
@@ -268,12 +271,29 @@ public class MapData
         for (int i = 0; i < points.Count; i++)
         {
             ProvinceData nSite = new ProvinceData();
+
+            //Most data
             nSite.id = i;
             nSite.neighborsRAW = points[i].Neighbors;
             nSite.neighbors = new List<ProvinceData>();
             nSite.pos = new Vector2((float)points[i].X, (float)points[i].Y);
-            //TODO Setup Terrain characteristics here (Height, Biome) using Geography data
 
+            //TODO Setup Terrain characteristics here (Height, Biome) using Geography data and an average(maybe using pointsHorizontalSeparation from GeneratePoints) or based on center
+
+            //Vertices and center(Average of vertices)
+            double x = 0;
+            double y = 0;
+            for (int j = 0; j < points[i].Cell.Count; j++)
+            {
+                x += points[i].Cell[j].Start.X;
+                y += points[i].Cell[j].Start.Y;
+                nSite.vertices.Add(points[i].Cell[j].Start);
+            }
+            x /= points[i].Cell.Count;
+            y /= points[i].Cell.Count;
+            nSite.polygonCenter = new VPoint(x, y);
+
+            //Add
             nProvinces.Add(nSite);
         }
 
