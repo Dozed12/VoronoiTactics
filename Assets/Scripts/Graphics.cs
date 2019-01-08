@@ -37,4 +37,22 @@ public static class Graphics
         return bitmap;
     }
 
+    //8 Direction Flood Fill
+    public static Texture2D Fill8(int x, int y, Texture2D bitmap, Color color)
+    {
+        if (bitmap.GetPixel(x, y) != color)
+        {
+            bitmap.SetPixel(x, y, color);
+            Fill8(x + 1, y, bitmap, color);
+            Fill8(x, y + 1, bitmap, color);
+            Fill8(x - 1, y, bitmap, color);
+            Fill8(x, y - 1, bitmap, color);
+            Fill8(x - 1, y - 1, bitmap, color);
+            Fill8(x - 1, y + 1, bitmap, color);
+            Fill8(x + 1, y - 1, bitmap, color);
+            Fill8(x + 1, y + 1, bitmap, color);
+        }
+        return bitmap;
+    }
+
 }
