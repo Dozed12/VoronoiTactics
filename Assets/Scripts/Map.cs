@@ -34,15 +34,16 @@ public struct MapSettings
 public class ProvinceData
 {
     public int id;
-    public Vector2 pos;
+    public VPoint pos;
     public List<FortuneSite> neighborsRAW;
     public List<VPoint> vertices;
-    public VPoint polygonCenter;
+    public VPoint center;
     //TODO neighbor will be a costum struct
     public List<ProvinceData> neighbors;
     public UnitData unit = null;
     public TerrainHeight height;
     public TerrainType type;
+    public TerrainStructure structure;
 }
 
 public struct MapGraphics
@@ -225,9 +226,9 @@ public class MapData
             nSite.id = i;
             nSite.neighborsRAW = points[i].Neighbors;
             nSite.neighbors = new List<ProvinceData>();
-            nSite.pos = new Vector2((float)points[i].X, (float)points[i].Y);
+            nSite.pos = new VPoint(points[i].X, points[i].Y);
 
-            //TODO Setup Terrain characteristics here (Height, Biome) using Geography data and an average(maybe using pointsHorizontalSeparation from GeneratePoints) or based on center
+            //TODO Setup Terrain characteristics here (Height, Terrain, Structure) using Geography data and an average(maybe using pointsHorizontalSeparation from GeneratePoints) or based on center
 
             //Vertices
             nSite.vertices = new List<VPoint>();
@@ -257,7 +258,7 @@ public class MapData
             }
             x /= nSite.vertices.Count;
             y /= nSite.vertices.Count;
-            nSite.polygonCenter = new VPoint(x, y);
+            nSite.center = new VPoint(x, y);
 
             //Add
             nProvinces.Add(nSite);
@@ -362,7 +363,7 @@ public class MapData
             //Add Site centers
             for (int i = 0; i < provinces.Count; i++)
             {
-                graphics.FINAL.SetPixel((int)provinces[i].polygonCenter.X, (int)provinces[i].polygonCenter.Y, Color.black);
+                graphics.FINAL.SetPixel((int)provinces[i].center.X, (int)provinces[i].center.Y, Color.black);
             }
 
             //Draw edges
