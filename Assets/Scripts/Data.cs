@@ -39,9 +39,9 @@ public struct TerrainStructure
     public string ID;
     public string name;
     public int[] color;
-    public float attMod;
-    public float defMod;
-    public float movMod;
+    public float attack;
+    public float defense;
+    public float movement;
 }
 
 //Terrain types
@@ -49,11 +49,12 @@ public struct TerrainType
 {
     public string ID;
     public string name;
-    public Color color;
+    public int[] color;
+    public string[] height_names;
     public TerrainHeight[] heights;
-    public float attMod;
-    public float defMod;
-    public float movMod;
+    public float attack;
+    public float defense;
+    public float movement;
 }
 
 //Biomes to choose
@@ -62,14 +63,17 @@ public struct Biome
     public string ID;
     public string name;
     public float heightFreq;
+    public string[] height_names;
     public TerrainHeight[] heights;
     public float terrainFreq;
+    public string[] terrain_names;
     public TerrainType[] terrains;
     public float structureFreq;
+    public string[] structure_names;
     public TerrainStructure[] structures;
-    public float attMod;
-    public float defMod;
-    public float movMod;
+    public float attack;
+    public float defense;
+    public float movement;
 }
 
 public class Data
@@ -80,6 +84,7 @@ public class Data
     public Dictionary<string, TerrainType> terrains;
     public Dictionary<string, Biome> biomes;
 
+    //Load Height.json
     private void LoadHeight()
     {
 

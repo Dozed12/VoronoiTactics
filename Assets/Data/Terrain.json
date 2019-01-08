@@ -9,11 +9,11 @@
             255
         ],
         "_comment": "Possible heights for this terrain",
-        "heights": [
-            "HIGH_MOUNTAINS",
-            "LOW_MOUNTAINS",
-            "HILLS",
-            "PLAINS"
+        "height_names": [
+            "High Mountains",
+            "Low Mountains",
+            "Hills",
+            "Plains"
         ],
         "_comment": "Terrain modifiers",
         "modifiers": {
@@ -32,11 +32,11 @@
             125,
             22
         ],
-        "heights": [
-            "HIGH_MOUNTAINS",
-            "LOW_MOUNTAINS",
-            "HILLS",
-            "PLAINS"
+        "height_names": [
+            "High Mountains",
+            "Low Mountains",
+            "Hills",
+            "Plains"
         ],
         "modifiers": {
             "attack": 1.1,

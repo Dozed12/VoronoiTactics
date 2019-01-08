@@ -5,7 +5,7 @@
         "_comment": "Height noise frequency setting",
         "heightnoise": 0.002,
         "_comment": "Heights used in this biome",
-        "heights": [
+        "height_names": [
             {
                 "_comment": "Height identifier",
                 "id": "BLANK_HEIGHT",
@@ -26,7 +26,7 @@
         "_comment": "Terrain noise frequency setting",
         "terrainnoise": 0.002,
         "_comment": "Terrains used in this biome",
-        "terrains": [
+        "terrain_names": [
             {
                 "_comment": "Terrain identifier",
                 "id": "BLANK_TERRAIN",
@@ -47,7 +47,7 @@
         "_comment": "Structure noise frequency setting",
         "structurenoise": 0.002,
         "_comment": "Structures used in this biome",
-        "structures": [
+        "structure_names": [
             {
                 "_comment": "Structure identifier",
                 "id": "BLANK_STRUCTURE"
@@ -57,40 +57,40 @@
     {
         "name": "Woodland",
         "heightnoise": 0.002,
-        "heights": [
+        "height_names": [
             {
-                "id": "HIGH_MOUNTAINS",
+                "id": "High Mountains",
                 "noise_max": 1,
                 "noise_min": 0.9
             },
             {
-                "id": "LOW_MOUNTAINS",
+                "id": "Low Mountains",
                 "noise_max": 0.9,
                 "noise_min": 0.7
             },
             {
-                "id": "HILLS",
+                "id": "Hills",
                 "noise_max": 0.7,
                 "noise_min": 0.5
             },
             {
-                "id": "PLAINS",
+                "id": "Plains",
                 "noise_max": 0.5,
                 "noise_min": 0
             }
         ],
         "terrainnoise": 0.002,
-        "terrains": [
+        "terrain_names": [
             {
-                "id": "GRASSLAND",
+                "id": "Grassland",
                 "noise_max": 1,
                 "noise_min": 0
             }
         ],
         "structurenoise": 0.01,
-        "structures": [
+        "structure_names": [
             {
-                "id": "VILLAGE",
+                "id": "Village",
                 "noise_max": 1,
                 "noise_min": 0.90
             }
