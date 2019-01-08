@@ -20,9 +20,9 @@ public struct MapSettings
     //Number of estimated sites
     public int NUMBER_SITES;
     //Disperses sites more
-    public int SITE_RELAXATION;
+    public float SITE_RELAXATION;
 
-    public MapSettings(int width, int height, int number_sites, int site_relaxation)
+    public MapSettings(int width, int height, int number_sites, float site_relaxation)
     {
         this.WIDTH = width;
         this.HEIGHT = height;
@@ -414,7 +414,7 @@ public class Map : MonoBehaviour
 
         //Pass settings and generate data
         mapData = new MapData();
-        mapData.settings = new MapSettings(800, 800, 200, 2);
+        mapData.settings = new MapSettings(800, 800, 200, 2.0f);
         mapData.Generate();
 
         //Create terrain sprite
