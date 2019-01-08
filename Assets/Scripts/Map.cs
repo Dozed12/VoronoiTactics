@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+
 using UnityEngine;
 
 //https://github.com/Zalgo2462/VoronoiLib
@@ -123,9 +126,9 @@ public class MapData
                 double x = pointsHorizontalSeparation * (i + 0.5f);
                 double y = pointsVerticalSeparation * (j + 0.5f);
                 //Randomize angular offset
-                float angle = Random.Range(0, Mathf.PI * 2);
-                float a = Random.Range(0, pointsHorizontalAllowedRadius);
-                float b = Random.Range(0, pointsVerticalAllowedRadius);
+                float angle = UnityEngine.Random.Range(0, Mathf.PI * 2);
+                float a = UnityEngine.Random.Range(0, pointsHorizontalAllowedRadius);
+                float b = UnityEngine.Random.Range(0, pointsVerticalAllowedRadius);
                 double offX = (a * b) / Mathf.Sqrt((b * b) + (a * a) * (Mathf.Tan(angle) * Mathf.Tan(angle)));
                 double offY = (a * b) / Mathf.Sqrt((a * a) + (b * b) / (Mathf.Tan(angle) * Mathf.Tan(angle)));
                 //Quadrant check
@@ -226,20 +229,25 @@ public class MapData
 
             //TODO Setup Terrain characteristics here (Height, Biome) using Geography data and an average(maybe using pointsHorizontalSeparation from GeneratePoints) or based on center
 
-            //Vertices and center(Average of vertices)
-            //TODO Center doesn't seem correct (check this but also the SetupCells())
-            double x = 0;
-            double y = 0;
+            //Vertices
             nSite.vertices = new List<VPoint>();
             for (int j = 0; j < points[i].Cell.Count; j++)
             {
-                x += points[i].Cell[j].Start.X;
-                y += points[i].Cell[j].Start.Y;
                 nSite.vertices.Add(points[i].Cell[j].Start);
+                nSite.vertices.Add(points[i].Cell[j].End);
             }
-            x /= points[i].Cell.Count;
-            y /= points[i].Cell.Count;
-            nSite.polygonCenter = new VPoint(x, y);
+            nSite.vertices = nSite.vertices.Distinct().ToList();
+
+            //Center
+            double x = 0, y = 0;
+            for (int j = 0; j < nSite.vertices.Count; j++)
+            {
+                x += nSite.vertices[j].X;
+                y += nSite.vertices[j].Y;
+            }
+            x /= nSite.vertices.Count;
+            y /= nSite.vertices.Count;
+            nSite.polygonCenter = new VPoint(x,y);
 
             //Add
             nProvinces.Add(nSite);
