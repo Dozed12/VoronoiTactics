@@ -78,7 +78,7 @@ public class MapData
     public void Generate()
     {
 
-        //Generate points (TODO in seperate function)
+        //Generate points
         points = GeneratePoints();
 
         //Run Voronoi
@@ -165,15 +165,11 @@ public class MapData
                 if (edge.Value.Left.ID == points[i].ID || edge.Value.Right.ID == points[i].ID)
                 {
                     points[i].Cell.Add(edge.Value);
-                    points[i].Cell[points[i].Cell.Count - 1].center = new VPoint(points[i].X, points[i].Y);
                 }
 
                 //Next edge
                 edge = edge.Next;
             }
-
-            //Sort the edges (implemented in VEdges.cs)
-            points[i].Cell.Sort();
 
         }
 
@@ -243,14 +239,14 @@ public class MapData
             nSite.vertices = nSite.vertices.Distinct().ToList();
 
             //Add corner vertex for corner provinces
-            if(i == 0)
-                nSite.vertices.Add(new VPoint(0,0));
-            else if(i == pointsHorizontal - 1)
-                nSite.vertices.Add(new VPoint(0,settings.HEIGHT));
-            else if(i == points.Count - pointsHorizontal)
-                nSite.vertices.Add(new VPoint(settings.WIDTH,0));
-            else if(i == points.Count - 1)
-                nSite.vertices.Add(new VPoint(settings.WIDTH,settings.HEIGHT));
+            if (i == 0)
+                nSite.vertices.Add(new VPoint(0, 0));
+            else if (i == pointsHorizontal - 1)
+                nSite.vertices.Add(new VPoint(0, settings.HEIGHT));
+            else if (i == points.Count - pointsHorizontal)
+                nSite.vertices.Add(new VPoint(settings.WIDTH, 0));
+            else if (i == points.Count - 1)
+                nSite.vertices.Add(new VPoint(settings.WIDTH, settings.HEIGHT));
 
             //Center
             double x = 0, y = 0;
@@ -261,7 +257,7 @@ public class MapData
             }
             x /= nSite.vertices.Count;
             y /= nSite.vertices.Count;
-            nSite.polygonCenter = new VPoint(x,y);
+            nSite.polygonCenter = new VPoint(x, y);
 
             //Add
             nProvinces.Add(nSite);
