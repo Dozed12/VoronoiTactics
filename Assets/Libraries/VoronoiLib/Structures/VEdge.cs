@@ -47,11 +47,11 @@ namespace VoronoiLib.Structures
         {
             float deltaAY = (float)(center.Y - this.Start.Y);
             float deltaAX = (float)(center.X - this.Start.X);
-            float angleA = Mathf.Atan(deltaAY/ deltaAX) * 180 / Mathf.PI;
+            float angleA = Mathf.Atan(deltaAY / deltaAX) * 180 / Mathf.PI;
 
             float deltaPY = (float)(center.Y - p.Start.Y);
             float deltaPX = (float)(center.X - p.Start.X);
-            float angleP = Mathf.Atan(deltaPY/ deltaPX) * 180 / Mathf.PI;
+            float angleP = Mathf.Atan(deltaPY / deltaPX) * 180 / Mathf.PI;
 
             return (int)(angleP - angleA);
         }

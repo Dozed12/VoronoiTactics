@@ -143,7 +143,8 @@ public class MapData
     }
 
     //Setup points cell
-    private void SetupCells(){
+    private void SetupCells()
+    {
 
         //For each point
         for (int i = 0; i < points.Count; i++)
@@ -152,11 +153,12 @@ public class MapData
             //Each point has to look for its edges
             var edge = edges.First;
             for (int j = 0; j < edges.Count; j++)
-            {                
+            {
                 //Side with same ID
-                if(edge.Value.Left.ID == points[i].ID || edge.Value.Right.ID == points[i].ID){
+                if (edge.Value.Left.ID == points[i].ID || edge.Value.Right.ID == points[i].ID)
+                {
                     points[i].Cell.Add(edge.Value);
-                    points[i].Cell[points[i].Cell.Count-1].center = new VPoint(points[i].X, points[i].Y);
+                    points[i].Cell[points[i].Cell.Count - 1].center = new VPoint(points[i].X, points[i].Y);
                 }
 
                 //Next edge
@@ -204,7 +206,7 @@ public class MapData
 
     }
 
-    
+
     //Create provinces from voronoi data
     //TODO Other specifics(might need to wait on terrain features generation like rivers, impassible cliffs)
     private List<ProvinceData> CreateProvinces()

@@ -147,7 +147,7 @@ public class Data
             {
                 item.heights[j] = heights[item.height_names[j]];
             }
-            
+
             //Add
             terrains.Add(item.name, item);
         }
@@ -210,7 +210,7 @@ public class Data
             {
                 item.structures[j].type = structures[item.structures[j].name];
             }
-            
+
             //Add
             biomes.Add(item.name, item);
         }
