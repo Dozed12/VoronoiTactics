@@ -5,94 +5,94 @@
         "_comment": "Height noise frequency setting",
         "heightnoise": 0.002,
         "_comment": "Heights used in this biome",
-        "height_names": [
+        "heights": [
             {
                 "_comment": "Height identifier",
-                "id": "BLANK_HEIGHT",
+                "name": "BLANK_HEIGHT",
                 "_comment": "Maximum noise value",
-                "noise_max": 0.6,
+                "noiseMax": 0.6,
                 "_comment": "Minimum noise value",
-                "noise_min": 0
+                "noiseMin": 0
             },
             {
                 "_comment": "Terrain identifier",
-                "id": "BLANK_HEIGHT",
+                "name": "BLANK_HEIGHT",
                 "_comment": "Maximum noise value",
-                "noise_max": 1,
+                "noiseMax": 1,
                 "_comment": "Minimum noise value",
-                "noise_min": 0.6
+                "noiseMin": 0.6
             }
         ],
         "_comment": "Terrain noise frequency setting",
         "terrainnoise": 0.002,
         "_comment": "Terrains used in this biome",
-        "terrain_names": [
+        "terrains": [
             {
                 "_comment": "Terrain identifier",
-                "id": "BLANK_TERRAIN",
+                "name": "BLANK_TERRAIN",
                 "_comment": "Maximum noise value",
-                "noise_max": 0.6,
+                "noiseMax": 0.6,
                 "_comment": "Minimum noise value",
-                "noise_min": 0
+                "noiseMin": 0
             },
             {
                 "_comment": "Terrain identifier",
-                "id": "BLANK_TERRAIN",
+                "name": "BLANK_TERRAIN",
                 "_comment": "Maximum noise value",
-                "noise_max": 1,
+                "noiseMax": 1,
                 "_comment": "Minimum noise value",
-                "noise_min": 0.6
+                "noiseMin": 0.6
             }
         ],
         "_comment": "Structure noise frequency setting",
         "structurenoise": 0.002,
         "_comment": "Structures used in this biome",
-        "structure_names": [
+        "structures": [
             {
                 "_comment": "Structure identifier",
-                "id": "BLANK_STRUCTURE"
+                "name": "BLANK_STRUCTURE"
             }
         ]
     },
     {
         "name": "Woodland",
         "heightnoise": 0.002,
-        "height_names": [
+        "heights": [
             {
-                "id": "High Mountains",
-                "noise_max": 1,
-                "noise_min": 0.9
+                "name": "High Mountains",
+                "noiseMax": 1,
+                "noiseMin": 0.9
             },
             {
-                "id": "Low Mountains",
-                "noise_max": 0.9,
-                "noise_min": 0.7
+                "name": "Low Mountains",
+                "noiseMax": 0.9,
+                "noiseMin": 0.7
             },
             {
-                "id": "Hills",
-                "noise_max": 0.7,
-                "noise_min": 0.5
+                "name": "Hills",
+                "noiseMax": 0.7,
+                "noiseMin": 0.5
             },
             {
-                "id": "Plains",
-                "noise_max": 0.5,
-                "noise_min": 0
+                "name": "Plains",
+                "noiseMax": 0.5,
+                "noiseMin": 0
             }
         ],
         "terrainnoise": 0.002,
-        "terrain_names": [
+        "terrains": [
             {
-                "id": "Grassland",
-                "noise_max": 1,
-                "noise_min": 0
+                "name": "Grassland",
+                "noiseMax": 1,
+                "noiseMin": 0
             }
         ],
         "structurenoise": 0.01,
-        "structure_names": [
+        "structures": [
             {
-                "id": "Village",
-                "noise_max": 1,
-                "noise_min": 0.90
+                "name": "Village",
+                "noiseMax": 1,
+                "noiseMin": 0.90
             }
         ]
     }

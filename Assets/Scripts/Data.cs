@@ -36,7 +36,6 @@ public struct TerrainHeight
 //Human terrain structures
 public struct TerrainStructure
 {
-    public string ID;
     public string name;
     public int[] color;
     public float attack;
@@ -47,7 +46,6 @@ public struct TerrainStructure
 //Terrain types
 public struct TerrainType
 {
-    public string ID;
     public string name;
     public int[] color;
     public string[] height_names;
@@ -60,17 +58,37 @@ public struct TerrainType
 //Biomes to choose
 public struct Biome
 {
-    public string ID;
+    public struct HeightSetting
+    {
+        public string name;
+        public TerrainHeight type;
+        public float noiseMax;
+        public float noiseMin;
+    }
+
+    public struct TypeSetting
+    {
+        public string name;
+        public TerrainType type;
+        public float noiseMax;
+        public float noiseMin;
+    }
+
+    public struct StructureSetting
+    {
+        public string name;
+        public TerrainStructure type;
+        public float noiseMax;
+        public float noiseMin;
+    }
+
     public string name;
     public float heightFreq;
-    public string[] height_names;
-    public TerrainHeight[] heights;
+    public HeightSetting[] heights;
     public float terrainFreq;
-    public string[] terrain_names;
-    public TerrainType[] terrains;
+    public TypeSetting[] terrains;
     public float structureFreq;
-    public string[] structure_names;
-    public TerrainStructure[] structures;
+    public StructureSetting[] structures;
     public float attack;
     public float defense;
     public float movement;
@@ -80,8 +98,8 @@ public class Data
 {
 
     public Dictionary<string, TerrainHeight> heights;
-    public Dictionary<string, TerrainStructure> structures;
     public Dictionary<string, TerrainType> terrains;
+    public Dictionary<string, TerrainStructure> structures;
     public Dictionary<string, Biome> biomes;
 
     //Load Height.json
@@ -105,6 +123,100 @@ public class Data
 
     }
 
+    //Load Terrain.json
+    private void LoadTerrain()
+    {
+
+        //Deserialize
+        JsonTextReader reader = new JsonTextReader(new StreamReader("Assets/Data/Terrain.json"));
+        List<TerrainType> e = new List<TerrainType>();
+        while (reader.Read())
+        {
+            JsonSerializer serializer = new JsonSerializer();
+            e = serializer.Deserialize<List<TerrainType>>(reader);
+        }
+
+        //Add to dictionary
+        for (int i = 0; i < e.Count; i++)
+        {
+            TerrainType item = e[i];
+
+            //Get heights
+            item.heights = new TerrainHeight[item.height_names.Length];
+            for (int j = 0; j < item.height_names.Length; j++)
+            {
+                item.heights[j] = heights[item.height_names[j]];
+            }
+            
+            //Add
+            terrains.Add(item.name, item);
+        }
+
+    }
+
+    //Load Structures.json
+    private void LoadStructures()
+    {
+
+        //Deserialize
+        JsonTextReader reader = new JsonTextReader(new StreamReader("Assets/Data/Structure.json"));
+        List<TerrainStructure> e = new List<TerrainStructure>();
+        while (reader.Read())
+        {
+            JsonSerializer serializer = new JsonSerializer();
+            e = serializer.Deserialize<List<TerrainStructure>>(reader);
+        }
+
+        //Add to dictionary
+        foreach (var item in e)
+        {
+            structures.Add(item.name, item);
+        }
+
+    }
+
+    //Load Biome.json
+    private void LoadBiomes()
+    {
+
+        //Deserialize
+        JsonTextReader reader = new JsonTextReader(new StreamReader("Assets/Data/Biome.json"));
+        List<Biome> e = new List<Biome>();
+        while (reader.Read())
+        {
+            JsonSerializer serializer = new JsonSerializer();
+            e = serializer.Deserialize<List<Biome>>(reader);
+        }
+
+        //Add to dictionary
+        for (int i = 0; i < e.Count; i++)
+        {
+            Biome item = e[i];
+
+            //Get heights
+            for (int j = 0; j < item.heights.Length; j++)
+            {
+                item.heights[j].type = heights[item.heights[j].name];
+            }
+
+            //Get terrains
+            for (int j = 0; j < item.terrains.Length; j++)
+            {
+                item.terrains[j].type = terrains[item.terrains[j].name];
+            }
+
+            //Get structures
+            for (int j = 0; j < item.structures.Length; j++)
+            {
+                item.structures[j].type = structures[item.structures[j].name];
+            }
+            
+            //Add
+            biomes.Add(item.name, item);
+        }
+
+    }
+
     public void LoadData()
     {
 
@@ -116,10 +228,8 @@ public class Data
 
         //Load
         LoadHeight();
-
-        //TODO
-        //Load Terrain
-        //Load Structures
-        //Load Biomes
+        LoadTerrain();
+        LoadStructures();
+        LoadBiomes();
     }
 }
