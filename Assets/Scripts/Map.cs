@@ -61,6 +61,10 @@ public class MapData
 
     private FastNoise fastnoise = new FastNoise();
     private List<FortuneSite> points;
+    private float pointsHorizontal;
+    private float pointsVertical;
+    private float pointsHorizontalSeparation;
+    private float pointsVerticalSeparation;
     private LinkedList<VEdge> edges;
     private Graph graph = new Graph();
 
@@ -107,10 +111,10 @@ public class MapData
         List<FortuneSite> nPoints = new List<FortuneSite>();
 
         //Formulas to distribute points evenly in map
-        float pointsHorizontal = Mathf.Floor(Mathf.Sqrt(settings.NUMBER_SITES * settings.WIDTH / settings.HEIGHT));
-        float pointsVertical = Mathf.Floor(Mathf.Sqrt(settings.HEIGHT) * Mathf.Sqrt(settings.NUMBER_SITES) / Mathf.Sqrt(settings.WIDTH));
-        float pointsHorizontalSeparation = settings.WIDTH / pointsHorizontal;
-        float pointsVerticalSeparation = settings.HEIGHT / pointsVertical;
+        pointsHorizontal = Mathf.Floor(Mathf.Sqrt(settings.NUMBER_SITES * settings.WIDTH / settings.HEIGHT));
+        pointsVertical = Mathf.Floor(Mathf.Sqrt(settings.HEIGHT) * Mathf.Sqrt(settings.NUMBER_SITES) / Mathf.Sqrt(settings.WIDTH));
+        pointsHorizontalSeparation = settings.WIDTH / pointsHorizontal;
+        pointsVerticalSeparation = settings.HEIGHT / pointsVertical;
 
         //Max allowed separation with relaxation
         float pointsHorizontalAllowedRadius = pointsHorizontalSeparation / settings.SITE_RELAXATION;
@@ -237,6 +241,16 @@ public class MapData
                 nSite.vertices.Add(points[i].Cell[j].End);
             }
             nSite.vertices = nSite.vertices.Distinct().ToList();
+
+            //Add corner vertex for corner provinces
+            if(i == 0)
+                nSite.vertices.Add(new VPoint(0,0));
+            else if(i == pointsHorizontal - 1)
+                nSite.vertices.Add(new VPoint(0,settings.HEIGHT));
+            else if(i == points.Count - pointsHorizontal)
+                nSite.vertices.Add(new VPoint(settings.WIDTH,0));
+            else if(i == points.Count - 1)
+                nSite.vertices.Add(new VPoint(settings.WIDTH,settings.HEIGHT));
 
             //Center
             double x = 0, y = 0;
