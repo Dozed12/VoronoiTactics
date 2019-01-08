@@ -182,21 +182,27 @@ public class MapData
     private void GenerateGeography()
     {
 
-        //Set seed
-        fastnoise.SetSeed((int)Time.time);
-
         //Set Settings
         //TODO Should be set elsewhere
         //TODO Wont need so many octaves considering we dont use all the detail, but maybe we will
         fastnoise.SetFractalOctaves(8);
         fastnoise.SetFractalLacunarity(2.0f);
-        fastnoise.SetFrequency(0.002f);
+        fastnoise.SetFrequency(1);        
 
+        //Noise lookups
         HeightMap();
+        TerrainMap();
 
         //Generate Heightmap
         void HeightMap()
         {
+
+            //New seed
+            fastnoise.SetSeed((int)Time.time);
+
+            //Biome height frequency
+            fastnoise.SetFrequency(biome.heightFreq);
+
             //Allocate
             geography.HEIGHTMAP = new float[settings.WIDTH, settings.HEIGHT];
 
@@ -206,6 +212,29 @@ public class MapData
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
                     geography.HEIGHTMAP[i, j] = (fastnoise.GetSimplexFractal(i, j, 0) + 1) / 2;
+                }
+            }
+        }
+
+        //Generate Terrainmap
+        void TerrainMap()
+        {
+
+            //New seed
+            fastnoise.SetSeed((int)Time.time);
+
+            //Biome height frequency
+            fastnoise.SetFrequency(biome.terrainFreq);
+
+            //Allocate
+            geography.TERRAINMAP = new float[settings.WIDTH, settings.HEIGHT];
+
+            //Get noise
+            for (int i = 0; i < settings.WIDTH; i++)
+            {
+                for (int j = 0; j < settings.HEIGHT; j++)
+                {
+                    geography.TERRAINMAP[i, j] = (fastnoise.GetSimplexFractal(i, j, 0) + 1) / 2;
                 }
             }
         }
