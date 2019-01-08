@@ -77,16 +77,96 @@ public class MapData
         //Run Voronoi
         edges = FortunesAlgorithm.Run(points, 0, 0, settings.WIDTH, settings.HEIGHT);
 
+        //Setups Cell for each point (missing in library)
+        SetupCells();
+
         //Generate Geography
         GenerateGeography();
-
-        //Generate all graphics
-        GenerateGraphics();
 
         //TODO Create Provinces (with neighbors)
         provinces = CreateProvinces();
 
+        //Generate all graphics
+        GenerateGraphics();
+
         Debug.Log("Map Generation Complete");
+
+    }
+
+    /*
+        Generate a list of FortuneSites(just coordinates)
+        1 Divides the sites in a grid
+        2 Offsets the site by an allowed amount
+        Note this doesn't guarantee the correct number of sites because of division 
+    */
+    private List<FortuneSite> GeneratePoints()
+    {
+        List<FortuneSite> nPoints = new List<FortuneSite>();
+
+        //Formulas to distribute points evenly in map
+        float pointsHorizontal = Mathf.Floor(Mathf.Sqrt(settings.NUMBER_SITES * settings.WIDTH / settings.HEIGHT));
+        float pointsVertical = Mathf.Floor(Mathf.Sqrt(settings.HEIGHT) * Mathf.Sqrt(settings.NUMBER_SITES) / Mathf.Sqrt(settings.WIDTH));
+        float pointsHorizontalSeparation = settings.WIDTH / pointsHorizontal;
+        float pointsVerticalSeparation = settings.HEIGHT / pointsVertical;
+
+        //Max allowed separation with relaxation
+        float pointsHorizontalAllowedRadius = pointsHorizontalSeparation / settings.SITE_RELAXATION;
+        float pointsVerticalAllowedRadius = pointsVerticalSeparation / settings.SITE_RELAXATION;
+
+        //Place points
+        int id = 0;
+        for (int i = 0; i < pointsHorizontal; i++)
+        {
+            for (int j = 0; j < pointsVertical; j++)
+            {
+                //Grid placement
+                double x = pointsHorizontalSeparation * (i + 0.5f);
+                double y = pointsVerticalSeparation * (j + 0.5f);
+                //Randomize angular offset
+                float angle = Random.Range(0, Mathf.PI * 2);
+                float a = Random.Range(0, pointsHorizontalAllowedRadius);
+                float b = Random.Range(0, pointsVerticalAllowedRadius);
+                double offX = (a * b) / Mathf.Sqrt((b * b) + (a * a) * (Mathf.Tan(angle) * Mathf.Tan(angle)));
+                double offY = (a * b) / Mathf.Sqrt((a * a) + (b * b) / (Mathf.Tan(angle) * Mathf.Tan(angle)));
+                //Quadrant check
+                if (angle > -Mathf.PI / 2 && angle < Mathf.PI / 2)
+                    nPoints.Add(new FortuneSite(x + offX, y + offY, id));
+                else
+                    nPoints.Add(new FortuneSite(x - offX, y - offY, id));
+                id++;
+            }
+        }
+
+        Debug.Log("FortuneSites Generated");
+
+        return nPoints;
+    }
+
+    //Setup points cell
+    private void SetupCells(){
+
+        //For each point
+        for (int i = 0; i < points.Count; i++)
+        {
+
+            //Each point has to look for its edges
+            var edge = edges.First;
+            for (int j = 0; j < edges.Count; j++)
+            {                
+                //Side with same ID
+                if(edge.Value.Left.ID == points[i].ID || edge.Value.Right.ID == points[i].ID){
+                    points[i].Cell.Add(edge.Value);
+                    points[i].Cell[points[i].Cell.Count-1].center = new VPoint(points[i].X, points[i].Y);
+                }
+
+                //Next edge
+                edge = edge.Next;
+            }
+
+            //Sort the edges (implemented in VEdges.cs)
+            points[i].Cell.Sort();
+
+        }
 
     }
 
@@ -122,6 +202,86 @@ public class MapData
             }
         }
 
+    }
+
+    
+    //Create provinces from voronoi data
+    //TODO Other specifics(might need to wait on terrain features generation like rivers, impassible cliffs)
+    private List<ProvinceData> CreateProvinces()
+    {
+        List<ProvinceData> nProvinces = new List<ProvinceData>();
+
+        //Create Site
+        for (int i = 0; i < points.Count; i++)
+        {
+            ProvinceData nSite = new ProvinceData();
+
+            //Most data
+            nSite.id = i;
+            nSite.neighborsRAW = points[i].Neighbors;
+            nSite.neighbors = new List<ProvinceData>();
+            nSite.pos = new Vector2((float)points[i].X, (float)points[i].Y);
+
+            //TODO Setup Terrain characteristics here (Height, Biome) using Geography data and an average(maybe using pointsHorizontalSeparation from GeneratePoints) or based on center
+
+            //Vertices and center(Average of vertices)
+            //TODO Center doesn't seem correct (check this but also the SetupCells())
+            double x = 0;
+            double y = 0;
+            nSite.vertices = new List<VPoint>();
+            for (int j = 0; j < points[i].Cell.Count; j++)
+            {
+                x += points[i].Cell[j].Start.X;
+                y += points[i].Cell[j].Start.Y;
+                nSite.vertices.Add(points[i].Cell[j].Start);
+            }
+            x /= points[i].Cell.Count;
+            y /= points[i].Cell.Count;
+            nSite.polygonCenter = new VPoint(x, y);
+
+            //Add
+            nProvinces.Add(nSite);
+        }
+
+        //Neighbor Connections
+        for (int i = 0; i < nProvinces.Count; i++)
+        {
+
+            //Connections for graph
+            Dictionary<int, int> connections = new Dictionary<int, int>();
+
+            for (int p = 0; p < nProvinces[i].neighborsRAW.Count; p++)
+            {
+
+                //Add to pathfind connections
+                //TODO assumes cost of 1, terrain might impact this
+                connections.Add(nProvinces[i].neighborsRAW[p].ID, 1);
+
+                //Instance match
+                for (int j = 0; j < nProvinces.Count; j++)
+                {
+                    //Dont check with itself
+                    if (i == j)
+                        continue;
+
+                    //Check ID match
+                    if (nProvinces[i].neighborsRAW[p].ID == nProvinces[j].id)
+                    {
+                        nProvinces[i].neighbors.Add(nProvinces[j]);
+                    }
+                }
+            }
+
+            //Add to graph for pathfind
+            graph.vertex(nProvinces[i].id, connections);
+
+        }
+
+        //VEdge.Start is a VPoint with location VEdge.Start.X and VEdge.End.Y
+        //VEdge.End is the ending point for the edge
+        //FortuneSite.Neighbors contains the site's neighbors in the Delaunay Triangulation
+
+        return nProvinces;
     }
 
     //Generate graphics
@@ -180,9 +340,9 @@ public class MapData
             graphics.FINAL = Graphics.Border(graphics.FINAL, Color.black);
 
             //Add Site centers
-            for (int i = 0; i < points.Count; i++)
+            for (int i = 0; i < provinces.Count; i++)
             {
-                graphics.FINAL.SetPixel((int)points[i].X, (int)points[i].Y, Color.black);
+                graphics.FINAL.SetPixel((int)provinces[i].polygonCenter.X, (int)provinces[i].polygonCenter.Y, Color.black);
             }
 
             //Draw edges
@@ -212,131 +372,6 @@ public class MapData
 
     }
 
-    /*
-        Generate a list of FortuneSites(just coordinates)
-        1 Divides the sites in a grid
-        2 Offsets the site by an allowed amount
-        Note this doesn't guarantee the correct number of sites because of division 
-    */
-    private List<FortuneSite> GeneratePoints()
-    {
-        List<FortuneSite> nPoints = new List<FortuneSite>();
-
-        //Formulas to distribute points evenly in map
-        float pointsHorizontal = Mathf.Floor(Mathf.Sqrt(settings.NUMBER_SITES * settings.WIDTH / settings.HEIGHT));
-        float pointsVertical = Mathf.Floor(Mathf.Sqrt(settings.HEIGHT) * Mathf.Sqrt(settings.NUMBER_SITES) / Mathf.Sqrt(settings.WIDTH));
-        float pointsHorizontalSeparation = settings.WIDTH / pointsHorizontal;
-        float pointsVerticalSeparation = settings.HEIGHT / pointsVertical;
-
-        //Max allowed separation with relaxation
-        float pointsHorizontalAllowedRadius = pointsHorizontalSeparation / settings.SITE_RELAXATION;
-        float pointsVerticalAllowedRadius = pointsVerticalSeparation / settings.SITE_RELAXATION;
-
-        //Place points
-        int id = 0;
-        for (int i = 0; i < pointsHorizontal; i++)
-        {
-            for (int j = 0; j < pointsVertical; j++)
-            {
-                //Grid placement
-                double x = pointsHorizontalSeparation * (i + 0.5f);
-                double y = pointsVerticalSeparation * (j + 0.5f);
-                //Randomize angular offset
-                float angle = Random.Range(0, Mathf.PI * 2);
-                float a = Random.Range(0, pointsHorizontalAllowedRadius);
-                float b = Random.Range(0, pointsVerticalAllowedRadius);
-                double offX = (a * b) / Mathf.Sqrt((b * b) + (a * a) * (Mathf.Tan(angle) * Mathf.Tan(angle)));
-                double offY = (a * b) / Mathf.Sqrt((a * a) + (b * b) / (Mathf.Tan(angle) * Mathf.Tan(angle)));
-                //Quadrant check
-                if (angle > -Mathf.PI / 2 && angle < Mathf.PI / 2)
-                    nPoints.Add(new FortuneSite(x + offX, y + offY, id));
-                else
-                    nPoints.Add(new FortuneSite(x - offX, y - offY, id));
-                id++;
-            }
-        }
-
-        Debug.Log("FortuneSites Generated");
-
-        return nPoints;
-    }
-
-    //Create provinces from voronoi data
-    //TODO Other specifics(might need to wait on terrain features generation like rivers, impassible cliffs)
-    private List<ProvinceData> CreateProvinces()
-    {
-        List<ProvinceData> nProvinces = new List<ProvinceData>();
-
-        //Create Site
-        for (int i = 0; i < points.Count; i++)
-        {
-            ProvinceData nSite = new ProvinceData();
-
-            //Most data
-            nSite.id = i;
-            nSite.neighborsRAW = points[i].Neighbors;
-            nSite.neighbors = new List<ProvinceData>();
-            nSite.pos = new Vector2((float)points[i].X, (float)points[i].Y);
-
-            //TODO Setup Terrain characteristics here (Height, Biome) using Geography data and an average(maybe using pointsHorizontalSeparation from GeneratePoints) or based on center
-
-            //Vertices and center(Average of vertices)
-            double x = 0;
-            double y = 0;
-            for (int j = 0; j < points[i].Cell.Count; j++)
-            {
-                x += points[i].Cell[j].Start.X;
-                y += points[i].Cell[j].Start.Y;
-                nSite.vertices.Add(points[i].Cell[j].Start);
-            }
-            x /= points[i].Cell.Count;
-            y /= points[i].Cell.Count;
-            nSite.polygonCenter = new VPoint(x, y);
-
-            //Add
-            nProvinces.Add(nSite);
-        }
-
-        //Neighbor Connections
-        for (int i = 0; i < nProvinces.Count; i++)
-        {
-
-            //Connections for graph
-            Dictionary<int, int> connections = new Dictionary<int, int>();
-
-            for (int p = 0; p < nProvinces[i].neighborsRAW.Count; p++)
-            {
-
-                //Add to pathfind connections
-                //TODO assumes cost of 1, terrain might impact this
-                connections.Add(nProvinces[i].neighborsRAW[p].ID, 1);
-
-                //Instance match
-                for (int j = 0; j < nProvinces.Count; j++)
-                {
-                    //Dont check with itself
-                    if (i == j)
-                        continue;
-
-                    //Check ID match
-                    if (nProvinces[i].neighborsRAW[p].ID == nProvinces[j].id)
-                    {
-                        nProvinces[i].neighbors.Add(nProvinces[j]);
-                    }
-                }
-            }
-
-            //Add to graph for pathfind
-            graph.vertex(nProvinces[i].id, connections);
-
-        }
-
-        //VEdge.Start is a VPoint with location VEdge.Start.X and VEdge.End.Y
-        //VEdge.End is the ending point for the edge
-        //FortuneSite.Neighbors contains the site's neighbors in the Delaunay Triangulation
-
-        return nProvinces;
-    }
 
 }
 
@@ -363,7 +398,7 @@ public class Map : MonoBehaviour
         mapData.Generate();
 
         //Create terrain sprite
-        mapTerrain = Sprite.Create(mapData.graphics.HEIGHTMAP, new Rect(0, 0, mapData.graphics.HEIGHTMAP.width, mapData.graphics.HEIGHTMAP.height), new Vector2(0.5f, 0.5f));
+        mapTerrain = Sprite.Create(mapData.graphics.FINAL, new Rect(0, 0, mapData.graphics.FINAL.width, mapData.graphics.FINAL.height), new Vector2(0.5f, 0.5f));
         GetComponent<SpriteRenderer>().sprite = mapTerrain;
 
     }
