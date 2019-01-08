@@ -121,6 +121,8 @@ public class Data
             heights.Add(item.name, item);
         }
 
+        Debug.Log("Height types loaded (Height.json)");
+
     }
 
     //Load Terrain.json
@@ -152,6 +154,8 @@ public class Data
             terrains.Add(item.name, item);
         }
 
+        Debug.Log("Terrain types loaded (Terrain.json)");
+
     }
 
     //Load Structures.json
@@ -172,6 +176,8 @@ public class Data
         {
             structures.Add(item.name, item);
         }
+
+        Debug.Log("Structure types loaded (Structure.json)");
 
     }
 
@@ -214,6 +220,8 @@ public class Data
             //Add
             biomes.Add(item.name, item);
         }
+
+        Debug.Log("Biomes loaded (Biome.json)");
 
     }
 
