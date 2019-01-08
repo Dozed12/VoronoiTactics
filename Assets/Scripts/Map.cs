@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using UnityEngine;
+using UnityEngine.UI;
 
 //https://github.com/Zalgo2462/VoronoiLib
 using VoronoiLib;
@@ -55,6 +56,7 @@ public struct MapGraphics
 public struct MapGeography
 {
     public float[,] HEIGHTMAP;
+    public float[,] TERRAINMAP;
 }
 
 public class MapData
@@ -209,7 +211,6 @@ public class MapData
         }
 
     }
-
 
     //Create provinces from voronoi data
     //TODO Other specifics(might need to wait on terrain features generation like rivers, impassible cliffs)
@@ -404,18 +405,42 @@ public class Map : MonoBehaviour
 
     public Sprite mapTerrain;
 
+    public Dropdown biomePick;
+
     // Start is called before the first frame update
     void Start()
     {
-
         //TODO Wont be here probably
         //Load data
         data = new Data();
         data.LoadData();
 
-        //Pass settings and generate data
+        //TODO Wont be here probably
+        //Add Biome options
+        List<string> biomes = new List<string>();
+        foreach(KeyValuePair<string, Biome> entry in data.biomes)
+        {
+            biomes.Add(entry.Value.name);
+        }
+        biomePick.AddOptions(biomes);
+    }
+
+    //Generate new map
+    public void Generate(){
+
+        //New map data with settings
+        //TODO Settings probably wont be here
         mapData = new MapData();
         mapData.settings = new MapSettings(800, 800, 200, 2.0f);
+
+        //Get selected biome
+        int idBiome = biomePick.value;
+        string nameBiome = biomePick.options[idBiome].text;
+
+        //Set biome for map
+        mapData.biome = data.biomes[nameBiome];
+
+        //Master generate
         mapData.Generate();
 
         //Create terrain sprite
@@ -424,9 +449,4 @@ public class Map : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
