@@ -50,6 +50,7 @@ public class ProvinceData
 public struct MapGraphics
 {
     public Texture2D HEIGHTMAP;
+    public Texture2D TERRAINMAP;
     public Texture2D FINAL;
 }
 
@@ -187,7 +188,7 @@ public class MapData
         //TODO Wont need so many octaves considering we dont use all the detail, but maybe we will
         fastnoise.SetFractalOctaves(8);
         fastnoise.SetFractalLacunarity(2.0f);
-        fastnoise.SetFrequency(1);        
+        fastnoise.SetFrequency(1);
 
         //Noise lookups
         HeightMap();
@@ -340,6 +341,7 @@ public class MapData
     {
 
         HeightMapTexture();
+        TerrainMapTexture();
         FinalTexture();
 
         Debug.Log("Graphics Generated");
@@ -365,6 +367,31 @@ public class MapData
 
             //Settings
             graphics.HEIGHTMAP.filterMode = FilterMode.Point;
+
+        }
+
+        //Generate Terrain texture
+        //TODO just greyscale for now
+        void TerrainMapTexture()
+        {
+            //Create texture
+            graphics.TERRAINMAP = new Texture2D(settings.WIDTH, settings.HEIGHT);
+
+            //Height Greyscale
+            for (int i = 0; i < settings.WIDTH; i++)
+            {
+                for (int j = 0; j < settings.HEIGHT; j++)
+                {
+                    float val = geography.HEIGHTMAP[i, j];
+                    graphics.TERRAINMAP.SetPixel(i, j, new Color(val, val, val));
+                }
+            }
+
+            //Apply to texture
+            graphics.TERRAINMAP.Apply();
+
+            //Settings
+            graphics.TERRAINMAP.filterMode = FilterMode.Point;
 
         }
 
@@ -432,6 +459,8 @@ public class Map : MonoBehaviour
     Data data;
     MapData mapData;
 
+    public Sprite mapFinal;
+    public Sprite mapHeight;
     public Sprite mapTerrain;
 
     public Dropdown biomePick;
@@ -445,9 +474,9 @@ public class Map : MonoBehaviour
         data.LoadData();
 
         //TODO Wont be here probably
-        //Add Biome options
+        //Add Biome options to Dropdown
         List<string> biomes = new List<string>();
-        foreach(KeyValuePair<string, Biome> entry in data.biomes)
+        foreach (KeyValuePair<string, Biome> entry in data.biomes)
         {
             biomes.Add(entry.Value.name);
         }
@@ -455,7 +484,8 @@ public class Map : MonoBehaviour
     }
 
     //Generate new map
-    public void Generate(){
+    public void Generate()
+    {
 
         //New map data with settings
         //TODO Settings probably wont be here
@@ -473,8 +503,11 @@ public class Map : MonoBehaviour
         mapData.Generate();
 
         //Create terrain sprite
-        mapTerrain = Sprite.Create(mapData.graphics.FINAL, new Rect(0, 0, mapData.graphics.FINAL.width, mapData.graphics.FINAL.height), new Vector2(0.5f, 0.5f));
-        GetComponent<SpriteRenderer>().sprite = mapTerrain;
+        mapFinal = Sprite.Create(mapData.graphics.FINAL, new Rect(0, 0, mapData.graphics.FINAL.width, mapData.graphics.FINAL.height), new Vector2(0.5f, 0.5f));
+        mapHeight = Sprite.Create(mapData.graphics.HEIGHTMAP, new Rect(0, 0, mapData.graphics.HEIGHTMAP.width, mapData.graphics.HEIGHTMAP.height), new Vector2(0.5f, 0.5f));
+        mapTerrain = Sprite.Create(mapData.graphics.TERRAINMAP, new Rect(0, 0, mapData.graphics.TERRAINMAP.width, mapData.graphics.TERRAINMAP.height), new Vector2(0.5f, 0.5f));
+
+        GetComponent<SpriteRenderer>().sprite = mapFinal;
 
     }
 
