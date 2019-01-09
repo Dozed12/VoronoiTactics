@@ -66,7 +66,7 @@ public class MapData
     private Graph graph = new Graph();
 
     public MapSettings settings;
-    public Dictionary<string,Texture2D> mapModes;
+    public Dictionary<string, Texture2D> mapModes;
     public MapGeography geography;
     public Biome biome;
     public List<ProvinceData> provinces;
@@ -366,7 +366,7 @@ public class MapData
             texture.filterMode = FilterMode.Point;
 
             //Add to list
-            mapModes.Add("Height map",texture);
+            mapModes.Add("Height map", texture);
 
         }
 
@@ -393,7 +393,7 @@ public class MapData
             texture.filterMode = FilterMode.Point;
 
             //Add to list
-            mapModes.Add("Terrain map",texture);
+            mapModes.Add("Terrain map", texture);
 
         }
 
@@ -448,9 +448,9 @@ public class MapData
 
             //Settings
             texture.filterMode = FilterMode.Point;
-            
+
             //Add to list
-            mapModes.Add("Terrain",texture);
+            mapModes.Add("Terrain", texture);
         }
 
     }
@@ -463,7 +463,7 @@ public class Map : MonoBehaviour
     Data data;
     MapData mapData;
 
-    public Dictionary<string,Sprite> mapModes;
+    public Dictionary<string, Sprite> mapModes;
 
     public Dropdown biomePick;
     public Dropdown mapModePick;
@@ -511,7 +511,7 @@ public class Map : MonoBehaviour
         {
             mapModes.Add(entry.Key, Sprite.Create(entry.Value, new Rect(0, 0, entry.Value.width, entry.Value.height), new Vector2(0.5f, 0.5f)));
         }
-        
+
         //Add to mapmodes Dropdown
         List<string> mapModesStrings = new List<string>();
         foreach (KeyValuePair<string, Sprite> entry in mapModes)
@@ -526,7 +526,8 @@ public class Map : MonoBehaviour
 
     }
 
-    public void OnMapModeChange(){
+    public void OnMapModeChange()
+    {
 
         //Get Dropdown value
         int idMapMode = mapModePick.value;
