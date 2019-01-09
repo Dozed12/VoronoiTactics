@@ -343,6 +343,7 @@ public class MapData
         HeightMapTexture();
         TerrainMapTexture();
         FinalTexture();
+        //Simplified terrain map
 
         Debug.Log("Graphics Generated");
 
@@ -371,13 +372,12 @@ public class MapData
         }
 
         //Generate Terrain texture
-        //TODO just greyscale for now
         void TerrainMapTexture()
         {
             //Create texture
             graphics.TERRAINMAP = new Texture2D(settings.WIDTH, settings.HEIGHT);
 
-            //Height Greyscale
+            //Terrain Greyscale
             for (int i = 0; i < settings.WIDTH; i++)
             {
                 for (int j = 0; j < settings.HEIGHT; j++)
