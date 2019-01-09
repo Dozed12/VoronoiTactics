@@ -3,7 +3,7 @@
         "_comment": "Name",
         "name": "BLANK_BIOME",
         "_comment": "Height noise frequency setting",
-        "heightnoise": 0.002,
+        "heightFreq": 0.002,
         "_comment": "Heights used in this biome",
         "heights": [
             {
@@ -24,7 +24,7 @@
             }
         ],
         "_comment": "Terrain noise frequency setting",
-        "terrainnoise": 0.002,
+        "terrainFreq": 0.002,
         "_comment": "Terrains used in this biome",
         "terrains": [
             {
@@ -45,7 +45,7 @@
             }
         ],
         "_comment": "Structure noise frequency setting",
-        "structurenoise": 0.002,
+        "structureFreq": 0.002,
         "_comment": "Structures used in this biome",
         "structures": [
             {
@@ -56,7 +56,7 @@
     },
     {
         "name": "Woodland",
-        "heightnoise": 0.002,
+        "heightFreq": 0.002,
         "heights": [
             {
                 "name": "High Mountains",
@@ -79,7 +79,7 @@
                 "noiseMin": 0
             }
         ],
-        "terrainnoise": 0.002,
+        "terrainFreq": 0.002,
         "terrains": [
             {
                 "name": "Grassland",
@@ -87,7 +87,7 @@
                 "noiseMin": 0
             }
         ],
-        "structurenoise": 0.01,
+        "structureFreq": 0.01,
         "structures": [
             {
                 "name": "Village",
