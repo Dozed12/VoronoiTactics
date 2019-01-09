@@ -179,6 +179,7 @@ public class MapData
         //Set Settings
         //TODO Should be set elsewhere
         //TODO Wont need so many octaves considering we dont use all the detail, but maybe we will
+        fastnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
         fastnoise.SetFractalOctaves(8);
         fastnoise.SetFractalLacunarity(2.0f);
         fastnoise.SetFrequency(1);
@@ -192,7 +193,7 @@ public class MapData
         {
 
             //New seed
-            fastnoise.SetSeed((int)Time.time);
+            fastnoise.SetSeed(UnityEngine.Random.Range(Int16.MinValue, Int16.MaxValue));
 
             //Biome height frequency
             fastnoise.SetFrequency(biome.heightFreq);
@@ -205,7 +206,7 @@ public class MapData
             {
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
-                    geography.HEIGHTMAP[i, j] = (fastnoise.GetSimplexFractal(i, j, 0) + 1) / 2;
+                    geography.HEIGHTMAP[i, j] = (fastnoise.GetNoise(i, j, 0) + 1) / 2;
                 }
             }
         }
@@ -215,7 +216,7 @@ public class MapData
         {
 
             //New seed
-            fastnoise.SetSeed((int)Time.time);
+            fastnoise.SetSeed(UnityEngine.Random.Range(Int16.MinValue, Int16.MaxValue));
 
             //Biome height frequency
             fastnoise.SetFrequency(biome.terrainFreq);
@@ -228,7 +229,7 @@ public class MapData
             {
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
-                    geography.TERRAINMAP[i, j] = (fastnoise.GetSimplexFractal(i, j, 0) + 1) / 2;
+                    geography.TERRAINMAP[i, j] = (fastnoise.GetNoise(i, j, 0) + 1) / 2;
                 }
             }
         }
@@ -380,7 +381,7 @@ public class MapData
             {
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
-                    float val = geography.HEIGHTMAP[i, j];
+                    float val = geography.TERRAINMAP[i, j];
                     texture.SetPixel(i, j, new Color(val, val, val));
                 }
             }
@@ -520,8 +521,8 @@ public class Map : MonoBehaviour
         mapModePick.ClearOptions();
         mapModePick.AddOptions(mapModesStrings);
 
-        //Set default sprite as Terrain
-        GetComponent<SpriteRenderer>().sprite = mapModes["Terrain"];
+        //Set mapmode to whatever is selected
+        OnMapModeChange();
 
     }
 
