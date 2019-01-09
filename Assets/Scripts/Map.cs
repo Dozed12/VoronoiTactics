@@ -47,13 +47,6 @@ public class ProvinceData
     public TerrainStructure structure;
 }
 
-public struct MapGraphics
-{
-    public Texture2D HEIGHTMAP;
-    public Texture2D TERRAINMAP;
-    public Texture2D FINAL;
-}
-
 public struct MapGeography
 {
     public float[,] HEIGHTMAP;
@@ -73,7 +66,7 @@ public class MapData
     private Graph graph = new Graph();
 
     public MapSettings settings;
-    public MapGraphics graphics;
+    public Dictionary<string,Texture2D> mapModes;
     public MapGeography geography;
     public Biome biome;
     public List<ProvinceData> provinces;
@@ -340,6 +333,8 @@ public class MapData
     private void GenerateGraphics()
     {
 
+        mapModes = new Dictionary<string, Texture2D>();
+
         HeightMapTexture();
         TerrainMapTexture();
         FinalTexture();
@@ -351,7 +346,7 @@ public class MapData
         void HeightMapTexture()
         {
             //Create texture
-            graphics.HEIGHTMAP = new Texture2D(settings.WIDTH, settings.HEIGHT);
+            Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
 
             //Height Greyscale
             for (int i = 0; i < settings.WIDTH; i++)
@@ -359,15 +354,18 @@ public class MapData
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
                     float val = geography.HEIGHTMAP[i, j];
-                    graphics.HEIGHTMAP.SetPixel(i, j, new Color(val, val, val));
+                    texture.SetPixel(i, j, new Color(val, val, val));
                 }
             }
 
             //Apply to texture
-            graphics.HEIGHTMAP.Apply();
+            texture.Apply();
 
             //Settings
-            graphics.HEIGHTMAP.filterMode = FilterMode.Point;
+            texture.filterMode = FilterMode.Point;
+
+            //Add to list
+            mapModes.Add("Height map",texture);
 
         }
 
@@ -375,7 +373,7 @@ public class MapData
         void TerrainMapTexture()
         {
             //Create texture
-            graphics.TERRAINMAP = new Texture2D(settings.WIDTH, settings.HEIGHT);
+            Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
 
             //Terrain Greyscale
             for (int i = 0; i < settings.WIDTH; i++)
@@ -383,15 +381,18 @@ public class MapData
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
                     float val = geography.HEIGHTMAP[i, j];
-                    graphics.TERRAINMAP.SetPixel(i, j, new Color(val, val, val));
+                    texture.SetPixel(i, j, new Color(val, val, val));
                 }
             }
 
             //Apply to texture
-            graphics.TERRAINMAP.Apply();
+            texture.Apply();
 
             //Settings
-            graphics.TERRAINMAP.filterMode = FilterMode.Point;
+            texture.filterMode = FilterMode.Point;
+
+            //Add to list
+            mapModes.Add("Terrain map",texture);
 
         }
 
@@ -404,7 +405,7 @@ public class MapData
         void FinalTexture()
         {
             //Create texture
-            graphics.FINAL = new Texture2D(settings.WIDTH, settings.HEIGHT);
+            Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
 
             //Blank texture
             Color[] blank = new Color[settings.WIDTH * settings.HEIGHT];
@@ -412,15 +413,15 @@ public class MapData
             {
                 blank[i] = Color.white;
             }
-            graphics.FINAL.SetPixels(blank);
+            texture.SetPixels(blank);
 
             //Draw Border
-            graphics.FINAL = Graphics.Border(graphics.FINAL, Color.black);
+            texture = Graphics.Border(texture, Color.black);
 
             //Add Site centers
             for (int i = 0; i < provinces.Count; i++)
             {
-                graphics.FINAL.SetPixel((int)provinces[i].center.X, (int)provinces[i].center.Y, Color.black);
+                texture.SetPixel((int)provinces[i].center.X, (int)provinces[i].center.Y, Color.black);
             }
 
             //Draw edges
@@ -437,19 +438,21 @@ public class MapData
                 int endY = Mathf.FloorToInt((float)edge.Value.End.Y);
 
                 //Draw Edge
-                graphics.FINAL = Graphics.Bresenham(graphics.FINAL, startX, startY, endX, endY, Color.black);
+                texture = Graphics.Bresenham(texture, startX, startY, endX, endY, Color.black);
                 edge = edge.Next;
             }
 
             //Apply to texture
-            graphics.FINAL.Apply();
+            texture.Apply();
 
             //Settings
-            graphics.FINAL.filterMode = FilterMode.Point;
+            texture.filterMode = FilterMode.Point;
+            
+            //Add to list
+            mapModes.Add("Terrain",texture);
         }
 
     }
-
 
 }
 
@@ -459,11 +462,10 @@ public class Map : MonoBehaviour
     Data data;
     MapData mapData;
 
-    public Sprite mapFinal;
-    public Sprite mapHeight;
-    public Sprite mapTerrain;
+    public Dictionary<string,Sprite> mapModes;
 
     public Dropdown biomePick;
+    public Dropdown mapModePick;
 
     // Start is called before the first frame update
     void Start()
@@ -475,12 +477,12 @@ public class Map : MonoBehaviour
 
         //TODO Wont be here probably
         //Add Biome options to Dropdown
-        List<string> biomes = new List<string>();
+        List<string> biomeStrings = new List<string>();
         foreach (KeyValuePair<string, Biome> entry in data.biomes)
         {
-            biomes.Add(entry.Value.name);
+            biomeStrings.Add(entry.Value.name);
         }
-        biomePick.AddOptions(biomes);
+        biomePick.AddOptions(biomeStrings);
     }
 
     //Generate new map
@@ -502,12 +504,34 @@ public class Map : MonoBehaviour
         //Master generate
         mapData.Generate();
 
-        //Create terrain sprite
-        mapFinal = Sprite.Create(mapData.graphics.FINAL, new Rect(0, 0, mapData.graphics.FINAL.width, mapData.graphics.FINAL.height), new Vector2(0.5f, 0.5f));
-        mapHeight = Sprite.Create(mapData.graphics.HEIGHTMAP, new Rect(0, 0, mapData.graphics.HEIGHTMAP.width, mapData.graphics.HEIGHTMAP.height), new Vector2(0.5f, 0.5f));
-        mapTerrain = Sprite.Create(mapData.graphics.TERRAINMAP, new Rect(0, 0, mapData.graphics.TERRAINMAP.width, mapData.graphics.TERRAINMAP.height), new Vector2(0.5f, 0.5f));
+        //Create sprites
+        mapModes = new Dictionary<string, Sprite>();
+        foreach (KeyValuePair<string, Texture2D> entry in mapData.mapModes)
+        {
+            mapModes.Add(entry.Key, Sprite.Create(entry.Value, new Rect(0, 0, entry.Value.width, entry.Value.height), new Vector2(0.5f, 0.5f)));
+        }
+        
+        //Add to mapmodes Dropdown
+        List<string> mapModesStrings = new List<string>();
+        foreach (KeyValuePair<string, Sprite> entry in mapModes)
+        {
+            mapModesStrings.Add(entry.Key);
+        }
+        mapModePick.AddOptions(mapModesStrings);
 
-        GetComponent<SpriteRenderer>().sprite = mapFinal;
+        //Set sprite we want
+        GetComponent<SpriteRenderer>().sprite = mapModes["Terrain"];
+
+    }
+
+    public void OnMapModeChange(){
+
+        //Get Dropdown value
+        int idMapMode = mapModePick.value;
+        string nameMapMode = mapModePick.options[idMapMode].text;
+
+        //Set sprite to map
+        GetComponent<SpriteRenderer>().sprite = mapModes[nameMapMode];
 
     }
 
