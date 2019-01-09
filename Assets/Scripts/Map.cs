@@ -517,9 +517,10 @@ public class Map : MonoBehaviour
         {
             mapModesStrings.Add(entry.Key);
         }
+        mapModePick.ClearOptions();
         mapModePick.AddOptions(mapModesStrings);
 
-        //Set sprite we want
+        //Set default sprite as Terrain
         GetComponent<SpriteRenderer>().sprite = mapModes["Terrain"];
 
     }
