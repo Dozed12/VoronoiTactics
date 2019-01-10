@@ -1,24 +1,5 @@
 [
     {
-        "_comment": "Name",
-        "name": "BLANK_STRUCTURE",
-        "_comment": "RGB Color used in map",
-        "color": [
-            255,
-            255,
-            255
-        ],
-        "_comment": "Structure modifiers",
-        "modifiers": {
-            "_comment": "Modifier applied to attacker of this terrain",
-            "attack": 1,
-            "_comment": "Modifier applied to defender of this terrain",
-            "defense": 1,
-            "_comment": "Modifier applied to movement into this terrain",
-            "movement": 1
-        }
-    },
-    {
         "name": "Village",
         "color": [
             255,

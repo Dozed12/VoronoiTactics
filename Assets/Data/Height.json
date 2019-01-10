@@ -1,17 +1,5 @@
 [
     {
-        "_comment": "Name",
-        "name": "BLANK_HEIGHT",
-        "_comment": "Grey value",
-        "color": 255,
-        "_comment": "Modifier applied to attacker of this terrain",
-        "attack": 1,
-        "_comment": "Modifier applied to defender of this terrain",
-        "defense": 1,
-        "_comment": "Modifier applied to movement into this terrain",
-        "movement": 1
-    },
-    {
         "name": "Plains",
         "color": 50,
         "_comment": "Terrain modifiers",
