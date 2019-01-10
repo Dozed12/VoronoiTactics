@@ -79,11 +79,21 @@
                 "noiseMin": 0
             }
         ],
-        "terrainFreq": 0.002,
+        "terrainFreq": 0.001,
         "terrains": [
             {
-                "name": "Grassland",
+                "name": "Forest",
                 "noiseMax": 1,
+                "noiseMin": 0.7
+            },
+            {
+                "name": "Grassland",
+                "noiseMax": 0.7,
+                "noiseMin": 0.3
+            },
+            {
+                "name": "Barren",
+                "noiseMax": 0.3,
                 "noiseMin": 0
             }
         ],

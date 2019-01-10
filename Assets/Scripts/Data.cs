@@ -16,6 +16,7 @@ using Newtonsoft.Json;
     - Each Biome has several terrain types possible with different densities
     - Use Noise to distribute terrains
     - Assign height values as a secondary feature
+    - Terrains can accept only some heights and have a fallback terrain in base height doesnt match
     - Overlap with special terrain types (Village, Outskirts, City) (probably using noise too)
 
     Biomes:
@@ -26,32 +27,51 @@ using Newtonsoft.Json;
 //Terrain heights
 public struct TerrainHeight
 {
+    //Name of Height
     public string name;
+    //Simplified color (greyscale)
     public int color;
+    //Attack modifier
     public float attack;
+    //Defense modifier
     public float defense;
+    //Movement modifier
     public float movement;
 }
 
 //Human terrain structures
 public struct TerrainStructure
 {
+    //Name of Type
     public string name;
+    //Simplified color
     public IList<int> color;
+    //Attack modifier
     public float attack;
+    //Defense modifier
     public float defense;
+    //Movement modifier
     public float movement;
 }
 
 //Terrain types
 public struct TerrainType
 {
+    //Name of Type
     public string name;
+    //Simplified color
     public IList<int> color;
+    //Heights allowed (names)
     public string[] height_names;
+    //Heights allowed (references)
     public TerrainHeight[] heights;
+    //Height fallback, when height present isnt allowed then fallback to type with this name
+    public string height_fallback;
+    //Attack modifier
     public float attack;
+    //Defense modifier
     public float defense;
+    //Movement modifier
     public float movement;
 }
 

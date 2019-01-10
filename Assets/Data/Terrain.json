@@ -28,9 +28,45 @@
     {
         "name": "Grassland",
         "color": [
+            50,
+            200,
+            50
+        ],
+        "height_names": [
+            "Low Mountains",
+            "Hills",
+            "Plains"
+        ],
+        "height_fallback": "Barren",
+        "modifiers": {
+            "attack": 1.0,
+            "defense": 1.0,
+            "movement": 1.0
+        }
+    },
+    {
+        "name": "Forest",
+        "color": [
             22,
             125,
             22
+        ],
+        "height_names": [
+            "Hills",
+            "Plains"
+        ],
+        "modifiers": {
+            "attack": 1.1,
+            "defense": 0.8,
+            "movement": 1.1
+        }
+    },
+    {
+        "name": "Barren",
+        "color": [
+            127,
+            116,
+            63
         ],
         "height_names": [
             "High Mountains",
