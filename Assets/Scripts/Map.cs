@@ -377,15 +377,15 @@ public class MapData
 
         mapModes = new Dictionary<string, Texture2D>();
 
-        HeightMapTexture();
-        TerrainMapTexture();
-        FinalTexture();
-        //Simplified terrain map
+        HeightNoiseMapTexture();
+        TerrainNoiseMapTexture();
+        SimplifiedHeightMapTexture();
+        SimplifiedTerrainMapTexture();
 
         Debug.Log("Graphics Generated");
 
         //Generate Heightmap texture (greyscale)
-        void HeightMapTexture()
+        void HeightNoiseMapTexture()
         {
             //Create texture
             Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
@@ -407,12 +407,12 @@ public class MapData
             texture.filterMode = FilterMode.Point;
 
             //Add to list
-            mapModes.Add("Height map", texture);
+            mapModes.Add("Height Noise Map", texture);
 
         }
 
         //Generate Terrain texture
-        void TerrainMapTexture()
+        void TerrainNoiseMapTexture()
         {
             //Create texture
             Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
@@ -434,17 +434,12 @@ public class MapData
             texture.filterMode = FilterMode.Point;
 
             //Add to list
-            mapModes.Add("Terrain map", texture);
+            mapModes.Add("Terrain Noise Map", texture);
 
         }
 
-        /*
-            Generate Final Texture
-            - Terrain texture
-            - Voronoi frame
-            - Terrain decals
-         */
-        void FinalTexture()
+        //Generate Simplifided Height Map Texture
+        void SimplifiedHeightMapTexture()
         {
             //Create texture
             Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
@@ -462,6 +457,67 @@ public class MapData
 
             //Draw edges
             //TODO Jitter edges for more detail(could be done here or in internal data, the jitter wont affect any calculations so can be just graphical)
+            //But it will be shared in many maps so should be internal!
+            var edge = edges.First;
+            for (int i = 0; i < edges.Count; i++)
+            {
+                VEdge edgeVal = edge.Value;
+
+                //Round
+                int startX = Mathf.FloorToInt((float)edge.Value.Start.X);
+                int endX = Mathf.FloorToInt((float)edge.Value.End.X);
+                int startY = Mathf.FloorToInt((float)edge.Value.Start.Y);
+                int endY = Mathf.FloorToInt((float)edge.Value.End.Y);
+
+                //Draw Edge
+                texture = Graphics.Bresenham(texture, startX, startY, endX, endY, Color.black);
+                edge = edge.Next;
+            }
+
+            //Fill sites color
+            for (int i = 0; i < provinces.Count; i++)
+            {
+                Color c = new Color(provinces[i].height.color / 255.0f, provinces[i].height.color / 255.0f, provinces[i].height.color / 255.0f);
+                texture = Graphics.FloodFillLine(texture, (int)provinces[i].center.X, (int)provinces[i].center.Y, c);
+            }
+
+            //Add Site centers
+            for (int i = 0; i < provinces.Count; i++)
+            {
+                texture.SetPixel((int)provinces[i].center.X, (int)provinces[i].center.Y, Color.black);
+            }
+
+            //Apply to texture
+            texture.Apply();
+
+            //Settings
+            texture.filterMode = FilterMode.Point;
+
+            //Add to list
+            mapModes.Add("Simplified Height Map", texture);
+        }
+
+
+        //Generate Simplifided Terrain Map Texture
+        void SimplifiedTerrainMapTexture()
+        {
+            //Create texture
+            Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
+
+            //Blank texture
+            Color[] blank = new Color[settings.WIDTH * settings.HEIGHT];
+            for (int i = 0; i < settings.WIDTH * settings.HEIGHT; i++)
+            {
+                blank[i] = Color.white;
+            }
+            texture.SetPixels(blank);
+
+            //Draw Border
+            texture = Graphics.Border(texture, Color.black);
+
+            //Draw edges
+            //TODO Jitter edges for more detail(could be done here or in internal data, the jitter wont affect any calculations so can be just graphical)
+            //But it will be shared in many maps so should be internal!
             var edge = edges.First;
             for (int i = 0; i < edges.Count; i++)
             {
@@ -498,7 +554,7 @@ public class MapData
             texture.filterMode = FilterMode.Point;
 
             //Add to list
-            mapModes.Add("Terrain", texture);
+            mapModes.Add("Simplified Terrain Map", texture);
         }
 
     }
