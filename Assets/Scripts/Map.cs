@@ -75,7 +75,8 @@ public class MapData
     public Biome biome;
     public List<ProvinceData> provinces;
 
-    public MapData(Data data){
+    public MapData(Data data)
+    {
         this.data = data;
     }
 
@@ -262,20 +263,22 @@ public class MapData
             nSite.pos = new VPoint(points[i].X, points[i].Y);
 
             //TODO For now just takes the value at the point, we might want to do an average of near area
-            nSite.heightVal = geography.HEIGHTMAP[(int)nSite.pos.X,(int)nSite.pos.Y];
-            nSite.terrainVal = geography.TERRAINMAP[(int)nSite.pos.X,(int)nSite.pos.Y];
+            nSite.heightVal = geography.HEIGHTMAP[(int)nSite.pos.X, (int)nSite.pos.Y];
+            nSite.terrainVal = geography.TERRAINMAP[(int)nSite.pos.X, (int)nSite.pos.Y];
 
             //Identify type from data and values
             for (int j = 0; j < biome.heights.Length; j++)
             {
-                if(biome.heights[j].noiseMin <= nSite.heightVal && nSite.heightVal < biome.heights[j].noiseMax){
+                if (biome.heights[j].noiseMin <= nSite.heightVal && nSite.heightVal < biome.heights[j].noiseMax)
+                {
                     nSite.height = data.heights[biome.heights[j].name];
                     break;
                 }
             }
             for (int j = 0; j < biome.terrains.Length; j++)
             {
-                if(biome.terrains[j].noiseMin <= nSite.terrainVal && nSite.terrainVal < biome.terrains[j].noiseMax){
+                if (biome.terrains[j].noiseMin <= nSite.terrainVal && nSite.terrainVal < biome.terrains[j].noiseMax)
+                {
                     nSite.terrain = data.terrains[biome.terrains[j].name];
                     break;
                 }
@@ -462,8 +465,8 @@ public class MapData
             //Fill sites color
             for (int i = 0; i < provinces.Count; i++)
             {
-                Color c = new Color(provinces[i].terrain.color[0]/255.0f,provinces[i].terrain.color[1]/255.0f,provinces[i].terrain.color[2]/255.0f);
-                texture = Graphics.FloodFill4(texture,(int)provinces[i].center.X,(int)provinces[i].center.Y, c);
+                Color c = new Color(provinces[i].terrain.color[0] / 255.0f, provinces[i].terrain.color[1] / 255.0f, provinces[i].terrain.color[2] / 255.0f);
+                texture = Graphics.FloodFillLine(texture, (int)provinces[i].center.X, (int)provinces[i].center.Y, c);
             }
 
             //Add Site centers

@@ -47,8 +47,7 @@ public static class Graphics
         return bitmap;
     }
 
-    //4 Direction flood fill
-    //TODO a bit slow, maybe look for faster version
+    //4 Direction flood fill, slower
     public static Texture2D FloodFill4(Texture2D aTex, int aX, int aY, Color aFillColor)
     {
         int w = aTex.width;
@@ -101,6 +100,63 @@ public static class Graphics
         }
         aTex.SetPixels(colors);
         return aTex;
+    }
+
+    //Scan-line flood fill, much faster
+    public static Texture2D FloodFillLine(Texture2D bmp, int x, int y, Color replacementColor)
+    {
+
+        Point pt = new Point(x, y);
+
+        Color targetColor = bmp.GetPixel(pt.x, pt.y);
+        if (targetColor == replacementColor)
+        {
+            return bmp;
+        }
+
+        Stack<Point> pixels = new Stack<Point>();
+
+        pixels.Push(pt);
+        while (pixels.Count != 0)
+        {
+            Point temp = pixels.Pop();
+            int y1 = temp.y;
+            while (y1 >= 0 && bmp.GetPixel(temp.x, y1) == targetColor)
+            {
+                y1--;
+            }
+            y1++;
+            bool spanLeft = false;
+            bool spanRight = false;
+            while (y1 < bmp.height && bmp.GetPixel(temp.x, y1) == targetColor)
+            {
+                bmp.SetPixel(temp.x, y1, replacementColor);
+
+                if (!spanLeft && temp.x > 0 && bmp.GetPixel(temp.x - 1, y1) == targetColor)
+                {
+                    pixels.Push(new Point(temp.x - 1, y1));
+                    spanLeft = true;
+                }
+                else if (spanLeft && temp.x - 1 >= 0 && bmp.GetPixel(temp.x - 1, y1) != targetColor)
+                {
+                    spanLeft = false;
+                }
+                if (!spanRight && temp.x < bmp.width - 1 && bmp.GetPixel(temp.x + 1, y1) == targetColor)
+                {
+                    pixels.Push(new Point(temp.x + 1, y1));
+                    spanRight = true;
+                }
+                else if (spanRight && temp.x < bmp.width - 1 && bmp.GetPixel(temp.x + 1, y1) != targetColor)
+                {
+                    spanRight = false;
+                }
+                y1++;
+            }
+
+        }
+
+        return bmp;
+
     }
 
 }
