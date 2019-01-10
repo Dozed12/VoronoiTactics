@@ -268,14 +268,14 @@ public class MapData
             //Identify type from data and values
             for (int j = 0; j < biome.heights.Length; j++)
             {
-                if(biome.heights[j].noiseMin < nSite.heightVal && nSite.heightVal > biome.heights[j].noiseMax){
+                if(biome.heights[j].noiseMin <= nSite.heightVal && nSite.heightVal < biome.heights[j].noiseMax){
                     nSite.height = data.heights[biome.heights[j].name];
                     break;
                 }
             }
             for (int j = 0; j < biome.terrains.Length; j++)
             {
-                if(biome.terrains[j].noiseMin < nSite.terrainVal && nSite.terrainVal > biome.terrains[j].noiseMax){
+                if(biome.terrains[j].noiseMin <= nSite.terrainVal && nSite.terrainVal < biome.terrains[j].noiseMax){
                     nSite.terrain = data.terrains[biome.terrains[j].name];
                     break;
                 }
@@ -315,7 +315,7 @@ public class MapData
             nProvinces.Add(nSite);
         }
 
-        //Neighbor Connections
+        //Neighbor Connections after all provinces created
         for (int i = 0; i < nProvinces.Count; i++)
         {
 
@@ -348,10 +348,6 @@ public class MapData
             graph.vertex(nProvinces[i].id, connections);
 
         }
-
-        //VEdge.Start is a VPoint with location VEdge.Start.X and VEdge.End.Y
-        //VEdge.End is the ending point for the edge
-        //FortuneSite.Neighbors contains the site's neighbors in the Delaunay Triangulation
 
         return nProvinces;
     }
@@ -445,12 +441,6 @@ public class MapData
             //Draw Border
             texture = Graphics.Border(texture, Color.black);
 
-            //Add Site centers
-            for (int i = 0; i < provinces.Count; i++)
-            {
-                texture.SetPixel((int)provinces[i].center.X, (int)provinces[i].center.Y, Color.black);
-            }
-
             //Draw edges
             //TODO Jitter edges for more detail(could be done here or in internal data, the jitter wont affect any calculations so can be just graphical)
             var edge = edges.First;
@@ -467,6 +457,19 @@ public class MapData
                 //Draw Edge
                 texture = Graphics.Bresenham(texture, startX, startY, endX, endY, Color.black);
                 edge = edge.Next;
+            }
+
+            //Fill sites color
+            for (int i = 0; i < provinces.Count; i++)
+            {
+                Color c = new Color(provinces[i].terrain.color[0]/255.0f,provinces[i].terrain.color[1]/255.0f,provinces[i].terrain.color[2]/255.0f);
+                texture = Graphics.FloodFill4(texture,(int)provinces[i].center.X,(int)provinces[i].center.Y, c);
+            }
+
+            //Add Site centers
+            for (int i = 0; i < provinces.Count; i++)
+            {
+                texture.SetPixel((int)provinces[i].center.X, (int)provinces[i].center.Y, Color.black);
             }
 
             //Apply to texture

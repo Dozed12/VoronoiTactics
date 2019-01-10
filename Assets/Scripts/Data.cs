@@ -37,7 +37,7 @@ public struct TerrainHeight
 public struct TerrainStructure
 {
     public string name;
-    public int[] color;
+    public IList<int> color;
     public float attack;
     public float defense;
     public float movement;
@@ -47,7 +47,7 @@ public struct TerrainStructure
 public struct TerrainType
 {
     public string name;
-    public int[] color;
+    public IList<int> color;
     public string[] height_names;
     public TerrainHeight[] heights;
     public float attack;
