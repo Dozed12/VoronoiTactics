@@ -42,8 +42,11 @@ public class ProvinceData
     //TODO neighbor will be a costum struct
     public List<ProvinceData> neighbors;
     public UnitData unit = null;
+    public float heightVal;
     public TerrainHeight height;
-    public TerrainType type;
+    public float terrainVal;
+    public TerrainType terrain;
+    public float structureVal;
     public TerrainStructure structure;
 }
 
@@ -65,11 +68,16 @@ public class MapData
     private LinkedList<VEdge> edges;
     private Graph graph = new Graph();
 
+    public Data data;
     public MapSettings settings;
     public Dictionary<string, Texture2D> mapModes;
     public MapGeography geography;
     public Biome biome;
     public List<ProvinceData> provinces;
+
+    public MapData(Data data){
+        this.data = data;
+    }
 
     //Generate the map data
     public void Generate()
@@ -180,7 +188,7 @@ public class MapData
         //TODO Should be set elsewhere
         //TODO Wont need so many octaves considering we dont use all the detail, but maybe we will
         fastnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
-        fastnoise.SetFractalOctaves(8);
+        fastnoise.SetFractalOctaves(4);
         fastnoise.SetFractalLacunarity(2.0f);
         fastnoise.SetFrequency(1);
 
@@ -253,7 +261,25 @@ public class MapData
             nSite.neighbors = new List<ProvinceData>();
             nSite.pos = new VPoint(points[i].X, points[i].Y);
 
-            //TODO Setup Terrain characteristics here (Height, Terrain, Structure) using Geography data and an average(maybe using pointsHorizontalSeparation from GeneratePoints) or based on center
+            //TODO For now just takes the value at the point, we might want to do an average of near area
+            nSite.heightVal = geography.HEIGHTMAP[(int)nSite.pos.X,(int)nSite.pos.Y];
+            nSite.terrainVal = geography.TERRAINMAP[(int)nSite.pos.X,(int)nSite.pos.Y];
+
+            //Identify type from data and values
+            for (int j = 0; j < biome.heights.Length; j++)
+            {
+                if(biome.heights[j].noiseMin < nSite.heightVal && nSite.heightVal > biome.heights[j].noiseMax){
+                    nSite.height = data.heights[biome.heights[j].name];
+                    break;
+                }
+            }
+            for (int j = 0; j < biome.terrains.Length; j++)
+            {
+                if(biome.terrains[j].noiseMin < nSite.terrainVal && nSite.terrainVal > biome.terrains[j].noiseMax){
+                    nSite.terrain = data.terrains[biome.terrains[j].name];
+                    break;
+                }
+            }
 
             //Vertices
             nSite.vertices = new List<VPoint>();
@@ -492,7 +518,7 @@ public class Map : MonoBehaviour
 
         //New map data with settings
         //TODO Settings probably wont be here
-        mapData = new MapData();
+        mapData = new MapData(data);
         mapData.settings = new MapSettings(800, 800, 200, 2.0f);
 
         //Get selected biome
