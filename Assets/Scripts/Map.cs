@@ -279,8 +279,24 @@ public class MapData
             {
                 if (biome.terrains[j].noiseMin <= nSite.terrainVal && nSite.terrainVal < biome.terrains[j].noiseMax)
                 {
-                    nSite.terrain = data.terrains[biome.terrains[j].name];
-                    break;
+                    //Also need to check if height present is accepted by terrain, if not then use fallback instead
+                    //Search
+                    bool found = false;
+                    for (int h = 0; h < biome.terrains[j].type.heights.Length; h++)
+                    {                        
+                        if(biome.terrains[j].type.heights[h].name == nSite.height.name)
+                            found = true;
+                    }
+                    //Use fallback
+                    if(!found){
+                        nSite.terrain = data.terrains[biome.terrains[j].type.height_fallback];
+                        break;
+                    }
+                    //Use local
+                    else{
+                        nSite.terrain = data.terrains[biome.terrains[j].name];
+                        break;
+                    }                    
                 }
             }
 
