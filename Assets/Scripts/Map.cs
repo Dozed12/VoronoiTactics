@@ -283,20 +283,22 @@ public class MapData
                     //Search
                     bool found = false;
                     for (int h = 0; h < biome.terrains[j].type.heights.Length; h++)
-                    {                        
-                        if(biome.terrains[j].type.heights[h].name == nSite.height.name)
+                    {
+                        if (biome.terrains[j].type.heights[h].name == nSite.height.name)
                             found = true;
                     }
                     //Use fallback
-                    if(!found){
-                        nSite.terrain = data.terrains[biome.terrains[j].type.height_fallback];
+                    if (!found)
+                    {
+                        nSite.terrain = data.terrains[biome.terrains[j].type.height_default_fallback];
                         break;
                     }
                     //Use local
-                    else{
+                    else
+                    {
                         nSite.terrain = data.terrains[biome.terrains[j].name];
                         break;
-                    }                    
+                    }
                 }
             }
 

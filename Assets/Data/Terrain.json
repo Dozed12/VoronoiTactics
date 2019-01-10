@@ -29,7 +29,11 @@
             "Hills",
             "Plains"
         ],
-        "height_fallback": "Barren",
+        "height_default_fallback": "Barren",
+        "height_pair_fallbacks": [
+            "Low Mountains",
+            "Grassland"
+        ],
         "modifiers": {
             "attack": 1.1,
             "defense": 0.8,

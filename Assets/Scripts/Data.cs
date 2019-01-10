@@ -45,7 +45,7 @@ public struct TerrainStructure
     //Name of Type
     public string name;
     //Simplified color
-    public IList<int> color;
+    public int[] color;
     //Attack modifier
     public float attack;
     //Defense modifier
@@ -60,13 +60,17 @@ public struct TerrainType
     //Name of Type
     public string name;
     //Simplified color
-    public IList<int> color;
+    public int[] color;
     //Heights allowed (names)
     public string[] height_names;
     //Heights allowed (references)
     public TerrainHeight[] heights;
     //Height fallback, when height present isnt allowed then fallback to type with this name
-    public string height_fallback;
+    public string height_default_fallback;
+    //Specific fallbacks, after using default fallback these will be used (just raw Json parse, come in pairs)
+    public string[] height_pair_fallbacks;
+    //Actual processed pairs of fallbacks
+    public List<Pair<TerrainHeight, TerrainType>> height_fallbacks;
     //Attack modifier
     public float attack;
     //Defense modifier
@@ -158,20 +162,35 @@ public class Data
             e = serializer.Deserialize<List<TerrainType>>(reader);
         }
 
-        //Add to dictionary
-        for (int i = 0; i < e.Count; i++)
-        {
-            TerrainType item = e[i];
+        //Use array instead to facilitate some access
+        TerrainType[] t = e.ToArray();
 
+        //Process heights (still need to process fallbacks)
+        for (int i = 0; i < t.Length; i++)
+        {
             //Get heights
-            item.heights = new TerrainHeight[item.height_names.Length];
-            for (int j = 0; j < item.height_names.Length; j++)
+            t[i].heights = new TerrainHeight[t[i].height_names.Length];
+            for (int j = 0; j < t[i].height_names.Length; j++)
             {
-                item.heights[j] = heights[item.height_names[j]];
+                t[i].heights[j] = heights[t[i].height_names[j]];
+            }
+        }
+
+        //Process specific fallbacks and add to dictionary after
+        for (int i = 0; i < t.Length; i++)
+        {
+            //Process fallbacks
+            if (t[i].height_pair_fallbacks != null)
+            {
+                t[i].height_fallbacks = new List<Pair<TerrainHeight, TerrainType>>();
+                for (int h = 0; h < t[i].height_pair_fallbacks.Length; h += 2)
+                {
+                    t[i].height_fallbacks.Add(new Pair<TerrainHeight, TerrainType>(heights[t[i].height_pair_fallbacks[h]], terrains[t[i].height_pair_fallbacks[h + 1]]));
+                }
             }
 
-            //Add
-            terrains.Add(item.name, item);
+            //Add to dictionary
+            terrains.Add(t[i].name, t[i]);
         }
 
         Debug.Log("Terrain types loaded (Terrain.json)");
