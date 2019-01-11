@@ -611,12 +611,44 @@ public class MapData
             //Pixel set
             PixelMatrix pixelMatrix = new PixelMatrix(settings.WIDTH, settings.HEIGHT);
 
-            //TODO Paint pixels based on base color and height
+            //Draw Border
+            pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
+
+            //Draw frame
+            var edge = edges.First;
+            for (int i = 0; i < edges.Count; i++)
+            {
+                VEdge edgeVal = edge.Value;
+
+                //Round
+                int startX = Mathf.FloorToInt((float)edge.Value.Start.X);
+                int endX = Mathf.FloorToInt((float)edge.Value.End.X);
+                int startY = Mathf.FloorToInt((float)edge.Value.Start.Y);
+                int endY = Mathf.FloorToInt((float)edge.Value.End.Y);
+
+                //Draw Edge
+                pixelMatrix = Graphics.Bresenham(pixelMatrix, startX, startY, endX, endY, Color.black);
+                edge = edge.Next;
+            }
+
+            //Fill sites color
+            for (int i = 0; i < provinces.Count; i++)
+            {
+                Color c = new Color(provinces[i].terrain.color[0] / 255.0f, provinces[i].terrain.color[1] / 255.0f, provinces[i].terrain.color[2] / 255.0f);
+                pixelMatrix = Graphics.FloodFillLine(pixelMatrix, (int)provinces[i].center.X, (int)provinces[i].center.Y, c);
+            }
+
+            //Shade pixels based on height
             for (int i = 0; i < settings.WIDTH; i++)
             {
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
-
+                    float height = geography.TERRAINMAP[i, j];
+                    Color color = pixelMatrix.GetPixel(i, j);
+                    color.r = color.r * (1 - height);
+                    color.g = color.g * (1 - height);
+                    color.b = color.b * (1 - height);
+                    pixelMatrix.SetPixel(i, j, color);
                 }
             }
 
@@ -646,7 +678,7 @@ public class MapData
             //Draw edges
             //TODO Jitter edges for more detail(could be done here or in internal data, the jitter wont affect any calculations so can be just graphical)
             //But it will be shared in many maps so should be internal!
-            var edge = edges.First;
+            edge = edges.First;
             for (int i = 0; i < edges.Count; i++)
             {
                 VEdge edgeVal = edge.Value;
