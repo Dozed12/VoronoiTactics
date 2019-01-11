@@ -7,25 +7,39 @@ using VoronoiLib;
 using VoronoiLib.Structures;
 
 //Array of pixels with facilitators to use with Unity SetPixels
-public class PixelMatrix{
+public class PixelMatrix
+{
 
     public Color[] pixels;
     public int width;
     public int height;
 
-    public PixelMatrix(int width, int height){
-        pixels = new Color[width*height];
+    public PixelMatrix(int width, int height)
+    {
+
+        //Initialize
+        pixels = new Color[width * height];
         this.width = width;
         this.height = height;
+
+        //Clear with white
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            pixels[i] = new Color(1, 1, 1, 1);
+        }
+
     }
 
-    public Color GetPixel(int x, int y){
+    public Color GetPixel(int x, int y)
+    {
         return pixels[x * width + y];
     }
 
-    public void SetPixel(int x, int y, Color cl){
+    public void SetPixel(int x, int y, Color cl)
+    {
 
-        if(x < 0 || x >= width || y < 0 || y >= height)
+        //Check if outside
+        if (x < 0 || x >= width || y < 0 || y >= height)
             return;
 
         pixels[x * width + y] = cl;

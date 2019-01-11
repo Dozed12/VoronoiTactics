@@ -396,31 +396,31 @@ public class MapData
 
         mapModes = new Dictionary<string, Texture2D>();
 
-        float time  = Time.realtimeSinceStartup;
+        float time = Time.realtimeSinceStartup;
 
         HeightNoiseMapTexture();
 
         Debug.Log("HeightNoiseMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
-        time  = Time.realtimeSinceStartup;
+        time = Time.realtimeSinceStartup;
 
         TerrainNoiseMapTexture();
 
-        Debug.Log("TerrainNoiseMapTexture took: " + (Time.realtimeSinceStartup- time) + "s");
-        time  = Time.realtimeSinceStartup;
+        Debug.Log("TerrainNoiseMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
+        time = Time.realtimeSinceStartup;
 
         SimplifiedHeightMapTexture();
 
-        Debug.Log("SimplifiedHeightMapTexture took: " + (Time.realtimeSinceStartup- time) + "s");
-        time  = Time.realtimeSinceStartup;
+        Debug.Log("SimplifiedHeightMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
+        time = Time.realtimeSinceStartup;
 
         SimplifiedTerrainMapTexture();
 
-        Debug.Log("SimplifiedTerrainMapTexture took: " + (Time.realtimeSinceStartup- time) + "s");
-        time  = Time.realtimeSinceStartup;
+        Debug.Log("SimplifiedTerrainMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
+        time = Time.realtimeSinceStartup;
 
         FinalMapTexture();
 
-        Debug.Log("FinalMapTexture took: " + (Time.realtimeSinceStartup- time) + "s");
+        Debug.Log("FinalMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
 
         Debug.Log("Graphics Generated");
 
@@ -493,15 +493,7 @@ public class MapData
             Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
 
             //Pixel set
-            PixelMatrix pixelMatrix = new PixelMatrix(settings.WIDTH,settings.HEIGHT);
-
-            //Blank texture
-            Color[] blank = new Color[settings.WIDTH * settings.HEIGHT];
-            for (int i = 0; i < settings.WIDTH * settings.HEIGHT; i++)
-            {
-                blank[i] = Color.white;
-            }
-            pixelMatrix.pixels = blank;
+            PixelMatrix pixelMatrix = new PixelMatrix(settings.WIDTH, settings.HEIGHT);
 
             //Draw Border
             pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
@@ -558,15 +550,7 @@ public class MapData
             Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
 
             //Pixel set
-            PixelMatrix pixelMatrix = new PixelMatrix(settings.WIDTH,settings.HEIGHT);
-
-            //Blank texture
-            Color[] blank = new Color[settings.WIDTH * settings.HEIGHT];
-            for (int i = 0; i < settings.WIDTH * settings.HEIGHT; i++)
-            {
-                blank[i] = Color.white;
-            }
-            pixelMatrix.pixels = blank;
+            PixelMatrix pixelMatrix = new PixelMatrix(settings.WIDTH, settings.HEIGHT);
 
             //Draw Border
             pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
@@ -623,15 +607,7 @@ public class MapData
             Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
 
             //Pixel set
-            PixelMatrix pixelMatrix = new PixelMatrix(settings.WIDTH,settings.HEIGHT);
-
-            //Blank texture
-            Color[] blank = new Color[settings.WIDTH * settings.HEIGHT];
-            for (int i = 0; i < settings.WIDTH * settings.HEIGHT; i++)
-            {
-                blank[i] = Color.white;
-            }
-            pixelMatrix.pixels = blank;
+            PixelMatrix pixelMatrix = new PixelMatrix(settings.WIDTH, settings.HEIGHT);
 
             //TODO Paint pixels based on base color and height
             for (int i = 0; i < settings.WIDTH; i++)
