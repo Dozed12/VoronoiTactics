@@ -430,7 +430,7 @@ public class MapData
             //Create texture
             Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
 
-            //Height Greyscale
+            //Height Greyscale (Quite simple so doesnt need PixelMatrix)
             Color[] pixels = new Color[settings.WIDTH * settings.HEIGHT];
             for (int i = 0; i < settings.WIDTH; i++)
             {
@@ -461,15 +461,19 @@ public class MapData
             //Create texture
             Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
 
-            //Terrain Greyscale
+            //Terrain Greyscale (Quite simple so doesnt need PixelMatrix)
+            Color[] pixels = new Color[settings.WIDTH * settings.HEIGHT];
             for (int i = 0; i < settings.WIDTH; i++)
             {
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
                     float val = geography.TERRAINMAP[i, j];
-                    texture.SetPixel(i, j, new Color(val, val, val));
+                    pixels[i * settings.WIDTH + j] = new Color(val, val, val);
                 }
             }
+
+            //Set pixels
+            texture.SetPixels(pixels);
 
             //Apply to texture
             texture.Apply();
@@ -488,16 +492,19 @@ public class MapData
             //Create texture
             Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
 
+            //Pixel set
+            PixelMatrix pixelMatrix = new PixelMatrix(settings.WIDTH,settings.HEIGHT);
+
             //Blank texture
             Color[] blank = new Color[settings.WIDTH * settings.HEIGHT];
             for (int i = 0; i < settings.WIDTH * settings.HEIGHT; i++)
             {
                 blank[i] = Color.white;
             }
-            texture.SetPixels(blank);
+            pixelMatrix.pixels = blank;
 
             //Draw Border
-            texture = Graphics.Border(texture, Color.black);
+            pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
 
             //Draw edges
             //TODO Jitter edges for more detail(could be done here or in internal data, the jitter wont affect any calculations so can be just graphical)
@@ -514,7 +521,7 @@ public class MapData
                 int endY = Mathf.FloorToInt((float)edge.Value.End.Y);
 
                 //Draw Edge
-                texture = Graphics.Bresenham(texture, startX, startY, endX, endY, Color.black);
+                pixelMatrix = Graphics.Bresenham(pixelMatrix, startX, startY, endX, endY, Color.black);
                 edge = edge.Next;
             }
 
@@ -522,14 +529,17 @@ public class MapData
             for (int i = 0; i < provinces.Count; i++)
             {
                 Color c = new Color(provinces[i].height.color / 255.0f, provinces[i].height.color / 255.0f, provinces[i].height.color / 255.0f);
-                texture = Graphics.FloodFillLine(texture, (int)provinces[i].center.X, (int)provinces[i].center.Y, c);
+                pixelMatrix = Graphics.FloodFillLine(pixelMatrix, (int)provinces[i].center.X, (int)provinces[i].center.Y, c);
             }
 
             //Add Site centers
             for (int i = 0; i < provinces.Count; i++)
             {
-                texture.SetPixel((int)provinces[i].center.X, (int)provinces[i].center.Y, Color.black);
+                pixelMatrix.SetPixel((int)provinces[i].center.X, (int)provinces[i].center.Y, Color.black);
             }
+
+            //Apply pixel set
+            texture.SetPixels(pixelMatrix.pixels);
 
             //Apply to texture
             texture.Apply();
@@ -547,16 +557,19 @@ public class MapData
             //Create texture
             Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
 
+            //Pixel set
+            PixelMatrix pixelMatrix = new PixelMatrix(settings.WIDTH,settings.HEIGHT);
+
             //Blank texture
             Color[] blank = new Color[settings.WIDTH * settings.HEIGHT];
             for (int i = 0; i < settings.WIDTH * settings.HEIGHT; i++)
             {
                 blank[i] = Color.white;
             }
-            texture.SetPixels(blank);
+            pixelMatrix.pixels = blank;
 
             //Draw Border
-            texture = Graphics.Border(texture, Color.black);
+            pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
 
             //Draw edges
             //TODO Jitter edges for more detail(could be done here or in internal data, the jitter wont affect any calculations so can be just graphical)
@@ -573,7 +586,7 @@ public class MapData
                 int endY = Mathf.FloorToInt((float)edge.Value.End.Y);
 
                 //Draw Edge
-                texture = Graphics.Bresenham(texture, startX, startY, endX, endY, Color.black);
+                pixelMatrix = Graphics.Bresenham(pixelMatrix, startX, startY, endX, endY, Color.black);
                 edge = edge.Next;
             }
 
@@ -581,14 +594,17 @@ public class MapData
             for (int i = 0; i < provinces.Count; i++)
             {
                 Color c = new Color(provinces[i].terrain.color[0] / 255.0f, provinces[i].terrain.color[1] / 255.0f, provinces[i].terrain.color[2] / 255.0f);
-                texture = Graphics.FloodFillLine(texture, (int)provinces[i].center.X, (int)provinces[i].center.Y, c);
+                pixelMatrix = Graphics.FloodFillLine(pixelMatrix, (int)provinces[i].center.X, (int)provinces[i].center.Y, c);
             }
 
             //Add Site centers
             for (int i = 0; i < provinces.Count; i++)
             {
-                texture.SetPixel((int)provinces[i].center.X, (int)provinces[i].center.Y, Color.black);
+                pixelMatrix.SetPixel((int)provinces[i].center.X, (int)provinces[i].center.Y, Color.black);
             }
+
+            //Apply pixel set
+            texture.SetPixels(pixelMatrix.pixels);
 
             //Apply to texture
             texture.Apply();
@@ -606,13 +622,16 @@ public class MapData
             //Create texture
             Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
 
+            //Pixel set
+            PixelMatrix pixelMatrix = new PixelMatrix(settings.WIDTH,settings.HEIGHT);
+
             //Blank texture
             Color[] blank = new Color[settings.WIDTH * settings.HEIGHT];
             for (int i = 0; i < settings.WIDTH * settings.HEIGHT; i++)
             {
                 blank[i] = Color.white;
             }
-            texture.SetPixels(blank);
+            pixelMatrix.pixels = blank;
 
             //TODO Paint pixels based on base color and height
             for (int i = 0; i < settings.WIDTH; i++)
@@ -644,7 +663,7 @@ public class MapData
             }
 
             //Draw Border
-            texture = Graphics.Border(texture, Color.black);
+            pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
 
             //Draw edges
             //TODO Jitter edges for more detail(could be done here or in internal data, the jitter wont affect any calculations so can be just graphical)
@@ -661,14 +680,17 @@ public class MapData
                 int endY = Mathf.FloorToInt((float)edge.Value.End.Y);
 
                 //Draw Edge
-                texture = Graphics.Bresenham(texture, startX, startY, endX, endY, Color.black);
+                pixelMatrix = Graphics.Bresenham(pixelMatrix, startX, startY, endX, endY, Color.black);
                 edge = edge.Next;
             }
+
+            //Apply pixel set
+            texture.SetPixels(pixelMatrix.pixels);
 
             //Add Site centers
             for (int i = 0; i < provinces.Count; i++)
             {
-                texture.SetPixel((int)provinces[i].center.X, (int)provinces[i].center.Y, Color.black);
+                pixelMatrix.SetPixel((int)provinces[i].center.X, (int)provinces[i].center.Y, Color.black);
             }
 
             //Apply to texture

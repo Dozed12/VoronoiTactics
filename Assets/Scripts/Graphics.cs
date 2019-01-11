@@ -6,11 +6,38 @@ using UnityEngine;
 using VoronoiLib;
 using VoronoiLib.Structures;
 
+//Array of pixels with facilitators to use with Unity SetPixels
+public class PixelMatrix{
+
+    public Color[] pixels;
+    public int width;
+    public int height;
+
+    public PixelMatrix(int width, int height){
+        pixels = new Color[width*height];
+        this.width = width;
+        this.height = height;
+    }
+
+    public Color GetPixel(int x, int y){
+        return pixels[x * width + y];
+    }
+
+    public void SetPixel(int x, int y, Color cl){
+
+        if(x < 0 || x >= width || y < 0 || y >= height)
+            return;
+
+        pixels[x * width + y] = cl;
+    }
+
+}
+
 public static class Graphics
 {
 
     //Draws a line on the bitmap using Bresenham
-    public static Texture2D Bresenham(Texture2D bitmap, int x0, int y0, int x1, int y1, Color color)
+    public static PixelMatrix Bresenham(PixelMatrix bitmap, int x0, int y0, int x1, int y1, Color color)
     {
         int dx = Mathf.Abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
         int dy = Mathf.Abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
@@ -27,7 +54,7 @@ public static class Graphics
     }
 
     //Draws a border on the bitmap
-    public static Texture2D Border(Texture2D bitmap, Color color)
+    public static PixelMatrix Border(PixelMatrix bitmap, Color color)
     {
         for (int i = 0; i < bitmap.height; i++)
         {
@@ -43,11 +70,11 @@ public static class Graphics
     }
 
     //4 Direction flood fill, slower
-    public static Texture2D FloodFill4(Texture2D aTex, int aX, int aY, Color aFillColor)
+    public static PixelMatrix FloodFill4(PixelMatrix aTex, int aX, int aY, Color aFillColor)
     {
         int w = aTex.width;
         int h = aTex.height;
-        Color[] colors = aTex.GetPixels();
+        Color[] colors = aTex.pixels;
         Color refCol = colors[aX + aY * w];
         Queue<VPoint> nodes = new Queue<VPoint>();
         nodes.Enqueue(new VPoint(aX, aY));
@@ -93,12 +120,12 @@ public static class Graphics
                 }
             }
         }
-        aTex.SetPixels(colors);
+        aTex.pixels = colors;
         return aTex;
     }
 
     //Scan-line flood fill, much faster
-    public static Texture2D FloodFillLine(Texture2D bmp, int x, int y, Color replacementColor)
+    public static PixelMatrix FloodFillLine(PixelMatrix bmp, int x, int y, Color replacementColor)
     {
 
         VPoint pt = new VPoint(x, y);
