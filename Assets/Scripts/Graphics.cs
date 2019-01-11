@@ -8,10 +8,9 @@ public static class Graphics
     //Useful point struct
     private struct Point
     {
-        public short x;
-        public short y;
-        public Point(short aX, short aY) { x = aX; y = aY; }
-        public Point(int aX, int aY) : this((short)aX, (short)aY) { }
+        public int x;
+        public int y;
+        public Point(int aX, int aY) { x = aX; y = aY; }
     }
 
     //Draws a line on the bitmap using Bresenham
