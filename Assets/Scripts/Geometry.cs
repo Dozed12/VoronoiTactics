@@ -10,10 +10,11 @@ using VoronoiLib.Structures;
 public static class Geometry
 {
 
-    public static bool InsideConvex(VPoint testPoint, List<VPoint> polygon)
+    public static bool InsideConvex(List<VPoint> polygon, VPoint point)
     {
         //Check if a triangle or higher n-gon
-        Debug.Assert(polygon.Count >= 3);
+        if(polygon.Count < 3)
+            return false;
 
         //n>2 Keep track of cross product sign changes
         var pos = 0;
@@ -22,7 +23,7 @@ public static class Geometry
         for (var i = 0; i < polygon.Count; i++)
         {
             //If point is in the polygon
-            if (polygon[i] == testPoint)
+            if (polygon[i] == point)
                 return true;
 
             //Form a segment between the i'th point
@@ -35,8 +36,8 @@ public static class Geometry
             var x2 = polygon[i2].X;
             var y2 = polygon[i2].Y;
 
-            var x = testPoint.X;
-            var y = testPoint.Y;
+            var x = point.X;
+            var y = point.Y;
 
             //Compute the cross product
             var d = (x - x1) * (y2 - y1) - (y - y1) * (x2 - x1);
@@ -54,15 +55,20 @@ public static class Geometry
     }
 
     //Point inside concave polygon
-    public static bool InsideConcave(List<VPoint> vertices, VPoint point)
+    public static bool InsideConcave(List<VPoint> polygon, VPoint point)
     {
+
+        //Check if a triangle or higher n-gon
+        if(polygon.Count < 3)
+            return false;
+
         bool result = false;
-        int j = vertices.Count() - 1;
-        for (int i = 0; i < vertices.Count(); i++)
+        int j = polygon.Count() - 1;
+        for (int i = 0; i < polygon.Count(); i++)
         {
-            if (vertices[i].Y < point.Y && vertices[j].Y >= point.Y || vertices[j].Y < point.Y && vertices[i].Y >= point.Y)
+            if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
             {
-                if (vertices[i].X + (point.Y - vertices[i].Y) / (vertices[j].Y - vertices[i].Y) * (vertices[j].X - vertices[i].X) < point.X)
+                if (polygon[i].X + (point.Y - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X) < point.X)
                 {
                     result = !result;
                 }
