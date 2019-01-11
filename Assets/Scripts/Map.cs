@@ -284,13 +284,28 @@ public class MapData
                     bool found = false;
                     for (int h = 0; h < biome.terrains[j].type.heights.Length; h++)
                     {
-                        if (biome.terrains[j].type.heights[h].name == nSite.height.name)
+                        if (biome.terrains[j].type.heights[h].name == nSite.height.name){
                             found = true;
+                            break;
+                        }
                     }
+                    
                     //Use fallback
                     if (!found)
                     {
+
+                        //Default fallback
                         nSite.terrain = data.terrains[biome.terrains[j].type.height_default_fallback];
+
+                        //Specific fallbacks
+                        for (int f = 0; f < data.terrains[biome.terrains[j].name].height_fallbacks.Count; f++)
+                        {
+                            if(nSite.height.name == data.terrains[biome.terrains[j].name].height_fallbacks[f].First.name){
+                                nSite.terrain = data.terrains[biome.terrains[j].name].height_fallbacks[f].Second;
+                                break;
+                            }
+                        }
+
                         break;
                     }
                     //Use local
