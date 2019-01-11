@@ -396,11 +396,31 @@ public class MapData
 
         mapModes = new Dictionary<string, Texture2D>();
 
+        float time  = Time.realtimeSinceStartup;
+
         HeightNoiseMapTexture();
+
+        Debug.Log("HeightNoiseMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
+        time  = Time.realtimeSinceStartup;
+
         TerrainNoiseMapTexture();
+
+        Debug.Log("TerrainNoiseMapTexture took: " + (Time.realtimeSinceStartup- time) + "s");
+        time  = Time.realtimeSinceStartup;
+
         SimplifiedHeightMapTexture();
+
+        Debug.Log("SimplifiedHeightMapTexture took: " + (Time.realtimeSinceStartup- time) + "s");
+        time  = Time.realtimeSinceStartup;
+
         SimplifiedTerrainMapTexture();
+
+        Debug.Log("SimplifiedTerrainMapTexture took: " + (Time.realtimeSinceStartup- time) + "s");
+        time  = Time.realtimeSinceStartup;
+
         FinalMapTexture();
+
+        Debug.Log("FinalMapTexture took: " + (Time.realtimeSinceStartup- time) + "s");
 
         Debug.Log("Graphics Generated");
 
