@@ -2,16 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//https://github.com/Zalgo2462/VoronoiLib
+using VoronoiLib;
+using VoronoiLib.Structures;
+
 public static class Graphics
 {
-
-    //Useful point struct
-    private struct Point
-    {
-        public int x;
-        public int y;
-        public Point(int aX, int aY) { x = aX; y = aY; }
-    }
 
     //Draws a line on the bitmap using Bresenham
     public static Texture2D Bresenham(Texture2D bitmap, int x0, int y0, int x1, int y1, Color color)
@@ -53,47 +49,47 @@ public static class Graphics
         int h = aTex.height;
         Color[] colors = aTex.GetPixels();
         Color refCol = colors[aX + aY * w];
-        Queue<Point> nodes = new Queue<Point>();
-        nodes.Enqueue(new Point(aX, aY));
+        Queue<VPoint> nodes = new Queue<VPoint>();
+        nodes.Enqueue(new VPoint(aX, aY));
         while (nodes.Count > 0)
         {
-            Point current = nodes.Dequeue();
-            for (int i = current.x; i < w; i++)
+            VPoint current = nodes.Dequeue();
+            for (int i = (int)current.X; i < w; i++)
             {
-                Color C = colors[i + current.y * w];
+                Color C = colors[i + (int)current.Y * w];
                 if (C != refCol || C == aFillColor)
                     break;
-                colors[i + current.y * w] = aFillColor;
-                if (current.y + 1 < h)
+                colors[i + (int)current.Y * w] = aFillColor;
+                if (current.Y + 1 < h)
                 {
-                    C = colors[i + current.y * w + w];
+                    C = colors[i + (int)current.Y * w + w];
                     if (C == refCol && C != aFillColor)
-                        nodes.Enqueue(new Point(i, current.y + 1));
+                        nodes.Enqueue(new VPoint(i, current.Y + 1));
                 }
-                if (current.y - 1 >= 0)
+                if (current.Y - 1 >= 0)
                 {
-                    C = colors[i + current.y * w - w];
+                    C = colors[i + (int)current.Y * w - w];
                     if (C == refCol && C != aFillColor)
-                        nodes.Enqueue(new Point(i, current.y - 1));
+                        nodes.Enqueue(new VPoint(i, current.Y - 1));
                 }
             }
-            for (int i = current.x - 1; i >= 0; i--)
+            for (int i = (int)current.X - 1; i >= 0; i--)
             {
-                Color C = colors[i + current.y * w];
+                Color C = colors[i + (int)current.Y * w];
                 if (C != refCol || C == aFillColor)
                     break;
-                colors[i + current.y * w] = aFillColor;
-                if (current.y + 1 < h)
+                colors[i + (int)current.Y * w] = aFillColor;
+                if (current.Y + 1 < h)
                 {
-                    C = colors[i + current.y * w + w];
+                    C = colors[i + (int)current.Y * w + w];
                     if (C == refCol && C != aFillColor)
-                        nodes.Enqueue(new Point(i, current.y + 1));
+                        nodes.Enqueue(new VPoint(i, current.Y + 1));
                 }
-                if (current.y - 1 >= 0)
+                if (current.Y - 1 >= 0)
                 {
-                    C = colors[i + current.y * w - w];
+                    C = colors[i + (int)current.Y * w - w];
                     if (C == refCol && C != aFillColor)
-                        nodes.Enqueue(new Point(i, current.y - 1));
+                        nodes.Enqueue(new VPoint(i, current.Y - 1));
                 }
             }
         }
@@ -105,47 +101,47 @@ public static class Graphics
     public static Texture2D FloodFillLine(Texture2D bmp, int x, int y, Color replacementColor)
     {
 
-        Point pt = new Point(x, y);
+        VPoint pt = new VPoint(x, y);
 
-        Color targetColor = bmp.GetPixel(pt.x, pt.y);
+        Color targetColor = bmp.GetPixel((int)pt.X, (int)pt.Y);
         if (targetColor == replacementColor)
         {
             return bmp;
         }
 
-        Stack<Point> pixels = new Stack<Point>();
+        Stack<VPoint> pixels = new Stack<VPoint>();
 
         pixels.Push(pt);
         while (pixels.Count != 0)
         {
-            Point temp = pixels.Pop();
-            int y1 = temp.y;
-            while (y1 >= 0 && bmp.GetPixel(temp.x, y1) == targetColor)
+            VPoint temp = pixels.Pop();
+            int y1 = (int)temp.Y;
+            while (y1 >= 0 && bmp.GetPixel((int)temp.X, y1) == targetColor)
             {
                 y1--;
             }
             y1++;
             bool spanLeft = false;
             bool spanRight = false;
-            while (y1 < bmp.height && bmp.GetPixel(temp.x, y1) == targetColor)
+            while (y1 < bmp.height && bmp.GetPixel((int)temp.X, y1) == targetColor)
             {
-                bmp.SetPixel(temp.x, y1, replacementColor);
+                bmp.SetPixel((int)temp.X, y1, replacementColor);
 
-                if (!spanLeft && temp.x > 0 && bmp.GetPixel(temp.x - 1, y1) == targetColor)
+                if (!spanLeft && temp.X > 0 && bmp.GetPixel((int)temp.X - 1, y1) == targetColor)
                 {
-                    pixels.Push(new Point(temp.x - 1, y1));
+                    pixels.Push(new VPoint(temp.X - 1, y1));
                     spanLeft = true;
                 }
-                else if (spanLeft && temp.x - 1 >= 0 && bmp.GetPixel(temp.x - 1, y1) != targetColor)
+                else if (spanLeft && temp.X - 1 >= 0 && bmp.GetPixel((int)temp.X - 1, y1) != targetColor)
                 {
                     spanLeft = false;
                 }
-                if (!spanRight && temp.x < bmp.width - 1 && bmp.GetPixel(temp.x + 1, y1) == targetColor)
+                if (!spanRight && temp.X < bmp.width - 1 && bmp.GetPixel((int)temp.X + 1, y1) == targetColor)
                 {
-                    pixels.Push(new Point(temp.x + 1, y1));
+                    pixels.Push(new VPoint(temp.X + 1, y1));
                     spanRight = true;
                 }
-                else if (spanRight && temp.x < bmp.width - 1 && bmp.GetPixel(temp.x + 1, y1) != targetColor)
+                else if (spanRight && temp.X < bmp.width - 1 && bmp.GetPixel((int)temp.X + 1, y1) != targetColor)
                 {
                     spanRight = false;
                 }
