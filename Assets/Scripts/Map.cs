@@ -427,8 +427,6 @@ public class MapData
         //Generate Heightmap texture (greyscale)
         void HeightNoiseMapTexture()
         {
-            //Create texture
-            Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
 
             //Height Greyscale (Quite simple so doesnt need PixelMatrix)
             Color[] pixels = new Color[settings.WIDTH * settings.HEIGHT];
@@ -440,6 +438,9 @@ public class MapData
                     pixels[i * settings.WIDTH + j] = new Color(val, val, val);
                 }
             }
+
+            //Create texture
+            Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
 
             //Set pixels
             texture.SetPixels(pixels);
@@ -458,8 +459,6 @@ public class MapData
         //Generate Terrain texture
         void TerrainNoiseMapTexture()
         {
-            //Create texture
-            Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
 
             //Terrain Greyscale (Quite simple so doesnt need PixelMatrix)
             Color[] pixels = new Color[settings.WIDTH * settings.HEIGHT];
@@ -471,6 +470,9 @@ public class MapData
                     pixels[i * settings.WIDTH + j] = new Color(val, val, val);
                 }
             }
+
+            //Create texture
+            Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
 
             //Set pixels
             texture.SetPixels(pixels);
@@ -489,8 +491,6 @@ public class MapData
         //Generate Simplifided Height Map Texture
         void SimplifiedHeightMapTexture()
         {
-            //Create texture
-            Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
 
             //Pixel set
             PixelMatrix pixelMatrix = new PixelMatrix(settings.WIDTH, settings.HEIGHT);
@@ -530,6 +530,9 @@ public class MapData
                 pixelMatrix.SetPixel((int)provinces[i].center.X, (int)provinces[i].center.Y, Color.black);
             }
 
+            //Create texture
+            Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
+
             //Apply pixel set
             texture.SetPixels(pixelMatrix.pixels);
 
@@ -546,8 +549,6 @@ public class MapData
         //Generate Simplifided Terrain Map Texture
         void SimplifiedTerrainMapTexture()
         {
-            //Create texture
-            Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
 
             //Pixel set
             PixelMatrix pixelMatrix = new PixelMatrix(settings.WIDTH, settings.HEIGHT);
@@ -587,6 +588,9 @@ public class MapData
                 pixelMatrix.SetPixel((int)provinces[i].center.X, (int)provinces[i].center.Y, Color.black);
             }
 
+            //Create texture
+            Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
+
             //Apply pixel set
             texture.SetPixels(pixelMatrix.pixels);
 
@@ -603,8 +607,6 @@ public class MapData
         //Generate Simplifided Terrain Map Texture
         void FinalMapTexture()
         {
-            //Create texture
-            Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
 
             //Pixel set
             PixelMatrix pixelMatrix = new PixelMatrix(settings.WIDTH, settings.HEIGHT);
@@ -660,14 +662,17 @@ public class MapData
                 edge = edge.Next;
             }
 
-            //Apply pixel set
-            texture.SetPixels(pixelMatrix.pixels);
-
             //Add Site centers
             for (int i = 0; i < provinces.Count; i++)
             {
                 pixelMatrix.SetPixel((int)provinces[i].center.X, (int)provinces[i].center.Y, Color.black);
             }
+
+            //Create texture
+            Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
+
+            //Apply pixel set
+            texture.SetPixels(pixelMatrix.pixels);
 
             //Apply to texture
             texture.Apply();
