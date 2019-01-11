@@ -284,12 +284,13 @@ public class MapData
                     bool found = false;
                     for (int h = 0; h < biome.terrains[j].type.heights.Length; h++)
                     {
-                        if (biome.terrains[j].type.heights[h].name == nSite.height.name){
+                        if (biome.terrains[j].type.heights[h].name == nSite.height.name)
+                        {
                             found = true;
                             break;
                         }
                     }
-                    
+
                     //Use fallback
                     if (!found)
                     {
@@ -300,7 +301,8 @@ public class MapData
                         //Specific fallbacks
                         for (int f = 0; f < data.terrains[biome.terrains[j].name].height_fallbacks.Count; f++)
                         {
-                            if(nSite.height.name == data.terrains[biome.terrains[j].name].height_fallbacks[f].First.name){
+                            if (nSite.height.name == data.terrains[biome.terrains[j].name].height_fallbacks[f].First.name)
+                            {
                                 nSite.terrain = data.terrains[biome.terrains[j].name].height_fallbacks[f].Second;
                                 break;
                             }
@@ -409,14 +411,18 @@ public class MapData
             Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
 
             //Height Greyscale
+            Color[] pixels = new Color[settings.WIDTH * settings.HEIGHT];
             for (int i = 0; i < settings.WIDTH; i++)
             {
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
                     float val = geography.HEIGHTMAP[i, j];
-                    texture.SetPixel(i, j, new Color(val, val, val));
+                    pixels[i * settings.WIDTH + j] = new Color(val, val, val);
                 }
             }
+
+            //Set pixels
+            texture.SetPixels(pixels);
 
             //Apply to texture
             texture.Apply();
@@ -593,7 +599,7 @@ public class MapData
             {
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
-                    
+
                 }
             }
 
@@ -604,7 +610,7 @@ public class MapData
             {
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
-                    
+
                 }
             }
 
@@ -613,7 +619,7 @@ public class MapData
             {
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
-                    
+
                 }
             }
 
