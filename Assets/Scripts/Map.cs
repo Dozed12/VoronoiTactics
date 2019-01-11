@@ -654,12 +654,22 @@ public class MapData
 
             //TODO Add decals based on terrain type
 
-            //TODO Add some light gaussian noise
+            //Add randomization to color
+            //TODO Settings should be in other place
             for (int i = 0; i < settings.WIDTH; i++)
             {
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
+                    //Randomly skip
+                    if(UnityEngine.Random.Range(1,5) < 3)
+                        continue;
 
+                    //Add some difference
+                    Color color = pixelMatrix.GetPixel(i, j);
+                    color.r = color.r + UnityEngine.Random.Range(-0.05f,0.05f);
+                    color.g = color.g + UnityEngine.Random.Range(-0.05f,0.05f);
+                    color.b = color.b + UnityEngine.Random.Range(-0.05f,0.05f);
+                    pixelMatrix.SetPixel(i, j, color);
                 }
             }
 
