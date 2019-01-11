@@ -638,7 +638,10 @@ public class MapData
                 pixelMatrix = Graphics.FloodFillLine(pixelMatrix, (int)provinces[i].center.X, (int)provinces[i].center.Y, c);
             }
 
+            //TODO Gradient between provinces
+
             //Shade pixels based on height
+            //TODO Shade based on value of neighbors too
             //TODO Settings should be in other place
             float heightEffect = 1.5f;
             for (int i = 0; i < settings.WIDTH; i++)
@@ -674,15 +677,6 @@ public class MapData
                     color.g = color.g + UnityEngine.Random.Range(-noisePower, noisePower);
                     color.b = color.b + UnityEngine.Random.Range(-noisePower, noisePower);
                     pixelMatrix.SetPixel(i, j, color);
-                }
-            }
-
-            //TODO Shade pixels based on neighbors
-            for (int i = 0; i < settings.WIDTH; i++)
-            {
-                for (int j = 0; j < settings.HEIGHT; j++)
-                {
-
                 }
             }
 
