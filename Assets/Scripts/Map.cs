@@ -639,15 +639,17 @@ public class MapData
             }
 
             //Shade pixels based on height
+            //TODO Settings should be in other place
+            float heightEffect = 1.5f;
             for (int i = 0; i < settings.WIDTH; i++)
             {
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
-                    float height = geography.TERRAINMAP[i, j];
+                    float height = geography.HEIGHTMAP[i, j];
                     Color color = pixelMatrix.GetPixel(i, j);
-                    color.r = color.r * (1 - height);
-                    color.g = color.g * (1 - height);
-                    color.b = color.b * (1 - height);
+                    color.r = color.r * (1 - height / heightEffect);
+                    color.g = color.g * (1 - height / heightEffect);
+                    color.b = color.b * (1 - height / heightEffect);
                     pixelMatrix.SetPixel(i, j, color);
                 }
             }
@@ -656,19 +658,21 @@ public class MapData
 
             //Add randomization to color
             //TODO Settings should be in other place
+            float noiseChance = 20;
+            float noisePower = 0.05f;
             for (int i = 0; i < settings.WIDTH; i++)
             {
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
                     //Randomly skip
-                    if(UnityEngine.Random.Range(1,5) < 3)
+                    if (UnityEngine.Random.Range(1, 100) < 100 - noiseChance)
                         continue;
 
                     //Add some difference
                     Color color = pixelMatrix.GetPixel(i, j);
-                    color.r = color.r + UnityEngine.Random.Range(-0.05f,0.05f);
-                    color.g = color.g + UnityEngine.Random.Range(-0.05f,0.05f);
-                    color.b = color.b + UnityEngine.Random.Range(-0.05f,0.05f);
+                    color.r = color.r + UnityEngine.Random.Range(-noisePower, noisePower);
+                    color.g = color.g + UnityEngine.Random.Range(-noisePower, noisePower);
+                    color.b = color.b + UnityEngine.Random.Range(-noisePower, noisePower);
                     pixelMatrix.SetPixel(i, j, color);
                 }
             }
