@@ -398,6 +398,7 @@ public class MapData
         TerrainNoiseMapTexture();
         SimplifiedHeightMapTexture();
         SimplifiedTerrainMapTexture();
+        FinalMapTexture();
 
         Debug.Log("Graphics Generated");
 
@@ -514,7 +515,6 @@ public class MapData
             mapModes.Add("Simplified Height Map", texture);
         }
 
-
         //Generate Simplifided Terrain Map Texture
         void SimplifiedTerrainMapTexture()
         {
@@ -572,6 +572,76 @@ public class MapData
 
             //Add to list
             mapModes.Add("Simplified Terrain Map", texture);
+        }
+
+        //Generate Simplifided Terrain Map Texture
+        void FinalMapTexture()
+        {
+            //Create texture
+            Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
+
+            //Blank texture
+            Color[] blank = new Color[settings.WIDTH * settings.HEIGHT];
+            for (int i = 0; i < settings.WIDTH * settings.HEIGHT; i++)
+            {
+                blank[i] = Color.white;
+            }
+            texture.SetPixels(blank);
+
+            //TODO Paint pixels based on base color and height
+            for (int i = 0; i < settings.WIDTH; i++)
+            {
+                for (int j = 0; j < settings.HEIGHT; j++)
+                {
+                    
+                }
+            }
+
+            //TODO Shade pixels based on neighbors
+            for (int i = 0; i < settings.WIDTH; i++)
+            {
+                for (int j = 0; j < settings.HEIGHT; j++)
+                {
+                    
+                }
+            }
+
+            //Draw Border
+            texture = Graphics.Border(texture, Color.black);
+
+            //Draw edges
+            //TODO Jitter edges for more detail(could be done here or in internal data, the jitter wont affect any calculations so can be just graphical)
+            //But it will be shared in many maps so should be internal!
+            var edge = edges.First;
+            for (int i = 0; i < edges.Count; i++)
+            {
+                VEdge edgeVal = edge.Value;
+
+                //Round
+                int startX = Mathf.FloorToInt((float)edge.Value.Start.X);
+                int endX = Mathf.FloorToInt((float)edge.Value.End.X);
+                int startY = Mathf.FloorToInt((float)edge.Value.Start.Y);
+                int endY = Mathf.FloorToInt((float)edge.Value.End.Y);
+
+                //Draw Edge
+                texture = Graphics.Bresenham(texture, startX, startY, endX, endY, Color.black);
+                edge = edge.Next;
+            }
+
+            //Add Site centers
+            for (int i = 0; i < provinces.Count; i++)
+            {
+                texture.SetPixel((int)provinces[i].center.X, (int)provinces[i].center.Y, Color.black);
+            }
+
+            //Apply to texture
+            texture.Apply();
+
+            //Settings
+            texture.filterMode = FilterMode.Point;
+
+            //Add to list
+            mapModes.Add("Map", texture);
         }
 
     }
