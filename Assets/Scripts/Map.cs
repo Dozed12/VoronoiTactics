@@ -597,6 +597,17 @@ public class MapData
                 }
             }
 
+            //TODO Add decals based on terrain type
+
+            //TODO Add some light gaussian noise
+            for (int i = 0; i < settings.WIDTH; i++)
+            {
+                for (int j = 0; j < settings.HEIGHT; j++)
+                {
+                    
+                }
+            }
+
             //TODO Shade pixels based on neighbors
             for (int i = 0; i < settings.WIDTH; i++)
             {
