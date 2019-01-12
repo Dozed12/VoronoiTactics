@@ -1,0 +1,17 @@
+{
+    "Items": [
+        {
+            "name": "Village",
+            "color": [
+                255,
+                255,
+                255
+            ],
+            "modifiers": {
+                "attack": 1,
+                "defense": 1,
+                "movement": 1
+            }
+        }
+    ]
+}

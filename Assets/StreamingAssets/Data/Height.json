@@ -1,0 +1,33 @@
+{
+    "Items": [
+        {
+            "name": "Plains",
+            "color": 50,
+            "_comment": "Terrain modifiers",
+            "attack": 1,
+            "defense": 1,
+            "movement": 1
+        },
+        {
+            "name": "Hills",
+            "color": 100,
+            "attack": 0.9,
+            "defense": 1.1,
+            "movement": 1.2
+        },
+        {
+            "name": "Low Mountains",
+            "color": 150,
+            "attack": 0.8,
+            "defense": 1.2,
+            "movement": 1.3
+        },
+        {
+            "name": "High Mountains",
+            "color": 200,
+            "attack": 0.7,
+            "defense": 1.3,
+            "movement": 1.4
+        }
+    ]
+}

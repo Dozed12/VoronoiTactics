@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-//https://github.com/JamesNK/Newtonsoft.Json
-using Newtonsoft.Json;
-
 /* 
     Terrain Model
 
@@ -25,6 +22,7 @@ using Newtonsoft.Json;
 */
 
 //Terrain heights
+[System.Serializable]
 public struct TerrainHeight
 {
     //Name of Height
@@ -40,6 +38,7 @@ public struct TerrainHeight
 }
 
 //Human terrain structures
+[System.Serializable]
 public struct TerrainStructure
 {
     //Name of Type
@@ -55,6 +54,7 @@ public struct TerrainStructure
 }
 
 //Terrain types
+[System.Serializable]
 public struct TerrainType
 {
     //Name of Type
@@ -80,8 +80,10 @@ public struct TerrainType
 }
 
 //Biomes to choose
+[System.Serializable]
 public struct Biome
 {
+    [System.Serializable]
     public struct HeightSetting
     {
         public string name;
@@ -90,6 +92,7 @@ public struct Biome
         public float noiseMin;
     }
 
+    [System.Serializable]
     public struct TypeSetting
     {
         public string name;
@@ -98,6 +101,7 @@ public struct Biome
         public float noiseMin;
     }
 
+    [System.Serializable]
     public struct StructureSetting
     {
         public string name;
@@ -132,15 +136,17 @@ public class Data
     private void LoadHeight()
     {
 
-        //Deserialize
-        JsonTextReader reader = new JsonTextReader(new StreamReader("Assets/Data/Height.json"));
-        List<TerrainHeight> e = new List<TerrainHeight>();
-        while (reader.Read())
-        {
-            JsonSerializer serializer = new JsonSerializer();
-            e = serializer.Deserialize<List<TerrainHeight>>(reader);
+        //Read data
+        string filePath = Application.streamingAssetsPath + "/Data/Height.json";
+        TerrainHeight[] e;
+        if (File.Exists (filePath)) {
+            string dataAsJson = File.ReadAllText (filePath);
+            e = JsonHelper.FromJson<TerrainHeight>(dataAsJson);
+        }else{
+            Debug.Log("Height.json not found");
+            return;
         }
-
+        
         //Add to dictionary
         foreach (var item in e)
         {
@@ -155,44 +161,43 @@ public class Data
     private void LoadTerrain()
     {
 
-        //Deserialize
-        JsonTextReader reader = new JsonTextReader(new StreamReader("Assets/Data/Terrain.json"));
-        List<TerrainType> e = new List<TerrainType>();
-        while (reader.Read())
-        {
-            JsonSerializer serializer = new JsonSerializer();
-            e = serializer.Deserialize<List<TerrainType>>(reader);
+        //Read data
+        string filePath = Application.streamingAssetsPath + "/Data/Terrain.json";
+        TerrainType[] e;
+        if (File.Exists (filePath)) {
+            string dataAsJson = File.ReadAllText (filePath);
+            e = JsonHelper.FromJson<TerrainType>(dataAsJson);
+        }else{
+            Debug.Log("Terrain.json not found");
+            return;
         }
 
-        //Use array instead to facilitate some access
-        TerrainType[] t = e.ToArray();
-
         //Process heights (still need to process fallbacks)
-        for (int i = 0; i < t.Length; i++)
+        for (int i = 0; i < e.Length; i++)
         {
             //Get heights
-            t[i].heights = new TerrainHeight[t[i].height_names.Length];
-            for (int j = 0; j < t[i].height_names.Length; j++)
+            e[i].heights = new TerrainHeight[e[i].height_names.Length];
+            for (int j = 0; j < e[i].height_names.Length; j++)
             {
-                t[i].heights[j] = heights[t[i].height_names[j]];
+                e[i].heights[j] = heights[e[i].height_names[j]];
             }
         }
 
         //Process specific fallbacks and add to dictionary after
-        for (int i = 0; i < t.Length; i++)
+        for (int i = 0; i < e.Length; i++)
         {
             //Process fallbacks
-            if (t[i].height_pair_fallbacks != null)
+            if (e[i].height_pair_fallbacks != null)
             {
-                t[i].height_fallbacks = new List<Pair<TerrainHeight, TerrainType>>();
-                for (int h = 0; h < t[i].height_pair_fallbacks.Length; h += 2)
+                e[i].height_fallbacks = new List<Pair<TerrainHeight, TerrainType>>();
+                for (int h = 0; h < e[i].height_pair_fallbacks.Length; h += 2)
                 {
-                    t[i].height_fallbacks.Add(new Pair<TerrainHeight, TerrainType>(heights[t[i].height_pair_fallbacks[h]], terrains[t[i].height_pair_fallbacks[h + 1]]));
+                    e[i].height_fallbacks.Add(new Pair<TerrainHeight, TerrainType>(heights[e[i].height_pair_fallbacks[h]], terrains[e[i].height_pair_fallbacks[h + 1]]));
                 }
             }
 
             //Add to dictionary
-            terrains.Add(t[i].name, t[i]);
+            terrains.Add(e[i].name, e[i]);
         }
 
         Debug.Log("Terrain types loaded (Terrain.json)");
@@ -203,13 +208,15 @@ public class Data
     private void LoadStructures()
     {
 
-        //Deserialize
-        JsonTextReader reader = new JsonTextReader(new StreamReader("Assets/Data/Structure.json"));
-        List<TerrainStructure> e = new List<TerrainStructure>();
-        while (reader.Read())
-        {
-            JsonSerializer serializer = new JsonSerializer();
-            e = serializer.Deserialize<List<TerrainStructure>>(reader);
+        //Read data
+        string filePath = Application.streamingAssetsPath + "/Data/Structure.json";
+        TerrainStructure[] e;
+        if (File.Exists (filePath)) {
+            string dataAsJson = File.ReadAllText (filePath);
+            e = JsonHelper.FromJson<TerrainStructure>(dataAsJson);
+        }else{
+            Debug.Log("Structure.json not found");
+            return;
         }
 
         //Add to dictionary
@@ -226,17 +233,19 @@ public class Data
     private void LoadBiomes()
     {
 
-        //Deserialize
-        JsonTextReader reader = new JsonTextReader(new StreamReader("Assets/Data/Biome.json"));
-        List<Biome> e = new List<Biome>();
-        while (reader.Read())
-        {
-            JsonSerializer serializer = new JsonSerializer();
-            e = serializer.Deserialize<List<Biome>>(reader);
+        //Read data
+        string filePath = Application.streamingAssetsPath + "/Data/Biome.json";
+        Biome[] e;
+        if (File.Exists (filePath)) {
+            string dataAsJson = File.ReadAllText (filePath);
+            e = JsonHelper.FromJson<Biome>(dataAsJson);
+        }else{
+            Debug.Log("Biome.json not found");
+            return;
         }
 
         //Add to dictionary
-        for (int i = 0; i < e.Count; i++)
+        for (int i = 0; i < e.Length; i++)
         {
             Biome item = e[i];
 
@@ -276,7 +285,7 @@ public class Data
         biomes = new Dictionary<string, Biome>();
 
         //Load decals
-        decals = Resources.LoadAll<Texture2D>("Decals");
+        decals = Resources.LoadAll<Texture2D>("StreamingAssets/Decals");
 
         //Load Terrain JSON files
         LoadHeight();
