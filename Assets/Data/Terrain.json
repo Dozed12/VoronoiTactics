@@ -2,9 +2,9 @@
     {
         "name": "Grassland",
         "color": [
-            50,
-            200,
-            50
+            96,
+            116,
+            49
         ],
         "height_names": [
             "Low Mountains",
@@ -21,9 +21,9 @@
     {
         "name": "Forest",
         "color": [
-            22,
-            125,
-            22
+            68,
+            119,
+            51
         ],
         "height_names": [
             "Hills",

@@ -651,6 +651,7 @@ public class MapData
 
             //Weighted color blend for terrain type
             //TODO Settings should be in other place
+            //TODO Higher values cause darkening, is that normal?
             int differentiation = 3;
             for (int i = 0; i < settings.WIDTH; i++)
             {
