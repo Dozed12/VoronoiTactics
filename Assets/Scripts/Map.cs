@@ -650,8 +650,8 @@ public class MapData
             }
 
             //Weighted color blend for terrain type
-            //TODO Can be interesting to have different multipliers for the closest terrain types
-            //TODO The local value used doesn't take into consideration fallbacks, how to handle this?
+            //TODO Settings should be in other place
+            int differentiation = 3;
             for (int i = 0; i < settings.WIDTH; i++)
             {
                 for (int j = 0; j < settings.HEIGHT; j++)
@@ -664,9 +664,9 @@ public class MapData
                     List<Pair<TerrainType, float>> distances = new List<Pair<TerrainType, float>>();
                     for (int d = 0; d < terrainNoiseMiddles.Count; d++)
                     {
-                        distances.Add(new Pair<TerrainType, float>(terrainNoiseMiddles[d].First, 1 - Mathf.Abs(val - terrainNoiseMiddles[d].Second)));
+                        distances.Add(new Pair<TerrainType, float>(terrainNoiseMiddles[d].First, Mathf.Pow(1 - Mathf.Abs(val - terrainNoiseMiddles[d].Second),differentiation)));
                     }
-
+                    
                     //Calculate weighted color
                     float r = 0;
                     float g = 0;
