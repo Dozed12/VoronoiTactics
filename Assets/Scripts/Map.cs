@@ -636,12 +636,14 @@ public class MapData
             foreach (Biome.TypeSetting item in biome.terrains)
             {
                 //If minimum is 0 then the most powerful is at 0
-                if(item.noiseMin == 0){
+                if (item.noiseMin == 0)
+                {
                     terrainNoiseMiddles.Add(new Pair<TerrainType, float>(item.type, item.noiseMin));
                     continue;
                 }
                 //If maximum is 1 then the most powerful is at 1
-                if(item.noiseMax == 1){
+                if (item.noiseMax == 1)
+                {
                     terrainNoiseMiddles.Add(new Pair<TerrainType, float>(item.type, item.noiseMax));
                     continue;
                 }
@@ -665,9 +667,9 @@ public class MapData
                     List<Pair<TerrainType, float>> distances = new List<Pair<TerrainType, float>>();
                     for (int d = 0; d < terrainNoiseMiddles.Count; d++)
                     {
-                        distances.Add(new Pair<TerrainType, float>(terrainNoiseMiddles[d].First, Mathf.Pow(1 - Mathf.Abs(val - terrainNoiseMiddles[d].Second),differentiation)));
+                        distances.Add(new Pair<TerrainType, float>(terrainNoiseMiddles[d].First, Mathf.Pow(1 - Mathf.Abs(val - terrainNoiseMiddles[d].Second), differentiation)));
                     }
-                    
+
                     //Calculate weighted color
                     float r = 0;
                     float g = 0;
@@ -675,14 +677,14 @@ public class MapData
                     float total = 0;
                     for (int d = 0; d < distances.Count; d++)
                     {
-                        r += Mathf.Pow(distances[d].First.color[0] / 255.0f* distances[d].Second,2);
-                        g += Mathf.Pow(distances[d].First.color[1] / 255.0f* distances[d].Second,2);
-                        b += Mathf.Pow(distances[d].First.color[2] / 255.0f* distances[d].Second,2);
+                        r += Mathf.Pow(distances[d].First.color[0] / 255.0f * distances[d].Second, 2);
+                        g += Mathf.Pow(distances[d].First.color[1] / 255.0f * distances[d].Second, 2);
+                        b += Mathf.Pow(distances[d].First.color[2] / 255.0f * distances[d].Second, 2);
                         total += distances[d].Second;
                     }
-                    r = Mathf.Sqrt(r/total);
-                    g = Mathf.Sqrt(g/total);
-                    b = Mathf.Sqrt(b/total);
+                    r = Mathf.Sqrt(r / total);
+                    g = Mathf.Sqrt(g / total);
+                    b = Mathf.Sqrt(b / total);
 
                     Color color = new Color(r, g, b);
 
@@ -702,25 +704,28 @@ public class MapData
                     float heightNeighbor;
                     //TODO Lighting direction comes from here
                     //TODO Lighting can be distributed in more than one neighbor(like a vector with magnitude 1)
-                    if(i-1 > 0)
-                        heightNeighbor = geography.HEIGHTMAP[i-1, j];
+                    if (i - 1 > 0)
+                        heightNeighbor = geography.HEIGHTMAP[i - 1, j];
                     else
                         continue;
                     //Shadow
-                    if(height < heightNeighbor){
+                    if (height < heightNeighbor)
+                    {
                         Color color = pixelMatrix.GetPixel(i, j);
-                        color.r = color.r * (1 - (heightNeighbor - height)*shadowPower);
-                        color.g = color.g * (1 - (heightNeighbor - height)*shadowPower);
-                        color.b = color.b * (1 - (heightNeighbor - height)*shadowPower);
+                        color.r = color.r * (1 - (heightNeighbor - height) * shadowPower);
+                        color.g = color.g * (1 - (heightNeighbor - height) * shadowPower);
+                        color.b = color.b * (1 - (heightNeighbor - height) * shadowPower);
                         pixelMatrix.SetPixel(i, j, color);
-                    //Light
-                    }else{
+                        //Light
+                    }
+                    else
+                    {
                         Color color = pixelMatrix.GetPixel(i, j);
-                        color.r = color.r + (1 - color.r) * (heightNeighbor - height)*lightPower;
-                        color.g = color.g + (1 - color.g) * (heightNeighbor - height)*lightPower;
-                        color.b = color.b + (1 - color.b) * (heightNeighbor - height)*lightPower;
+                        color.r = color.r + (1 - color.r) * (heightNeighbor - height) * lightPower;
+                        color.g = color.g + (1 - color.g) * (heightNeighbor - height) * lightPower;
+                        color.b = color.b + (1 - color.b) * (heightNeighbor - height) * lightPower;
                         pixelMatrix.SetPixel(i, j, color);
-                    } 
+                    }
                 }
             }
 
