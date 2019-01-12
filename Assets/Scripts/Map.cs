@@ -692,17 +692,34 @@ public class MapData
             //Shade pixels based on height
             //TODO Shade based on value of neighbors too
             //TODO Settings should be in other place
-            float heightEffect = 1.7f;
+            float shadowPower = 100;
+            float lightPower = 0;
             for (int i = 0; i < settings.WIDTH; i++)
             {
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
                     float height = geography.HEIGHTMAP[i, j];
-                    Color color = pixelMatrix.GetPixel(i, j);
-                    color.r = color.r * (1 - height / heightEffect);
-                    color.g = color.g * (1 - height / heightEffect);
-                    color.b = color.b * (1 - height / heightEffect);
-                    pixelMatrix.SetPixel(i, j, color);
+                    float heightNeighbor;
+                    //TODO Lighting direction comes from here
+                    if(i-1 > 0)
+                        heightNeighbor = geography.HEIGHTMAP[i-1, j];
+                    else
+                        continue;
+                    //Shadow
+                    if(height < heightNeighbor){
+                        Color color = pixelMatrix.GetPixel(i, j);
+                        color.r = color.r * (1 - (heightNeighbor - height)*shadowPower);
+                        color.g = color.g * (1 - (heightNeighbor - height)*shadowPower);
+                        color.b = color.b * (1 - (heightNeighbor - height)*shadowPower);
+                        pixelMatrix.SetPixel(i, j, color);
+                    //Light
+                    }else{
+                        Color color = pixelMatrix.GetPixel(i, j);
+                        color.r = color.r + (1 - color.r) * (heightNeighbor - height)*lightPower;
+                        color.g = color.g + (1 - color.g) * (heightNeighbor - height)*lightPower;
+                        color.b = color.b + (1 - color.b) * (heightNeighbor - height)*lightPower;
+                        pixelMatrix.SetPixel(i, j, color);
+                    } 
                 }
             }
 
