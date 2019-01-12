@@ -212,12 +212,12 @@ public static class Graphics
             for (int j = 0; j < decal.height; j++)
             {
                 //Skip transparent pixels
-                if(decal.GetPixel(i,j).a == 0)
+                if(decal.GetPixel(i,j).a < 0.7)
                     continue;
 
                 //Get coordinates and decal color to apply
                 int finalX = i - decal.width / 2 + x;
-                int finalY = i - decal.height / 2 + y;
+                int finalY = j - decal.height / 2 + y;
                 Color cl = decal.GetPixel(i, j);
                 original.SetPixel(finalX, finalY, cl);
             }

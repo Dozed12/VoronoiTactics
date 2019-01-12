@@ -124,7 +124,7 @@ public struct Biome
     public HeightSetting[] heights;
     public float terrainFreq;
     public TypeSetting[] terrains;
-    public List<Pair<TerrainType, float>> terrainNoiseMiddles;
+    public Dictionary<TerrainType, float> terrainNoiseMiddles;
     public float structureFreq;
     public StructureSetting[] structures;
     public float attack;
@@ -290,23 +290,23 @@ public class Data
             }
 
             //Calculate centers of terrain power based on noise(used for painting gradient on map)
-            item.terrainNoiseMiddles = new List<Pair<TerrainType, float>>();
+            item.terrainNoiseMiddles = new Dictionary<TerrainType, float>();
             foreach (Biome.TypeSetting terrain in item.terrains)
             {
                 //If minimum is 0 then the most powerful is at 0
                 if (terrain.noiseMin == 0)
                 {
-                    item.terrainNoiseMiddles.Add(new Pair<TerrainType, float>(terrain.type, terrain.noiseMin));
+                    item.terrainNoiseMiddles.Add(terrain.type, terrain.noiseMin);
                     continue;
                 }
                 //If maximum is 1 then the most powerful is at 1
                 if (terrain.noiseMax == 1)
                 {
-                    item.terrainNoiseMiddles.Add(new Pair<TerrainType, float>(terrain.type, terrain.noiseMax));
+                    item.terrainNoiseMiddles.Add(terrain.type, terrain.noiseMax);
                     continue;
                 }
                 //Most powerful at center of minimum and maximum
-                item.terrainNoiseMiddles.Add(new Pair<TerrainType, float>(terrain.type, terrain.noiseMin + (terrain.noiseMax - terrain.noiseMin) / 2));
+                item.terrainNoiseMiddles.Add(terrain.type, terrain.noiseMin + (terrain.noiseMax - terrain.noiseMin) / 2);
             }
 
             //Add
@@ -326,8 +326,20 @@ public class Data
         terrains = new Dictionary<string, TerrainType>();
         biomes = new Dictionary<string, Biome>();
 
+        //TODO Do this in seperate function(probably similar versions will be needed)
         //Load decals
-        Texture2D[] decalsRaw = Resources.LoadAll<Texture2D>("StreamingAssets/Decals");
+        string[] filePaths = Directory.GetFiles(@Application.streamingAssetsPath + "/Decals", "*.png", SearchOption.TopDirectoryOnly);
+        Texture2D[] decalsRaw = new Texture2D[filePaths.Length];
+        for (int i = 0; i < filePaths.Length; i++)
+        {
+            //Get file
+            WWW www = new WWW("file://" + filePaths[i]);
+            decalsRaw[i] = www.texture;
+            //Index of last '\'
+            int l = filePaths[i].LastIndexOf('\\');
+            //Get name of file (with extension)
+            decalsRaw[i].name = filePaths[i].Substring(l+1);
+        }
 
         //Load decals into a dictionary with PixelMatrix
         decals = new Dictionary<string, Graphics.PixelMatrix>();

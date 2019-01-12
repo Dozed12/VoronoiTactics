@@ -645,10 +645,10 @@ public class MapData
 
                     //Calculate distance to noises
                     List<Pair<TerrainType, float>> distances = new List<Pair<TerrainType, float>>();
-                    for (int d = 0; d < biome.terrainNoiseMiddles.Count; d++)
+                    foreach (KeyValuePair<TerrainType, float> item in biome.terrainNoiseMiddles)
                     {
-                        float power = Mathf.Pow(1 - Mathf.Abs(val - biome.terrainNoiseMiddles[d].Second), differentiation);
-                        distances.Add(new Pair<TerrainType, float>(biome.terrainNoiseMiddles[d].First, power));
+                        float power = Mathf.Pow(1 - Mathf.Abs(val - item.Value), differentiation);
+                        distances.Add(new Pair<TerrainType, float>(item.Key, power));
                     }
 
                     //Calculate weighted color
@@ -712,6 +712,33 @@ public class MapData
             }
 
             //TODO Add decals based on terrain type
+            //TODO Settings should be in other place, maybe even decal dependant and defined in JSON
+            //TODO Only using first decal for now
+            //TODO Decals should have a drawing order (trees should be on top of rocks), maybe the order defined in JSON is enough
+            int decalChance = 2;
+            for (int i = 0; i < settings.WIDTH; i++)
+            {
+                for (int j = 0; j < settings.HEIGHT; j++)
+                {
+                    //Local terrain value
+                    float terrain = geography.TERRAINMAP[i, j];
+
+                    //Find terrain type of this pixel and add decal
+                    for (int t = 0; t < biome.terrains.Length; t++)
+                    {
+                        //Ignore biomes without decals
+                        if(biome.terrains[t].type.decals == null)
+                            break;
+
+                        //Found terrain
+                        if(biome.terrains[t].noiseMin < terrain && terrain < biome.terrains[t].noiseMax){
+                            if(UnityEngine.Random.Range(1,100) < decalChance *  (1 -Mathf.Abs(terrain - biome.terrainNoiseMiddles[biome.terrains[t].type])))
+                                pixelMatrix = Graphics.Decal(pixelMatrix, data.decals[biome.terrains[t].type.decals[0]], i,j);
+                        }
+
+                    }
+                }
+            }
 
             //Add randomization to color
             //TODO Settings should be in other place
