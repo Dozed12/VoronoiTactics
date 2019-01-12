@@ -675,6 +675,7 @@ public class MapData
 
             //Shade pixels based on height and neighbor
             //TODO Settings should be in other place
+            //TODO Seems to be creating some graphical artifacts (horizontal lines)
             float shadowPower = 100;
             float lightPower = 0;
             for (int i = 0; i < settings.WIDTH; i++)

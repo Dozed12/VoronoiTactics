@@ -140,7 +140,7 @@ public class Data
     public Dictionary<string, TerrainStructure> structures;
     public Dictionary<string, Biome> biomes;
 
-    public Texture2D[] decals;
+    public Graphics.PixelMatrix[] decals;
 
     //Load Height.json
     private void LoadHeight()
@@ -327,7 +327,13 @@ public class Data
         biomes = new Dictionary<string, Biome>();
 
         //Load decals
-        decals = Resources.LoadAll<Texture2D>("StreamingAssets/Decals");
+        Texture2D[] decalsRaw = Resources.LoadAll<Texture2D>("StreamingAssets/Decals");
+        decals = new Graphics.PixelMatrix[decalsRaw.Length];
+        for (int i = 0; i < decalsRaw.Length; i++)
+        {
+            decals[i] = new Graphics.PixelMatrix(decalsRaw[i].width, decalsRaw[i].height);
+            decals[i].pixels = decalsRaw[i].GetPixels();
+        }
 
         //Load Terrain JSON files
         LoadHeight();
