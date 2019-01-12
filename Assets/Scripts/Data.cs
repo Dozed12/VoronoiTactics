@@ -126,6 +126,8 @@ public class Data
     public Dictionary<string, TerrainStructure> structures;
     public Dictionary<string, Biome> biomes;
 
+    public Texture2D[] decals;
+
     //Load Height.json
     private void LoadHeight()
     {
@@ -273,7 +275,10 @@ public class Data
         terrains = new Dictionary<string, TerrainType>();
         biomes = new Dictionary<string, Biome>();
 
-        //Load
+        //Load decals
+        decals = Resources.LoadAll<Texture2D>("Decals");
+
+        //Load Terrain JSON files
         LoadHeight();
         LoadTerrain();
         LoadStructures();
