@@ -689,8 +689,7 @@ public class MapData
                 }
             }
 
-            //Shade pixels based on height
-            //TODO Shade based on value of neighbors too
+            //Shade pixels based on height and neighbor
             //TODO Settings should be in other place
             float shadowPower = 100;
             float lightPower = 0;
@@ -701,6 +700,7 @@ public class MapData
                     float height = geography.HEIGHTMAP[i, j];
                     float heightNeighbor;
                     //TODO Lighting direction comes from here
+                    //TODO Lighting can be distributed in more than one neighbor(like a vector with magnitude 1)
                     if(i-1 > 0)
                         heightNeighbor = geography.HEIGHTMAP[i-1, j];
                     else
