@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+/*
+    http://www.boxheadproductions.com.au/deserializing-top-level-arrays-in-json-with-unity/
+    This is used to load array of JSON objects straight into C#
+    Note that files must start with "Items" like the example below
+    {"Items":[{"val";"1"},{"val":"2"}]}
+*/
+
 /* 
     Terrain Model
 
@@ -139,14 +146,17 @@ public class Data
         //Read data
         string filePath = Application.streamingAssetsPath + "/Data/Height.json";
         TerrainHeight[] e;
-        if (File.Exists (filePath)) {
-            string dataAsJson = File.ReadAllText (filePath);
+        if (File.Exists(filePath))
+        {
+            string dataAsJson = File.ReadAllText(filePath);
             e = JsonHelper.FromJson<TerrainHeight>(dataAsJson);
-        }else{
+        }
+        else
+        {
             Debug.Log("Height.json not found");
             return;
         }
-        
+
         //Add to dictionary
         foreach (var item in e)
         {
@@ -164,10 +174,13 @@ public class Data
         //Read data
         string filePath = Application.streamingAssetsPath + "/Data/Terrain.json";
         TerrainType[] e;
-        if (File.Exists (filePath)) {
-            string dataAsJson = File.ReadAllText (filePath);
+        if (File.Exists(filePath))
+        {
+            string dataAsJson = File.ReadAllText(filePath);
             e = JsonHelper.FromJson<TerrainType>(dataAsJson);
-        }else{
+        }
+        else
+        {
             Debug.Log("Terrain.json not found");
             return;
         }
@@ -211,10 +224,13 @@ public class Data
         //Read data
         string filePath = Application.streamingAssetsPath + "/Data/Structure.json";
         TerrainStructure[] e;
-        if (File.Exists (filePath)) {
-            string dataAsJson = File.ReadAllText (filePath);
+        if (File.Exists(filePath))
+        {
+            string dataAsJson = File.ReadAllText(filePath);
             e = JsonHelper.FromJson<TerrainStructure>(dataAsJson);
-        }else{
+        }
+        else
+        {
             Debug.Log("Structure.json not found");
             return;
         }
@@ -236,10 +252,13 @@ public class Data
         //Read data
         string filePath = Application.streamingAssetsPath + "/Data/Biome.json";
         Biome[] e;
-        if (File.Exists (filePath)) {
-            string dataAsJson = File.ReadAllText (filePath);
+        if (File.Exists(filePath))
+        {
+            string dataAsJson = File.ReadAllText(filePath);
             e = JsonHelper.FromJson<Biome>(dataAsJson);
-        }else{
+        }
+        else
+        {
             Debug.Log("Biome.json not found");
             return;
         }
