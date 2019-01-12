@@ -17,6 +17,15 @@ public static class Graphics
         public int width;
         public int height;
 
+        public PixelMatrix(Texture2D texture)
+        {
+
+            this.pixels = texture.GetPixels();
+            this.width = texture.width;
+            this.height = texture.height;
+
+        }
+
         public PixelMatrix(int width, int height)
         {
 
@@ -193,6 +202,23 @@ public static class Graphics
 
         return bmp;
 
+    }
+
+    public static PixelMatrix Decal(PixelMatrix original, PixelMatrix decal, int x, int y)
+    {
+
+        for (int i = 0; i < decal.width; i++)
+        {
+            for (int j = 0; j < decal.height; j++)
+            {
+                int finalX = i - decal.width / 2 + x;
+                int finalY = i - decal.height / 2 + y;
+                Color cl = decal.GetPixel(i, j);
+                original.SetPixel(finalX, finalY, cl);
+            }
+        }
+
+        return original;
     }
 
 }
