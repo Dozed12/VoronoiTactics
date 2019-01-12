@@ -651,6 +651,7 @@ public class MapData
 
             //Weighted color blend for terrain type
             //TODO Can be interesting to have different multipliers for the closest terrain types
+            //TODO The local value used doesn't take into consideration fallbacks, how to handle this?
             for (int i = 0; i < settings.WIDTH; i++)
             {
                 for (int j = 0; j < settings.HEIGHT; j++)
@@ -673,9 +674,9 @@ public class MapData
                     float total = 0;
                     for (int d = 0; d < distances.Count; d++)
                     {
-                        r += Mathf.Pow(distances[d].First.color[0] / 255.0f * distances[d].Second,2);
-                        g += Mathf.Pow(distances[d].First.color[1] / 255.0f * distances[d].Second,2);
-                        b += Mathf.Pow(distances[d].First.color[2] / 255.0f * distances[d].Second,2);
+                        r += Mathf.Pow(distances[d].First.color[0] / 255.0f* distances[d].Second,2);
+                        g += Mathf.Pow(distances[d].First.color[1] / 255.0f* distances[d].Second,2);
+                        b += Mathf.Pow(distances[d].First.color[2] / 255.0f* distances[d].Second,2);
                         total += distances[d].Second;
                     }
                     r = Mathf.Sqrt(r/total);
