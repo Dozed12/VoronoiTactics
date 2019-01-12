@@ -649,8 +649,8 @@ public class MapData
                 terrainNoiseMiddles.Add(new Pair<TerrainType, float>(item.type, item.noiseMin + (item.noiseMax - item.noiseMin) / 2));
             }
 
-            //TODO Look at terrain noise and do a gradient of the appropriate color looking at the available terrains and their middle
-            //TODO Looks really good but still not completly working, barren provinces still look so green for some reason
+            //Weighted color blend for terrain type
+            //TODO Can be interesting to have different multipliers for the closest terrain types
             for (int i = 0; i < settings.WIDTH; i++)
             {
                 for (int j = 0; j < settings.HEIGHT; j++)
@@ -673,14 +673,14 @@ public class MapData
                     float total = 0;
                     for (int d = 0; d < distances.Count; d++)
                     {
-                        r += distances[d].First.color[0] / 255.0f * distances[d].Second;
-                        g += distances[d].First.color[1] / 255.0f * distances[d].Second;
-                        b += distances[d].First.color[2] / 255.0f * distances[d].Second;
+                        r += Mathf.Pow(distances[d].First.color[0] / 255.0f * distances[d].Second,2);
+                        g += Mathf.Pow(distances[d].First.color[1] / 255.0f * distances[d].Second,2);
+                        b += Mathf.Pow(distances[d].First.color[2] / 255.0f * distances[d].Second,2);
                         total += distances[d].Second;
                     }
-                    r /= distances.Count;
-                    g /= distances.Count;
-                    b /= distances.Count;
+                    r = Mathf.Sqrt(r/total);
+                    g = Mathf.Sqrt(g/total);
+                    b = Mathf.Sqrt(b/total);
 
                     Color color = new Color(r, g, b);
 
@@ -691,7 +691,7 @@ public class MapData
             //Shade pixels based on height
             //TODO Shade based on value of neighbors too
             //TODO Settings should be in other place
-            float heightEffect = 1.5f;
+            float heightEffect = 1.7f;
             for (int i = 0; i < settings.WIDTH; i++)
             {
                 for (int j = 0; j < settings.HEIGHT; j++)
