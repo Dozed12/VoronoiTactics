@@ -631,14 +631,62 @@ public class MapData
                 edge = edge.Next;
             }
 
-            //Fill sites color
-            for (int i = 0; i < provinces.Count; i++)
+            //TODO Can be calculated in Data.cs since it's json dependant
+            List<Pair<TerrainType, float>> terrainNoiseMiddles = new List<Pair<TerrainType, float>>();
+            foreach (Biome.TypeSetting item in biome.terrains)
             {
-                Color c = new Color(provinces[i].terrain.color[0] / 255.0f, provinces[i].terrain.color[1] / 255.0f, provinces[i].terrain.color[2] / 255.0f);
-                pixelMatrix = Graphics.FloodFillLine(pixelMatrix, (int)provinces[i].center.X, (int)provinces[i].center.Y, c);
+                //If minimum is 0 then the most powerful is at 0
+                if(item.noiseMin == 0){
+                    terrainNoiseMiddles.Add(new Pair<TerrainType, float>(item.type, item.noiseMin));
+                    continue;
+                }
+                //If maximum is 1 then the most powerful is at 1
+                if(item.noiseMax == 1){
+                    terrainNoiseMiddles.Add(new Pair<TerrainType, float>(item.type, item.noiseMax));
+                    continue;
+                }
+                //Most powerful at center of minimum and maximum
+                terrainNoiseMiddles.Add(new Pair<TerrainType, float>(item.type, item.noiseMin + (item.noiseMax - item.noiseMin) / 2));
             }
 
-            //TODO Gradient between provinces
+            //TODO Look at terrain noise and do a gradient of the appropriate color looking at the available terrains and their middle
+            //TODO Looks really good but still not completly working, barren provinces still look so green for some reason
+            for (int i = 0; i < settings.WIDTH; i++)
+            {
+                for (int j = 0; j < settings.HEIGHT; j++)
+                {
+
+                    //Get terrain noise
+                    float val = this.geography.TERRAINMAP[i, j];
+
+                    //Calculate distance to noises
+                    List<Pair<TerrainType, float>> distances = new List<Pair<TerrainType, float>>();
+                    for (int d = 0; d < terrainNoiseMiddles.Count; d++)
+                    {
+                        distances.Add(new Pair<TerrainType, float>(terrainNoiseMiddles[d].First, 1 - Mathf.Abs(val - terrainNoiseMiddles[d].Second)));
+                    }
+
+                    //Calculate weighted color
+                    float r = 0;
+                    float g = 0;
+                    float b = 0;
+                    float total = 0;
+                    for (int d = 0; d < distances.Count; d++)
+                    {
+                        r += distances[d].First.color[0] / 255.0f * distances[d].Second;
+                        g += distances[d].First.color[1] / 255.0f * distances[d].Second;
+                        b += distances[d].First.color[2] / 255.0f * distances[d].Second;
+                        total += distances[d].Second;
+                    }
+                    r /= distances.Count;
+                    g /= distances.Count;
+                    b /= distances.Count;
+
+                    Color color = new Color(r, g, b);
+
+                    pixelMatrix.SetPixel(i, j, color);
+                }
+            }
 
             //Shade pixels based on height
             //TODO Shade based on value of neighbors too
