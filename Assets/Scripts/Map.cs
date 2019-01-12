@@ -631,26 +631,6 @@ public class MapData
                 edge = edge.Next;
             }
 
-            //TODO Can be calculated in Data.cs since it's json dependant
-            List<Pair<TerrainType, float>> terrainNoiseMiddles = new List<Pair<TerrainType, float>>();
-            foreach (Biome.TypeSetting item in biome.terrains)
-            {
-                //If minimum is 0 then the most powerful is at 0
-                if (item.noiseMin == 0)
-                {
-                    terrainNoiseMiddles.Add(new Pair<TerrainType, float>(item.type, item.noiseMin));
-                    continue;
-                }
-                //If maximum is 1 then the most powerful is at 1
-                if (item.noiseMax == 1)
-                {
-                    terrainNoiseMiddles.Add(new Pair<TerrainType, float>(item.type, item.noiseMax));
-                    continue;
-                }
-                //Most powerful at center of minimum and maximum
-                terrainNoiseMiddles.Add(new Pair<TerrainType, float>(item.type, item.noiseMin + (item.noiseMax - item.noiseMin) / 2));
-            }
-
             //Weighted color blend for terrain type
             //TODO Settings should be in other place
             //TODO Higher values cause darkening, is that normal?
@@ -665,9 +645,10 @@ public class MapData
 
                     //Calculate distance to noises
                     List<Pair<TerrainType, float>> distances = new List<Pair<TerrainType, float>>();
-                    for (int d = 0; d < terrainNoiseMiddles.Count; d++)
+                    for (int d = 0; d < biome.terrainNoiseMiddles.Count; d++)
                     {
-                        distances.Add(new Pair<TerrainType, float>(terrainNoiseMiddles[d].First, Mathf.Pow(1 - Mathf.Abs(val - terrainNoiseMiddles[d].Second), differentiation)));
+                        float power = Mathf.Pow(1 - Mathf.Abs(val - biome.terrainNoiseMiddles[d].Second), differentiation);
+                        distances.Add(new Pair<TerrainType, float>(biome.terrainNoiseMiddles[d].First, power));
                     }
 
                     //Calculate weighted color
