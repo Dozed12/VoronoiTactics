@@ -6,49 +6,49 @@ using UnityEngine;
 using VoronoiLib;
 using VoronoiLib.Structures;
 
-//Array of pixels with facilitators to use with Unity SetPixels
-public class PixelMatrix
+public static class Graphics
 {
 
-    public Color[] pixels;
-    public int width;
-    public int height;
-
-    public PixelMatrix(int width, int height)
+    //Array of pixels with facilitators to use with Unity SetPixels
+    public class PixelMatrix
     {
 
-        //Initialize
-        pixels = new Color[width * height];
-        this.width = width;
-        this.height = height;
+        public Color[] pixels;
+        public int width;
+        public int height;
 
-        //Clear with white
-        for (int i = 0; i < pixels.Length; i++)
+        public PixelMatrix(int width, int height)
         {
-            pixels[i] = new Color(1, 1, 1, 1);
+
+            //Initialize
+            pixels = new Color[width * height];
+            this.width = width;
+            this.height = height;
+
+            //Clear with white
+            for (int i = 0; i < pixels.Length; i++)
+            {
+                pixels[i] = new Color(1, 1, 1, 1);
+            }
+
+        }
+
+        public Color GetPixel(int x, int y)
+        {
+            return pixels[x * width + y];
+        }
+
+        public void SetPixel(int x, int y, Color cl)
+        {
+
+            //Check if outside
+            if (x < 0 || x >= width || y < 0 || y >= height)
+                return;
+
+            pixels[x * width + y] = cl;
         }
 
     }
-
-    public Color GetPixel(int x, int y)
-    {
-        return pixels[x * width + y];
-    }
-
-    public void SetPixel(int x, int y, Color cl)
-    {
-
-        //Check if outside
-        if (x < 0 || x >= width || y < 0 || y >= height)
-            return;
-
-        pixels[x * width + y] = cl;
-    }
-
-}
-
-public static class Graphics
-{
 
     //Draws a line on the bitmap using Bresenham
     public static PixelMatrix Bresenham(PixelMatrix bitmap, int x0, int y0, int x1, int y1, Color color)

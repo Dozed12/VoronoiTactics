@@ -493,7 +493,7 @@ public class MapData
         {
 
             //Pixel set
-            PixelMatrix pixelMatrix = new PixelMatrix(settings.WIDTH, settings.HEIGHT);
+            Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT);
 
             //Draw Border
             pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
@@ -551,7 +551,7 @@ public class MapData
         {
 
             //Pixel set
-            PixelMatrix pixelMatrix = new PixelMatrix(settings.WIDTH, settings.HEIGHT);
+            Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT);
 
             //Draw Border
             pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
@@ -609,7 +609,7 @@ public class MapData
         {
 
             //Pixel set
-            PixelMatrix pixelMatrix = new PixelMatrix(settings.WIDTH, settings.HEIGHT);
+            Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT);
 
             //Draw Border
             pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
