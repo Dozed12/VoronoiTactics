@@ -219,10 +219,17 @@ public static class Graphics
             for (int j = 0; j < original.height; j++)
             {
                 //Rotate around center
-                int finalX = Mathf.RoundToInt(safeSize / 2 + Mathf.Cos(angle) * (i - original.width / 2) - Mathf.Sin(angle) * (j - original.height / 2));
-                int finalY = Mathf.RoundToInt(safeSize / 2 + Mathf.Sin(angle) * (i - original.width / 2) + Mathf.Cos(angle) * (j - original.height / 2));
+                float beta = Mathf.Sin(angle);
+                float alpha = -Mathf.Tan(angle/2);
+                float x = i - original.width / 2;
+                float y = j - original.height / 2;
+                float finalX = y + alpha * x;
+                float finalY = x + beta * finalX;
+                finalX += alpha * finalY;
+                finalX += safeSize / 2;
+                finalY += safeSize / 2;
                 Color cl = original.GetPixel(i, j);
-                rotated.SetPixel(finalX, finalY, cl);
+                rotated.SetPixel(Mathf.RoundToInt(finalX), Mathf.RoundToInt(finalY), cl);
             }
         }
 

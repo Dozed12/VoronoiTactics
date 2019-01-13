@@ -709,7 +709,7 @@ public class MapData
             //Shade pixels based on height and neighbor
             //TODO Settings should be in other place
             //TODO Seems to be creating some graphical artifacts (horizontal lines)
-            float shadowPower = 200;
+            float shadowPower = 0;
             float lightPower = 0;
             for (int i = 0; i < settings.WIDTH; i++)
             {
@@ -843,7 +843,7 @@ public class MapData
             texture.Apply();
 
             //Settings
-            texture.filterMode = FilterMode.Point;
+            texture.filterMode = FilterMode.Trilinear;
 
             //Add to list
             mapModes.Add("Map", texture);
