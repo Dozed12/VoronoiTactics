@@ -265,13 +265,13 @@ public class MapData
             //Calculate average terrain and height for this province
             float heightTotal = 0;
             float heightN = 0;
-            for (int a = (int)(-pointsHorizontalSeparation/2); a < pointsHorizontalSeparation/2; a++)
+            for (int a = (int)(-pointsHorizontalSeparation / 2); a < pointsHorizontalSeparation / 2; a++)
             {
-                if((int)nSite.pos.X + a < 0 || (int)nSite.pos.X + a > settings.WIDTH-1)
+                if ((int)nSite.pos.X + a < 0 || (int)nSite.pos.X + a > settings.WIDTH - 1)
                     continue;
-                for (int b = (int)(-pointsVerticalSeparation/2); b < pointsVerticalSeparation/2; b++)
+                for (int b = (int)(-pointsVerticalSeparation / 2); b < pointsVerticalSeparation / 2; b++)
                 {
-                    if((int)nSite.pos.Y + b < 0 || (int)nSite.pos.Y + b > settings.HEIGHT-1)
+                    if ((int)nSite.pos.Y + b < 0 || (int)nSite.pos.Y + b > settings.HEIGHT - 1)
                         continue;
                     heightTotal += geography.HEIGHTMAP[(int)nSite.pos.X + a, (int)nSite.pos.Y + b];
                     heightN++;
@@ -281,13 +281,13 @@ public class MapData
 
             float terrainTotal = 0;
             float terrainN = 0;
-            for (int a = (int)(-pointsHorizontalSeparation/2); a < pointsHorizontalSeparation/2; a++)
+            for (int a = (int)(-pointsHorizontalSeparation / 2); a < pointsHorizontalSeparation / 2; a++)
             {
-                if((int)nSite.pos.X + a < 0 || (int)nSite.pos.X + a > settings.WIDTH-1)
+                if ((int)nSite.pos.X + a < 0 || (int)nSite.pos.X + a > settings.WIDTH - 1)
                     continue;
-                for (int b = (int)(-pointsVerticalSeparation/2); b < pointsVerticalSeparation/2; b++)
+                for (int b = (int)(-pointsVerticalSeparation / 2); b < pointsVerticalSeparation / 2; b++)
                 {
-                    if((int)nSite.pos.Y + b < 0 || (int)nSite.pos.Y + b > settings.HEIGHT-1)
+                    if ((int)nSite.pos.Y + b < 0 || (int)nSite.pos.Y + b > settings.HEIGHT - 1)
                         continue;
                     terrainTotal += geography.TERRAINMAP[(int)nSite.pos.X + a, (int)nSite.pos.Y + b];
                     terrainN++;
@@ -740,32 +740,25 @@ public class MapData
                 }
             }
 
-            //TODO Add decals based on terrain type
-            //TODO Settings should be in other place, maybe even decal dependant and defined in JSON
-            //TODO Only using first decal for now
-            //TODO Decals should have a drawing order (trees should be on top of rocks), maybe the order defined in JSON is enough
-            int decalChance = 2;
-            for (int i = 0; i < settings.WIDTH; i++)
+            //Add decals
+            //TODO Currently only uses first decal
+            //TODO Number of decals and reach should be defined in JSON
+            float reach = 1.1f;
+            int numberDecals = 100;
+            for (int i = 0; i < provinces.Count; i++)
             {
-                for (int j = 0; j < settings.HEIGHT; j++)
+                //No decals so skip
+                if (provinces[i].terrain.decals == null)
+                    continue;
+                
+                //Add decals in a circular way with random angle and radius
+                for (int c = 0; c < numberDecals; c++)
                 {
-                    //Local terrain value
-                    float terrain = geography.TERRAINMAP[i, j];
-
-                    //Find terrain type of this pixel and add decal
-                    for (int t = 0; t < biome.terrains.Length; t++)
-                    {
-                        //Ignore biomes without decals
-                        if(biome.terrains[t].type.decals == null)
-                            break;
-
-                        //Found terrain
-                        if(biome.terrains[t].noiseMin < terrain && terrain < biome.terrains[t].noiseMax){
-                            if(UnityEngine.Random.Range(1,100) < decalChance *  (1 -Mathf.Abs(terrain - biome.terrainNoiseMiddles[biome.terrains[t].type])))
-                                pixelMatrix = Graphics.Decal(pixelMatrix, data.decals[biome.terrains[t].type.decals[0]], i,j);
-                        }
-
-                    }
+                    float angle = UnityEngine.Random.Range(0.0f, 2 * Mathf.PI);
+                    float radius = UnityEngine.Random.Range(0, Mathf.Max(pointsHorizontalSeparation / 2 * reach, pointsVerticalSeparation / 2 * reach));
+                    float x = (float)provinces[i].center.X + Mathf.Cos(angle) * radius;
+                    float y = (float)provinces[i].center.Y + Mathf.Sin(angle) * radius;
+                    pixelMatrix = Graphics.Decal(pixelMatrix, data.decals[provinces[i].terrain.decals[0]], (int)x, (int)y);
                 }
             }
 
