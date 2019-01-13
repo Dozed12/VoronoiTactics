@@ -661,7 +661,12 @@ public class MapData
                     List<Pair<TerrainType, float>> distances = new List<Pair<TerrainType, float>>();
                     foreach (KeyValuePair<TerrainType, float> item in biome.terrainNoiseMiddles)
                     {
-                        float power = Mathf.Pow(1 - Mathf.Abs(val - item.Value), differentiation);
+                        float diff = 1 - Mathf.Abs(val - item.Value);
+                        float power = 1;
+                        for (int d = 0; d < differentiation; d++)
+                        {
+                            power *= diff;
+                        }
                         distances.Add(new Pair<TerrainType, float>(item.Key, power));
                     }
 
@@ -672,9 +677,11 @@ public class MapData
                     float total = 0;
                     for (int d = 0; d < distances.Count; d++)
                     {
-                        r += Mathf.Pow(distances[d].First.color[0] / 255.0f * distances[d].Second, 2);
-                        g += Mathf.Pow(distances[d].First.color[1] / 255.0f * distances[d].Second, 2);
-                        b += Mathf.Pow(distances[d].First.color[2] / 255.0f * distances[d].Second, 2);
+                        float t = distances[d].Second / 255.0f;
+                        t *= t;
+                        r += t * distances[d].First.color[0] * distances[d].First.color[0];
+                        g += t * distances[d].First.color[1] * distances[d].First.color[1];
+                        b += t * distances[d].First.color[2] * distances[d].First.color[2];
                         total += distances[d].Second;
                     }
                     r = Mathf.Sqrt(r / total);
@@ -736,7 +743,7 @@ public class MapData
             //TODO Number of decals and reach should be defined in JSON
             //TODO Can also have an option in JSON to randomize if it has decals or not (so we can put trees on Grassland but not look artificial)
             float reach = 1.5f;
-            int numberDecals = 300;
+            int numberDecals = 400;
             for (int i = 0; i < provinces.Count; i++)
             {
                 //No decals so skip
