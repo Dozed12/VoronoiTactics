@@ -357,6 +357,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   biomePick: {fileID: 1883245701}
   mapModePick: {fileID: 169868978}
+  dragSpeed: 2
 --- !u!4 &211036679
 Transform:
   m_ObjectHideFlags: 0

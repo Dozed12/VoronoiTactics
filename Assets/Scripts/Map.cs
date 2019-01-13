@@ -139,8 +139,12 @@ public class MapData
                 float angle = UnityEngine.Random.Range(0, Mathf.PI * 2);
                 float a = UnityEngine.Random.Range(0, pointsHorizontalAllowedRadius);
                 float b = UnityEngine.Random.Range(0, pointsVerticalAllowedRadius);
-                double offX = (a * b) / Mathf.Sqrt((b * b) + (a * a) * (Mathf.Tan(angle) * Mathf.Tan(angle)));
-                double offY = (a * b) / Mathf.Sqrt((a * a) + (b * b) / (Mathf.Tan(angle) * Mathf.Tan(angle)));
+                float ab = a*b;
+                float aa = a*a;
+                float bb= b*b;
+                float tanAngle = Mathf.Tan(angle);
+                double offX = ab / Mathf.Sqrt((bb) + (aa) * (tanAngle * tanAngle));
+                double offY = ab / Mathf.Sqrt((aa) + (bb) / (tanAngle * tanAngle));
                 //Quadrant check
                 if (angle > -Mathf.PI / 2 && angle < Mathf.PI / 2)
                     nPoints.Add(new FortuneSite(x + offX, y + offY, id));
@@ -705,7 +709,7 @@ public class MapData
             //Shade pixels based on height and neighbor
             //TODO Settings should be in other place
             //TODO Seems to be creating some graphical artifacts (horizontal lines)
-            float shadowPower = 0;
+            float shadowPower = 200;
             float lightPower = 0;
             for (int i = 0; i < settings.WIDTH; i++)
             {
@@ -777,21 +781,21 @@ public class MapData
 
             //Add randomization to color
             //TODO Settings should be in other place
-            float noiseChance = 20;
-            float noisePower = 0.05f;
+            float randomization = 30;
+            float variation = 0.05f;
             for (int i = 0; i < settings.WIDTH; i++)
             {
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
                     //Randomly skip
-                    if (UnityEngine.Random.Range(1, 100) < 100 - noiseChance)
+                    if (UnityEngine.Random.Range(1, 100) < 100 - randomization)
                         continue;
 
                     //Add some difference
                     Color color = pixelMatrix.GetPixel(i, j);
-                    color.r = color.r + UnityEngine.Random.Range(-noisePower, noisePower);
-                    color.g = color.g + UnityEngine.Random.Range(-noisePower, noisePower);
-                    color.b = color.b + UnityEngine.Random.Range(-noisePower, noisePower);
+                    color.r = color.r + UnityEngine.Random.Range(-variation, variation);
+                    color.g = color.g + UnityEngine.Random.Range(-variation, variation);
+                    color.b = color.b + UnityEngine.Random.Range(-variation, variation);
                     pixelMatrix.SetPixel(i, j, color);
                 }
             }
@@ -878,7 +882,7 @@ public class Map : MonoBehaviour
         biomePick.AddOptions(biomeStrings);
     }
 
-    //Mouse controls
+    //Mouse controls (TEMPORARY)
     public float dragSpeed = 2;
     private Vector3 dragOrigin;
     void Update()
@@ -907,7 +911,6 @@ public class Map : MonoBehaviour
 
         Camera.main.transform.Translate(move);
 
-
     }
 
     void ZoomOrthoCamera(Vector3 zoomTowards, float amount)
@@ -922,7 +925,7 @@ public class Map : MonoBehaviour
         Camera.main.GetComponent<Camera>().orthographicSize -= amount;
 
         // Limit zoom
-        Camera.main.GetComponent<Camera>().orthographicSize = Mathf.Clamp(Camera.main.GetComponent<Camera>().orthographicSize, -1000, 1000);
+        Camera.main.GetComponent<Camera>().orthographicSize = Mathf.Clamp(Camera.main.GetComponent<Camera>().orthographicSize, 3, 10);
     }
 
     //Generate new map
