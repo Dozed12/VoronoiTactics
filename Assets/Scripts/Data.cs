@@ -338,7 +338,7 @@ public class Data
             //Index of last '\'
             int l = filePaths[i].LastIndexOf('\\');
             //Get name of file (with extension)
-            decalsRaw[i].name = filePaths[i].Substring(l+1);
+            decalsRaw[i].name = filePaths[i].Substring(l + 1);
         }
 
         //Load decals into a dictionary with PixelMatrix

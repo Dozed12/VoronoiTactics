@@ -139,9 +139,9 @@ public class MapData
                 float angle = UnityEngine.Random.Range(0, Mathf.PI * 2);
                 float a = UnityEngine.Random.Range(0, pointsHorizontalAllowedRadius);
                 float b = UnityEngine.Random.Range(0, pointsVerticalAllowedRadius);
-                float ab = a*b;
-                float aa = a*a;
-                float bb= b*b;
+                float ab = a * b;
+                float aa = a * a;
+                float bb = b * b;
                 float tanAngle = Mathf.Tan(angle);
                 double offX = ab / Mathf.Sqrt((bb) + (aa) * (tanAngle * tanAngle));
                 double offY = ab / Mathf.Sqrt((aa) + (bb) / (tanAngle * tanAngle));

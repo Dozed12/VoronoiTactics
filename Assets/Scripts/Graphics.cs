@@ -205,23 +205,24 @@ public static class Graphics
     }
 
     //Rotate an image
-    public static PixelMatrix Rotate(PixelMatrix original, float angle){
+    public static PixelMatrix Rotate(PixelMatrix original, float angle)
+    {
 
         //Use diagonal as safe size of rotated image
-        int safeSize = (int)Mathf.Sqrt(original.width*original.width + original.height*original.height) + 1;
+        int safeSize = (int)Mathf.Sqrt(original.width * original.width + original.height * original.height) + 1;
 
         //Rotated setup
-        PixelMatrix rotated = new PixelMatrix(safeSize, safeSize, new Color(0,0,0,0));
+        PixelMatrix rotated = new PixelMatrix(safeSize, safeSize, new Color(0, 0, 0, 0));
 
         for (int i = 0; i < original.width; i++)
         {
             for (int j = 0; j < original.height; j++)
             {
                 //Rotate around center
-                int finalX = Mathf.RoundToInt(safeSize/2 + Mathf.Cos(angle) * (i-original.width/2) - Mathf.Sin(angle) * (j-original.height/2));
-                int finalY = Mathf.RoundToInt(safeSize/2 + Mathf.Sin(angle) * (i-original.width/2) + Mathf.Cos(angle) * (j-original.height/2));
-                Color cl = original.GetPixel(i,j);
-                rotated.SetPixel(finalX,finalY, cl);
+                int finalX = Mathf.RoundToInt(safeSize / 2 + Mathf.Cos(angle) * (i - original.width / 2) - Mathf.Sin(angle) * (j - original.height / 2));
+                int finalY = Mathf.RoundToInt(safeSize / 2 + Mathf.Sin(angle) * (i - original.width / 2) + Mathf.Cos(angle) * (j - original.height / 2));
+                Color cl = original.GetPixel(i, j);
+                rotated.SetPixel(finalX, finalY, cl);
             }
         }
 
@@ -237,7 +238,7 @@ public static class Graphics
             for (int j = 0; j < decal.height; j++)
             {
                 //Skip transparent pixels
-                if(decal.GetPixel(i,j).a < 0.7)
+                if (decal.GetPixel(i, j).a < 0.7)
                     continue;
 
                 //Get coordinates and decal color to apply
