@@ -265,11 +265,11 @@ public class MapData
             //Calculate average terrain and height for this province
             float heightTotal = 0;
             float heightN = 0;
-            for (int a = (int)(-pointsHorizontalSeparation / 2); a < pointsHorizontalSeparation / 2; a++)
+            for (int a = (int)(-pointsHorizontalSeparation / 4); a < pointsHorizontalSeparation / 4; a++)
             {
                 if ((int)nSite.pos.X + a < 0 || (int)nSite.pos.X + a > settings.WIDTH - 1)
                     continue;
-                for (int b = (int)(-pointsVerticalSeparation / 2); b < pointsVerticalSeparation / 2; b++)
+                for (int b = (int)(-pointsVerticalSeparation / 4); b < pointsVerticalSeparation / 4; b++)
                 {
                     if ((int)nSite.pos.Y + b < 0 || (int)nSite.pos.Y + b > settings.HEIGHT - 1)
                         continue;
@@ -281,11 +281,11 @@ public class MapData
 
             float terrainTotal = 0;
             float terrainN = 0;
-            for (int a = (int)(-pointsHorizontalSeparation / 2); a < pointsHorizontalSeparation / 2; a++)
+            for (int a = (int)(-pointsHorizontalSeparation / 4); a < pointsHorizontalSeparation / 4; a++)
             {
                 if ((int)nSite.pos.X + a < 0 || (int)nSite.pos.X + a > settings.WIDTH - 1)
                     continue;
-                for (int b = (int)(-pointsVerticalSeparation / 2); b < pointsVerticalSeparation / 2; b++)
+                for (int b = (int)(-pointsVerticalSeparation / 4); b < pointsVerticalSeparation / 4; b++)
                 {
                     if ((int)nSite.pos.Y + b < 0 || (int)nSite.pos.Y + b > settings.HEIGHT - 1)
                         continue;
@@ -328,7 +328,7 @@ public class MapData
                         nSite.terrain = data.terrains[biome.terrains[j].type.height_default_fallback];
 
                         //No specifics
-                        if(data.terrains[biome.terrains[j].name].height_fallbacks == null)
+                        if (data.terrains[biome.terrains[j].name].height_fallbacks == null)
                             break;
 
                         //Specific fallbacks
@@ -449,11 +449,11 @@ public class MapData
         SimplifiedTerrainMapTexture();
 
         Debug.Log("SimplifiedTerrainMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
-        time = Time.realtimeSinceStartup;
+        float timeFinal = Time.realtimeSinceStartup;
 
         FinalMapTexture();
 
-        Debug.Log("FinalMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
+        Debug.Log("FinalMapTexture took: " + (Time.realtimeSinceStartup - timeFinal) + "s");
 
         Debug.Log("Graphics Generated");
 
@@ -642,31 +642,12 @@ public class MapData
         {
 
             //Pixel set
-            Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT,Color.white);
-
-            //Draw Border
-            pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
-
-            //Draw frame
-            var edge = edges.First;
-            for (int i = 0; i < edges.Count; i++)
-            {
-                VEdge edgeVal = edge.Value;
-
-                //Round
-                int startX = Mathf.FloorToInt((float)edge.Value.Start.X);
-                int endX = Mathf.FloorToInt((float)edge.Value.End.X);
-                int startY = Mathf.FloorToInt((float)edge.Value.Start.Y);
-                int endY = Mathf.FloorToInt((float)edge.Value.End.Y);
-
-                //Draw Edge
-                pixelMatrix = Graphics.Bresenham(pixelMatrix, startX, startY, endX, endY, Color.black);
-                edge = edge.Next;
-            }
+            Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT, Color.white);
 
             //Weighted color blend for terrain type
             //TODO Settings should be in other place
             //TODO Higher values cause darkening, is that normal?
+            time = Time.realtimeSinceStartup;
             int differentiation = 3;
             for (int i = 0; i < settings.WIDTH; i++)
             {
@@ -706,6 +687,9 @@ public class MapData
                 }
             }
 
+            Debug.Log("----Color blend took: " + (Time.realtimeSinceStartup - time) + "s");
+            time = Time.realtimeSinceStartup;
+
             //Shade pixels based on height and neighbor
             //TODO Settings should be in other place
             //TODO Seems to be creating some graphical artifacts (horizontal lines)
@@ -744,18 +728,21 @@ public class MapData
                 }
             }
 
+            Debug.Log("----Shading took: " + (Time.realtimeSinceStartup - time) + "s");
+            time = Time.realtimeSinceStartup;
+
             //Add decals
             //TODO Currently only uses first decal
             //TODO Number of decals and reach should be defined in JSON
             //TODO Can also have an option in JSON to randomize if it has decals or not (so we can put trees on Grassland but not look artificial)
             float reach = 1.5f;
-            int numberDecals = 100;
+            int numberDecals = 300;
             for (int i = 0; i < provinces.Count; i++)
             {
                 //No decals so skip
                 if (provinces[i].terrain.decals == null)
                     continue;
-                
+
                 //Add decals in a circular way with random angle and radius
                 for (int c = 0; c < numberDecals; c++)
                 {
@@ -766,12 +753,15 @@ public class MapData
                     float y = (float)provinces[i].center.Y + Mathf.Sin(angle) * radius;
 
                     //Rotate image with random angle
-                    Graphics.PixelMatrix rotated = Graphics.Rotate(data.decals[provinces[i].terrain.decals[0]], UnityEngine.Random.Range(0, Mathf.PI*2));
+                    Graphics.PixelMatrix rotated = Graphics.Rotate(data.decals[provinces[i].terrain.decals[0]], UnityEngine.Random.Range(0, Mathf.PI * 2));
 
                     //Add decal
                     pixelMatrix = Graphics.Decal(pixelMatrix, rotated, (int)x, (int)y);
                 }
             }
+
+            Debug.Log("----Decals took: " + (Time.realtimeSinceStartup - time) + "s");
+            time = Time.realtimeSinceStartup;
 
             //Add randomization to color
             //TODO Settings should be in other place
@@ -794,13 +784,16 @@ public class MapData
                 }
             }
 
+            Debug.Log("----Randomization took: " + (Time.realtimeSinceStartup - time) + "s");
+            time = Time.realtimeSinceStartup;
+
             //Draw Border
             pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
 
             //Draw edges
             //TODO Jitter edges for more detail(could be done here or in internal data, the jitter wont affect any calculations so can be just graphical)
             //But it will be shared in many maps so should be internal!
-            edge = edges.First;
+            var edge = edges.First;
             for (int i = 0; i < edges.Count; i++)
             {
                 VEdge edgeVal = edge.Value;
@@ -815,6 +808,8 @@ public class MapData
                 pixelMatrix = Graphics.Bresenham(pixelMatrix, startX, startY, endX, endY, Color.black);
                 edge = edge.Next;
             }
+
+            Debug.Log("----Edges took: " + (Time.realtimeSinceStartup - time) + "s");
 
             //Add Site centers
             for (int i = 0; i < provinces.Count; i++)
@@ -878,7 +873,7 @@ public class Map : MonoBehaviour
         //New map data with settings
         //TODO Settings probably wont be here
         mapData = new MapData(data);
-        mapData.settings = new MapSettings(800, 800, 200, 2.0f);
+        mapData.settings = new MapSettings(2000, 2000, 200, 2.0f);
 
         //Get selected biome
         int idBiome = biomePick.value;
