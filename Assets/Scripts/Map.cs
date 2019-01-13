@@ -649,9 +649,12 @@ public class MapData
             //TODO Higher values cause darkening, is that normal?
             time = Time.realtimeSinceStartup;
             int differentiation = 3;
-            for (int i = 0; i < settings.WIDTH; i++)
+            int block = 10;
+            int blocksW = settings.WIDTH / block;
+            int blocksH = settings.HEIGHT / block;
+            for (int i = 0; i < settings.WIDTH; i+=block/2)
             {
-                for (int j = 0; j < settings.HEIGHT; j++)
+                for (int j = 0; j < settings.HEIGHT; j+=block/2)
                 {
 
                     //Get terrain noise
@@ -690,7 +693,9 @@ public class MapData
 
                     Color color = new Color(r, g, b);
 
-                    pixelMatrix.SetPixel(i, j, color);
+                    Graphics.PixelMatrix decal = new Graphics.PixelMatrix(block,block,color);
+
+                    pixelMatrix = Graphics.Decal(pixelMatrix,decal,i,j);
                 }
             }
 
@@ -880,6 +885,7 @@ public class Map : MonoBehaviour
         //New map data with settings
         //TODO Settings probably wont be here
         mapData = new MapData(data);
+        //TODO Pixel size could be tied to province number to keep it consistent across different make sizes
         mapData.settings = new MapSettings(2000, 2000, 200, 2.0f);
 
         //Get selected biome
