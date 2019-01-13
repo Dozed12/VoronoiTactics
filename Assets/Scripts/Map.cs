@@ -262,9 +262,38 @@ public class MapData
             nSite.neighbors = new List<ProvinceData>();
             nSite.pos = new VPoint(points[i].X, points[i].Y);
 
-            //TODO For now just takes the value at the point, we might want to do an average of near area
-            nSite.heightVal = geography.HEIGHTMAP[(int)nSite.pos.X, (int)nSite.pos.Y];
-            nSite.terrainVal = geography.TERRAINMAP[(int)nSite.pos.X, (int)nSite.pos.Y];
+            //Calculate average terrain and height for this province
+            float heightTotal = 0;
+            float heightN = 0;
+            for (int a = (int)(-pointsHorizontalSeparation/2); a < pointsHorizontalSeparation/2; a++)
+            {
+                if((int)nSite.pos.X + a < 0 || (int)nSite.pos.X + a > settings.WIDTH-1)
+                    continue;
+                for (int b = (int)(-pointsVerticalSeparation/2); b < pointsVerticalSeparation/2; b++)
+                {
+                    if((int)nSite.pos.Y + b < 0 || (int)nSite.pos.Y + b > settings.HEIGHT-1)
+                        continue;
+                    heightTotal += geography.HEIGHTMAP[(int)nSite.pos.X + a, (int)nSite.pos.Y + b];
+                    heightN++;
+                }
+            }
+            nSite.heightVal = heightTotal / heightN;
+
+            float terrainTotal = 0;
+            float terrainN = 0;
+            for (int a = (int)(-pointsHorizontalSeparation/2); a < pointsHorizontalSeparation/2; a++)
+            {
+                if((int)nSite.pos.X + a < 0 || (int)nSite.pos.X + a > settings.WIDTH-1)
+                    continue;
+                for (int b = (int)(-pointsVerticalSeparation/2); b < pointsVerticalSeparation/2; b++)
+                {
+                    if((int)nSite.pos.Y + b < 0 || (int)nSite.pos.Y + b > settings.HEIGHT-1)
+                        continue;
+                    terrainTotal += geography.TERRAINMAP[(int)nSite.pos.X + a, (int)nSite.pos.Y + b];
+                    terrainN++;
+                }
+            }
+            nSite.terrainVal = terrainTotal / terrainN;
 
             //Identify type from data and values
             for (int j = 0; j < biome.heights.Length; j++)
