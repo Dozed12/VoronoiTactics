@@ -214,22 +214,23 @@ public static class Graphics
         //Rotated setup
         PixelMatrix rotated = new PixelMatrix(safeSize, safeSize, new Color(0, 0, 0, 0));
 
+        float cos = Mathf.Cos(angle);
+        float sin = Mathf.Sin(angle);
+        float halfSize = safeSize / 2;
+        float halfOriWidth = original.width / 2;
+        float halfOriHeight = original.width / 2;
+
         for (int i = 0; i < original.width; i++)
         {
             for (int j = 0; j < original.height; j++)
             {
                 //Rotate around center
-                float beta = Mathf.Sin(angle);
-                float alpha = -Mathf.Tan(angle/2);
-                float x = i - original.width / 2;
-                float y = j - original.height / 2;
-                float finalX = y + alpha * x;
-                float finalY = x + beta * finalX;
-                finalX += alpha * finalY;
-                finalX += safeSize / 2;
-                finalY += safeSize / 2;
+                float x = i - halfOriWidth;
+                float y = j - halfOriHeight;
+                int finalX = Mathf.RoundToInt(halfSize + cos * x - sin * y);
+                int finalY = Mathf.RoundToInt(halfSize + sin * x + cos * y);
                 Color cl = original.GetPixel(i, j);
-                rotated.SetPixel(Mathf.RoundToInt(finalX), Mathf.RoundToInt(finalY), cl);
+                rotated.SetPixel(finalX, finalY, cl);
             }
         }
 

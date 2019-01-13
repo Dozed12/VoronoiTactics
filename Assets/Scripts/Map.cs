@@ -769,7 +769,7 @@ public class MapData
                     float y = (float)provinces[i].center.Y + Mathf.Sin(angle) * radius;
 
                     //Rotate image with random angle
-                    Graphics.PixelMatrix rotated = Graphics.Rotate(data.decals[provinces[i].terrain.decals[0]], UnityEngine.Random.Range(0, Mathf.PI * 2));
+                    Graphics.PixelMatrix rotated = Graphics.Rotate(data.decals[provinces[i].terrain.decals[0]], UnityEngine.Random.Range(0, 3) * Mathf.PI / 2);
 
                     //Add decal
                     pixelMatrix = Graphics.Decal(pixelMatrix, rotated, (int)x, (int)y);
