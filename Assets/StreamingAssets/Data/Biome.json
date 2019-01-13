@@ -2,7 +2,7 @@
     "Items": [
         {
             "name": "Woodland",
-            "heightFreq": 0.002,
+            "heightFreq": 0.0005,
             "heights": [
                 {
                     "name": "High Mountains",
@@ -35,11 +35,11 @@
                 {
                     "name": "Grassland",
                     "noiseMax": 0.6,
-                    "noiseMin": 0.2
+                    "noiseMin": 0.1
                 },
                 {
                     "name": "Barren",
-                    "noiseMax": 0.2,
+                    "noiseMax": 0.1,
                     "noiseMin": 0
                 }
             ],

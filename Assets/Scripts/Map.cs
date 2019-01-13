@@ -308,7 +308,7 @@ public class MapData
             {
                 if (biome.terrains[j].noiseMin <= nSite.terrainVal && nSite.terrainVal < biome.terrains[j].noiseMax)
                 {
-                    //Also need to check if height present is accepted by terrain, if not then use fallback instead
+                    //Need to check if height present is accepted by terrain, if not then use fallback instead
                     //Search
                     bool found = false;
                     for (int h = 0; h < biome.terrains[j].type.heights.Length; h++)
@@ -648,7 +648,7 @@ public class MapData
             //TODO Settings should be in other place
             //TODO Higher values cause darkening, is that normal?
             time = Time.realtimeSinceStartup;
-            int differentiation = 3;
+            int differentiation = 2;
             int block = 10;
             int blocksW = settings.WIDTH / block;
             int blocksH = settings.HEIGHT / block;
@@ -705,7 +705,7 @@ public class MapData
             //Shade pixels based on height and neighbor
             //TODO Settings should be in other place
             //TODO Seems to be creating some graphical artifacts (horizontal lines)
-            float shadowPower = 100;
+            float shadowPower = 0;
             float lightPower = 0;
             for (int i = 0; i < settings.WIDTH; i++)
             {
@@ -748,7 +748,7 @@ public class MapData
             //TODO Number of decals and reach should be defined in JSON
             //TODO Can also have an option in JSON to randomize if it has decals or not (so we can put trees on Grassland but not look artificial)
             float reach = 1.5f;
-            int numberDecals = 400;
+            int numberDecals = 100;
             for (int i = 0; i < provinces.Count; i++)
             {
                 //No decals so skip
