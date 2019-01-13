@@ -652,9 +652,9 @@ public class MapData
             int block = 10;
             int blocksW = settings.WIDTH / block;
             int blocksH = settings.HEIGHT / block;
-            for (int i = 0; i < settings.WIDTH; i+=block/2)
+            for (int i = 0; i < settings.WIDTH; i += block / 2)
             {
-                for (int j = 0; j < settings.HEIGHT; j+=block/2)
+                for (int j = 0; j < settings.HEIGHT; j += block / 2)
                 {
 
                     //Get terrain noise
@@ -693,9 +693,9 @@ public class MapData
 
                     Color color = new Color(r, g, b);
 
-                    Graphics.PixelMatrix decal = new Graphics.PixelMatrix(block,block,color);
+                    Graphics.PixelMatrix decal = new Graphics.PixelMatrix(block, block, color);
 
-                    pixelMatrix = Graphics.Decal(pixelMatrix,decal,i,j);
+                    pixelMatrix = Graphics.Decal(pixelMatrix, decal, i, j);
                 }
             }
 
@@ -876,6 +876,53 @@ public class Map : MonoBehaviour
             biomeStrings.Add(entry.Value.name);
         }
         biomePick.AddOptions(biomeStrings);
+    }
+
+    //Mouse controls
+    public float dragSpeed = 2;
+    private Vector3 dragOrigin;
+    void Update()
+    {
+
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            ZoomOrthoCamera(Camera.main.ScreenToWorldPoint(Input.mousePosition), 1);
+        }
+
+        if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            ZoomOrthoCamera(Camera.main.ScreenToWorldPoint(Input.mousePosition), -1);
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            dragOrigin = Input.mousePosition;
+        }
+
+        if (!Input.GetMouseButton(0)) return;
+
+        Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
+
+        Vector3 move = new Vector3(-pos.x * dragSpeed, -pos.y * dragSpeed, 0);
+
+        Camera.main.transform.Translate(move);
+
+
+    }
+
+    void ZoomOrthoCamera(Vector3 zoomTowards, float amount)
+    {
+        // Calculate how much we will have to move towards the zoomTowards position
+        float multiplier = (1.0f / Camera.main.GetComponent<Camera>().orthographicSize * amount);
+
+        // Move camera
+        Camera.main.transform.position += (zoomTowards - Camera.main.transform.position) * multiplier;
+
+        // Zoom camera
+        Camera.main.GetComponent<Camera>().orthographicSize -= amount;
+
+        // Limit zoom
+        Camera.main.GetComponent<Camera>().orthographicSize = Mathf.Clamp(Camera.main.GetComponent<Camera>().orthographicSize, -1000, 1000);
     }
 
     //Generate new map
