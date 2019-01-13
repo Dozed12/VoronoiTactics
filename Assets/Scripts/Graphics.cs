@@ -26,7 +26,7 @@ public static class Graphics
 
         }
 
-        public PixelMatrix(int width, int height)
+        public PixelMatrix(int width, int height, Color clear)
         {
 
             //Initialize
@@ -34,10 +34,10 @@ public static class Graphics
             this.width = width;
             this.height = height;
 
-            //Clear with white
+            //Clear with color
             for (int i = 0; i < pixels.Length; i++)
             {
-                pixels[i] = new Color(1, 1, 1, 1);
+                pixels[i] = clear;
             }
 
         }
@@ -204,6 +204,31 @@ public static class Graphics
 
     }
 
+    //Rotate an image
+    public static PixelMatrix Rotate(PixelMatrix original, float angle){
+
+        //Use diagonal as safe size of rotated image
+        int safeSize = (int)Mathf.Sqrt(original.width*original.width + original.height*original.height) + 1;
+
+        //Rotated setup
+        PixelMatrix rotated = new PixelMatrix(safeSize, safeSize, new Color(0,0,0,0));
+
+        for (int i = 0; i < original.width; i++)
+        {
+            for (int j = 0; j < original.height; j++)
+            {
+                //Rotate around center
+                int finalX = Mathf.RoundToInt(safeSize/2 + Mathf.Cos(angle) * (i-original.width/2) - Mathf.Sin(angle) * (j-original.height/2));
+                int finalY = Mathf.RoundToInt(safeSize/2 + Mathf.Sin(angle) * (i-original.width/2) + Mathf.Cos(angle) * (j-original.height/2));
+                Color cl = original.GetPixel(i,j);
+                rotated.SetPixel(finalX,finalY, cl);
+            }
+        }
+
+        return rotated;
+    }
+
+    //Add a decal to an image
     public static PixelMatrix Decal(PixelMatrix original, PixelMatrix decal, int x, int y)
     {
 

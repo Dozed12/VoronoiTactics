@@ -12,7 +12,7 @@
                 "Hills",
                 "Plains"
             ],
-            "height_fallback": "Barren",
+            "height_default_fallback": "Barren",
             "modifiers": {
                 "attack": 1.0,
                 "defense": 1.0,

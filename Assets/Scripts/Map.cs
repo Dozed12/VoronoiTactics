@@ -327,6 +327,10 @@ public class MapData
                         //Default fallback
                         nSite.terrain = data.terrains[biome.terrains[j].type.height_default_fallback];
 
+                        //No specifics
+                        if(data.terrains[biome.terrains[j].name].height_fallbacks == null)
+                            break;
+
                         //Specific fallbacks
                         for (int f = 0; f < data.terrains[biome.terrains[j].name].height_fallbacks.Count; f++)
                         {
@@ -522,7 +526,7 @@ public class MapData
         {
 
             //Pixel set
-            Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT);
+            Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT, Color.white);
 
             //Draw Border
             pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
@@ -580,7 +584,7 @@ public class MapData
         {
 
             //Pixel set
-            Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT);
+            Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT, Color.white);
 
             //Draw Border
             pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
@@ -638,7 +642,7 @@ public class MapData
         {
 
             //Pixel set
-            Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT);
+            Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT,Color.white);
 
             //Draw Border
             pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
@@ -743,7 +747,8 @@ public class MapData
             //Add decals
             //TODO Currently only uses first decal
             //TODO Number of decals and reach should be defined in JSON
-            float reach = 1.1f;
+            //TODO Can also have an option in JSON to randomize if it has decals or not (so we can put trees on Grassland but not look artificial)
+            float reach = 1.5f;
             int numberDecals = 100;
             for (int i = 0; i < provinces.Count; i++)
             {
@@ -754,11 +759,17 @@ public class MapData
                 //Add decals in a circular way with random angle and radius
                 for (int c = 0; c < numberDecals; c++)
                 {
+                    //Position of decal center
                     float angle = UnityEngine.Random.Range(0.0f, 2 * Mathf.PI);
                     float radius = UnityEngine.Random.Range(0, Mathf.Max(pointsHorizontalSeparation / 2 * reach, pointsVerticalSeparation / 2 * reach));
                     float x = (float)provinces[i].center.X + Mathf.Cos(angle) * radius;
                     float y = (float)provinces[i].center.Y + Mathf.Sin(angle) * radius;
-                    pixelMatrix = Graphics.Decal(pixelMatrix, data.decals[provinces[i].terrain.decals[0]], (int)x, (int)y);
+
+                    //Rotate image with random angle
+                    Graphics.PixelMatrix rotated = Graphics.Rotate(data.decals[provinces[i].terrain.decals[0]], UnityEngine.Random.Range(0, Mathf.PI*2));
+
+                    //Add decal
+                    pixelMatrix = Graphics.Decal(pixelMatrix, rotated, (int)x, (int)y);
                 }
             }
 

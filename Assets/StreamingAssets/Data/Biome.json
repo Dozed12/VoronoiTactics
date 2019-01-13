@@ -7,21 +7,21 @@
                 {
                     "name": "High Mountains",
                     "noiseMax": 1,
-                    "noiseMin": 0.9
+                    "noiseMin": 0.8
                 },
                 {
                     "name": "Low Mountains",
-                    "noiseMax": 0.9,
-                    "noiseMin": 0.7
+                    "noiseMax": 0.8,
+                    "noiseMin": 0.6
                 },
                 {
                     "name": "Hills",
-                    "noiseMax": 0.7,
-                    "noiseMin": 0.5
+                    "noiseMax": 0.6,
+                    "noiseMin": 0.4
                 },
                 {
                     "name": "Plains",
-                    "noiseMax": 0.5,
+                    "noiseMax": 0.4,
                     "noiseMin": 0
                 }
             ],
@@ -30,16 +30,16 @@
                 {
                     "name": "Forest",
                     "noiseMax": 1,
-                    "noiseMin": 0.7
+                    "noiseMin": 0.6
                 },
                 {
                     "name": "Grassland",
-                    "noiseMax": 0.7,
-                    "noiseMin": 0.3
+                    "noiseMax": 0.6,
+                    "noiseMin": 0.2
                 },
                 {
                     "name": "Barren",
-                    "noiseMax": 0.3,
+                    "noiseMax": 0.2,
                     "noiseMin": 0
                 }
             ],
