@@ -37,7 +37,7 @@
             "decals": [
                 {
                     "name": "tree_1.png",
-                    "reach": 1.5,
+                    "reach": 1.4,
                     "number": 200,
                     "rotate": true
                 }

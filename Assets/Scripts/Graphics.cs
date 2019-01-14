@@ -60,7 +60,7 @@ public static class Graphics
     }
 
     //Draws a line on the bitmap using Bresenham
-    public static PixelMatrix Bresenham(PixelMatrix bitmap, int x0, int y0, int x1, int y1, Color color)
+    public static PixelMatrix BresenhamLine(PixelMatrix bitmap, int x0, int y0, int x1, int y1, Color color)
     {
         int dx = Mathf.Abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
         int dy = Mathf.Abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
@@ -74,6 +74,38 @@ public static class Graphics
             if (e2 < dy) { err += dx; y0 += sy; }
         }
         return bitmap;
+    }
+
+    public static PixelMatrix BresenhamCircle(PixelMatrix bitmap, int centerX, int centerY, int radius, Color color)
+    {
+        int d = (5 - radius * 4) / 4;
+        int x = 0;
+        int y = radius;
+
+        do
+        {
+            if (centerX + x >= 0 && centerX + x <= bitmap.width - 1 && centerY + y >= 0 && centerY + y <= bitmap.height - 1) bitmap.SetPixel(centerX + x, centerY + y, color);
+            if (centerX + x >= 0 && centerX + x <= bitmap.width - 1 && centerY - y >= 0 && centerY - y <= bitmap.height - 1) bitmap.SetPixel(centerX + x, centerY - y, color);
+            if (centerX - x >= 0 && centerX - x <= bitmap.width - 1 && centerY + y >= 0 && centerY + y <= bitmap.height - 1) bitmap.SetPixel(centerX - x, centerY + y, color);
+            if (centerX - x >= 0 && centerX - x <= bitmap.width - 1 && centerY - y >= 0 && centerY - y <= bitmap.height - 1) bitmap.SetPixel(centerX - x, centerY - y, color);
+            if (centerX + y >= 0 && centerX + y <= bitmap.width - 1 && centerY + x >= 0 && centerY + x <= bitmap.height - 1) bitmap.SetPixel(centerX + y, centerY + x, color);
+            if (centerX + y >= 0 && centerX + y <= bitmap.width - 1 && centerY - x >= 0 && centerY - x <= bitmap.height - 1) bitmap.SetPixel(centerX + y, centerY - x, color);
+            if (centerX - y >= 0 && centerX - y <= bitmap.width - 1 && centerY + x >= 0 && centerY + x <= bitmap.height - 1) bitmap.SetPixel(centerX - y, centerY + x, color);
+            if (centerX - y >= 0 && centerX - y <= bitmap.width - 1 && centerY - x >= 0 && centerY - x <= bitmap.height - 1) bitmap.SetPixel(centerX - y, centerY - x, color);
+            if (d < 0)
+            {
+                d += 2 * x + 1;
+            }
+            else
+            {
+                d += 2 * (x - y) + 1;
+                y--;
+            }
+            x++;
+        } while (x <= y);
+
+        return bitmap;
+
     }
 
     //Draws a border on the bitmap

@@ -550,7 +550,7 @@ public class MapData
                 int endY = Mathf.FloorToInt((float)edge.Value.End.Y);
 
                 //Draw Edge
-                pixelMatrix = Graphics.Bresenham(pixelMatrix, startX, startY, endX, endY, Color.black);
+                pixelMatrix = Graphics.BresenhamLine(pixelMatrix, startX, startY, endX, endY, Color.black);
                 edge = edge.Next;
             }
 
@@ -608,7 +608,7 @@ public class MapData
                 int endY = Mathf.FloorToInt((float)edge.Value.End.Y);
 
                 //Draw Edge
-                pixelMatrix = Graphics.Bresenham(pixelMatrix, startX, startY, endX, endY, Color.black);
+                pixelMatrix = Graphics.BresenhamLine(pixelMatrix, startX, startY, endX, endY, Color.black);
                 edge = edge.Next;
             }
 
@@ -825,7 +825,7 @@ public class MapData
                 int endY = Mathf.FloorToInt((float)edge.Value.End.Y);
 
                 //Draw Edge
-                pixelMatrix = Graphics.Bresenham(pixelMatrix, startX, startY, endX, endY, Color.black);
+                pixelMatrix = Graphics.BresenhamLine(pixelMatrix, startX, startY, endX, endY, Color.black);
                 edge = edge.Next;
             }
 
