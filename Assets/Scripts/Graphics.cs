@@ -60,7 +60,7 @@ public static class Graphics
     }
 
     //Draw a filled circle
-    public static PixelMatrix FilledCircle(PixelMatrix original, int x, int y, int radius, Color color)
+    public static PixelMatrix FilledCircle(int x, int y, int radius, Color color)
     {
 
         //New Decal
@@ -72,10 +72,7 @@ public static class Graphics
         //Fill circle
         decal = FloodFillLine(decal, radius / 2, radius / 2, color);
 
-        //Draw circle to original
-        original = Decal(original, decal, x, y);
-
-        return original;
+        return decal;
 
     }
 
@@ -85,31 +82,39 @@ public static class Graphics
         int dx = Mathf.Abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
         int dy = Mathf.Abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
         int err = (dx > dy ? dx : -dy) / 2, e2;
-        for (; ; )
+
+        do
         {
             bitmap.SetPixel(x0, y0, color);
             if (x0 == x1 && y0 == y1) break;
             e2 = err;
             if (e2 > -dx) { err -= dy; x0 += sx; }
             if (e2 < dy) { err += dx; y0 += sy; }
-        }
+        } while (true);
+
         return bitmap;
     }
 
     //Draws a line on the bitmap using Bresenham and thickness
     public static PixelMatrix BresenhamLineThick(PixelMatrix bitmap, int x0, int y0, int x1, int y1, Color color, int thickness)
     {
+
+        //Prepare filled circle
+        PixelMatrix decal = FilledCircle(x0, y0, thickness, color);
+
         int dx = Mathf.Abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
         int dy = Mathf.Abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
         int err = (dx > dy ? dx : -dy) / 2, e2;
-        for (; ; )
+
+        do
         {
-            bitmap = FilledCircle(bitmap, x0, y0, thickness, color);
+            bitmap = Decal(bitmap, decal, x0, y0);
             if (x0 == x1 && y0 == y1) break;
             e2 = err;
             if (e2 > -dx) { err -= dy; x0 += sx; }
             if (e2 < dy) { err += dx; y0 += sy; }
-        }
+        } while (true);
+
         return bitmap;
     }
 
