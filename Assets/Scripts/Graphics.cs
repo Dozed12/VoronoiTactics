@@ -84,14 +84,14 @@ public static class Graphics
 
         do
         {
-            if (centerX + x >= 0 && centerX + x <= bitmap.width - 1 && centerY + y >= 0 && centerY + y <= bitmap.height - 1) bitmap.SetPixel(centerX + x, centerY + y, color);
-            if (centerX + x >= 0 && centerX + x <= bitmap.width - 1 && centerY - y >= 0 && centerY - y <= bitmap.height - 1) bitmap.SetPixel(centerX + x, centerY - y, color);
-            if (centerX - x >= 0 && centerX - x <= bitmap.width - 1 && centerY + y >= 0 && centerY + y <= bitmap.height - 1) bitmap.SetPixel(centerX - x, centerY + y, color);
-            if (centerX - x >= 0 && centerX - x <= bitmap.width - 1 && centerY - y >= 0 && centerY - y <= bitmap.height - 1) bitmap.SetPixel(centerX - x, centerY - y, color);
-            if (centerX + y >= 0 && centerX + y <= bitmap.width - 1 && centerY + x >= 0 && centerY + x <= bitmap.height - 1) bitmap.SetPixel(centerX + y, centerY + x, color);
-            if (centerX + y >= 0 && centerX + y <= bitmap.width - 1 && centerY - x >= 0 && centerY - x <= bitmap.height - 1) bitmap.SetPixel(centerX + y, centerY - x, color);
-            if (centerX - y >= 0 && centerX - y <= bitmap.width - 1 && centerY + x >= 0 && centerY + x <= bitmap.height - 1) bitmap.SetPixel(centerX - y, centerY + x, color);
-            if (centerX - y >= 0 && centerX - y <= bitmap.width - 1 && centerY - x >= 0 && centerY - x <= bitmap.height - 1) bitmap.SetPixel(centerX - y, centerY - x, color);
+            bitmap.SetPixel(centerX + x, centerY + y, color);
+            bitmap.SetPixel(centerX + x, centerY - y, color);
+            bitmap.SetPixel(centerX - x, centerY + y, color);
+            bitmap.SetPixel(centerX - x, centerY - y, color);
+            bitmap.SetPixel(centerX + y, centerY + x, color);
+            bitmap.SetPixel(centerX + y, centerY - x, color);
+            bitmap.SetPixel(centerX - y, centerY + x, color);
+            bitmap.SetPixel(centerX - y, centerY - x, color);
             if (d < 0)
             {
                 d += 2 * x + 1;
