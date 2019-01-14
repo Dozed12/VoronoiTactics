@@ -76,6 +76,7 @@ public static class Graphics
         return bitmap;
     }
 
+    //Draws a circle on the bitmap using Bresenham
     public static PixelMatrix BresenhamCircle(PixelMatrix bitmap, int centerX, int centerY, int radius, Color color)
     {
         int d = (5 - radius * 4) / 4;

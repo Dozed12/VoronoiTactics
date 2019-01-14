@@ -30,9 +30,9 @@
         {
             "name": "Forest",
             "color": [
-                68,
-                119,
-                51
+                34,
+                61,
+                25
             ],
             "decals": [
                 {
@@ -48,9 +48,38 @@
                 "Plains"
             ],
             "height_default_fallback": "Barren",
-            "height_pair_fallbacks": [
+            "modifiers": {
+                "attack": 1.1,
+                "defense": 0.8,
+                "movement": 1.1
+            }
+        },
+        {
+            "name": "Woods",
+            "color": [
+                68,
+                119,
+                51
+            ],
+            "decals": [
+                {
+                    "name": "tree_1.png",
+                    "reach": 1.4,
+                    "number": 20,
+                    "rotate": true
+                },
+                {
+                    "name": "grass_1.png",
+                    "reach": 1.5,
+                    "number": 20,
+                    "rotate": false
+                }
+            ],
+            "height_names": [
+                "High Mountains",
                 "Low Mountains",
-                "Grassland"
+                "Hills",
+                "Plains"
             ],
             "modifiers": {
                 "attack": 1.1,
