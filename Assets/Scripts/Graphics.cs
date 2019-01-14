@@ -59,6 +59,25 @@ public static class Graphics
 
     }
 
+    //Draw a filled circle
+    public static PixelMatrix FilledCircle(PixelMatrix original, int x, int y, int radius, Color color){
+
+        //New Decal
+        PixelMatrix decal = new PixelMatrix(radius*2, radius*2, new Color(0,0,0,0));
+
+        //Circle perimeter
+        decal = BresenhamCircle(decal, radius/2, radius/2, radius, color);
+
+        //Fill circle
+        decal = FloodFillLine(decal, radius/2, radius/2, color);
+
+        //Draw circle to original
+        original = Decal(original,decal,x,y);
+
+        return original;
+
+    }
+
     //Draws a line on the bitmap using Bresenham
     public static PixelMatrix BresenhamLine(PixelMatrix bitmap, int x0, int y0, int x1, int y1, Color color)
     {
