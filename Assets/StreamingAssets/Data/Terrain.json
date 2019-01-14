@@ -7,6 +7,14 @@
                 116,
                 49
             ],
+            "decals": [
+                {
+                    "name": "grass_1.png",
+                    "reach": 1.5,
+                    "number": 20,
+                    "rotate": false
+                }
+            ],
             "height_names": [
                 "Low Mountains",
                 "Hills",
@@ -27,9 +35,15 @@
                 51
             ],
             "decals": [
-                "tree_1.png"
+                {
+                    "name": "tree_1.png",
+                    "reach": 1.5,
+                    "number": 200,
+                    "rotate": true
+                }
             ],
             "height_names": [
+                "Low Mountains",
                 "Hills",
                 "Plains"
             ],

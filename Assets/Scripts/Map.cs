@@ -435,22 +435,22 @@ public class MapData
 
         float time = Time.realtimeSinceStartup;
 
-        HeightNoiseMapTexture();
+        //HeightNoiseMapTexture();
 
         Debug.Log("HeightNoiseMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
         time = Time.realtimeSinceStartup;
 
-        TerrainNoiseMapTexture();
+        //TerrainNoiseMapTexture();
 
         Debug.Log("TerrainNoiseMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
         time = Time.realtimeSinceStartup;
 
-        SimplifiedHeightMapTexture();
+        //SimplifiedHeightMapTexture();
 
         Debug.Log("SimplifiedHeightMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
         time = Time.realtimeSinceStartup;
 
-        SimplifiedTerrainMapTexture();
+        //SimplifiedTerrainMapTexture();
 
         Debug.Log("SimplifiedTerrainMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
         float timeFinal = Time.realtimeSinceStartup;
@@ -748,32 +748,36 @@ public class MapData
             time = Time.realtimeSinceStartup;
 
             //Add decals
-            //TODO Currently only uses first decal
-            //TODO Number of decals and reach should be defined in JSON
             //TODO Can also have an option in JSON to randomize if it has decals or not (so we can put trees on Grassland but not look artificial)
-            float reach = 1.5f;
-            int numberDecals = 100;
             for (int i = 0; i < provinces.Count; i++)
             {
                 //No decals so skip
                 if (provinces[i].terrain.decals == null)
                     continue;
 
-                //Add decals in a circular way with random angle and radius
-                for (int c = 0; c < numberDecals; c++)
+                //Each decal
+                for (int d = 0; d < provinces[i].terrain.decals.Length; d++)
                 {
-                    //Position of decal center
-                    float angle = UnityEngine.Random.Range(0.0f, 2 * Mathf.PI);
-                    float radius = UnityEngine.Random.Range(0, Mathf.Max(pointsHorizontalSeparation / 2 * reach, pointsVerticalSeparation / 2 * reach));
-                    float x = (float)provinces[i].center.X + Mathf.Cos(angle) * radius;
-                    float y = (float)provinces[i].center.Y + Mathf.Sin(angle) * radius;
+                    //Add decals in a circular way with random angle and radius
+                    for (int c = 0; c < provinces[i].terrain.decals[d].number; c++)
+                    {
+                        //Position of decal center
+                        float angle = UnityEngine.Random.Range(0.0f, 2 * Mathf.PI);
+                        float radius = UnityEngine.Random.Range(0, Mathf.Max(pointsHorizontalSeparation / 2 * provinces[i].terrain.decals[d].reach, pointsVerticalSeparation / 2 * provinces[i].terrain.decals[d].reach));
+                        float x = (float)provinces[i].center.X + Mathf.Cos(angle) * radius;
+                        float y = (float)provinces[i].center.Y + Mathf.Sin(angle) * radius;
 
-                    //Rotate image with random angle
-                    Graphics.PixelMatrix rotated = Graphics.Rotate(data.decals[provinces[i].terrain.decals[0]], UnityEngine.Random.Range(0, 3) * Mathf.PI / 2);
+                        Graphics.PixelMatrix decal = data.decals[provinces[i].terrain.decals[d].name];
 
-                    //Add decal
-                    pixelMatrix = Graphics.Decal(pixelMatrix, rotated, (int)x, (int)y);
+                        //Rotate image with random angle
+                        if (provinces[i].terrain.decals[d].rotate)
+                            decal = Graphics.Rotate(decal, UnityEngine.Random.Range(0, 3) * Mathf.PI / 2);
+
+                        //Add decal
+                        pixelMatrix = Graphics.Decal(pixelMatrix, decal, (int)x, (int)y);
+                    }
                 }
+
             }
 
             Debug.Log("----Decals took: " + (Time.realtimeSinceStartup - time) + "s");

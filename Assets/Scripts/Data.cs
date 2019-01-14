@@ -64,12 +64,22 @@ public struct TerrainStructure
 [System.Serializable]
 public struct TerrainType
 {
+
+    [System.Serializable]
+    public struct Decal
+    {
+        public string name;
+        public float reach;
+        public int number;
+        public bool rotate;
+    }
+
     //Name of Type
     public string name;
     //Simplified color
     public int[] color;
     //Decals to use
-    public string[] decals;
+    public Decal[] decals;
     //Heights allowed (names)
     public string[] height_names;
     //Heights allowed (references)
