@@ -825,7 +825,7 @@ public class MapData
                 int endY = Mathf.FloorToInt((float)edge.Value.End.Y);
 
                 //Draw Edge
-                pixelMatrix = Graphics.BresenhamLine(pixelMatrix, startX, startY, endX, endY, Color.black);
+                pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, 2);
                 edge = edge.Next;
             }
 
