@@ -297,13 +297,17 @@ public static class Graphics
 
         for (int i = 0; i < original.width; i++)
         {
+
+            float x = i - halfOriWidth;
+            float xa = halfSize + cos * x;
+            float xb = halfSize + sin * x;
+
             for (int j = 0; j < original.height; j++)
             {
                 //Rotate around center
-                float x = i - halfOriWidth;
                 float y = j - halfOriHeight;
-                int finalX = Mathf.RoundToInt(halfSize + cos * x - sin * y);
-                int finalY = Mathf.RoundToInt(halfSize + sin * x + cos * y);
+                int finalX = Mathf.RoundToInt(xa - sin * y);
+                int finalY = Mathf.RoundToInt(xb + cos * y);
                 Color cl = original.GetPixel(i, j);
                 rotated.SetPixel(finalX, finalY, cl);
             }
