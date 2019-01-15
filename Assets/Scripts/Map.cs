@@ -919,6 +919,14 @@ public class Map : MonoBehaviour
 
     void ZoomOrthoCamera(Vector3 zoomTowards, float amount)
     {
+
+        //Block at limits
+        if(Camera.main.GetComponent<Camera>().orthographicSize == 3 && amount == 1)
+            return;
+
+        if(Camera.main.GetComponent<Camera>().orthographicSize == 10 && amount == -1)
+            return;
+
         // Calculate how much we will have to move towards the zoomTowards position
         float multiplier = (1.0f / Camera.main.GetComponent<Camera>().orthographicSize * amount);
 
