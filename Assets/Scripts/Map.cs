@@ -104,7 +104,7 @@ public class MapData
         GenerateGeography();
         Debug.Log("Geography took: " + (Time.realtimeSinceStartup - time) + "s");
 
-        //TODO Create Provinces (with neighbors)
+        //Create Provinces
         time = Time.realtimeSinceStartup;
         provinces = CreateProvinces();
         Debug.Log("Provinces Setup took: " + (Time.realtimeSinceStartup - time) + "s");
@@ -165,8 +165,6 @@ public class MapData
                 id++;
             }
         }
-
-        Debug.Log("FortuneSites Generated");
 
         return nPoints;
     }
@@ -234,6 +232,7 @@ public class MapData
                     geography.HEIGHTMAP[i, j] = (fastnoise.GetNoise(i, j, 0) + 1) / 2;
                 }
             }
+
         }
 
         //Generate Terrainmap
@@ -257,6 +256,7 @@ public class MapData
                     geography.TERRAINMAP[i, j] = (fastnoise.GetNoise(i, j, 0) + 1) / 2;
                 }
             }
+
         }
 
     }
@@ -449,29 +449,27 @@ public class MapData
 
         //HeightNoiseMapTexture();
 
-        Debug.Log("HeightNoiseMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
+        Debug.Log("==== HeightNoiseMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
         time = Time.realtimeSinceStartup;
 
         //TerrainNoiseMapTexture();
 
-        Debug.Log("TerrainNoiseMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
+        Debug.Log("==== TerrainNoiseMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
         time = Time.realtimeSinceStartup;
 
         //SimplifiedHeightMapTexture();
 
-        Debug.Log("SimplifiedHeightMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
+        Debug.Log("==== SimplifiedHeightMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
         time = Time.realtimeSinceStartup;
 
         //SimplifiedTerrainMapTexture();
 
-        Debug.Log("SimplifiedTerrainMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
+        Debug.Log("==== SimplifiedTerrainMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
         float timeFinal = Time.realtimeSinceStartup;
 
         FinalMapTexture();
 
-        Debug.Log("FinalMapTexture took: " + (Time.realtimeSinceStartup - timeFinal) + "s");
-
-        Debug.Log("Graphics Generated");
+        Debug.Log("==== FinalMapTexture took: " + (Time.realtimeSinceStartup - timeFinal) + "s");
 
         //Generate Heightmap texture (greyscale)
         void HeightNoiseMapTexture()
@@ -715,7 +713,7 @@ public class MapData
                 }
             }
 
-            Debug.Log("----Color blend took: " + (Time.realtimeSinceStartup - time) + "s");
+            Debug.Log("======== Color blend took: " + (Time.realtimeSinceStartup - time) + "s");
             time = Time.realtimeSinceStartup;
 
             //Shade pixels based on height and neighbor
@@ -756,7 +754,7 @@ public class MapData
                 }
             }
 
-            Debug.Log("----Shading took: " + (Time.realtimeSinceStartup - time) + "s");
+            Debug.Log("======== Shading took: " + (Time.realtimeSinceStartup - time) + "s");
             time = Time.realtimeSinceStartup;
 
             //Add decals
@@ -792,7 +790,7 @@ public class MapData
 
             }
 
-            Debug.Log("----Decals took: " + (Time.realtimeSinceStartup - time) + "s");
+            Debug.Log("======== Decals took: " + (Time.realtimeSinceStartup - time) + "s");
             time = Time.realtimeSinceStartup;
 
             //Add randomization to color
@@ -816,7 +814,7 @@ public class MapData
                 }
             }
 
-            Debug.Log("----Randomization took: " + (Time.realtimeSinceStartup - time) + "s");
+            Debug.Log("======== Randomization took: " + (Time.realtimeSinceStartup - time) + "s");
             time = Time.realtimeSinceStartup;
 
             //Draw Border
@@ -841,7 +839,7 @@ public class MapData
                 edge = edge.Next;
             }
 
-            Debug.Log("----Edges took: " + (Time.realtimeSinceStartup - time) + "s");
+            Debug.Log("======== Edges took: " + (Time.realtimeSinceStartup - time) + "s");
 
             //Add Site centers
             for (int i = 0; i < provinces.Count; i++)
@@ -919,7 +917,7 @@ public class Map : MonoBehaviour
         {
             transform.position += new Vector3(Input.GetAxis("Mouse X") * Time.deltaTime * panSpeed, Input.GetAxis("Mouse Y") * Time.deltaTime * panSpeed, 0);
         }
-        
+
     }
 
     void ZoomOrthoCamera(Vector3 zoomTowards, float amount)
