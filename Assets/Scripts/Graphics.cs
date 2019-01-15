@@ -316,19 +316,33 @@ public static class Graphics
     public static PixelMatrix Decal(PixelMatrix original, PixelMatrix decal, int x, int y)
     {
 
+        //Offsets to apply
+        int widthOffset = -decal.width / 2 + x;
+        int heightOffset = -decal.height / 2 + y;
+
         for (int i = 0; i < decal.width; i++)
         {
+
+            //X offset
+            int finalX = i + widthOffset;
+
             for (int j = 0; j < decal.height; j++)
             {
+
+                //Get color
+                Color cl = decal.GetPixel(i, j);
+
                 //Skip transparent pixels
-                if (decal.GetPixel(i, j).a < 0.7)
+                //TODO Blend with transparency?
+                if (cl.a < 0.7)
                     continue;
 
-                //Get coordinates and decal color to apply
-                int finalX = i - decal.width / 2 + x;
-                int finalY = j - decal.height / 2 + y;
-                Color cl = decal.GetPixel(i, j);
+                //Y offset                
+                int finalY = j + heightOffset;
+
+                //Apply color
                 original.SetPixel(finalX, finalY, cl);
+
             }
         }
 
