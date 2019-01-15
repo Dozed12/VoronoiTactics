@@ -326,6 +326,10 @@ public static class Graphics
             //X offset
             int finalX = i + widthOffset;
 
+            //Skip column if out of original
+            if(finalX < 0 || finalX > original.width-1)
+                continue;
+
             for (int j = 0; j < decal.height; j++)
             {
 
