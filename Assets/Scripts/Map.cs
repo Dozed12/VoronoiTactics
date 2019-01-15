@@ -887,11 +887,11 @@ public class Map : MonoBehaviour
     }
 
     //Mouse controls (TEMPORARY)
-    public float dragSpeed = 2;
-    private Vector3 dragOrigin;
+    public float panSpeed = 50.0f;
     void Update()
     {
 
+        //Mouse Zoom
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             ZoomOrthoCamera(Camera.main.ScreenToWorldPoint(Input.mousePosition), 1);
@@ -902,29 +902,22 @@ public class Map : MonoBehaviour
             ZoomOrthoCamera(Camera.main.ScreenToWorldPoint(Input.mousePosition), -1);
         }
 
-        if (Input.GetMouseButtonDown(0))
+        //Mouse Drag
+        if (Input.GetMouseButton(1))
         {
-            dragOrigin = Input.mousePosition;
+            transform.position += new Vector3(Input.GetAxis("Mouse X") * Time.deltaTime * panSpeed, Input.GetAxis("Mouse Y") * Time.deltaTime * panSpeed, 0);
         }
-
-        if (!Input.GetMouseButton(0)) return;
-
-        Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
-
-        Vector3 move = new Vector3(-pos.x * dragSpeed, -pos.y * dragSpeed, 0);
-
-        Camera.main.transform.Translate(move);
-
+        
     }
 
     void ZoomOrthoCamera(Vector3 zoomTowards, float amount)
     {
 
         //Block at limits
-        if(Camera.main.GetComponent<Camera>().orthographicSize == 3 && amount == 1)
+        if (Camera.main.GetComponent<Camera>().orthographicSize == 3 && amount == 1)
             return;
 
-        if(Camera.main.GetComponent<Camera>().orthographicSize == 10 && amount == -1)
+        if (Camera.main.GetComponent<Camera>().orthographicSize == 10 && amount == -1)
             return;
 
         // Calculate how much we will have to move towards the zoomTowards position
