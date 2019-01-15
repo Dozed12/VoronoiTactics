@@ -597,7 +597,7 @@ public class MapData
         void SimplifiedTerrainMapTexture()
         {
 
-            //Pixel set
+            //Pixel matrix for texture
             Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT, Color.white);
 
             //Draw Border
@@ -741,8 +741,8 @@ public class MapData
                         color.g = color.g * (1 - (heightNeighbor - height) * shadowPower);
                         color.b = color.b * (1 - (heightNeighbor - height) * shadowPower);
                         pixelMatrix.SetPixel(i, j, color);
-                        //Light
                     }
+                    //Light
                     else
                     {
                         Color color = pixelMatrix.GetPixel(i, j);
@@ -768,18 +768,25 @@ public class MapData
                 //Each decal
                 for (int d = 0; d < provinces[i].terrain.decals.Length; d++)
                 {
+
+                    //Decal reach
+                    float decalHorizontalReach = pointsHorizontalSeparation / 2 * provinces[i].terrain.decals[d].reach;
+                    float decalVerticalReach = pointsVerticalSeparation / 2 * provinces[i].terrain.decals[d].reach;
+                    float reach = Mathf.Max(decalHorizontalReach, decalVerticalReach);
+
                     //Add decals in a circular way with random angle and radius
                     for (int c = 0; c < provinces[i].terrain.decals[d].number; c++)
                     {
                         //Position of decal center
                         float angle = UnityEngine.Random.Range(0.0f, 2 * Mathf.PI);
-                        float radius = UnityEngine.Random.Range(0, Mathf.Max(pointsHorizontalSeparation / 2 * provinces[i].terrain.decals[d].reach, pointsVerticalSeparation / 2 * provinces[i].terrain.decals[d].reach));
+                        float radius = UnityEngine.Random.Range(0, reach);
                         float x = (float)provinces[i].center.X + Mathf.Cos(angle) * radius;
                         float y = (float)provinces[i].center.Y + Mathf.Sin(angle) * radius;
 
+                        //Decal
                         Graphics.PixelMatrix decal = data.decals[provinces[i].terrain.decals[d].name];
 
-                        //Rotate image with random angle
+                        //Rotate image with random angle (90o jumps)
                         if (provinces[i].terrain.decals[d].rotate)
                             decal = Graphics.Rotate(decal, UnityEngine.Random.Range(0, 3) * Mathf.PI / 2);
 
