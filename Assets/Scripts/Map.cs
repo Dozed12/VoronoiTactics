@@ -85,22 +85,34 @@ public class MapData
     {
 
         //Generate points
+        float time = Time.realtimeSinceStartup;
         points = GeneratePoints();
+        Debug.Log("Point Generation took: " + (Time.realtimeSinceStartup - time) + "s");
 
         //Run Voronoi
+        time = Time.realtimeSinceStartup;
         edges = FortunesAlgorithm.Run(points, 0, 0, settings.WIDTH, settings.HEIGHT);
+        Debug.Log("Voronoi took: " + (Time.realtimeSinceStartup - time) + "s");
 
         //Setups Cell for each point (missing in library)
+        time = Time.realtimeSinceStartup;
         SetupCells();
+        Debug.Log("Setup Cells took: " + (Time.realtimeSinceStartup - time) + "s");
 
         //Generate Geography
+        time = Time.realtimeSinceStartup;
         GenerateGeography();
+        Debug.Log("Geography took: " + (Time.realtimeSinceStartup - time) + "s");
 
         //TODO Create Provinces (with neighbors)
+        time = Time.realtimeSinceStartup;
         provinces = CreateProvinces();
+        Debug.Log("Provinces Setup took: " + (Time.realtimeSinceStartup - time) + "s");
 
         //Generate all graphics
+        time = Time.realtimeSinceStartup;
         GenerateGraphics();
+        Debug.Log("Graphics took: " + (Time.realtimeSinceStartup - time) + "s");
 
         Debug.Log("Map Generation Complete");
 
