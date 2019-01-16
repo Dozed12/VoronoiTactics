@@ -208,6 +208,7 @@ public class MapData
         fastnoise.SetFrequency(1);
 
         //Noise block size
+        //TODO probably better in other place
         int blockSize = 10;
 
         //Noise lookups
@@ -242,13 +243,16 @@ public class MapData
             //Get full noise from blocks
             for (int i = 0; i < settings.WIDTH / blockSize; i++)
             {
+                int xIndexCorner = i * blockSize;
                 for (int j = 0; j < settings.HEIGHT / blockSize; j++)
                 {
+                    int yIndexCorner = j * blockSize;
                     for (int x = 0; x < blockSize; x++)
                     {
+                        int xIndexFinal = xIndexCorner + x;
                         for (int y = 0; y < blockSize; y++)
                         {
-                            geography.HEIGHTMAP[i * blockSize + x, j * blockSize + y] = blocks[i, j];
+                            geography.HEIGHTMAP[xIndexFinal, yIndexCorner + y] = blocks[i, j];
                         }
                     }
                 }
@@ -284,13 +288,16 @@ public class MapData
             //Get full noise from blocks
             for (int i = 0; i < settings.WIDTH / blockSize; i++)
             {
+                int xIndexCorner = i * blockSize;
                 for (int j = 0; j < settings.HEIGHT / blockSize; j++)
                 {
+                    int yIndexCorner = j * blockSize;
                     for (int x = 0; x < blockSize; x++)
                     {
+                        int xIndexFinal = xIndexCorner + x;
                         for (int y = 0; y < blockSize; y++)
                         {
-                            geography.TERRAINMAP[i * blockSize + x, j * blockSize + y] = blocks[i, j];
+                            geography.TERRAINMAP[xIndexFinal, yIndexCorner + y] = blocks[i, j];
                         }
                     }
                 }
