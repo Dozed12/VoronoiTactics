@@ -207,6 +207,9 @@ public class MapData
         fastnoise.SetFractalLacunarity(2.0f);
         fastnoise.SetFrequency(1);
 
+        //Noise block size
+        int blockSize = 10;
+
         //Noise lookups
         HeightMap();
         TerrainMap();
@@ -221,15 +224,33 @@ public class MapData
             //Biome height frequency
             fastnoise.SetFrequency(biome.heightFreq);
 
-            //Allocate
+            //Temporary noise blocks
+            float[,] blocks = new float[settings.WIDTH / blockSize, settings.HEIGHT / blockSize];
+
+            //Get noise blocks
+            for (int i = 0; i < settings.WIDTH / blockSize; i++)
+            {
+                for (int j = 0; j < settings.HEIGHT / blockSize; j++)
+                {
+                    blocks[i, j] = (fastnoise.GetNoise(i * blockSize, j * blockSize, 0) + 1) / 2;
+                }
+            }
+
+            //Full noise
             geography.HEIGHTMAP = new float[settings.WIDTH, settings.HEIGHT];
 
-            //Get noise
-            for (int i = 0; i < settings.WIDTH; i++)
+            //Get full noise from blocks
+            for (int i = 0; i < settings.WIDTH / blockSize; i++)
             {
-                for (int j = 0; j < settings.HEIGHT; j++)
+                for (int j = 0; j < settings.HEIGHT / blockSize; j++)
                 {
-                    geography.HEIGHTMAP[i, j] = (fastnoise.GetNoise(i, j, 0) + 1) / 2;
+                    for (int x = 0; x < blockSize; x++)
+                    {
+                        for (int y = 0; y < blockSize; y++)
+                        {
+                            geography.HEIGHTMAP[i * blockSize + x, j * blockSize + y] = blocks[i, j];
+                        }
+                    }
                 }
             }
 
@@ -245,15 +266,33 @@ public class MapData
             //Biome height frequency
             fastnoise.SetFrequency(biome.terrainFreq);
 
-            //Allocate
+            //Temporary noise blocks
+            float[,] blocks = new float[settings.WIDTH / blockSize, settings.HEIGHT / blockSize];
+
+            //Get noise blocks
+            for (int i = 0; i < settings.WIDTH / blockSize; i++)
+            {
+                for (int j = 0; j < settings.HEIGHT / blockSize; j++)
+                {
+                    blocks[i, j] = (fastnoise.GetNoise(i * blockSize, j * blockSize, 0) + 1) / 2;
+                }
+            }
+
+            //Full noise
             geography.TERRAINMAP = new float[settings.WIDTH, settings.HEIGHT];
 
-            //Get noise
-            for (int i = 0; i < settings.WIDTH; i++)
+            //Get full noise from blocks
+            for (int i = 0; i < settings.WIDTH / blockSize; i++)
             {
-                for (int j = 0; j < settings.HEIGHT; j++)
+                for (int j = 0; j < settings.HEIGHT / blockSize; j++)
                 {
-                    geography.TERRAINMAP[i, j] = (fastnoise.GetNoise(i, j, 0) + 1) / 2;
+                    for (int x = 0; x < blockSize; x++)
+                    {
+                        for (int y = 0; y < blockSize; y++)
+                        {
+                            geography.TERRAINMAP[i * blockSize + x, j * blockSize + y] = blocks[i, j];
+                        }
+                    }
                 }
             }
 
@@ -447,12 +486,12 @@ public class MapData
 
         float time = Time.realtimeSinceStartup;
 
-        //HeightNoiseMapTexture();
+        HeightNoiseMapTexture();
 
         Debug.Log("==== HeightNoiseMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
         time = Time.realtimeSinceStartup;
 
-        //TerrainNoiseMapTexture();
+        TerrainNoiseMapTexture();
 
         Debug.Log("==== TerrainNoiseMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
         time = Time.realtimeSinceStartup;
