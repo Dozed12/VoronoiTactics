@@ -60,7 +60,7 @@ public static class Graphics
     }
 
     //Draw a filled circle
-    public static PixelMatrix FilledCircle(int x, int y, int radius, Color color)
+    public static PixelMatrix FilledCircle(int radius, Color color)
     {
 
         //New Decal
@@ -100,7 +100,7 @@ public static class Graphics
     {
 
         //Prepare filled circle
-        PixelMatrix decal = FilledCircle(x0, y0, thickness, color);
+        PixelMatrix decal = FilledCircle(thickness, color);
 
         int dx = Mathf.Abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
         int dy = Mathf.Abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
