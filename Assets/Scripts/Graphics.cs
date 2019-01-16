@@ -59,6 +59,23 @@ public static class Graphics
 
     }
 
+    //Draw a filled box
+    public static PixelMatrix FilledBox(int width, int height, Color color)
+    {
+
+        //New Decal
+        PixelMatrix decal = new PixelMatrix(width, height, new Color(0, 0, 0, 0));
+
+        //Box perimeter
+        decal = Border(decal, color);
+
+        //Fill box
+        decal = FloodFillLine(decal, width/2, height/2, color);
+
+        return decal;
+
+    }
+
     //Draw a filled circle
     public static PixelMatrix FilledCircle(int radius, Color color)
     {
