@@ -895,9 +895,10 @@ public class MapData
             Debug.Log("======== Edges took: " + (Time.realtimeSinceStartup - time) + "s");
 
             //Add Site centers
+            Graphics.PixelMatrix center = Graphics.FilledCircle(5, Color.black);
             for (int i = 0; i < provinces.Count; i++)
-            {
-                pixelMatrix.SetPixel((int)provinces[i].center.X, (int)provinces[i].center.Y, Color.black);
+            {                
+                pixelMatrix = Graphics.Decal(pixelMatrix, center, (int)provinces[i].center.X, (int)provinces[i].center.Y);
             }
 
             //Create texture
