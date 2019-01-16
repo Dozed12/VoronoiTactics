@@ -64,13 +64,13 @@ public static class Graphics
     {
 
         //New Decal
-        PixelMatrix decal = new PixelMatrix(radius * 2, radius * 2, new Color(0, 0, 0, 0));
+        PixelMatrix decal = new PixelMatrix(radius * 2 + 1, radius * 2 + 1, new Color(0, 0, 0, 0));
 
         //Circle perimeter
-        decal = BresenhamCircle(decal, radius / 2, radius / 2, radius, color);
+        decal = BresenhamCircle(decal, radius, radius, radius, color);
 
         //Fill circle
-        decal = FloodFillLine(decal, radius / 2, radius / 2, color);
+        decal = FloodFillLine(decal, radius, radius, color);
 
         return decal;
 
