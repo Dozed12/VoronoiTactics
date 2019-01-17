@@ -605,6 +605,7 @@ public class MapData
             }
 
             //Find max value
+            //TODO If we need to reuse this maybe we should save it
             int max = -1;
             Color maxCl = new Color(0, 0, 0);
             foreach (var item in colors)
@@ -694,6 +695,7 @@ public class MapData
             }
 
             //Find max value
+            //TODO If we need to reuse this maybe we should save it
             int max = -1;
             Color maxCl = new Color(0, 0, 0);
             foreach (var item in colors)
@@ -734,7 +736,7 @@ public class MapData
             for (int i = 0; i < provinces.Count; i++)
             {
                 Color c = new Color(provinces[i].terrain.color[0] / 255.0f, provinces[i].terrain.color[1] / 255.0f, provinces[i].terrain.color[2] / 255.0f);
-                pixelMatrix = Graphics.FloodFillLine(pixelMatrix, (int)provinces[i].center.X, (int)provinces[i].center.Y, c);
+                pixelMatrix = Graphics.FillPolygon(pixelMatrix, provinces[i].vertices, c);
             }
 
             //Add Site centers

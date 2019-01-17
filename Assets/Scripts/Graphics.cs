@@ -314,6 +314,81 @@ public static class Graphics
 
     }
 
+    //Fill Polygon
+    //Looks much faster and quite promissing
+    //http://alienryderflex.com/polygon_fill/
+    //TODO Need to sort the vertices in order before this, probably in SetupProvinces, we used to do this but thought it was unecessary(it's based on angle from center)
+    //TODO Optimize it further
+    public static PixelMatrix FillPolygon(PixelMatrix original, List<VPoint> polygon, Color cl)
+    {
+
+        double pixelX, pixelY, swap;
+        int i, j, nodes;
+        double[] nodeX = new double[polygon.Count];
+
+        //Limits of polygon
+        double IMAGE_TOP = original.height + 1, IMAGE_BOT = -1, IMAGE_RIGHT = -1, IMAGE_LEFT = original.width + 1;
+
+        for (int p = 0; p < polygon.Count; p++)
+        {
+            if (polygon[p].X > IMAGE_RIGHT)
+                IMAGE_RIGHT = polygon[p].X;
+            if (polygon[p].X < IMAGE_LEFT)
+                IMAGE_LEFT = polygon[p].X;
+            if (polygon[p].Y < IMAGE_TOP)
+                IMAGE_TOP = polygon[p].Y;
+            if (polygon[p].Y > IMAGE_BOT)
+                IMAGE_BOT = polygon[p].Y;
+        }
+
+        //  Loop through the rows of the image.
+        for (pixelY = IMAGE_TOP; pixelY < IMAGE_BOT; pixelY++)
+        {
+
+            //  Build a list of nodes.
+            nodes = 0; j = polygon.Count - 1;
+            for (i = 0; i < polygon.Count; i++)
+            {
+                if (polygon[i].Y < (double)pixelY && polygon[j].Y >= (double)pixelY || polygon[j].Y < (double)pixelY && polygon[i].Y >= (double)pixelY)
+                {
+                    nodeX[nodes++] = (polygon[i].X + (pixelY - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X));
+                }
+                j = i;
+            }
+
+            //  Sort the nodes, via a simple “Bubble” sort.
+            i = 0;
+            while (i < nodes - 1)
+            {
+                if (nodeX[i] > nodeX[i + 1])
+                {
+                    swap = nodeX[i]; nodeX[i] = nodeX[i + 1]; nodeX[i + 1] = swap; if (i != 0) i--;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+
+            //  Fill the pixels between node pairs.
+            for (i = 0; i < nodes; i += 2)
+            {
+                if (nodeX[i] >= IMAGE_RIGHT)
+                    break;
+                if (nodeX[i + 1] > IMAGE_LEFT)
+                {
+                    if (nodeX[i] < IMAGE_LEFT)
+                        nodeX[i] = IMAGE_LEFT;
+                    if (nodeX[i + 1] > IMAGE_RIGHT)
+                        nodeX[i + 1] = IMAGE_RIGHT;
+                    for (pixelX = nodeX[i]; pixelX < nodeX[i + 1]; pixelX++)
+                        original.SetPixel((int)pixelX, (int)pixelY, cl);
+                }
+            }
+        }
+
+        return original;
+    }
 
     //Rotate an image
     public static PixelMatrix Rotate(PixelMatrix original, float angle)
