@@ -70,7 +70,7 @@ public static class Graphics
         decal = Border(decal, color);
 
         //Fill box
-        decal = FloodFillLine(decal, width/2, height/2, color);
+        decal = FloodFillLine(decal, width / 2, height / 2, color);
 
         return decal;
 
@@ -258,6 +258,7 @@ public static class Graphics
         {
             VPoint temp = pixels.Pop();
             int y1 = (int)temp.Y;
+
             while (y1 >= 0 && bmp.GetPixel((int)temp.X, y1) == targetColor)
             {
                 y1--;
@@ -265,25 +266,29 @@ public static class Graphics
             y1++;
             bool spanLeft = false;
             bool spanRight = false;
+
             while (y1 < bmp.height && bmp.GetPixel((int)temp.X, y1) == targetColor)
             {
                 bmp.SetPixel((int)temp.X, y1, replacementColor);
 
-                if (!spanLeft && temp.X > 0 && bmp.GetPixel((int)temp.X - 1, y1) == targetColor)
+                Color clm1 = bmp.GetPixel((int)temp.X - 1, y1);
+                Color clp1 = bmp.GetPixel((int)temp.X + 1, y1);
+
+                if (!spanLeft && temp.X > 0 && clm1 == targetColor)
                 {
                     pixels.Push(new VPoint(temp.X - 1, y1));
                     spanLeft = true;
                 }
-                else if (spanLeft && temp.X - 1 >= 0 && bmp.GetPixel((int)temp.X - 1, y1) != targetColor)
+                else if (spanLeft && temp.X - 1 >= 0 && clm1 != targetColor)
                 {
                     spanLeft = false;
                 }
-                if (!spanRight && temp.X < bmp.width - 1 && bmp.GetPixel((int)temp.X + 1, y1) == targetColor)
+                if (!spanRight && temp.X < bmp.width - 1 && clp1 == targetColor)
                 {
                     pixels.Push(new VPoint(temp.X + 1, y1));
                     spanRight = true;
                 }
-                else if (spanRight && temp.X < bmp.width - 1 && bmp.GetPixel((int)temp.X + 1, y1) != targetColor)
+                else if (spanRight && temp.X < bmp.width - 1 && clp1 != targetColor)
                 {
                     spanRight = false;
                 }
@@ -295,6 +300,7 @@ public static class Graphics
         return bmp;
 
     }
+
 
     //Rotate an image
     public static PixelMatrix Rotate(PixelMatrix original, float angle)
