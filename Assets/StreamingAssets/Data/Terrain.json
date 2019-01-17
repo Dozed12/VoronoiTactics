@@ -43,11 +43,14 @@
                 }
             ],
             "height_names": [
-                "Low Mountains",
                 "Hills",
                 "Plains"
             ],
-            "height_default_fallback": "Barren",
+            "height_default_fallback": "Woods",
+            "height_pair_fallbacks": [
+                "High Mountains",
+                "Grassland"
+            ],
             "modifiers": {
                 "attack": 1.1,
                 "defense": 0.8,

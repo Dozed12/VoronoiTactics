@@ -503,12 +503,12 @@ public class MapData
         Debug.Log("==== TerrainNoiseMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
         time = Time.realtimeSinceStartup;
 
-        //SimplifiedHeightMapTexture();
+        SimplifiedHeightMapTexture();
 
         Debug.Log("==== SimplifiedHeightMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
         time = Time.realtimeSinceStartup;
 
-        //SimplifiedTerrainMapTexture();
+        SimplifiedTerrainMapTexture();
 
         Debug.Log("==== SimplifiedTerrainMapTexture took: " + (Time.realtimeSinceStartup - time) + "s");
         float timeFinal = Time.realtimeSinceStartup;
