@@ -585,8 +585,36 @@ public class MapData
         void SimplifiedHeightMapTexture()
         {
 
-            //Pixel set
-            Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT, Color.white);
+            //List of colors and use number
+            Dictionary<Color, int> colors = new Dictionary<Color, int>();
+            for (int i = 0; i < provinces.Count; i++)
+            {
+                Color cl = new Color(provinces[i].height.color / 255.0f, provinces[i].height.color / 255.0f, provinces[i].height.color / 255.0f);
+
+                int curVal;
+                if(colors.ContainsKey(cl)){
+                    curVal = colors[cl];
+                    colors.Remove(cl);
+                    colors.Add(cl, curVal +1);
+                }
+                else{
+                    colors.Add(cl, 1);
+                }
+            }
+
+            //Find max value
+            int max = -1;
+            Color maxCl = new Color(0,0,0);
+            foreach (var item in colors)
+            {
+               if(item.Value > max){
+                   max = item.Value;
+                   maxCl = item.Key;
+               }
+            }
+
+            //Pixel matrix for texture start with most used color
+            Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT, maxCl);
 
             //Draw Border
             pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
@@ -643,8 +671,36 @@ public class MapData
         void SimplifiedTerrainMapTexture()
         {
 
-            //Pixel matrix for texture
-            Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT, Color.white);
+            //List of colors and use number
+            Dictionary<Color, int> colors = new Dictionary<Color, int>();
+            for (int i = 0; i < provinces.Count; i++)
+            {
+                Color cl = new Color(provinces[i].terrain.color[0] / 255.0f, provinces[i].terrain.color[1] / 255.0f, provinces[i].terrain.color[2] / 255.0f);
+
+                int curVal;
+                if(colors.ContainsKey(cl)){
+                    curVal = colors[cl];
+                    colors.Remove(cl);
+                    colors.Add(cl, curVal +1);
+                }
+                else{
+                    colors.Add(cl, 1);
+                }
+            }
+
+            //Find max value
+            int max = -1;
+            Color maxCl = new Color(0,0,0);
+            foreach (var item in colors)
+            {
+               if(item.Value > max){
+                   max = item.Value;
+                   maxCl = item.Key;
+               }
+            }
+
+            //Pixel matrix for texture start with most used color
+            Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT, maxCl);
 
             //Draw Border
             pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
