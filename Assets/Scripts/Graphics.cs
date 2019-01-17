@@ -9,6 +9,17 @@ using VoronoiLib.Structures;
 public static class Graphics
 {
 
+    //Basic integer based point
+    public struct Point
+    {
+        public int x;
+        public int y;
+        public Point(int nx, int ny){
+            x = nx;
+            y = ny;
+        }
+    }
+
     //Array of pixels with facilitators to use with Unity SetPixels
     public class PixelMatrix
     {
@@ -243,23 +254,23 @@ public static class Graphics
     public static PixelMatrix FloodFillLine(PixelMatrix bmp, int x, int y, Color replacementColor)
     {
 
-        VPoint pt = new VPoint(x, y);
+        Point pt = new Point(x, y);
 
-        Color targetColor = bmp.GetPixel((int)pt.X, (int)pt.Y);
+        Color targetColor = bmp.GetPixel(pt.x, pt.y);
         if (targetColor == replacementColor)
         {
             return bmp;
         }
 
-        Stack<VPoint> pixels = new Stack<VPoint>();
+        Stack<Point> pixels = new Stack<Point>();
 
         pixels.Push(pt);
         while (pixels.Count != 0)
         {
-            VPoint temp = pixels.Pop();
-            int y1 = (int)temp.Y;
+            Point temp = pixels.Pop();
+            int y1 = temp.y;
 
-            while (y1 >= 0 && bmp.GetPixel((int)temp.X, y1) == targetColor)
+            while (y1 >= 0 && bmp.GetPixel(temp.x, y1) == targetColor)
             {
                 y1--;
             }
@@ -267,28 +278,28 @@ public static class Graphics
             bool spanLeft = false;
             bool spanRight = false;
 
-            while (y1 < bmp.height && bmp.GetPixel((int)temp.X, y1) == targetColor)
+            while (y1 < bmp.height && bmp.GetPixel(temp.x, y1) == targetColor)
             {
-                bmp.SetPixel((int)temp.X, y1, replacementColor);
+                bmp.SetPixel(temp.x, y1, replacementColor);
 
-                Color clm1 = bmp.GetPixel((int)temp.X - 1, y1);
-                Color clp1 = bmp.GetPixel((int)temp.X + 1, y1);
+                Color clm1 = bmp.GetPixel(temp.x - 1, y1);
+                Color clp1 = bmp.GetPixel(temp.x + 1, y1);
 
-                if (!spanLeft && temp.X > 0 && clm1 == targetColor)
+                if (!spanLeft && temp.x > 0 && clm1 == targetColor)
                 {
-                    pixels.Push(new VPoint(temp.X - 1, y1));
+                    pixels.Push(new Point(temp.x - 1, y1));
                     spanLeft = true;
                 }
-                else if (spanLeft && temp.X - 1 >= 0 && clm1 != targetColor)
+                else if (spanLeft && temp.x - 1 >= 0 && clm1 != targetColor)
                 {
                     spanLeft = false;
                 }
-                if (!spanRight && temp.X < bmp.width - 1 && clp1 == targetColor)
+                if (!spanRight && temp.x < bmp.width - 1 && clp1 == targetColor)
                 {
-                    pixels.Push(new VPoint(temp.X + 1, y1));
+                    pixels.Push(new Point(temp.x + 1, y1));
                     spanRight = true;
                 }
-                else if (spanRight && temp.X < bmp.width - 1 && clp1 != targetColor)
+                else if (spanRight && temp.x < bmp.width - 1 && clp1 != targetColor)
                 {
                     spanRight = false;
                 }
