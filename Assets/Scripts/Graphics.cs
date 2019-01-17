@@ -14,7 +14,8 @@ public static class Graphics
     {
         public int x;
         public int y;
-        public Point(int nx, int ny){
+        public Point(int nx, int ny)
+        {
             x = nx;
             y = ny;
         }
@@ -251,6 +252,7 @@ public static class Graphics
     }
 
     //Scan-line flood fill, much faster
+    //https://lodev.org/cgtutor/floodfill.html#Scanline_Floodfill_Algorithm_With_Stack
     public static PixelMatrix FloodFillLine(PixelMatrix bmp, int x, int y, Color replacementColor)
     {
 
