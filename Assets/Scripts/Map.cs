@@ -629,6 +629,20 @@ public class MapData
             //Pixel matrix for texture start with most used color
             Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT, maxCl);
 
+            //Fill sites color
+            for (int i = 0; i < provinces.Count; i++)
+            {
+                //Calculate color
+                Color c = new Color(provinces[i].height.color / 255.0f, provinces[i].height.color / 255.0f, provinces[i].height.color / 255.0f);
+
+                //Dont draw if background was same color
+                if(c == maxCl)
+                    continue;
+
+                //Draw polygon
+                pixelMatrix = Graphics.FillPolygon(pixelMatrix, provinces[i].vertices, c);
+            }
+
             //Draw Border
             pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
 
@@ -649,13 +663,6 @@ public class MapData
                 //Draw Edge
                 pixelMatrix = Graphics.BresenhamLine(pixelMatrix, startX, startY, endX, endY, Color.black);
                 edge = edge.Next;
-            }
-
-            //Fill sites color
-            for (int i = 0; i < provinces.Count; i++)
-            {
-                Color c = new Color(provinces[i].height.color / 255.0f, provinces[i].height.color / 255.0f, provinces[i].height.color / 255.0f);
-                pixelMatrix = Graphics.FloodFillLine(pixelMatrix, (int)provinces[i].center.X, (int)provinces[i].center.Y, c);
             }
 
             //Add Site centers
