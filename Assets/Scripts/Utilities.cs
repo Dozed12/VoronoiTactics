@@ -1,6 +1,13 @@
 
 using System;
 
+using UnityEngine;
+
+public static class Utilities{
+    public static readonly float PI2 = Mathf.PI * 2;
+    public static readonly float HALFPI = Mathf.PI / 2;
+}
+
 //Pair class
 public class Pair<T1, T2>
 {

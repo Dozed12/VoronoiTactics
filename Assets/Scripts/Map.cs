@@ -148,7 +148,7 @@ public class MapData
                 double x = pointsHorizontalSeparation * (i + 0.5f);
                 double y = pointsVerticalSeparation * (j + 0.5f);
                 //Randomize angular offset
-                float angle = UnityEngine.Random.Range(0, Mathf.PI * 2);
+                float angle = UnityEngine.Random.Range(0, Utilities.PI2);
                 float a = UnityEngine.Random.Range(0, pointsHorizontalAllowedRadius);
                 float b = UnityEngine.Random.Range(0, pointsVerticalAllowedRadius);
                 float ab = a * b;
@@ -158,7 +158,7 @@ public class MapData
                 double offX = ab / Mathf.Sqrt((bb) + (aa) * (tanAngle * tanAngle));
                 double offY = ab / Mathf.Sqrt((aa) + (bb) / (tanAngle * tanAngle));
                 //Quadrant check
-                if (angle > -Mathf.PI / 2 && angle < Mathf.PI / 2)
+                if (angle > -Utilities.HALFPI && angle < Utilities.HALFPI)
                     nPoints.Add(new FortuneSite(x + offX, y + offY, id));
                 else
                     nPoints.Add(new FortuneSite(x - offX, y - offY, id));
@@ -636,7 +636,7 @@ public class MapData
                 Color c = new Color(provinces[i].height.color / 255.0f, provinces[i].height.color / 255.0f, provinces[i].height.color / 255.0f);
 
                 //Dont draw if background was same color
-                if(c == maxCl)
+                if (c == maxCl)
                     continue;
 
                 //Draw polygon
@@ -733,7 +733,7 @@ public class MapData
                 Color c = new Color(provinces[i].terrain.color[0] / 255.0f, provinces[i].terrain.color[1] / 255.0f, provinces[i].terrain.color[2] / 255.0f);
 
                 //Dont draw if background was same color
-                if(c == maxCl)
+                if (c == maxCl)
                     continue;
 
                 //Draw polygon
@@ -911,7 +911,7 @@ public class MapData
                     for (int c = 0; c < provinces[i].terrain.decals[d].number; c++)
                     {
                         //Position of decal center
-                        float angle = UnityEngine.Random.Range(0.0f, 2 * Mathf.PI);
+                        float angle = UnityEngine.Random.Range(0.0f, Utilities.PI2);
                         float radius = UnityEngine.Random.Range(0, reach);
                         float x = (float)provinces[i].center.X + Mathf.Cos(angle) * radius;
                         float y = (float)provinces[i].center.Y + Mathf.Sin(angle) * radius;
@@ -921,7 +921,7 @@ public class MapData
 
                         //Rotate image with random angle (90o jumps)
                         if (provinces[i].terrain.decals[d].rotate)
-                            decal = Graphics.Rotate(decal, UnityEngine.Random.Range(0, 3) * Mathf.PI / 2);
+                            decal = Graphics.Rotate(decal, UnityEngine.Random.Range(0, 3) * Utilities.HALFPI);
 
                         //Add decal
                         pixelMatrix = Graphics.Decal(pixelMatrix, decal, (int)x, (int)y);
