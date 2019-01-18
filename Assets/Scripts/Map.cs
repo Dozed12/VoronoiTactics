@@ -849,47 +849,6 @@ public class MapData
             Debug.Log("======== Color blend took: " + (Time.realtimeSinceStartup - time) + "s");
             time = Time.realtimeSinceStartup;
 
-            //Shade pixels based on height and neighbor
-            //TODO Settings should be in other place
-            //TODO Seems to be creating some graphical artifacts (horizontal lines)
-            float shadowPower = 0;
-            float lightPower = 0;
-            for (int i = 0; i < settings.WIDTH; i++)
-            {
-                for (int j = 0; j < settings.HEIGHT; j++)
-                {
-                    float height = geography.HEIGHTMAP[i, j];
-                    float heightNeighbor;
-                    //TODO Lighting direction comes from here
-                    //TODO Lighting can be distributed in more than one neighbor(like a vector with magnitude 1)
-                    if (i - 1 > 0)
-                        heightNeighbor = geography.HEIGHTMAP[i - 1, j];
-                    else
-                        continue;
-                    //Shadow
-                    if (height < heightNeighbor)
-                    {
-                        Color color = pixelMatrix.GetPixel(i, j);
-                        color.r = color.r * (1 - (heightNeighbor - height) * shadowPower);
-                        color.g = color.g * (1 - (heightNeighbor - height) * shadowPower);
-                        color.b = color.b * (1 - (heightNeighbor - height) * shadowPower);
-                        pixelMatrix.SetPixel(i, j, color);
-                    }
-                    //Light
-                    else
-                    {
-                        Color color = pixelMatrix.GetPixel(i, j);
-                        color.r = color.r + (1 - color.r) * (heightNeighbor - height) * lightPower;
-                        color.g = color.g + (1 - color.g) * (heightNeighbor - height) * lightPower;
-                        color.b = color.b + (1 - color.b) * (heightNeighbor - height) * lightPower;
-                        pixelMatrix.SetPixel(i, j, color);
-                    }
-                }
-            }
-
-            Debug.Log("======== Shading took: " + (Time.realtimeSinceStartup - time) + "s");
-            time = Time.realtimeSinceStartup;
-
             //Add decals
             //TODO Can also have an option in JSON to randomize if it has decals or not (so we can put trees on Grassland but not look artificial)
             for (int i = 0; i < provinces.Count; i++)
