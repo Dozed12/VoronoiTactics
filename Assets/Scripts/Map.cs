@@ -796,7 +796,7 @@ public class MapData
             //TODO Higher values cause darkening, is that normal?
             time = Time.realtimeSinceStartup;
             int differentiation = 2;
-            int block = 10;
+            int block = 20;
             int blocksW = settings.WIDTH / block;
             int blocksH = settings.HEIGHT / block;
             for (int i = 0; i < settings.WIDTH; i += block / 2)

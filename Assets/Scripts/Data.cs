@@ -355,7 +355,9 @@ public class Data
         decals = new Dictionary<string, Graphics.PixelMatrix[]>();
         for (int i = 0; i < decalsRaw.Length; i++)
         {
-            //TODO Only rotate when asked in JSON
+            //Rotation variants
+            //TODO only process rotated versions if required in JSON
+            //(very small optimization, also maybe not ideal if the same decal is used in a rotated and not rotated context)
             Graphics.PixelMatrix[] decalsArray = new Graphics.PixelMatrix[4];
             decalsArray[0] = new Graphics.PixelMatrix(decalsRaw[i]);
             decalsArray[1] = Graphics.RotateSq(decalsArray[0], 1);

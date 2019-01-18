@@ -441,9 +441,10 @@ public static class Graphics
         //Rotate 90º
         for (int i = 0; i < original.width; i++)
         {
+            int finalI = original.width - i - 1;
             for (int j = 0; j < original.height; j++)
             {
-                rotated.SetPixel(j, original.width - i - 1, original.GetPixel(i, j));
+                rotated.SetPixel(j, finalI, original.GetPixel(i, j));
             }
         }
 
