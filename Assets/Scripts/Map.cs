@@ -911,10 +911,11 @@ public class MapData
                     for (int c = 0; c < provinces[i].terrain.decals[d].number; c++)
                     {
                         //Position of decal center
-                        float angle = UnityEngine.Random.Range(0.0f, Utilities.PI2);
+                        float cos = UnityEngine.Random.Range(-1.0f, 1.0f);
+                        float sin = UnityEngine.Random.Range(-1.0f, 1.0f);
                         float radius = UnityEngine.Random.Range(0, reach);
-                        float x = (float)provinces[i].center.X + Mathf.Cos(angle) * radius;
-                        float y = (float)provinces[i].center.Y + Mathf.Sin(angle) * radius;
+                        float x = (float)provinces[i].center.X + cos * radius;
+                        float y = (float)provinces[i].center.Y + sin * radius;
 
                         //Decal
                         Graphics.PixelMatrix decal = data.decals[provinces[i].terrain.decals[d].name];
