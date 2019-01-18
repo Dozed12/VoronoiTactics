@@ -317,28 +317,26 @@ public static class Graphics
     //Fill Polygon
     //Looks much faster and quite promissing
     //http://alienryderflex.com/polygon_fill/
-    //TODO Need to sort the vertices in order before this, probably in SetupProvinces, we used to do this but thought it was unecessary(it's based on angle from center)
-    //TODO Optimize it further
     public static PixelMatrix FillPolygon(PixelMatrix original, List<VPoint> polygon, Color cl)
     {
 
-        double pixelX, pixelY, swap;
+        int pixelX, pixelY, swap;
         int i, j, nodes;
-        double[] nodeX = new double[polygon.Count];
+        int[] nodeX = new int[polygon.Count];
 
         //Limits of polygon
-        double IMAGE_TOP = original.height + 1, IMAGE_BOT = -1, IMAGE_RIGHT = -1, IMAGE_LEFT = original.width + 1;
+        int IMAGE_TOP = original.height + 1, IMAGE_BOT = -1, IMAGE_RIGHT = -1, IMAGE_LEFT = original.width + 1;
 
         for (int p = 0; p < polygon.Count; p++)
         {
             if (polygon[p].X > IMAGE_RIGHT)
-                IMAGE_RIGHT = polygon[p].X;
+                IMAGE_RIGHT = (int)polygon[p].X;
             if (polygon[p].X < IMAGE_LEFT)
-                IMAGE_LEFT = polygon[p].X;
+                IMAGE_LEFT = (int)polygon[p].X;
             if (polygon[p].Y < IMAGE_TOP)
-                IMAGE_TOP = polygon[p].Y;
+                IMAGE_TOP = (int)polygon[p].Y;
             if (polygon[p].Y > IMAGE_BOT)
-                IMAGE_BOT = polygon[p].Y;
+                IMAGE_BOT = (int)polygon[p].Y;
         }
 
         //  Loop through the rows of the image.
@@ -351,7 +349,7 @@ public static class Graphics
             {
                 if (polygon[i].Y < (double)pixelY && polygon[j].Y >= (double)pixelY || polygon[j].Y < (double)pixelY && polygon[i].Y >= (double)pixelY)
                 {
-                    nodeX[nodes++] = (polygon[i].X + (pixelY - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X));
+                    nodeX[nodes++] = (int)(polygon[i].X + (pixelY - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X));
                 }
                 j = i;
             }
