@@ -444,6 +444,15 @@ public class MapData
             y /= nSite.vertices.Count;
             nSite.center = new VPoint(x, y);
 
+            //Give center to vertices for sorting
+            for (int j = 0; j < nSite.vertices.Count; j++)
+            {
+                nSite.vertices[j].findAngle(nSite.center);
+            }
+
+            //Sort vertices using angle from center
+            nSite.vertices.Sort();
+
             //Add
             nProvinces.Add(nSite);
         }
@@ -710,6 +719,14 @@ public class MapData
             //Pixel matrix for texture start with most used color
             Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT, maxCl);
 
+            //Fill sites color
+            for (int i = 0; i < provinces.Count; i++)
+            {
+                Color c = new Color(provinces[i].terrain.color[0] / 255.0f, provinces[i].terrain.color[1] / 255.0f, provinces[i].terrain.color[2] / 255.0f);
+                //TODO dont draw if background was same color
+                pixelMatrix = Graphics.FillPolygon(pixelMatrix, provinces[i].vertices, c);
+            }
+
             //Draw Border
             pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
 
@@ -730,13 +747,6 @@ public class MapData
                 //Draw Edge
                 pixelMatrix = Graphics.BresenhamLine(pixelMatrix, startX, startY, endX, endY, Color.black);
                 edge = edge.Next;
-            }
-
-            //Fill sites color
-            for (int i = 0; i < provinces.Count; i++)
-            {
-                Color c = new Color(provinces[i].terrain.color[0] / 255.0f, provinces[i].terrain.color[1] / 255.0f, provinces[i].terrain.color[2] / 255.0f);
-                pixelMatrix = Graphics.FillPolygon(pixelMatrix, provinces[i].vertices, c);
             }
 
             //Add Site centers
