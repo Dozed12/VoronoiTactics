@@ -920,9 +920,12 @@ public class MapData
                         //Decal rotations available
                         Graphics.PixelMatrix[] decalRotations = data.decals[provinces[i].terrain.decals[d].name];
 
-                        //Final Decal pick rotation
-                        //TODO Only rotate when asked
-                        Graphics.PixelMatrix decal = data.decals[provinces[i].terrain.decals[d].name][UnityEngine.Random.Range(0, 4)];
+                        //Final decal                    
+                        Graphics.PixelMatrix decal = data.decals[provinces[i].terrain.decals[d].name][0];
+
+                        //Pick a random rotation if required
+                        if(provinces[i].terrain.decals[d].rotate)
+                            decal = data.decals[provinces[i].terrain.decals[d].name][UnityEngine.Random.Range(0, 4)];
 
                         //Add decal
                         pixelMatrix = Graphics.Decal(pixelMatrix, decal, (int)x, (int)y);
