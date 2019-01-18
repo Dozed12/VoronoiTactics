@@ -150,7 +150,7 @@ public class Data
     public Dictionary<string, TerrainStructure> structures;
     public Dictionary<string, Biome> biomes;
 
-    public Dictionary<string, Graphics.PixelMatrix> decals;
+    public Dictionary<string, Graphics.PixelMatrix[]> decals;
 
     //Load Height.json
     private void LoadHeight()
@@ -352,10 +352,16 @@ public class Data
         }
 
         //Load decals into a dictionary with PixelMatrix
-        decals = new Dictionary<string, Graphics.PixelMatrix>();
+        decals = new Dictionary<string, Graphics.PixelMatrix[]>();
         for (int i = 0; i < decalsRaw.Length; i++)
         {
-            decals.Add(decalsRaw[i].name, new Graphics.PixelMatrix(decalsRaw[i]));
+            //TODO Only rotate when asked in JSON
+            Graphics.PixelMatrix[] decalsArray = new Graphics.PixelMatrix[4];
+            decalsArray[0] = new Graphics.PixelMatrix(decalsRaw[i]);
+            decalsArray[1] = Graphics.RotateSq(decalsArray[0], 1);
+            decalsArray[2] = Graphics.RotateSq(decalsArray[0], 2);
+            decalsArray[3] = Graphics.RotateSq(decalsArray[0], 3);
+            decals.Add(decalsRaw[i].name, decalsArray);
         }
 
         //Load Terrain JSON files

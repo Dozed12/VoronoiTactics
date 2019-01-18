@@ -388,7 +388,8 @@ public static class Graphics
         return original;
     }
 
-    //Rotate an image
+    //Rotate an image with arbitrary angle
+    //Causes aliasing (blank pixels)
     public static PixelMatrix Rotate(PixelMatrix original, float angle)
     {
 
@@ -421,6 +422,33 @@ public static class Graphics
                 rotated.SetPixel(finalX, finalY, cl);
             }
         }
+
+        return rotated;
+    }
+
+    //Rotate an image by increments of 90 degrees
+    public static PixelMatrix RotateSq(PixelMatrix original, int rotates)
+    {
+
+        //No more rotates
+        if (rotates == 0)
+            return original;
+
+        //Setup new rotated
+        int side = Mathf.Max(original.width, original.height);
+        PixelMatrix rotated = new PixelMatrix(side, side, Color.clear);
+
+        //Rotate 90º
+        for (int i = 0; i < original.width; i++)
+        {
+            for (int j = 0; j < original.height; j++)
+            {
+                rotated.SetPixel(j, original.width - i - 1, original.GetPixel(i, j));
+            }
+        }
+
+        //Call new rotation
+        rotated = RotateSq(rotated, rotates - 1);
 
         return rotated;
     }

@@ -917,12 +917,12 @@ public class MapData
                         float x = (float)provinces[i].center.X + cos * radius;
                         float y = (float)provinces[i].center.Y + sin * radius;
 
-                        //Decal
-                        Graphics.PixelMatrix decal = data.decals[provinces[i].terrain.decals[d].name];
+                        //Decal rotations available
+                        Graphics.PixelMatrix[] decalRotations = data.decals[provinces[i].terrain.decals[d].name];
 
-                        //Rotate image with random angle (90o jumps)
-                        if (provinces[i].terrain.decals[d].rotate)
-                            decal = Graphics.Rotate(decal, UnityEngine.Random.Range(0, 3) * Utilities.HALFPI);
+                        //Final Decal pick rotation
+                        //TODO Only rotate when asked
+                        Graphics.PixelMatrix decal = data.decals[provinces[i].terrain.decals[d].name][UnityEngine.Random.Range(0, 4)];
 
                         //Add decal
                         pixelMatrix = Graphics.Decal(pixelMatrix, decal, (int)x, (int)y);
