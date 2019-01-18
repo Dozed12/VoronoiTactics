@@ -1089,6 +1089,9 @@ public class Map : MonoBehaviour
     public void Generate()
     {
 
+        //Start time
+        float time = Time.realtimeSinceStartup;
+
         //New map data with settings
         //TODO Settings probably wont be here
         mapData = new MapData(data);
@@ -1123,6 +1126,9 @@ public class Map : MonoBehaviour
 
         //Set mapmode to whatever is selected
         OnMapModeChange();
+
+        //Total generation time
+        Debug.Log("#### Total generation time: " + (Time.realtimeSinceStartup - time) + "s");
 
     }
 
