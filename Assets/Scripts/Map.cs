@@ -908,25 +908,30 @@ public class MapData
             //TODO Terrain roughness
             //TODO Optimize some casts(use a point struct with int instead of double)
             float roughEffect = 0.1f;
-            int roughDivision = 20;
+            int roughDivision = 50;
             int roughMagnitude = 3;
             for (int i = 0; i < provinces.Count; i++)
             {
                 //Number of roughs
                 for (int n = 0; n < provinces[i].height.roughness; n++)
                 {
+
+                    //TODO Should be just 1 straight line with jitter, should be chained lines with jitter
+                    
                     //Random Start
                     double startX = provinces[i].center.X + UnityEngine.Random.Range(-pointsHorizontalSeparation / 2, pointsHorizontalSeparation / 2);
                     double startY = provinces[i].center.Y + UnityEngine.Random.Range(-pointsVerticalSeparation / 2, pointsVerticalSeparation / 2);
                     VPoint start = new VPoint(startX, startY);
 
-                    double deltaX = UnityEngine.Random.Range(0, pointsHorizontalSeparation / 4);
+                    //TODO Direction should be random
+
+                    double deltaX = UnityEngine.Random.Range(0, pointsHorizontalSeparation / 2);
 
                     //Randomly flip
                     if (UnityEngine.Random.Range(0, 2) == 0)
                         deltaX = -deltaX;
 
-                    double deltaY = UnityEngine.Random.Range(0, pointsVerticalSeparation / 4);
+                    double deltaY = UnityEngine.Random.Range(0, pointsVerticalSeparation / 2);
 
                     //Randomly flip
                     if (UnityEngine.Random.Range(0, 2) == 0)
