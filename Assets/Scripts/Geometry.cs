@@ -13,7 +13,7 @@ public static class Geometry
     public static bool InsideConvex(List<VPoint> polygon, VPoint point)
     {
         //Check if a triangle or higher n-gon
-        if(polygon.Count < 3)
+        if (polygon.Count < 3)
             return false;
 
         //n>2 Keep track of cross product sign changes
@@ -59,7 +59,7 @@ public static class Geometry
     {
 
         //Check if a triangle or higher n-gon
-        if(polygon.Count < 3)
+        if (polygon.Count < 3)
             return false;
 
         bool result = false;
@@ -76,6 +76,55 @@ public static class Geometry
             j = i;
         }
         return result;
+    }
+
+    //Jitters a line segment of 2 VPoints
+    public static List<VPoint> Jitter(VPoint start, VPoint end, int divisions, double magnitude)
+    {
+
+        //Create list and add start
+        List<VPoint> jitter = new List<VPoint>();
+        jitter.Add(start);
+
+        //Distance of points
+        double distance = System.Math.Sqrt((start.X - end.X) * (start.X - end.X) - (start.Y - end.Y) * (start.Y - end.Y));
+
+        //Jitter distance
+        double jitterDistance = distance / divisions;
+
+        //Normal vector
+        double dirX = (end.X - start.X) / distance;
+        double dirY = (end.Y - start.Y) / distance;
+
+        //Perpendicular
+        double normalX = dirY;
+        double normalY = -dirX;
+
+        //For each division
+        for (int i = 1; i < divisions; i++)
+        {
+            //Begin at first point
+            double finalX = start.X;
+            double finalY = start.Y;
+
+            //Move N divisions
+            finalX += i * dirX * jitterDistance;
+            finalY += i * dirY * jitterDistance;
+
+            //Move randomly in perpendicular
+            finalX += UnityEngine.Random.Range(-(float)magnitude, (float)magnitude) * normalX;
+            finalY += UnityEngine.Random.Range(-(float)magnitude, (float)magnitude) * normalY;
+
+            //Add new point
+            jitter.Add(new VPoint(finalX, finalY));
+
+        }
+
+        //Add last point
+        jitter.Add(end);
+
+        return jitter;
+
     }
 
 }
