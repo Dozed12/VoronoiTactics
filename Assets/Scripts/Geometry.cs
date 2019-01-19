@@ -160,7 +160,7 @@ public static class Geometry
     }
 
     //Generate random polygon
-    public static List<VPoint> Polygon(int centerX, int centerY, int maxRadius, int minRadius, int sides)
+    public static List<VPoint> RandomPolygon(int centerX, int centerY, int minRadius, int maxRadius, int sides)
     {
         List<VPoint> list = new List<VPoint>();
 

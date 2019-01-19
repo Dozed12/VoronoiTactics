@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace VoronoiLib.Structures
 {
-    public class VPoint : IComparable
+    public class VPoint : IComparable, IEquatable<VPoint>
     {
         public double X { get; }
         public double Y { get; }
@@ -31,6 +31,20 @@ namespace VoronoiLib.Structures
         {
             VPoint b = (VPoint)obj;
             return (int)(this.angle - b.angle);
+        }
+
+        //Added by Dozed
+        public bool Equals(VPoint obj){
+            if(this.X == obj.X && this.Y == obj.Y)
+                return true;
+            return false;
+        }
+        public override int GetHashCode()
+        {
+            int hashFirstName = X.GetHashCode();
+            int hashLastName = Y.GetHashCode();
+
+            return hashFirstName ^ hashLastName;
         }
 
     }

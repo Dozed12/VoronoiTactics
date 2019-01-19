@@ -908,82 +908,36 @@ public class MapData
             //TODO Terrain roughness
             //TODO Optimize some casts(use a point struct with int instead of double)
             float roughEffect = 0.1f;
-            int roughDivision = 10;
-            int roughMagnitude = 3;
+            List<VPoint> roughPixels = new List<VPoint>();
             for (int i = 0; i < provinces.Count; i++)
             {
+
+                //No roughness just leave
+                if (provinces[i].height.roughness == 0)
+                    continue;
+
                 //Number of roughs
                 for (int n = 0; n < provinces[i].height.roughness; n++)
                 {
+                    int polyCenterX = (int)provinces[i].center.X + UnityEngine.Random.Range(-50, 50);
+                    int polyCenterY = (int)provinces[i].center.Y + UnityEngine.Random.Range(-50, 50);
+                    List<VPoint> poly = Geometry.RandomPolygon(polyCenterX, polyCenterY, 20, 100, 6);
+                    roughPixels.AddRange(Geometry.PolygonPixels(poly));
 
-                    //TODO Should be just 1 straight line with jitter, should be chained lines with jitter
-                    
-                    //Random Start
-                    double startX = provinces[i].center.X + UnityEngine.Random.Range(-pointsHorizontalSeparation / 2, pointsHorizontalSeparation / 2);
-                    double startY = provinces[i].center.Y + UnityEngine.Random.Range(-pointsVerticalSeparation / 2, pointsVerticalSeparation / 2);
-                    VPoint start = new VPoint(startX, startY);
-
-                    //TODO Direction should be random
-
-                    double deltaX = UnityEngine.Random.Range(0, pointsHorizontalSeparation / 2);
-
-                    //Randomly flip
-                    if (UnityEngine.Random.Range(0, 2) == 0)
-                        deltaX = -deltaX;
-
-                    double deltaY = UnityEngine.Random.Range(0, pointsVerticalSeparation / 2);
-
-                    //Randomly flip
-                    if (UnityEngine.Random.Range(0, 2) == 0)
-                        deltaY = - deltaY;
-
-                    //Random end
-                    double endX = startX + deltaX;
-                    double endY = startY + deltaY;
-                    VPoint end = new VPoint(endX, endY);
-
-                    //Jitter
-                    List<VPoint> jitter = Geometry.Jitter(start, end, roughDivision, roughMagnitude);
-
-                    //Each jitter line
-                    for (int j = 0; j < jitter.Count - 1; j++)
-                    {
-                        List<VPoint> pixels = Geometry.BresenhamLine((int)jitter[j].X, (int)jitter[j].Y, (int)jitter[j + 1].X, (int)jitter[j + 1].Y);
-
-                        //Each line point
-                        for (int h = 0; h < pixels.Count; h++)
-                        {
-                            //Dont draw outside
-                            if ((int)pixels[h].X < 0 || (int)pixels[h].X > settings.WIDTH - 1 || (int)pixels[h].Y < 0 || (int)pixels[h].Y > settings.HEIGHT - 1)
-                                continue;
-
-                            //TODO these directions should be based on light direction
-                            //TODO range of impact should be higher than just 2 pixels and defined in JSON(hills have less than mountains)
-
-                            //Lighten this direction
-                            Color cl = pixelMatrix.GetPixel((int)pixels[h].X+1, (int)pixels[h].Y+1);
-                            cl.r *= 1 + roughEffect;
-                            cl.g *= 1 + roughEffect;
-                            cl.b *= 1 + roughEffect;
-                            pixelMatrix.SetPixel((int)pixels[h].X+1, (int)pixels[h].Y+1, cl);
-
-                            //Darken opposite direction
-                            cl = pixelMatrix.GetPixel((int)pixels[h].X-1, (int)pixels[h].Y-1);
-                            cl.r *= 1- roughEffect;
-                            cl.g *= 1- roughEffect;
-                            cl.b *= 1- roughEffect;
-                            pixelMatrix.SetPixel((int)pixels[h].X-1, (int)pixels[h].Y-1, cl);
-
-                            //Darken current
-                            cl = pixelMatrix.GetPixel((int)pixels[h].X, (int)pixels[h].Y);
-                            cl.r *= 1- roughEffect;
-                            cl.g *= 1- roughEffect;
-                            cl.b *= 1- roughEffect;
-                            pixelMatrix.SetPixel((int)pixels[h].X, (int)pixels[h].Y, cl);
-                        }
-
-                    }
                 }
+
+            }
+
+            //Unique roughs
+            roughPixels = roughPixels.Distinct().ToList();
+
+            for (int p = 0; p < roughPixels.Count; p++)
+            {
+                Color cl = pixelMatrix.GetPixel((int)roughPixels[p].X, (int)roughPixels[p].Y);
+                cl.r *= 1 - roughEffect;
+                cl.g *= 1 - roughEffect;
+                cl.b *= 1 - roughEffect;
+                pixelMatrix.SetPixel((int)roughPixels[p].X, (int)roughPixels[p].Y, cl);
             }
 
             Debug.Log("======== Roughness took: " + (Time.realtimeSinceStartup - time) + "s");
