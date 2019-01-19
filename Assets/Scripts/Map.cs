@@ -958,7 +958,7 @@ public class MapData
                                 continue;
 
                             //TODO these directions should be based on light direction
-                            //TODO range of impact should be higher than just 2 pixels
+                            //TODO range of impact should be higher than just 2 pixels and defined in JSON(hills have less than mountains)
 
                             //Lighten this direction
                             Color cl = pixelMatrix.GetPixel((int)pixels[h].X+1, (int)pixels[h].Y+1);
