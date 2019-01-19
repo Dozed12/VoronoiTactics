@@ -905,9 +905,14 @@ public class MapData
             Debug.Log("======== Color blend took: " + (Time.realtimeSinceStartup - time) + "s");
             time = Time.realtimeSinceStartup;
 
-            //TODO Terrain roughness
-            //TODO Optimize some casts(use a point struct with int instead of double)
-            float roughEffect = 0.1f;
+            //Terrain roughness
+            //TODO settings elsewhere
+            float roughEffect = 1 - 0.1f;
+            int roughCenterDeltaX = (int)pointsHorizontalSeparation / 8;
+            int roughCenterDeltaY = (int)pointsVerticalSeparation / 8;
+            int polyRadiusMax = 100;
+            int polyRadiusMin = 20;
+            int polySides = 6;
             List<VPoint> roughPixels = new List<VPoint>();
             for (int i = 0; i < provinces.Count; i++)
             {
@@ -919,9 +924,11 @@ public class MapData
                 //Number of roughs
                 for (int n = 0; n < provinces[i].height.roughness; n++)
                 {
-                    int polyCenterX = (int)provinces[i].center.X + UnityEngine.Random.Range(-50, 50);
-                    int polyCenterY = (int)provinces[i].center.Y + UnityEngine.Random.Range(-50, 50);
-                    List<VPoint> poly = Geometry.RandomPolygon(polyCenterX, polyCenterY, 20, 100, 6);
+                    //Generate polygon
+                    int polyCenterX = (int)provinces[i].center.X + UnityEngine.Random.Range(-roughCenterDeltaX, roughCenterDeltaX);
+                    int polyCenterY = (int)provinces[i].center.Y + UnityEngine.Random.Range(-roughCenterDeltaY, roughCenterDeltaY);
+                    List<VPoint> poly = Geometry.RandomPolygon(polyCenterX, polyCenterY, polyRadiusMin, polyRadiusMax, polySides);
+                    //TODO Jitter polygon
                     roughPixels.AddRange(Geometry.PolygonPixels(poly));
 
                 }
@@ -931,13 +938,17 @@ public class MapData
             //Unique roughs
             roughPixels = roughPixels.Distinct().ToList();
 
+            //Rough pixels
+            //TODO progressive roughness
             for (int p = 0; p < roughPixels.Count; p++)
             {
-                Color cl = pixelMatrix.GetPixel((int)roughPixels[p].X, (int)roughPixels[p].Y);
-                cl.r *= 1 - roughEffect;
-                cl.g *= 1 - roughEffect;
-                cl.b *= 1 - roughEffect;
-                pixelMatrix.SetPixel((int)roughPixels[p].X, (int)roughPixels[p].Y, cl);
+                int posX = (int)roughPixels[p].X;
+                int posY = (int)roughPixels[p].Y;
+                Color cl = pixelMatrix.GetPixel(posX, posY);
+                cl.r *= roughEffect;
+                cl.g *= roughEffect;
+                cl.b *= roughEffect;
+                pixelMatrix.SetPixel(posX, posY, cl);
             }
 
             Debug.Log("======== Roughness took: " + (Time.realtimeSinceStartup - time) + "s");
