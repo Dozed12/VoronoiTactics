@@ -147,6 +147,7 @@ public static class Geometry
 
         do
         {
+
             list.Add(new VPoint(x0,y0));
 
             if (x0 == x1 && y0 == y1) break;

@@ -881,6 +881,64 @@ public class MapData
             time = Time.realtimeSinceStartup;
 
             //TODO Terrain roughness
+            //TODO Optimize some casts(use a point struct with int instead of double)
+            float roughEffect = 1.2f;
+            for (int i = 0; i < provinces.Count; i++)
+            {
+                //Number of roughs
+                //TODO number is defined in JSON height
+                for (int n = 0; n < 5; n++)
+                {
+                    //Random Start
+                    double startX = provinces[i].center.X + UnityEngine.Random.Range(-pointsHorizontalSeparation / 2, pointsHorizontalSeparation / 2);
+                    double startY = provinces[i].center.Y + UnityEngine.Random.Range(-pointsVerticalSeparation / 2, pointsVerticalSeparation / 2);
+                    VPoint start = new VPoint(startX, startY);
+
+                    double deltaX = UnityEngine.Random.Range(pointsHorizontalSeparation / 4, pointsHorizontalSeparation / 2);
+
+                    //Randomly flip
+                    if (UnityEngine.Random.Range(0, 2) == 0)
+                        deltaX *= -1;
+
+                    double deltaY = UnityEngine.Random.Range(pointsVerticalSeparation / 4, pointsVerticalSeparation / 2);
+
+                    //Randomly flip
+                    if (UnityEngine.Random.Range(0, 2) == 0)
+                        deltaY *= -1;
+
+                    //Random end
+                    double endX = startX + deltaX;
+                    double endY = startY + deltaY;
+                    VPoint end = new VPoint(endX, endY);
+
+                    //Jitter
+                    List<VPoint> jitter = Geometry.Jitter(start, end, 5, 10);
+
+                    //Each jitter line
+                    for (int j = 0; j < jitter.Count - 1; j++)
+                    {
+                        List<VPoint> pixels = Geometry.BresenhamLine((int)jitter[j].X, (int)jitter[j].Y, (int)jitter[j + 1].X, (int)jitter[j + 1].Y);
+
+                        //Each line point
+                        for (int h = 0; h < pixels.Count; h++)
+                        {
+                            //Dont draw outside
+                            if ((int)pixels[h].X < 0 || (int)pixels[h].X > settings.WIDTH - 1 || (int)pixels[h].Y < 0 || (int)pixels[h].Y > settings.HEIGHT - 1)
+                                continue;
+
+                            Color cl = pixelMatrix.GetPixel((int)pixels[h].X, (int)pixels[h].Y);
+                            cl.r /= roughEffect;
+                            cl.g /= roughEffect;
+                            cl.b /= roughEffect;
+                            pixelMatrix.SetPixel((int)pixels[h].X, (int)pixels[h].Y, cl);
+                        }
+
+                    }
+                }
+            }
+
+            Debug.Log("======== Roughness took: " + (Time.realtimeSinceStartup - time) + "s");
+            time = Time.realtimeSinceStartup;
 
             //Add decals
             //TODO Can also have an option in JSON to randomize if it has decals or not (so we can put trees on Grassland but not look artificial)
