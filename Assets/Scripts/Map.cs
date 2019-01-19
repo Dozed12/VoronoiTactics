@@ -143,11 +143,13 @@ public class MapData
         int id = 0;
         for (int i = 0; i < pointsHorizontal; i++)
         {
+            //X Grid placement  
+            double x = pointsHorizontalSeparation * (i + 0.5f);
             for (int j = 0; j < pointsVertical; j++)
             {
-                //Grid placement
-                double x = pointsHorizontalSeparation * (i + 0.5f);
+                //Y Grid placement                
                 double y = pointsVerticalSeparation * (j + 0.5f);
+
                 //Randomize angular offset
                 float angle = UnityEngine.Random.Range(0, Utilities.PI2);
                 float a = UnityEngine.Random.Range(0, pointsHorizontalAllowedRadius);
@@ -158,6 +160,7 @@ public class MapData
                 float tanAngle = Mathf.Tan(angle);
                 double offX = ab / Mathf.Sqrt((bb) + (aa) * (tanAngle * tanAngle));
                 double offY = ab / Mathf.Sqrt((aa) + (bb) / (tanAngle * tanAngle));
+
                 //Quadrant check
                 if (angle > -Utilities.HALFPI && angle < Utilities.HALFPI)
                     nPoints.Add(new FortuneSite(x + offX, y + offY, id));
