@@ -388,44 +388,6 @@ public static class Graphics
         return original;
     }
 
-    //Rotate an image with arbitrary angle
-    //Causes aliasing (blank pixels)
-    public static PixelMatrix Rotate(PixelMatrix original, float angle)
-    {
-
-        //Use diagonal as safe size of rotated image
-        int safeSize = (int)Mathf.Sqrt(original.width * original.width + original.height * original.height) + 1;
-
-        //Rotated setup
-        PixelMatrix rotated = new PixelMatrix(safeSize, safeSize, new Color(0, 0, 0, 0));
-
-        float cos = Mathf.Cos(angle);
-        float sin = Mathf.Sin(angle);
-        float halfSize = safeSize / 2;
-        float halfOriWidth = original.width / 2;
-        float halfOriHeight = original.width / 2;
-
-        for (int i = 0; i < original.width; i++)
-        {
-
-            float x = i - halfOriWidth;
-            float xa = halfSize + cos * x;
-            float xb = halfSize + sin * x;
-
-            for (int j = 0; j < original.height; j++)
-            {
-                //Rotate around center
-                float y = j - halfOriHeight;
-                int finalX = Mathf.RoundToInt(xa - sin * y);
-                int finalY = Mathf.RoundToInt(xb + cos * y);
-                Color cl = original.GetPixel(i, j);
-                rotated.SetPixel(finalX, finalY, cl);
-            }
-        }
-
-        return rotated;
-    }
-
     //Rotate an image by increments of 90 degrees
     public static PixelMatrix RotateSq(PixelMatrix original, int rotates)
     {
