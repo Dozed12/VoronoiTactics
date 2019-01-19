@@ -848,8 +848,8 @@ public class MapData
             Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT, Color.white);
 
             //Weighted color blend for terrain type
+            //https://stackoverflow.com/a/29576746/9015010
             //TODO Settings should be in other place
-            //TODO Higher values cause darkening, is that normal?
             time = Time.realtimeSinceStartup;
             int differentiation = 2;
             int block = 20;
@@ -907,7 +907,7 @@ public class MapData
 
             //TODO Terrain roughness
             //TODO Optimize some casts(use a point struct with int instead of double)
-            float roughEffect = 1.4f;
+            float roughEffect = 0.1f;
             int roughDivision = 20;
             int roughMagnitude = 3;
             for (int i = 0; i < provinces.Count; i++)
@@ -924,13 +924,13 @@ public class MapData
 
                     //Randomly flip
                     if (UnityEngine.Random.Range(0, 2) == 0)
-                        deltaX *= -1;
+                        deltaX = -deltaX;
 
                     double deltaY = UnityEngine.Random.Range(0, pointsVerticalSeparation / 4);
 
                     //Randomly flip
                     if (UnityEngine.Random.Range(0, 2) == 0)
-                        deltaY *= -1;
+                        deltaY = - deltaY;
 
                     //Random end
                     double endX = startX + deltaX;
@@ -952,10 +952,28 @@ public class MapData
                             if ((int)pixels[h].X < 0 || (int)pixels[h].X > settings.WIDTH - 1 || (int)pixels[h].Y < 0 || (int)pixels[h].Y > settings.HEIGHT - 1)
                                 continue;
 
-                            Color cl = pixelMatrix.GetPixel((int)pixels[h].X, (int)pixels[h].Y);
-                            cl.r /= roughEffect;
-                            cl.g /= roughEffect;
-                            cl.b /= roughEffect;
+                            //TODO these directions should be based on light direction
+                            //TODO range of impact should be higher than just 2 pixels
+
+                            //Lighten this direction
+                            Color cl = pixelMatrix.GetPixel((int)pixels[h].X+1, (int)pixels[h].Y+1);
+                            cl.r *= 1 + roughEffect;
+                            cl.g *= 1 + roughEffect;
+                            cl.b *= 1 + roughEffect;
+                            pixelMatrix.SetPixel((int)pixels[h].X+1, (int)pixels[h].Y+1, cl);
+
+                            //Darken opposite direction
+                            cl = pixelMatrix.GetPixel((int)pixels[h].X-1, (int)pixels[h].Y-1);
+                            cl.r *= 1- roughEffect;
+                            cl.g *= 1- roughEffect;
+                            cl.b *= 1- roughEffect;
+                            pixelMatrix.SetPixel((int)pixels[h].X-1, (int)pixels[h].Y-1, cl);
+
+                            //Darken current
+                            cl = pixelMatrix.GetPixel((int)pixels[h].X, (int)pixels[h].Y);
+                            cl.r *= 1- roughEffect;
+                            cl.g *= 1- roughEffect;
+                            cl.b *= 1- roughEffect;
                             pixelMatrix.SetPixel((int)pixels[h].X, (int)pixels[h].Y, cl);
                         }
 
