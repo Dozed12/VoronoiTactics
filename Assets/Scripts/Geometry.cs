@@ -87,12 +87,12 @@ public static class Geometry
         jitter.Add(start);
 
         //Distance of points
-        double distance = System.Math.Sqrt((start.X - end.X) * (start.X - end.X) - (start.Y - end.Y) * (start.Y - end.Y));
+        double distance = System.Math.Sqrt((end.X - start.X) * (end.X - start.X) + (end.Y - start.Y) * (end.Y - start.Y));
 
         //Jitter distance
         double jitterDistance = distance / divisions;
 
-        //Normal vector
+        //Normalized Vector
         double dirX = (end.X - start.X) / distance;
         double dirY = (end.Y - start.Y) / distance;
 

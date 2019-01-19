@@ -66,6 +66,7 @@ public class MapData
     private float pointsHorizontalSeparation;
     private float pointsVerticalSeparation;
     private LinkedList<VEdge> edges;
+    private List<VEdge> simpleEdges;
     private Graph graph = new Graph();
 
     public Data data;
@@ -173,22 +174,49 @@ public class MapData
     private void SetupCells()
     {
 
+        //Convert Linked Edges to simple List
+        simpleEdges = new List<VEdge>();
+        var edge = edges.First;
+        for (int j = 0; j < edges.Count; j++)
+        {
+            simpleEdges.Add(edge.Value);
+
+            //Next edge
+            edge = edge.Next;
+        }
+
+        //Jittering
+        //TODO Settings should be in another place
+        int divisions = 3;
+        double magnitude = 5;
+        List<VEdge> jitteredEdges = new List<VEdge>();
+
+        for (int j = 0; j < simpleEdges.Count; j++)
+        {
+            List<VPoint> jitter = Geometry.Jitter(simpleEdges[j].Start, simpleEdges[j].End, divisions, magnitude);
+
+            for (int i = 0; i < jitter.Count - 1; i++)
+            {
+                VEdge nEdge = new VEdge(jitter[i], jitter[i + 1], simpleEdges[j].Left, simpleEdges[j].Right);
+                jitteredEdges.Add(nEdge);
+            }
+        }
+
+        //Replace edges with jittered version
+        simpleEdges = jitteredEdges;
+
         //For each point
         for (int i = 0; i < points.Count; i++)
         {
 
             //Each point has to look for its edges
-            var edge = edges.First;
-            for (int j = 0; j < edges.Count; j++)
+            for (int j = 0; j < simpleEdges.Count; j++)
             {
                 //Side with same ID
-                if (edge.Value.Left.ID == points[i].ID || edge.Value.Right.ID == points[i].ID)
+                if (simpleEdges[j].Left.ID == points[i].ID || simpleEdges[j].Right.ID == points[i].ID)
                 {
-                    points[i].Cell.Add(edge.Value);
+                    points[i].Cell.Add(simpleEdges[j]);
                 }
-
-                //Next edge
-                edge = edge.Next;
             }
 
         }
@@ -849,6 +877,8 @@ public class MapData
             Debug.Log("======== Color blend took: " + (Time.realtimeSinceStartup - time) + "s");
             time = Time.realtimeSinceStartup;
 
+            //TODO Terrain roughness
+
             //Add decals
             //TODO Can also have an option in JSON to randomize if it has decals or not (so we can put trees on Grassland but not look artificial)
             for (int i = 0; i < provinces.Count; i++)
@@ -883,7 +913,7 @@ public class MapData
                         Graphics.PixelMatrix decal = data.decals[provinces[i].terrain.decals[d].name][0];
 
                         //Pick a random rotation if required
-                        if(provinces[i].terrain.decals[d].rotate)
+                        if (provinces[i].terrain.decals[d].rotate)
                             decal = data.decals[provinces[i].terrain.decals[d].name][UnityEngine.Random.Range(0, 4)];
 
                         //Add decal
@@ -926,20 +956,19 @@ public class MapData
             //Draw edges
             //TODO Jitter edges for more detail(could be done here or in internal data, the jitter wont affect any calculations so can be just graphical)
             //But it will be shared in many maps so should be internal!
-            var edge = edges.First;
-            for (int i = 0; i < edges.Count; i++)
+            for (int i = 0; i < provinces.Count; i++)
             {
-                VEdge edgeVal = edge.Value;
+                for (int j = 0; j < provinces[i].vertices.Count - 1; j++)
+                {
+                    //Round
+                    int startX = Mathf.FloorToInt((float)provinces[i].vertices[j].X);
+                    int startY = Mathf.FloorToInt((float)provinces[i].vertices[j].Y);
+                    int endX = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].X);
+                    int endY = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].Y);
 
-                //Round
-                int startX = Mathf.FloorToInt((float)edge.Value.Start.X);
-                int endX = Mathf.FloorToInt((float)edge.Value.End.X);
-                int startY = Mathf.FloorToInt((float)edge.Value.Start.Y);
-                int endY = Mathf.FloorToInt((float)edge.Value.End.Y);
-
-                //Draw Edge
-                pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, 2);
-                edge = edge.Next;
+                    //Draw Edge
+                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, 2);
+                }
             }
 
             Debug.Log("======== Edges took: " + (Time.realtimeSinceStartup - time) + "s");

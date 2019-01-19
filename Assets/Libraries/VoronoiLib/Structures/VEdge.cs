@@ -13,6 +13,15 @@
 
         public VEdge Neighbor { get; internal set; }
 
+        //Added by Dozed
+        internal VEdge(VPoint start, VPoint end, FortuneSite left, FortuneSite right)
+        {
+            Start = start;
+            End = end;
+            Left = left;
+            Right = right;
+        }
+
         internal VEdge(VPoint start, FortuneSite left, FortuneSite right)
         {
             Start = start;
