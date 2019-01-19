@@ -908,7 +908,7 @@ public class MapData
             //TODO Terrain roughness
             //TODO Optimize some casts(use a point struct with int instead of double)
             float roughEffect = 0.1f;
-            int roughDivision = 50;
+            int roughDivision = 10;
             int roughMagnitude = 3;
             for (int i = 0; i < provinces.Count; i++)
             {

@@ -148,13 +148,105 @@ public static class Geometry
         do
         {
 
-            list.Add(new VPoint(x0,y0));
+            list.Add(new VPoint(x0, y0));
 
             if (x0 == x1 && y0 == y1) break;
             e2 = err;
             if (e2 > -dx) { err -= dy; x0 += sx; }
             if (e2 < dy) { err += dx; y0 += sy; }
         } while (true);
+
+        return list;
+    }
+
+    //Generate random polygon
+    public static List<VPoint> Polygon(int centerX, int centerY, int maxRadius, int minRadius, int sides)
+    {
+        List<VPoint> list = new List<VPoint>();
+
+        float angleInc = Utilities.PI2 / sides;
+
+        for (float i = 0; i < Utilities.PI2; i += angleInc)
+        {
+            float cos = Mathf.Cos(i);
+            float sin = Mathf.Sin(i);
+            float radius = UnityEngine.Random.Range(minRadius, maxRadius);
+            list.Add(new VPoint(centerX + cos * radius, centerY + sin * radius));
+        }
+
+        return list;
+    }
+
+    //Polygon pixels
+    public static List<VPoint> PolygonPixels(List<VPoint> polygon)
+    {
+
+        List<VPoint> list = new List<VPoint>();
+
+        int pixelX, pixelY, swap;
+        int i, j, nodes;
+        int[] nodeX = new int[polygon.Count];
+
+        //Limits of polygon
+        int IMAGE_TOP = 100000, IMAGE_BOT = -1, IMAGE_RIGHT = -1, IMAGE_LEFT = 100000;
+
+        for (int p = 0; p < polygon.Count; p++)
+        {
+            if (polygon[p].X > IMAGE_RIGHT)
+                IMAGE_RIGHT = (int)polygon[p].X;
+            if (polygon[p].X < IMAGE_LEFT)
+                IMAGE_LEFT = (int)polygon[p].X;
+            if (polygon[p].Y < IMAGE_TOP)
+                IMAGE_TOP = (int)polygon[p].Y;
+            if (polygon[p].Y > IMAGE_BOT)
+                IMAGE_BOT = (int)polygon[p].Y;
+        }
+
+        //  Loop through the rows of the image.
+        for (pixelY = IMAGE_TOP; pixelY < IMAGE_BOT; pixelY++)
+        {
+
+            //  Build a list of nodes.
+            nodes = 0; j = polygon.Count - 1;
+            for (i = 0; i < polygon.Count; i++)
+            {
+                if (polygon[i].Y < (double)pixelY && polygon[j].Y >= (double)pixelY || polygon[j].Y < (double)pixelY && polygon[i].Y >= (double)pixelY)
+                {
+                    nodeX[nodes++] = (int)(polygon[i].X + (pixelY - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X));
+                }
+                j = i;
+            }
+
+            //  Sort the nodes, via a simple “Bubble” sort.
+            i = 0;
+            while (i < nodes - 1)
+            {
+                if (nodeX[i] > nodeX[i + 1])
+                {
+                    swap = nodeX[i]; nodeX[i] = nodeX[i + 1]; nodeX[i + 1] = swap; if (i != 0) i--;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+
+            //  Fill the pixels between node pairs.
+            for (i = 0; i < nodes; i += 2)
+            {
+                if (nodeX[i] >= IMAGE_RIGHT)
+                    break;
+                if (nodeX[i + 1] > IMAGE_LEFT)
+                {
+                    if (nodeX[i] < IMAGE_LEFT)
+                        nodeX[i] = IMAGE_LEFT;
+                    if (nodeX[i + 1] > IMAGE_RIGHT)
+                        nodeX[i + 1] = IMAGE_RIGHT;
+                    for (pixelX = nodeX[i]; pixelX < nodeX[i + 1]; pixelX++)
+                        list.Add(new VPoint(pixelX,pixelY));
+                }
+            }
+        }
 
         return list;
     }
