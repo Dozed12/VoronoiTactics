@@ -135,4 +135,27 @@ public static class Geometry
 
     }
 
+    //Returns a list of points from Bresenham
+    public static List<VPoint> BresenhamLine(int x0, int y0, int x1, int y1)
+    {
+
+        List<VPoint> list = new List<VPoint>();
+
+        int dx = Mathf.Abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
+        int dy = Mathf.Abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
+        int err = (dx > dy ? dx : -dy) / 2, e2;
+
+        do
+        {
+            list.Add(new VPoint(x0,y0));
+
+            if (x0 == x1 && y0 == y1) break;
+            e2 = err;
+            if (e2 > -dx) { err -= dy; x0 += sx; }
+            if (e2 < dy) { err += dx; y0 += sy; }
+        } while (true);
+
+        return list;
+    }
+
 }
