@@ -5,23 +5,18 @@
             "heightFreq": 0.0005,
             "heights": [
                 {
-                    "name": "High Mountains",
-                    "noiseMax": 1,
+                    "name": "Low Mountains",
+                    "noiseMax": 1.0,
                     "noiseMin": 0.8
                 },
                 {
-                    "name": "Low Mountains",
+                    "name": "Hills",
                     "noiseMax": 0.8,
                     "noiseMin": 0.6
                 },
                 {
-                    "name": "Hills",
-                    "noiseMax": 0.6,
-                    "noiseMin": 0.4
-                },
-                {
                     "name": "Plains",
-                    "noiseMax": 0.4,
+                    "noiseMax": 0.6,
                     "noiseMin": 0
                 }
             ],

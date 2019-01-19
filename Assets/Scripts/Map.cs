@@ -914,7 +914,7 @@ public class MapData
             {
                 //Number of roughs
                 //TODO number is defined in JSON height
-                for (int n = 0; n < 5; n++)
+                for (int n = 0; n < provinces[i].height.roughness; n++)
                 {
                     //Random Start
                     double startX = provinces[i].center.X + UnityEngine.Random.Range(-pointsHorizontalSeparation / 2, pointsHorizontalSeparation / 2);

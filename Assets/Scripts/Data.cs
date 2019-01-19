@@ -36,6 +36,8 @@ public struct TerrainHeight
     public string name;
     //Simplified color (greyscale)
     public int color;
+    //Roughness of terrain
+    public int roughness;
     //Attack modifier
     public float attack;
     //Defense modifier
