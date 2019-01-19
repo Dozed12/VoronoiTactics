@@ -677,20 +677,19 @@ public class MapData
             //Draw edges
             //TODO Jitter edges for more detail(could be done here or in internal data, the jitter wont affect any calculations so can be just graphical)
             //But it will be shared in many maps so should be internal!
-            var edge = edges.First;
-            for (int i = 0; i < edges.Count; i++)
+            for (int i = 0; i < provinces.Count; i++)
             {
-                VEdge edgeVal = edge.Value;
+                for (int j = 0; j < provinces[i].vertices.Count - 1; j++)
+                {
+                    //Round
+                    int startX = Mathf.FloorToInt((float)provinces[i].vertices[j].X);
+                    int startY = Mathf.FloorToInt((float)provinces[i].vertices[j].Y);
+                    int endX = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].X);
+                    int endY = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].Y);
 
-                //Round
-                int startX = Mathf.FloorToInt((float)edge.Value.Start.X);
-                int endX = Mathf.FloorToInt((float)edge.Value.End.X);
-                int startY = Mathf.FloorToInt((float)edge.Value.Start.Y);
-                int endY = Mathf.FloorToInt((float)edge.Value.End.Y);
-
-                //Draw Edge
-                pixelMatrix = Graphics.BresenhamLine(pixelMatrix, startX, startY, endX, endY, Color.black);
-                edge = edge.Next;
+                    //Draw Edge
+                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, 2);
+                }
             }
 
             //Add Site centers
@@ -774,20 +773,19 @@ public class MapData
             //Draw edges
             //TODO Jitter edges for more detail(could be done here or in internal data, the jitter wont affect any calculations so can be just graphical)
             //But it will be shared in many maps so should be internal!
-            var edge = edges.First;
-            for (int i = 0; i < edges.Count; i++)
+            for (int i = 0; i < provinces.Count; i++)
             {
-                VEdge edgeVal = edge.Value;
+                for (int j = 0; j < provinces[i].vertices.Count - 1; j++)
+                {
+                    //Round
+                    int startX = Mathf.FloorToInt((float)provinces[i].vertices[j].X);
+                    int startY = Mathf.FloorToInt((float)provinces[i].vertices[j].Y);
+                    int endX = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].X);
+                    int endY = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].Y);
 
-                //Round
-                int startX = Mathf.FloorToInt((float)edge.Value.Start.X);
-                int endX = Mathf.FloorToInt((float)edge.Value.End.X);
-                int startY = Mathf.FloorToInt((float)edge.Value.Start.Y);
-                int endY = Mathf.FloorToInt((float)edge.Value.End.Y);
-
-                //Draw Edge
-                pixelMatrix = Graphics.BresenhamLine(pixelMatrix, startX, startY, endX, endY, Color.black);
-                edge = edge.Next;
+                    //Draw Edge
+                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, 2);
+                }
             }
 
             //Add Site centers
