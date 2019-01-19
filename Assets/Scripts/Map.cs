@@ -907,13 +907,12 @@ public class MapData
 
             //TODO Terrain roughness
             //TODO Optimize some casts(use a point struct with int instead of double)
-            float roughEffect = 1.2f;
+            float roughEffect = 1.4f;
             int roughDivision = 20;
-            int roughMagnitude = 5;
+            int roughMagnitude = 3;
             for (int i = 0; i < provinces.Count; i++)
             {
                 //Number of roughs
-                //TODO number is defined in JSON height
                 for (int n = 0; n < provinces[i].height.roughness; n++)
                 {
                     //Random Start
@@ -921,13 +920,13 @@ public class MapData
                     double startY = provinces[i].center.Y + UnityEngine.Random.Range(-pointsVerticalSeparation / 2, pointsVerticalSeparation / 2);
                     VPoint start = new VPoint(startX, startY);
 
-                    double deltaX = UnityEngine.Random.Range(pointsHorizontalSeparation / 4, pointsHorizontalSeparation / 2);
+                    double deltaX = UnityEngine.Random.Range(0, pointsHorizontalSeparation / 4);
 
                     //Randomly flip
                     if (UnityEngine.Random.Range(0, 2) == 0)
                         deltaX *= -1;
 
-                    double deltaY = UnityEngine.Random.Range(pointsVerticalSeparation / 4, pointsVerticalSeparation / 2);
+                    double deltaY = UnityEngine.Random.Range(0, pointsVerticalSeparation / 4);
 
                     //Randomly flip
                     if (UnityEngine.Random.Range(0, 2) == 0)
