@@ -265,7 +265,8 @@ public class MapData
 
         //Noise block size
         //TODO probably better in other place
-        int blockSize = 10;
+        int terrainBlockSize = 10;
+        int heightBlockSize = 10;
 
         //Noise lookups
         HeightMap();
@@ -281,15 +282,20 @@ public class MapData
             //Biome height frequency
             fastnoise.SetFrequency(biome.heightFreq);
 
+            //Number of blocks
+            int widthNBlocks = settings.WIDTH / heightBlockSize;
+            int heightNBlocks = settings.HEIGHT / heightBlockSize;
+
             //Temporary noise blocks
-            float[,] blocks = new float[settings.WIDTH / blockSize, settings.HEIGHT / blockSize];
+            float[,] blocks = new float[widthNBlocks, heightNBlocks];
 
             //Get noise blocks
-            for (int i = 0; i < settings.WIDTH / blockSize; i++)
+            for (int i = 0; i < widthNBlocks; i++)
             {
-                for (int j = 0; j < settings.HEIGHT / blockSize; j++)
+                int finalI = i * heightBlockSize;
+                for (int j = 0; j < heightNBlocks; j++)
                 {
-                    blocks[i, j] = (fastnoise.GetNoise(i * blockSize, j * blockSize, 0) + 1) / 2;
+                    blocks[i, j] = (fastnoise.GetNoise(finalI, j * heightBlockSize, 0) + 1) / 2;
                 }
             }
 
@@ -297,16 +303,16 @@ public class MapData
             geography.HEIGHTMAP = new float[settings.WIDTH, settings.HEIGHT];
 
             //Get full noise from blocks
-            for (int i = 0; i < settings.WIDTH / blockSize; i++)
+            for (int i = 0; i < widthNBlocks; i++)
             {
-                int xIndexCorner = i * blockSize;
-                for (int j = 0; j < settings.HEIGHT / blockSize; j++)
+                int xIndexCorner = i * heightBlockSize;
+                for (int j = 0; j < heightNBlocks; j++)
                 {
-                    int yIndexCorner = j * blockSize;
-                    for (int x = 0; x < blockSize; x++)
+                    int yIndexCorner = j * heightBlockSize;
+                    for (int x = 0; x < heightBlockSize; x++)
                     {
                         int xIndexFinal = xIndexCorner + x;
-                        for (int y = 0; y < blockSize; y++)
+                        for (int y = 0; y < heightBlockSize; y++)
                         {
                             geography.HEIGHTMAP[xIndexFinal, yIndexCorner + y] = blocks[i, j];
                         }
@@ -323,18 +329,23 @@ public class MapData
             //New seed
             fastnoise.SetSeed(UnityEngine.Random.Range(Int16.MinValue, Int16.MaxValue));
 
-            //Biome height frequency
+            //Biome terrain frequency
             fastnoise.SetFrequency(biome.terrainFreq);
 
+            //Number of blocks
+            int widthNBlocks = settings.WIDTH / terrainBlockSize;
+            int heightNBlocks = settings.HEIGHT / terrainBlockSize;
+
             //Temporary noise blocks
-            float[,] blocks = new float[settings.WIDTH / blockSize, settings.HEIGHT / blockSize];
+            float[,] blocks = new float[widthNBlocks, heightNBlocks];
 
             //Get noise blocks
-            for (int i = 0; i < settings.WIDTH / blockSize; i++)
+            for (int i = 0; i < widthNBlocks; i++)
             {
-                for (int j = 0; j < settings.HEIGHT / blockSize; j++)
+                int finalI = i * terrainBlockSize;
+                for (int j = 0; j < heightNBlocks; j++)
                 {
-                    blocks[i, j] = (fastnoise.GetNoise(i * blockSize, j * blockSize, 0) + 1) / 2;
+                    blocks[i, j] = (fastnoise.GetNoise(finalI, j * terrainBlockSize, 0) + 1) / 2;
                 }
             }
 
@@ -342,16 +353,16 @@ public class MapData
             geography.TERRAINMAP = new float[settings.WIDTH, settings.HEIGHT];
 
             //Get full noise from blocks
-            for (int i = 0; i < settings.WIDTH / blockSize; i++)
+            for (int i = 0; i < widthNBlocks; i++)
             {
-                int xIndexCorner = i * blockSize;
-                for (int j = 0; j < settings.HEIGHT / blockSize; j++)
+                int xIndexCorner = i * terrainBlockSize;
+                for (int j = 0; j < heightNBlocks; j++)
                 {
-                    int yIndexCorner = j * blockSize;
-                    for (int x = 0; x < blockSize; x++)
+                    int yIndexCorner = j * terrainBlockSize;
+                    for (int x = 0; x < terrainBlockSize; x++)
                     {
                         int xIndexFinal = xIndexCorner + x;
-                        for (int y = 0; y < blockSize; y++)
+                        for (int y = 0; y < terrainBlockSize; y++)
                         {
                             geography.TERRAINMAP[xIndexFinal, yIndexCorner + y] = blocks[i, j];
                         }
@@ -477,6 +488,8 @@ public class MapData
                 nSite.vertices.Add(points[i].Cell[j].Start);
                 nSite.vertices.Add(points[i].Cell[j].End);
             }
+
+            //Unique vertices
             nSite.vertices = nSite.vertices.Distinct().ToList();
 
             //Add corner vertex for corner provinces
