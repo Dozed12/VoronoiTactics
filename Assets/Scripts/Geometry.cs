@@ -86,19 +86,27 @@ public static class Geometry
         List<VPoint> jitter = new List<VPoint>();
         jitter.Add(start);
 
+        //Vector
+        double vecX = end.X - start.X;
+        double vecY = end.Y - start.Y;
+
         //Distance of points
-        double distance = System.Math.Sqrt((end.X - start.X) * (end.X - start.X) + (end.Y - start.Y) * (end.Y - start.Y));
+        double distance = System.Math.Sqrt(vecX * vecX + vecY * vecY);
 
         //Jitter distance
         double jitterDistance = distance / divisions;
 
         //Normalized Vector
-        double dirX = (end.X - start.X) / distance;
-        double dirY = (end.Y - start.Y) / distance;
+        double dirX = vecX / distance;
+        double dirY = vecY / distance;
 
         //Perpendicular
         double normalX = dirY;
         double normalY = -dirX;
+
+        //Division step
+        double divisionX = dirX * jitterDistance;
+        double divisionY = dirY * jitterDistance;
 
         //For each division
         for (int i = 1; i < divisions; i++)
@@ -108,8 +116,8 @@ public static class Geometry
             double finalY = start.Y;
 
             //Move N divisions
-            finalX += i * dirX * jitterDistance;
-            finalY += i * dirY * jitterDistance;
+            finalX += i * divisionX;
+            finalY += i * divisionY;
 
             //Move randomly in perpendicular
             finalX += UnityEngine.Random.Range(-(float)magnitude, (float)magnitude) * normalX;

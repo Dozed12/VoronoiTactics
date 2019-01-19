@@ -2,7 +2,7 @@
     "Items": [
         {
             "name": "Woodland",
-            "heightFreq": 0.001,
+            "heightFreq": 0.0005,
             "heights": [
                 {
                     "name": "High Mountains",
