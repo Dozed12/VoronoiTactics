@@ -905,55 +905,6 @@ public class MapData
             Debug.Log("======== Color blend took: " + (Time.realtimeSinceStartup - time) + "s");
             time = Time.realtimeSinceStartup;
 
-            //Terrain roughness
-            //TODO settings elsewhere
-            float roughEffect = 1 - 0.1f;
-            int roughCenterDeltaX = (int)pointsHorizontalSeparation / 8;
-            int roughCenterDeltaY = (int)pointsVerticalSeparation / 8;
-            int polyRadiusMax = 100;
-            int polyRadiusMin = 20;
-            int polySides = 6;
-            List<VPoint> roughPixels = new List<VPoint>();
-            for (int i = 0; i < provinces.Count; i++)
-            {
-
-                //No roughness just leave
-                if (provinces[i].height.roughness == 0)
-                    continue;
-
-                //Number of roughs
-                for (int n = 0; n < provinces[i].height.roughness; n++)
-                {
-                    //Generate polygon
-                    int polyCenterX = (int)provinces[i].center.X + UnityEngine.Random.Range(-roughCenterDeltaX, roughCenterDeltaX);
-                    int polyCenterY = (int)provinces[i].center.Y + UnityEngine.Random.Range(-roughCenterDeltaY, roughCenterDeltaY);
-                    List<VPoint> poly = Geometry.RandomPolygon(polyCenterX, polyCenterY, polyRadiusMin, polyRadiusMax, polySides);
-                    //TODO Jitter polygon
-                    roughPixels.AddRange(Geometry.PolygonPixels(poly));
-
-                }
-
-            }
-
-            //Unique roughs
-            roughPixels = roughPixels.Distinct().ToList();
-
-            //Rough pixels
-            //TODO progressive roughness
-            for (int p = 0; p < roughPixels.Count; p++)
-            {
-                int posX = (int)roughPixels[p].X;
-                int posY = (int)roughPixels[p].Y;
-                Color cl = pixelMatrix.GetPixel(posX, posY);
-                cl.r *= roughEffect;
-                cl.g *= roughEffect;
-                cl.b *= roughEffect;
-                pixelMatrix.SetPixel(posX, posY, cl);
-            }
-
-            Debug.Log("======== Roughness took: " + (Time.realtimeSinceStartup - time) + "s");
-            time = Time.realtimeSinceStartup;
-
             //Add decals
             //TODO Can also have an option in JSON to randomize if it has decals or not (so we can put trees on Grassland but not look artificial)
             for (int i = 0; i < provinces.Count; i++)
