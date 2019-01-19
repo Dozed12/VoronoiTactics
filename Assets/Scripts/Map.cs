@@ -675,8 +675,7 @@ public class MapData
             pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
 
             //Draw edges
-            //TODO Jitter edges for more detail(could be done here or in internal data, the jitter wont affect any calculations so can be just graphical)
-            //But it will be shared in many maps so should be internal!
+            int thickness = 2;
             for (int i = 0; i < provinces.Count; i++)
             {
                 for (int j = 0; j < provinces[i].vertices.Count - 1; j++)
@@ -688,14 +687,16 @@ public class MapData
                     int endY = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].Y);
 
                     //Draw Edge
-                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, 2);
+                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, thickness);
                 }
             }
 
             //Add Site centers
+            int siteRadius = 4;
+            Graphics.PixelMatrix center = Graphics.FilledCircle(siteRadius, Color.black);
             for (int i = 0; i < provinces.Count; i++)
             {
-                pixelMatrix.SetPixel((int)provinces[i].center.X, (int)provinces[i].center.Y, Color.black);
+                pixelMatrix = Graphics.Decal(pixelMatrix, center, (int)provinces[i].center.X, (int)provinces[i].center.Y);
             }
 
             //Create texture
@@ -771,8 +772,7 @@ public class MapData
             pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
 
             //Draw edges
-            //TODO Jitter edges for more detail(could be done here or in internal data, the jitter wont affect any calculations so can be just graphical)
-            //But it will be shared in many maps so should be internal!
+            int thickness = 2;
             for (int i = 0; i < provinces.Count; i++)
             {
                 for (int j = 0; j < provinces[i].vertices.Count - 1; j++)
@@ -784,14 +784,16 @@ public class MapData
                     int endY = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].Y);
 
                     //Draw Edge
-                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, 2);
+                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, thickness);
                 }
             }
 
             //Add Site centers
+            int siteRadius = 4;
+            Graphics.PixelMatrix center = Graphics.FilledCircle(siteRadius, Color.black);
             for (int i = 0; i < provinces.Count; i++)
             {
-                pixelMatrix.SetPixel((int)provinces[i].center.X, (int)provinces[i].center.Y, Color.black);
+                pixelMatrix = Graphics.Decal(pixelMatrix, center, (int)provinces[i].center.X, (int)provinces[i].center.Y);
             }
 
             //Create texture
@@ -952,8 +954,7 @@ public class MapData
             pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
 
             //Draw edges
-            //TODO Jitter edges for more detail(could be done here or in internal data, the jitter wont affect any calculations so can be just graphical)
-            //But it will be shared in many maps so should be internal!
+            int thickness = 2;
             for (int i = 0; i < provinces.Count; i++)
             {
                 for (int j = 0; j < provinces[i].vertices.Count - 1; j++)
@@ -965,14 +966,15 @@ public class MapData
                     int endY = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].Y);
 
                     //Draw Edge
-                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, 2);
+                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, thickness);
                 }
             }
 
             Debug.Log("======== Edges took: " + (Time.realtimeSinceStartup - time) + "s");
 
             //Add Site centers
-            Graphics.PixelMatrix center = Graphics.FilledCircle(5, Color.black);
+            int siteRadius = 4;
+            Graphics.PixelMatrix center = Graphics.FilledCircle(siteRadius, Color.black);
             for (int i = 0; i < provinces.Count; i++)
             {
                 pixelMatrix = Graphics.Decal(pixelMatrix, center, (int)provinces[i].center.X, (int)provinces[i].center.Y);
