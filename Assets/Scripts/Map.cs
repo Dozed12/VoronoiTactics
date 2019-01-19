@@ -196,8 +196,33 @@ public class MapData
 
         for (int j = 0; j < simpleEdges.Count; j++)
         {
+
+            //Dont jitter map border edges
+            if (simpleEdges[j].Start.X == 0 && simpleEdges[j].End.X == 0)
+            {
+                jitteredEdges.Add(simpleEdges[j]);
+                continue;
+            }
+            if (simpleEdges[j].Start.Y == 0 && simpleEdges[j].End.Y == 0)
+            {
+                jitteredEdges.Add(simpleEdges[j]);
+                continue;
+            }
+            if (simpleEdges[j].Start.X == settings.WIDTH - 1 && simpleEdges[j].End.X == settings.WIDTH - 1)
+            {
+                jitteredEdges.Add(simpleEdges[j]);
+                continue;
+            }
+            if (simpleEdges[j].Start.Y == settings.HEIGHT - 1 && simpleEdges[j].End.Y == settings.HEIGHT - 1)
+            {
+                jitteredEdges.Add(simpleEdges[j]);
+                continue;
+            }
+
+            //Jitter
             List<VPoint> jitter = Geometry.Jitter(simpleEdges[j].Start, simpleEdges[j].End, divisions, magnitude);
 
+            //Add jitter edges
             for (int i = 0; i < jitter.Count - 1; i++)
             {
                 VEdge nEdge = new VEdge(jitter[i], jitter[i + 1], simpleEdges[j].Left, simpleEdges[j].Right);
@@ -883,6 +908,8 @@ public class MapData
             //TODO Terrain roughness
             //TODO Optimize some casts(use a point struct with int instead of double)
             float roughEffect = 1.2f;
+            int roughDivision = 5;
+            int roughMagnitude = 10;
             for (int i = 0; i < provinces.Count; i++)
             {
                 //Number of roughs
@@ -912,7 +939,7 @@ public class MapData
                     VPoint end = new VPoint(endX, endY);
 
                     //Jitter
-                    List<VPoint> jitter = Geometry.Jitter(start, end, 5, 10);
+                    List<VPoint> jitter = Geometry.Jitter(start, end, roughDivision, roughMagnitude);
 
                     //Each jitter line
                     for (int j = 0; j < jitter.Count - 1; j++)
