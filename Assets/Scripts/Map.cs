@@ -607,10 +607,11 @@ public class MapData
             Color[] pixels = new Color[settings.WIDTH * settings.HEIGHT];
             for (int i = 0; i < settings.WIDTH; i++)
             {
+                int finalI = i * settings.WIDTH;
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
                     float val = geography.HEIGHTMAP[i, j];
-                    pixels[i * settings.WIDTH + j] = new Color(val, val, val);
+                    pixels[finalI + j] = new Color(val, val, val);
                 }
             }
 
@@ -639,10 +640,11 @@ public class MapData
             Color[] pixels = new Color[settings.WIDTH * settings.HEIGHT];
             for (int i = 0; i < settings.WIDTH; i++)
             {
+                int finalI = i * settings.WIDTH;
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
                     float val = geography.TERRAINMAP[i, j];
-                    pixels[i * settings.WIDTH + j] = new Color(val, val, val);
+                    pixels[finalI + j] = new Color(val, val, val);
                 }
             }
 
