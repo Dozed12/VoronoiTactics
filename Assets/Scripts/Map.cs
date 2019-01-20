@@ -742,7 +742,7 @@ public class MapData
                     int endY = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].Y);
 
                     //Draw Edge
-                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, thickness);
+                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, thickness/2);
                 }
             }
 
@@ -839,7 +839,7 @@ public class MapData
                     int endY = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].Y);
 
                     //Draw Edge
-                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, thickness);
+                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, thickness/2);
                 }
             }
 
@@ -1029,7 +1029,7 @@ public class MapData
                     int endY = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].Y);
 
                     //Draw Edge
-                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, thickness);
+                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, thickness/2);
                 }
             }
 
