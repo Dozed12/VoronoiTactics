@@ -391,14 +391,18 @@ public class MapData
             nSite.neighbors = new List<ProvinceData>();
             nSite.pos = new VPoint(points[i].X, points[i].Y);
 
+            //Average calculation ranges
+            int horizontalAverageRange = (int)pointsHorizontalSeparation / 4;
+            int verticalAverageRange = (int)pointsVerticalSeparation / 4;
+
             //Calculate average terrain and height for this province
             float heightTotal = 0;
             float heightN = 0;
-            for (int a = (int)(-pointsHorizontalSeparation / 4); a < pointsHorizontalSeparation / 4; a++)
+            for (int a = -horizontalAverageRange; a < horizontalAverageRange / 4; a++)
             {
                 if ((int)nSite.pos.X + a < 0 || (int)nSite.pos.X + a > settings.WIDTH - 1)
                     continue;
-                for (int b = (int)(-pointsVerticalSeparation / 4); b < pointsVerticalSeparation / 4; b++)
+                for (int b = -verticalAverageRange; b < verticalAverageRange; b++)
                 {
                     if ((int)nSite.pos.Y + b < 0 || (int)nSite.pos.Y + b > settings.HEIGHT - 1)
                         continue;
@@ -410,11 +414,11 @@ public class MapData
 
             float terrainTotal = 0;
             float terrainN = 0;
-            for (int a = (int)(-pointsHorizontalSeparation / 4); a < pointsHorizontalSeparation / 4; a++)
+            for (int a = -horizontalAverageRange; a < horizontalAverageRange / 4; a++)
             {
                 if ((int)nSite.pos.X + a < 0 || (int)nSite.pos.X + a > settings.WIDTH - 1)
                     continue;
-                for (int b = (int)(-pointsVerticalSeparation / 4); b < pointsVerticalSeparation / 4; b++)
+                for (int b = -verticalAverageRange; b < verticalAverageRange; b++)
                 {
                     if ((int)nSite.pos.Y + b < 0 || (int)nSite.pos.Y + b > settings.HEIGHT - 1)
                         continue;
