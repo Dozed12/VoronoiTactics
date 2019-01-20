@@ -726,35 +726,8 @@ public class MapData
                 pixelMatrix = Graphics.FillPolygon(pixelMatrix, provinces[i].vertices, c);
             }
 
-            //Draw Border
-            pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
-
-            //Draw edges
-            //TODO Should be defined elsewhere
-            int thickness = 2;
-            int circleRadius = thickness / 2;
-            for (int i = 0; i < provinces.Count; i++)
-            {
-                for (int j = 0; j < provinces[i].vertices.Count - 1; j++)
-                {
-                    //Round
-                    int startX = Mathf.FloorToInt((float)provinces[i].vertices[j].X);
-                    int startY = Mathf.FloorToInt((float)provinces[i].vertices[j].Y);
-                    int endX = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].X);
-                    int endY = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].Y);
-
-                    //Draw Edge
-                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, circleRadius);
-                }
-            }
-
-            //Add Site centers
-            int siteRadius = 4;
-            Graphics.PixelMatrix center = Graphics.FilledCircle(siteRadius, Color.black);
-            for (int i = 0; i < provinces.Count; i++)
-            {
-                pixelMatrix = Graphics.Decal(pixelMatrix, center, (int)provinces[i].center.X, (int)provinces[i].center.Y);
-            }
+            //Draw frame
+            pixelMatrix = DrawFrame(pixelMatrix);
 
             //Create texture
             Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
@@ -825,35 +798,8 @@ public class MapData
                 pixelMatrix = Graphics.FillPolygon(pixelMatrix, provinces[i].vertices, c);
             }
 
-            //Draw Border
-            pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
-
-            //Draw edges
-            //TODO Should be defined elsewhere
-            int thickness = 2;
-            int circleRadius = thickness / 2;
-            for (int i = 0; i < provinces.Count; i++)
-            {
-                for (int j = 0; j < provinces[i].vertices.Count - 1; j++)
-                {
-                    //Round
-                    int startX = Mathf.FloorToInt((float)provinces[i].vertices[j].X);
-                    int startY = Mathf.FloorToInt((float)provinces[i].vertices[j].Y);
-                    int endX = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].X);
-                    int endY = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].Y);
-
-                    //Draw Edge
-                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, circleRadius);
-                }
-            }
-
-            //Add Site centers
-            int siteRadius = 4;
-            Graphics.PixelMatrix center = Graphics.FilledCircle(siteRadius, Color.black);
-            for (int i = 0; i < provinces.Count; i++)
-            {
-                pixelMatrix = Graphics.Decal(pixelMatrix, center, (int)provinces[i].center.X, (int)provinces[i].center.Y);
-            }
+            //Draw frame
+            pixelMatrix = DrawFrame(pixelMatrix);
 
             //Create texture
             Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
@@ -1018,6 +964,31 @@ public class MapData
             Debug.Log("======== Randomization took: " + (Time.realtimeSinceStartup - time) + "s");
             time = Time.realtimeSinceStartup;
 
+            //Draw frame
+            pixelMatrix = DrawFrame(pixelMatrix);
+
+            Debug.Log("======== Frame took: " + (Time.realtimeSinceStartup - time) + "s");
+
+            //Create texture
+            Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
+
+            //Apply pixel set
+            texture.SetPixels(pixelMatrix.pixels);
+
+            //Apply to texture
+            texture.Apply();
+
+            //Settings
+            texture.filterMode = FilterMode.Trilinear;
+
+            //Add to list
+            mapModes.Add("Map", texture);
+        }
+
+        //Draw the frame(edges and border)
+        Graphics.PixelMatrix DrawFrame(Graphics.PixelMatrix pixelMatrix)
+        {
+
             //Draw Border
             pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
 
@@ -1040,30 +1011,16 @@ public class MapData
                 }
             }
 
-            Debug.Log("======== Edges took: " + (Time.realtimeSinceStartup - time) + "s");
-
             //Add Site centers
-            int siteRadius = 4;
+            //TODO Should be defined elsewhere
+            int siteRadius = 2;
             Graphics.PixelMatrix center = Graphics.FilledCircle(siteRadius, Color.black);
             for (int i = 0; i < provinces.Count; i++)
             {
                 pixelMatrix = Graphics.Decal(pixelMatrix, center, (int)provinces[i].center.X, (int)provinces[i].center.Y);
             }
 
-            //Create texture
-            Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
-
-            //Apply pixel set
-            texture.SetPixels(pixelMatrix.pixels);
-
-            //Apply to texture
-            texture.Apply();
-
-            //Settings
-            texture.filterMode = FilterMode.Trilinear;
-
-            //Add to list
-            mapModes.Add("Map", texture);
+            return pixelMatrix;
         }
 
     }
