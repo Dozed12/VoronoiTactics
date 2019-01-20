@@ -730,7 +730,9 @@ public class MapData
             pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
 
             //Draw edges
+            //TODO Should be defined elsewhere
             int thickness = 2;
+            int circleRadius = thickness / 2;
             for (int i = 0; i < provinces.Count; i++)
             {
                 for (int j = 0; j < provinces[i].vertices.Count - 1; j++)
@@ -742,7 +744,7 @@ public class MapData
                     int endY = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].Y);
 
                     //Draw Edge
-                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, thickness / 2);
+                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, circleRadius);
                 }
             }
 
@@ -827,7 +829,9 @@ public class MapData
             pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
 
             //Draw edges
+            //TODO Should be defined elsewhere
             int thickness = 2;
+            int circleRadius = thickness / 2;
             for (int i = 0; i < provinces.Count; i++)
             {
                 for (int j = 0; j < provinces[i].vertices.Count - 1; j++)
@@ -839,7 +843,7 @@ public class MapData
                     int endY = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].Y);
 
                     //Draw Edge
-                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, thickness / 2);
+                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, circleRadius);
                 }
             }
 
@@ -1018,7 +1022,9 @@ public class MapData
             pixelMatrix = Graphics.Border(pixelMatrix, Color.black);
 
             //Draw edges
+            //TODO Should be defined elsewhere
             int thickness = 2;
+            int circleRadius = thickness / 2;
             for (int i = 0; i < provinces.Count; i++)
             {
                 for (int j = 0; j < provinces[i].vertices.Count - 1; j++)
@@ -1030,7 +1036,7 @@ public class MapData
                     int endY = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].Y);
 
                     //Draw Edge
-                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, thickness / 2);
+                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, circleRadius);
                 }
             }
 
