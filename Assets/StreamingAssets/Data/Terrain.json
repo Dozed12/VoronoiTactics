@@ -13,6 +13,13 @@
                     "reach": 1.5,
                     "number": 20,
                     "rotate": false
+                },
+                {
+                    "name": "tree_1.png",
+                    "reach": 1,
+                    "number": 5,
+                    "rotate": true,
+                    "chance": 0.2
                 }
             ],
             "height_names": [

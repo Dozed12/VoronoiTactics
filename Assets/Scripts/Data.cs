@@ -68,10 +68,16 @@ public struct TerrainType
     [System.Serializable]
     public struct Decal
     {
+        //File
         public string name;
+        //Reach of decal in cell seperations (1 = max(cell width, cell height))
         public float reach;
+        //Number to spawn
         public int number;
+        //Randomize rotation
         public bool rotate;
+        //Chance of each decal appearing (default is 1)
+        public float chance;
     }
 
     //Name of Type

@@ -938,6 +938,16 @@ public class MapData
                     //Add decals in a circular way with random angle and radius
                     for (int c = 0; c < provinces[i].terrain.decals[d].number; c++)
                     {
+
+                        //Chance value defined in JSON
+                        float chance = 1;
+                        if (provinces[i].terrain.decals[d].chance != 0)
+                            chance = provinces[i].terrain.decals[d].chance;
+
+                        //Chance to not place this one
+                        if (UnityEngine.Random.Range(0, 100) > chance * 100)
+                            continue;
+
                         //Position of decal center
                         float cos = UnityEngine.Random.Range(-1.0f, 1.0f);
                         float sin = UnityEngine.Random.Range(-1.0f, 1.0f);
