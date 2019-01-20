@@ -98,6 +98,53 @@
                     "noiseMin": 0.90
                 }
             ]
+        },
+        {
+            "name": "Dryland",
+            "heightFreq": 0.0015,
+            "heights": [
+                {
+                    "name": "Low Mountains",
+                    "noiseMax": 1.0,
+                    "noiseMin": 0.9
+                },
+                {
+                    "name": "Hills",
+                    "noiseMax": 0.9,
+                    "noiseMin": 0.7
+                },
+                {
+                    "name": "Plains",
+                    "noiseMax": 0.7,
+                    "noiseMin": 0
+                }
+            ],
+            "terrainFreq": 0.0007,
+            "terrains": [
+                {
+                    "name": "Woods",
+                    "noiseMax": 1.0,
+                    "noiseMin": 0.7
+                },
+                {
+                    "name": "Grassland",
+                    "noiseMax": 0.7,
+                    "noiseMin": 0.5
+                },
+                {
+                    "name": "Barren",
+                    "noiseMax": 0.5,
+                    "noiseMin": 0
+                }
+            ],
+            "structureFreq": 0.01,
+            "structures": [
+                {
+                    "name": "Village",
+                    "noiseMax": 1,
+                    "noiseMin": 0.90
+                }
+            ]
         }
     ]
 }
