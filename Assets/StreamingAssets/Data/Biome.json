@@ -2,21 +2,68 @@
     "Items": [
         {
             "name": "Woodland",
-            "heightFreq": 0.0005,
+            "heightFreq": 0.0015,
             "heights": [
                 {
                     "name": "Low Mountains",
                     "noiseMax": 1.0,
-                    "noiseMin": 0.8
+                    "noiseMin": 0.85
                 },
                 {
                     "name": "Hills",
-                    "noiseMax": 0.8,
-                    "noiseMin": 0.6
+                    "noiseMax": 0.85,
+                    "noiseMin": 0.75
                 },
                 {
                     "name": "Plains",
-                    "noiseMax": 0.6,
+                    "noiseMax": 0.75,
+                    "noiseMin": 0
+                }
+            ],
+            "terrainFreq": 0.0007,
+            "terrains": [
+                {
+                    "name": "Forest",
+                    "noiseMax": 1,
+                    "noiseMin": 0.8
+                },
+                {
+                    "name": "Woods",
+                    "noiseMax": 0.8,
+                    "noiseMin": 0.5
+                },
+                {
+                    "name": "Grassland",
+                    "noiseMax": 0.5,
+                    "noiseMin": 0.2
+                },
+                {
+                    "name": "Barren",
+                    "noiseMax": 0.2,
+                    "noiseMin": 0
+                }
+            ],
+            "structureFreq": 0.01,
+            "structures": [
+                {
+                    "name": "Village",
+                    "noiseMax": 1,
+                    "noiseMin": 0.90
+                }
+            ]
+        },
+        {
+            "name": "Forest",
+            "heightFreq": 0.0015,
+            "heights": [
+                {
+                    "name": "Hills",
+                    "noiseMax": 1.0,
+                    "noiseMin": 0.8
+                },
+                {
+                    "name": "Plains",
+                    "noiseMax": 0.8,
                     "noiseMin": 0
                 }
             ],
