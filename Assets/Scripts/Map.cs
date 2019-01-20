@@ -742,7 +742,7 @@ public class MapData
                     int endY = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].Y);
 
                     //Draw Edge
-                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, thickness/2);
+                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, thickness / 2);
                 }
             }
 
@@ -839,7 +839,7 @@ public class MapData
                     int endY = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].Y);
 
                     //Draw Edge
-                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, thickness/2);
+                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, thickness / 2);
                 }
             }
 
@@ -933,7 +933,8 @@ public class MapData
             time = Time.realtimeSinceStartup;
 
             //Add decals
-            //TODO Can also have an option in JSON to randomize if it has decals or not (so we can put trees on Grassland but not look artificial)
+            float halfHorizontalSeparation = pointsHorizontalSeparation / 2;
+            float halfVerticalSeparation = pointsVerticalSeparation / 2;
             for (int i = 0; i < provinces.Count; i++)
             {
                 //No decals so skip
@@ -945,8 +946,8 @@ public class MapData
                 {
 
                     //Decal reach
-                    float decalHorizontalReach = pointsHorizontalSeparation / 2 * provinces[i].terrain.decals[d].reach;
-                    float decalVerticalReach = pointsVerticalSeparation / 2 * provinces[i].terrain.decals[d].reach;
+                    float decalHorizontalReach = halfHorizontalSeparation * provinces[i].terrain.decals[d].reach;
+                    float decalVerticalReach = halfVerticalSeparation * provinces[i].terrain.decals[d].reach;
                     float reach = Mathf.Max(decalHorizontalReach, decalVerticalReach);
 
                     //Add decals in a circular way with random angle and radius
@@ -1029,7 +1030,7 @@ public class MapData
                     int endY = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].Y);
 
                     //Draw Edge
-                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, thickness/2);
+                    pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, thickness / 2);
                 }
             }
 
