@@ -711,7 +711,6 @@ public class MapData
             //Fill sites color
             for (int i = 0; i < provinces.Count; i++)
             {
-
                 //Grey value
                 float grey = provinces[i].height.color / 255.0f;
 
@@ -985,7 +984,7 @@ public class MapData
             mapModes.Add("Map", texture);
         }
 
-        //Draw the frame(edges and border)
+        //Draw the frame(edges, border and sites)
         Graphics.PixelMatrix DrawFrame(Graphics.PixelMatrix pixelMatrix)
         {
 
@@ -1108,7 +1107,7 @@ public class Map : MonoBehaviour
     {
 
         //Start time
-        float time = Time.realtimeSinceStartup;
+        float totalTime = Time.realtimeSinceStartup;
 
         //New map data with settings
         //TODO Settings probably wont be here
@@ -1143,10 +1142,10 @@ public class Map : MonoBehaviour
         mapModePick.AddOptions(mapModesStrings);
 
         //Set mapmode to whatever is selected
-        OnMapModeChange();
+        OnMapModeChange();        
 
         //Total generation time
-        Debug.Log("#### Total generation time: " + (Time.realtimeSinceStartup - time) + "s");
+        Debug.Log("#### Total generation time: " + (Time.realtimeSinceStartup - totalTime) + "s");
 
     }
 
