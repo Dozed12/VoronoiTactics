@@ -673,7 +673,11 @@ public class MapData
             Dictionary<Color, int> colors = new Dictionary<Color, int>();
             for (int i = 0; i < provinces.Count; i++)
             {
-                Color cl = new Color(provinces[i].height.color / 255.0f, provinces[i].height.color / 255.0f, provinces[i].height.color / 255.0f);
+
+                //Grey value
+                float grey = provinces[i].height.color / 255.0f;
+
+                Color cl = new Color(grey, grey, grey);
 
                 int curVal;
                 if (colors.ContainsKey(cl))
@@ -707,8 +711,12 @@ public class MapData
             //Fill sites color
             for (int i = 0; i < provinces.Count; i++)
             {
+
+                //Grey value
+                float grey = provinces[i].height.color / 255.0f;
+
                 //Calculate color
-                Color c = new Color(provinces[i].height.color / 255.0f, provinces[i].height.color / 255.0f, provinces[i].height.color / 255.0f);
+                Color c = new Color(grey, grey, grey);
 
                 //Dont draw if background was same color
                 if (c == maxCl)
