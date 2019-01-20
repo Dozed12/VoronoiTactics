@@ -884,6 +884,60 @@ public class MapData
             //Add decals
             float halfHorizontalSeparation = pointsHorizontalSeparation / 2;
             float halfVerticalSeparation = pointsVerticalSeparation / 2;
+
+            //Height decals
+            for (int i = 0; i < provinces.Count; i++)
+            {
+                //No decals so skip
+                if (provinces[i].height.decals == null)
+                    continue;
+
+                //Each decal
+                for (int d = 0; d < provinces[i].height.decals.Length; d++)
+                {
+
+                    //Decal reach
+                    float decalHorizontalReach = halfHorizontalSeparation * provinces[i].height.decals[d].reach;
+                    float decalVerticalReach = halfVerticalSeparation * provinces[i].height.decals[d].reach;
+                    float reach = Mathf.Max(decalHorizontalReach, decalVerticalReach);
+
+                    //Add decals in a circular way with random angle and radius
+                    for (int c = 0; c < provinces[i].height.decals[d].number; c++)
+                    {
+
+                        //Chance value defined in JSON
+                        float chance = 1;
+                        if (provinces[i].height.decals[d].chance != 0)
+                            chance = provinces[i].height.decals[d].chance;
+
+                        //Chance to not place this one
+                        if (UnityEngine.Random.Range(0, 100) > chance * 100)
+                            continue;
+
+                        //Position of decal center
+                        float cos = UnityEngine.Random.Range(-1.0f, 1.0f);
+                        float sin = UnityEngine.Random.Range(-1.0f, 1.0f);
+                        float radius = UnityEngine.Random.Range(0, reach);
+                        float x = (float)provinces[i].center.X + cos * radius;
+                        float y = (float)provinces[i].center.Y + sin * radius;
+
+                        //Decal rotations available
+                        Graphics.PixelMatrix[] decalRotations = data.decals[provinces[i].height.decals[d].name];
+
+                        //Final decal                    
+                        Graphics.PixelMatrix decal = data.decals[provinces[i].height.decals[d].name][0];
+
+                        //Pick a random rotation if required
+                        if (provinces[i].height.decals[d].rotate)
+                            decal = data.decals[provinces[i].height.decals[d].name][UnityEngine.Random.Range(0, 4)];
+
+                        //Add decal
+                        pixelMatrix = Graphics.Decal(pixelMatrix, decal, (int)x, (int)y);
+                    }
+                }
+            }
+
+            //Terrain decals
             for (int i = 0; i < provinces.Count; i++)
             {
                 //No decals so skip

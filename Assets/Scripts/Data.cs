@@ -32,8 +32,26 @@ using UnityEngine;
 [System.Serializable]
 public struct TerrainHeight
 {
+
+    [System.Serializable]
+    public struct Decal
+    {
+        //File
+        public string name;
+        //Reach of decal in cell seperations (1 = max(cell width, cell height))
+        public float reach;
+        //Number to spawn
+        public int number;
+        //Randomize rotation
+        public bool rotate;
+        //Chance of each decal appearing (default is 1)
+        public float chance;
+    }
+
     //Name of Height
     public string name;
+    //Decals to use
+    public Decal[] decals;
     //Simplified color (greyscale)
     public int color;
     //Attack modifier
