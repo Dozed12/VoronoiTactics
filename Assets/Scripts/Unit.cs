@@ -10,6 +10,7 @@ public class Unit : MonoBehaviour
 {
 
     UnitData data;
+    ProvinceData province;
 
     // Start is called before the first frame update
     void Start()

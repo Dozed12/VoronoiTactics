@@ -39,7 +39,7 @@ public class ProvinceData
     public List<FortuneSite> neighborsRAW;
     public List<VPoint> vertices;
     public VPoint center;
-    //TODO neighbor will be a costum struct
+    //TODO neighbor will be a custom struct
     public List<ProvinceData> neighbors;
     public UnitData unit = null;
     public float heightVal;
@@ -1129,6 +1129,21 @@ public class Map : MonoBehaviour
         if (Input.GetMouseButton(1))
         {
             transform.position += new Vector3(Input.GetAxis("Mouse X") * Time.deltaTime * panSpeed, Input.GetAxis("Mouse Y") * Time.deltaTime * panSpeed, 0);
+        }
+
+        //Click on pixel
+        if (Input.GetMouseButton(0))
+        {
+            var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            pos.z = transform.position.z;
+            pos = transform.InverseTransformPoint(pos);
+            
+            int xPixel = Mathf.RoundToInt(pos.x * 100);
+            xPixel += mapData.settings.WIDTH/2;
+            int yPixel = Mathf.RoundToInt(pos.y * 100);
+            yPixel += mapData.settings.HEIGHT/2;
+            
+            Debug.Log("Click ("+xPixel+", "+yPixel+")");
         }
 
     }
