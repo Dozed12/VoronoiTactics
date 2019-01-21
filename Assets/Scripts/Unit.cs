@@ -44,8 +44,8 @@ public class Unit : MonoBehaviour
 
         //Province position
         int pixelsPerUnit = 100;
-        int axisAllignedX = (int)(province.center.X - map.mapData.settings.WIDTH / 2);
-        int axisAllignedY = (int)(province.center.Y - map.mapData.settings.HEIGHT / 2);
+        float axisAllignedX = (float)(province.center.X - map.mapData.settings.WIDTH / 2);
+        float axisAllignedY = (float)(province.center.Y - map.mapData.settings.HEIGHT / 2);
         Vector3 provincePos = new Vector3(axisAllignedX / pixelsPerUnit, axisAllignedY / pixelsPerUnit, -0.002f);
 
         //Transform to world space

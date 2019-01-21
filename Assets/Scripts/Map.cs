@@ -1150,6 +1150,8 @@ public class Map : MonoBehaviour
                 Debug.Log("Click (" + xPixel + ", " + yPixel + ")");
 
                 //Test placement
+                //TODO will be elsewhere probably (on Army Deployment Phase)
+                //TODO identify province to place using Geometry.PointInPolygon
 
                 //Check province vacant
                 if(mapData.provinces[0].unit == null){
