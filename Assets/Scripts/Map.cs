@@ -1138,13 +1138,13 @@ public class Map : MonoBehaviour
         {
             var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             pos.z = transform.position.z;
-            pos = transform.InverseTransformPoint(pos);
+            var tpos = transform.InverseTransformPoint(pos);
 
             if (mapData != null)
             {
-                int xPixel = Mathf.RoundToInt(pos.x * 100);
+                int xPixel = Mathf.RoundToInt(tpos.x * 100);
                 xPixel += mapData.settings.WIDTH / 2;
-                int yPixel = Mathf.RoundToInt(pos.y * 100);
+                int yPixel = Mathf.RoundToInt(tpos.y * 100);
                 yPixel += mapData.settings.HEIGHT / 2;
 
                 Debug.Log("Click (" + xPixel + ", " + yPixel + ")");
