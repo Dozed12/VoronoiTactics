@@ -1086,6 +1086,8 @@ public class Map : MonoBehaviour
     Data data;
     MapData mapData;
 
+    public GameObject unit;
+
     public Dictionary<string, Sprite> mapModes;
 
     public Dropdown biomePick;
@@ -1132,7 +1134,7 @@ public class Map : MonoBehaviour
         }
 
         //Click on pixel
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             pos.z = transform.position.z;
@@ -1146,8 +1148,10 @@ public class Map : MonoBehaviour
                 yPixel += mapData.settings.HEIGHT / 2;
 
                 Debug.Log("Click (" + xPixel + ", " + yPixel + ")");
-            }
 
+                //Test placement
+                GameObject t = Instantiate(unit, new Vector3(pos.x, pos.y, -0.002f), Quaternion.identity) as GameObject;
+            }
         }
 
     }
