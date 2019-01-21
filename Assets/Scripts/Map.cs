@@ -1083,8 +1083,8 @@ public class MapData
 public class Map : MonoBehaviour
 {
 
-    Data data;
-    MapData mapData;
+    public Data data;
+    public MapData mapData;
 
     public GameObject unit;
 
@@ -1150,7 +1150,9 @@ public class Map : MonoBehaviour
                 Debug.Log("Click (" + xPixel + ", " + yPixel + ")");
 
                 //Test placement
-                GameObject t = Instantiate(unit, new Vector3(pos.x, pos.y, -0.002f), Quaternion.identity) as GameObject;
+                GameObject t = Instantiate(unit, new Vector3(pos.x, pos.y, -0.002f), Quaternion.identity);                
+                t.GetComponent<Unit>().PlaceOnMap(this, mapData.provinces[0]);
+
             }
         }
 

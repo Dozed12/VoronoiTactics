@@ -15,6 +15,7 @@ public class Unit : MonoBehaviour
     UnitData data;
     ProvinceData province;
     Sprite sprite;
+    Map map;
 
     // Start is called before the first frame update
     void Start()
@@ -32,4 +33,20 @@ public class Unit : MonoBehaviour
     {
 
     }
+
+    //Place on Map
+    public void PlaceOnMap(Map map, ProvinceData province){
+
+        //Assign
+        this.province = province;
+        this.map = map;
+
+        //Province position
+        Vector3 provincePos = new Vector3((float)(province.center.X-map.mapData.settings.WIDTH/2)/100,(float)(province.center.Y- map.mapData.settings.HEIGHT/2)/100 ,-0.002f);
+
+        //Transform to world space
+        transform.position = map.transform.TransformPoint(provincePos);
+        
+    }
+
 }
