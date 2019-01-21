@@ -1138,12 +1138,16 @@ public class Map : MonoBehaviour
             pos.z = transform.position.z;
             pos = transform.InverseTransformPoint(pos);
 
-            int xPixel = Mathf.RoundToInt(pos.x * 100);
-            xPixel += mapData.settings.WIDTH / 2;
-            int yPixel = Mathf.RoundToInt(pos.y * 100);
-            yPixel += mapData.settings.HEIGHT / 2;
+            if (mapData != null)
+            {
+                int xPixel = Mathf.RoundToInt(pos.x * 100);
+                xPixel += mapData.settings.WIDTH / 2;
+                int yPixel = Mathf.RoundToInt(pos.y * 100);
+                yPixel += mapData.settings.HEIGHT / 2;
 
-            Debug.Log("Click (" + xPixel + ", " + yPixel + ")");
+                Debug.Log("Click (" + xPixel + ", " + yPixel + ")");
+            }
+
         }
 
     }
