@@ -1150,8 +1150,15 @@ public class Map : MonoBehaviour
                 Debug.Log("Click (" + xPixel + ", " + yPixel + ")");
 
                 //Test placement
-                GameObject t = Instantiate(unit, new Vector3(pos.x, pos.y, -0.002f), Quaternion.identity);
-                mapData.provinces[0].unit = t.GetComponent<Unit>().PlaceOnMap(this, mapData.provinces[0]);
+
+                //Check province vacant
+                if(mapData.provinces[0].unit == null){
+                    //Instantiate unit
+                    GameObject t = Instantiate(unit, new Vector3(pos.x, pos.y, -0.002f), Quaternion.identity);
+                    //Place it on map and setup references
+                    mapData.provinces[0].unit = t.GetComponent<Unit>().PlaceOnMap(this, mapData.provinces[0]);
+                }
+                    
 
             }
         }
