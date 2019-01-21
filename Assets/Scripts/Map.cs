@@ -41,7 +41,7 @@ public class ProvinceData
     public VPoint center;
     //TODO neighbor will be a custom struct
     public List<ProvinceData> neighbors;
-    public UnitData unit = null;
+    public Unit unit = null;
     public float heightVal;
     public TerrainHeight height;
     public float terrainVal;
@@ -1150,8 +1150,8 @@ public class Map : MonoBehaviour
                 Debug.Log("Click (" + xPixel + ", " + yPixel + ")");
 
                 //Test placement
-                GameObject t = Instantiate(unit, new Vector3(pos.x, pos.y, -0.002f), Quaternion.identity);                
-                t.GetComponent<Unit>().PlaceOnMap(this, mapData.provinces[0]);
+                GameObject t = Instantiate(unit, new Vector3(pos.x, pos.y, -0.002f), Quaternion.identity);
+                mapData.provinces[0].unit = t.GetComponent<Unit>().PlaceOnMap(this, mapData.provinces[0]);
 
             }
         }

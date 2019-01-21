@@ -35,18 +35,24 @@ public class Unit : MonoBehaviour
     }
 
     //Place on Map
-    public void PlaceOnMap(Map map, ProvinceData province){
+    public Unit PlaceOnMap(Map map, ProvinceData province)
+    {
 
         //Assign
         this.province = province;
         this.map = map;
 
         //Province position
-        Vector3 provincePos = new Vector3((float)(province.center.X-map.mapData.settings.WIDTH/2)/100,(float)(province.center.Y- map.mapData.settings.HEIGHT/2)/100 ,-0.002f);
+        int pixelsPerUnit = 100;
+        int axisAllignedX = (int)(province.center.X - map.mapData.settings.WIDTH / 2);
+        int axisAllignedY = (int)(province.center.Y - map.mapData.settings.HEIGHT / 2);
+        Vector3 provincePos = new Vector3(axisAllignedX / pixelsPerUnit, axisAllignedY / pixelsPerUnit, -0.002f);
 
         //Transform to world space
         transform.position = map.transform.TransformPoint(provincePos);
-        
+
+        return this;
+
     }
 
 }
