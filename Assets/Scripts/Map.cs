@@ -1137,13 +1137,13 @@ public class Map : MonoBehaviour
             var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             pos.z = transform.position.z;
             pos = transform.InverseTransformPoint(pos);
-            
+
             int xPixel = Mathf.RoundToInt(pos.x * 100);
-            xPixel += mapData.settings.WIDTH/2;
+            xPixel += mapData.settings.WIDTH / 2;
             int yPixel = Mathf.RoundToInt(pos.y * 100);
-            yPixel += mapData.settings.HEIGHT/2;
-            
-            Debug.Log("Click ("+xPixel+", "+yPixel+")");
+            yPixel += mapData.settings.HEIGHT / 2;
+
+            Debug.Log("Click (" + xPixel + ", " + yPixel + ")");
         }
 
     }
@@ -1211,7 +1211,7 @@ public class Map : MonoBehaviour
         mapModePick.AddOptions(mapModesStrings);
 
         //Set mapmode to whatever is selected
-        OnMapModeChange();        
+        OnMapModeChange();
 
         //Total generation time
         Debug.Log("#### Total generation time: " + (Time.realtimeSinceStartup - totalTime) + "s");

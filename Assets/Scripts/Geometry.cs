@@ -243,12 +243,25 @@ public static class Geometry
                     if (nodeX[i + 1] > IMAGE_RIGHT)
                         nodeX[i + 1] = IMAGE_RIGHT;
                     for (pixelX = nodeX[i]; pixelX < nodeX[i + 1]; pixelX++)
-                        list.Add(new VPoint(pixelX,pixelY));
+                        list.Add(new VPoint(pixelX, pixelY));
                 }
             }
         }
 
         return list;
+    }
+
+    //Point inside polygon
+    public static bool PointInPolygon(List<VPoint> poly, VPoint point)
+    {
+        bool c = false;
+        int i, j;
+        for (i = 0, j = poly.Count - 1; i < poly.Count; j = i++)
+        {
+            if (((poly[i].Y > point.Y) != (poly[j].Y > point.Y)) && (point.X < (poly[j].X - poly[i].X) * (point.Y - poly[i].Y) / (poly[j].Y - poly[i].Y) + poly[i].X))
+                c = !c;
+        }
+        return c;
     }
 
 }
