@@ -1130,7 +1130,7 @@ public class Map : MonoBehaviour
         //Mouse Drag
         if (Input.GetMouseButton(1))
         {
-            transform.position += new Vector3(Input.GetAxis("Mouse X") * Time.deltaTime * panSpeed, Input.GetAxis("Mouse Y") * Time.deltaTime * panSpeed, 0);
+            Camera.main.transform.position += new Vector3(Input.GetAxis("Mouse X") * Time.deltaTime * -panSpeed, Input.GetAxis("Mouse Y") * Time.deltaTime * -panSpeed, 0);
         }
 
         //Click on pixel
