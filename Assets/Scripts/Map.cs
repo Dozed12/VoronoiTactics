@@ -1198,16 +1198,32 @@ public class Map : MonoBehaviour
 
                 //Test placement
                 //TODO will be elsewhere probably (on Army Deployment Phase)
-                //TODO identify province to place using Geometry.PointInPolygon
 
-                //Check province vacant
-                if (mapData.provinces[0].unit == null)
+                //Find province clicked using Geometry.PointInPolygon
+                //TODO Could optimize this to check if click is inside map bounds
+                int id = -1;
+                for (int i = 0; i < mapData.provinces.Count; i++)
                 {
-                    //Instantiate unit
-                    GameObject t = Instantiate(unit);
-                    //Place it on map and setup references
-                    mapData.provinces[0].unit = t.GetComponent<Unit>().PlaceOnMap(this, mapData.provinces[0]);
+                    //Check if inside
+                    if(Geometry.PointInPolygon(mapData.provinces[i].vertices, new VPoint(yPixel, xPixel))){
+                        id = i;
+                        break;
+                    }
                 }
+
+                //Check if found any province
+                if(id != -1){
+
+                    //Check province vacant
+                    if (mapData.provinces[id].unit == null)
+                    {
+                        //Instantiate unit
+                        GameObject t = Instantiate(unit);
+                        //Place it on map and setup references
+                        mapData.provinces[id].unit = t.GetComponent<Unit>().PlaceOnMap(this, mapData.provinces[id]);
+                    }
+
+                }                
 
             }
         }
