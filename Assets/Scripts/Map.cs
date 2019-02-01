@@ -1156,7 +1156,7 @@ public class Map : MonoBehaviour
                 //Check province vacant
                 if(mapData.provinces[0].unit == null){
                     //Instantiate unit
-                    GameObject t = Instantiate(unit, Vector3.zero, Quaternion.identity);
+                    GameObject t = Instantiate(unit);
                     //Place it on map and setup references
                     mapData.provinces[0].unit = t.GetComponent<Unit>().PlaceOnMap(this, mapData.provinces[0]);
                 }                    
