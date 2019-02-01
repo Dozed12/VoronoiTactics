@@ -12,6 +12,7 @@ using VoronoiLib.Structures;
 
 //https://github.com/Auburns/FastNoise_CSharp
 
+//Map generation settings
 public struct MapSettings
 {
     //Pixel width of map
@@ -32,14 +33,16 @@ public struct MapSettings
     }
 }
 
+//Individual province data
 public class ProvinceData
 {
     public int id;
     public VPoint pos;
+    //Neighbor information from voronoi
     public List<FortuneSite> neighborsRAW;
     public List<VPoint> vertices;
     public VPoint center;
-    //TODO neighbor will be a custom struct
+    //TODO neighbor will be a custom struct(to holdmodifiers)
     public List<ProvinceData> neighbors;
     public Unit unit = null;
     public float heightVal;
@@ -50,32 +53,57 @@ public class ProvinceData
     public TerrainStructure structure;
 }
 
+//Map geography information from altitude to terrain noise
 public struct MapGeography
 {
     public float[,] HEIGHTMAP;
     public float[,] TERRAINMAP;
 }
 
+//Map data
 public class MapData
 {
 
+    //Noise server
     private FastNoise fastnoise = new FastNoise();
+
+    //Voronoi Sites
     private List<FortuneSite> points;
+
+    //Site placement information
     private float pointsHorizontal;
     private float pointsVertical;
     private float pointsHorizontalSeparation;
     private float pointsVerticalSeparation;
+
+    //Voronoi edges
     private LinkedList<VEdge> edges;
+
+    //Simplified Voronoi Edges
     private List<VEdge> simpleEdges;
+
+    //Pathfinding graph (Dijkstra)
     private Graph graph = new Graph();
 
+    //File data
     public Data data;
+
+    //Generation settings
     public MapSettings settings;
+
+    //Map mode textures
     public Dictionary<string, Texture2D> mapModes;
+
+    //Map geography
     public MapGeography geography;
+
+    //Biome set(Could be inside Settings struct)
     public Biome biome;
+
+    //Provinces of map
     public List<ProvinceData> provinces;
 
+    //Constructor just receives the file data
     public MapData(Data data)
     {
         this.data = data;
@@ -380,16 +408,16 @@ public class MapData
     {
         List<ProvinceData> nProvinces = new List<ProvinceData>();
 
-        //Create Site
+        //For each site
         for (int i = 0; i < points.Count; i++)
         {
-            ProvinceData nSite = new ProvinceData();
+            ProvinceData nProvince = new ProvinceData();
 
             //Most data
-            nSite.id = i;
-            nSite.neighborsRAW = points[i].Neighbors;
-            nSite.neighbors = new List<ProvinceData>();
-            nSite.pos = new VPoint(points[i].X, points[i].Y);
+            nProvince.id = i;
+            nProvince.neighborsRAW = points[i].Neighbors;
+            nProvince.neighbors = new List<ProvinceData>();
+            nProvince.pos = new VPoint(points[i].X, points[i].Y);
 
             //Average calculation ranges
             int horizontalAverageRange = (int)pointsHorizontalSeparation / 4;
@@ -400,53 +428,55 @@ public class MapData
             float heightN = 0;
             for (int a = -horizontalAverageRange; a < horizontalAverageRange / 4; a++)
             {
-                if ((int)nSite.pos.X + a < 0 || (int)nSite.pos.X + a > settings.WIDTH - 1)
+                if ((int)nProvince.pos.X + a < 0 || (int)nProvince.pos.X + a > settings.WIDTH - 1)
                     continue;
                 for (int b = -verticalAverageRange; b < verticalAverageRange; b++)
                 {
-                    if ((int)nSite.pos.Y + b < 0 || (int)nSite.pos.Y + b > settings.HEIGHT - 1)
+                    if ((int)nProvince.pos.Y + b < 0 || (int)nProvince.pos.Y + b > settings.HEIGHT - 1)
                         continue;
-                    heightTotal += geography.HEIGHTMAP[(int)nSite.pos.X + a, (int)nSite.pos.Y + b];
+                    heightTotal += geography.HEIGHTMAP[(int)nProvince.pos.X + a, (int)nProvince.pos.Y + b];
                     heightN++;
                 }
             }
-            nSite.heightVal = heightTotal / heightN;
+            nProvince.heightVal = heightTotal / heightN;
 
             float terrainTotal = 0;
             float terrainN = 0;
             for (int a = -horizontalAverageRange; a < horizontalAverageRange / 4; a++)
             {
-                if ((int)nSite.pos.X + a < 0 || (int)nSite.pos.X + a > settings.WIDTH - 1)
+                if ((int)nProvince.pos.X + a < 0 || (int)nProvince.pos.X + a > settings.WIDTH - 1)
                     continue;
                 for (int b = -verticalAverageRange; b < verticalAverageRange; b++)
                 {
-                    if ((int)nSite.pos.Y + b < 0 || (int)nSite.pos.Y + b > settings.HEIGHT - 1)
+                    if ((int)nProvince.pos.Y + b < 0 || (int)nProvince.pos.Y + b > settings.HEIGHT - 1)
                         continue;
-                    terrainTotal += geography.TERRAINMAP[(int)nSite.pos.X + a, (int)nSite.pos.Y + b];
+                    terrainTotal += geography.TERRAINMAP[(int)nProvince.pos.X + a, (int)nProvince.pos.Y + b];
                     terrainN++;
                 }
             }
-            nSite.terrainVal = terrainTotal / terrainN;
+            nProvince.terrainVal = terrainTotal / terrainN;
 
             //Identify type from data and values
+            //Height
             for (int j = 0; j < biome.heights.Length; j++)
             {
-                if (biome.heights[j].noiseMin <= nSite.heightVal && nSite.heightVal < biome.heights[j].noiseMax)
+                if (biome.heights[j].noiseMin <= nProvince.heightVal && nProvince.heightVal < biome.heights[j].noiseMax)
                 {
-                    nSite.height = data.heights[biome.heights[j].name];
+                    nProvince.height = data.heights[biome.heights[j].name];
                     break;
                 }
             }
+            //Terrain
             for (int j = 0; j < biome.terrains.Length; j++)
             {
-                if (biome.terrains[j].noiseMin <= nSite.terrainVal && nSite.terrainVal < biome.terrains[j].noiseMax)
+                if (biome.terrains[j].noiseMin <= nProvince.terrainVal && nProvince.terrainVal < biome.terrains[j].noiseMax)
                 {
                     //Need to check if height present is accepted by terrain, if not then use fallback instead
                     //Search
                     bool found = false;
                     for (int h = 0; h < biome.terrains[j].type.heights.Length; h++)
                     {
-                        if (biome.terrains[j].type.heights[h].name == nSite.height.name)
+                        if (biome.terrains[j].type.heights[h].name == nProvince.height.name)
                         {
                             found = true;
                             break;
@@ -458,85 +488,89 @@ public class MapData
                     {
 
                         //Default fallback
-                        nSite.terrain = data.terrains[biome.terrains[j].type.height_default_fallback];
+                        nProvince.terrain = data.terrains[biome.terrains[j].type.height_default_fallback];
 
-                        //No specifics
+                        //No specific fallbacks, break
                         if (data.terrains[biome.terrains[j].name].height_fallbacks == null)
                             break;
 
                         //Specific fallbacks
                         for (int f = 0; f < data.terrains[biome.terrains[j].name].height_fallbacks.Count; f++)
                         {
-                            if (nSite.height.name == data.terrains[biome.terrains[j].name].height_fallbacks[f].First.name)
+                            if (nProvince.height.name == data.terrains[biome.terrains[j].name].height_fallbacks[f].First.name)
                             {
-                                nSite.terrain = data.terrains[biome.terrains[j].name].height_fallbacks[f].Second;
+                                nProvince.terrain = data.terrains[biome.terrains[j].name].height_fallbacks[f].Second;
                                 break;
                             }
                         }
 
                         break;
                     }
-                    //Use local
+                    //Use original
                     else
                     {
-                        nSite.terrain = data.terrains[biome.terrains[j].name];
+                        nProvince.terrain = data.terrains[biome.terrains[j].name];
                         break;
                     }
                 }
             }
 
             //Vertices
-            nSite.vertices = new List<VPoint>();
+            nProvince.vertices = new List<VPoint>();
             for (int j = 0; j < points[i].Cell.Count; j++)
             {
-                nSite.vertices.Add(points[i].Cell[j].Start);
-                nSite.vertices.Add(points[i].Cell[j].End);
+                nProvince.vertices.Add(points[i].Cell[j].Start);
+                nProvince.vertices.Add(points[i].Cell[j].End);
             }
 
-            //Unique vertices
-            nSite.vertices = nSite.vertices.Distinct().ToList();
+            //Make sure vertices are unique
+            nProvince.vertices = nProvince.vertices.Distinct().ToList();
 
             //Add corner vertex for corner provinces
+            //TODO This is a bit dangerous if site relaxation is very low, expected corner sites might not actually end in corner
+            //TODO Test to make sure ^
             if (i == 0)
-                nSite.vertices.Add(new VPoint(0, 0));
+                nProvince.vertices.Add(new VPoint(0, 0));
             else if (i == pointsHorizontal - 1)
-                nSite.vertices.Add(new VPoint(0, settings.HEIGHT));
+                nProvince.vertices.Add(new VPoint(0, settings.HEIGHT));
             else if (i == points.Count - pointsHorizontal)
-                nSite.vertices.Add(new VPoint(settings.WIDTH, 0));
+                nProvince.vertices.Add(new VPoint(settings.WIDTH, 0));
             else if (i == points.Count - 1)
-                nSite.vertices.Add(new VPoint(settings.WIDTH, settings.HEIGHT));
+                nProvince.vertices.Add(new VPoint(settings.WIDTH, settings.HEIGHT));
 
-            //Center
+            //Geometric Center
             double x = 0, y = 0;
-            for (int j = 0; j < nSite.vertices.Count; j++)
+            for (int j = 0; j < nProvince.vertices.Count; j++)
             {
-                x += nSite.vertices[j].X;
-                y += nSite.vertices[j].Y;
+                x += nProvince.vertices[j].X;
+                y += nProvince.vertices[j].Y;
             }
-            x /= nSite.vertices.Count;
-            y /= nSite.vertices.Count;
-            nSite.center = new VPoint(x, y);
+            x /= nProvince.vertices.Count;
+            y /= nProvince.vertices.Count;
+            nProvince.center = new VPoint(x, y);
 
             //Give center to vertices for sorting
-            for (int j = 0; j < nSite.vertices.Count; j++)
+            for (int j = 0; j < nProvince.vertices.Count; j++)
             {
-                nSite.vertices[j].findAngle(nSite.center);
+                nProvince.vertices[j].findAngle(nProvince.center);
             }
 
-            //Sort vertices using angle from center
-            nSite.vertices.Sort();
+            //Sort vertices by angle from center
+            nProvince.vertices.Sort();
 
             //Add
-            nProvinces.Add(nSite);
+            nProvinces.Add(nProvince);
         }
 
         //Neighbor Connections after all provinces created
+        //TODO This is currently just the basic neighbor connections(will be struct in the future)
         for (int i = 0; i < nProvinces.Count; i++)
         {
 
             //Connections for graph
             Dictionary<int, int> connections = new Dictionary<int, int>();
 
+            //For each Voronoi neighbor
             for (int p = 0; p < nProvinces[i].neighborsRAW.Count; p++)
             {
 
@@ -669,7 +703,7 @@ public class MapData
         void SimplifiedHeightMapTexture()
         {
 
-            //List of colors and use number
+            //List of colors and usage count
             Dictionary<Color, int> colors = new Dictionary<Color, int>();
             for (int i = 0; i < provinces.Count; i++)
             {
@@ -679,6 +713,7 @@ public class MapData
 
                 Color cl = new Color(grey, grey, grey);
 
+                //Count
                 int curVal;
                 if (colors.ContainsKey(cl))
                 {
@@ -748,12 +783,13 @@ public class MapData
         void SimplifiedTerrainMapTexture()
         {
 
-            //List of colors and use number
+            //List of colors and count usage
             Dictionary<Color, int> colors = new Dictionary<Color, int>();
             for (int i = 0; i < provinces.Count; i++)
             {
                 Color cl = new Color(provinces[i].terrain.color[0] / 255.0f, provinces[i].terrain.color[1] / 255.0f, provinces[i].terrain.color[2] / 255.0f);
 
+                //Count
                 int curVal;
                 if (colors.ContainsKey(cl))
                 {
@@ -1162,12 +1198,13 @@ public class Map : MonoBehaviour
                 //TODO identify province to place using Geometry.PointInPolygon
 
                 //Check province vacant
-                if(mapData.provinces[0].unit == null){
+                if (mapData.provinces[0].unit == null)
+                {
                     //Instantiate unit
                     GameObject t = Instantiate(unit);
                     //Place it on map and setup references
                     mapData.provinces[0].unit = t.GetComponent<Unit>().PlaceOnMap(this, mapData.provinces[0]);
-                }                    
+                }
 
             }
         }
