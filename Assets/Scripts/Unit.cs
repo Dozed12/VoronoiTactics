@@ -28,12 +28,6 @@ public class Unit : MonoBehaviour
         this.GetComponent<SpriteRenderer>().sprite = sprite;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     //Place on Map
     public Unit PlaceOnMap(Map map, ProvinceData province)
     {
