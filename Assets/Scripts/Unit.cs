@@ -10,11 +10,20 @@ public class UnitData
 public class Unit : MonoBehaviour
 {
 
+    //Temporary Test Sprite size
     int width = 50;
     int height = 50;
+
+    //Unit data
     UnitData data;
+
+    //Province where unit is
     ProvinceData province;
+
+    //Sprite used(Currently a test sprite)
     Sprite sprite;
+
+    //Map where unit is placed
     Map map;
 
     // Start is called before the first frame update
@@ -31,6 +40,9 @@ public class Unit : MonoBehaviour
     //Place on Map
     public Unit PlaceOnMap(Map map, ProvinceData province)
     {
+
+        //TODO These calculations can be done by each province on generation since map wont me moved in the 3D space
+        //Saves some light calculations so not big deal but more readable
 
         //Assign
         this.province = province;

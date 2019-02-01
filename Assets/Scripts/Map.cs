@@ -1220,7 +1220,7 @@ public class Map : MonoBehaviour
         //Master generate
         mapData.Generate();
 
-        //Create sprites
+        //Create mapmode sprites
         mapModes = new Dictionary<string, Sprite>();
         foreach (KeyValuePair<string, Texture2D> entry in mapData.mapModes)
         {
