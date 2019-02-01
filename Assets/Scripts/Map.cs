@@ -1083,13 +1083,17 @@ public class MapData
 public class Map : MonoBehaviour
 {
 
+    //Data
     public Data data;
     public MapData mapData;
 
+    //Prefab Unit
     public GameObject unit;
 
+    //Graphical Mapmodes
     public Dictionary<string, Sprite> mapModes;
 
+    //UI Elements
     public Dropdown biomePick;
     public Dropdown mapModePick;
 
@@ -1112,7 +1116,7 @@ public class Map : MonoBehaviour
     }
 
     //Mouse controls (TEMPORARY)
-    public float panSpeed = 50.0f;
+    public float panSpeed = 10.0f;
     void Update()
     {
 
@@ -1133,7 +1137,7 @@ public class Map : MonoBehaviour
             Camera.main.transform.position += new Vector3(Input.GetAxis("Mouse X") * Time.deltaTime * -panSpeed, Input.GetAxis("Mouse Y") * Time.deltaTime * -panSpeed, 0);
         }
 
-        //Click on pixel
+        //Click on map (Currently for testing unit placement)
         if (Input.GetMouseButtonDown(0))
         {
             //Check there is a map

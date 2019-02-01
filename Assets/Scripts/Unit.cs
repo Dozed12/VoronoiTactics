@@ -36,11 +36,13 @@ public class Unit : MonoBehaviour
         this.province = province;
         this.map = map;
 
-        //Province position
-        int pixelsPerUnit = 100;
+        //Province position        
         float axisAllignedX = (float)(province.center.X - map.mapData.settings.WIDTH / 2);
         float axisAllignedY = (float)(province.center.Y - map.mapData.settings.HEIGHT / 2);
-        Vector3 provincePos = new Vector3(axisAllignedX / pixelsPerUnit, axisAllignedY / pixelsPerUnit, -0.002f);
+
+        //Inverted
+        int pixelsPerUnit = 100;
+        Vector3 provincePos = new Vector3(axisAllignedY / pixelsPerUnit, axisAllignedX / pixelsPerUnit, -0.002f);
 
         //Transform to world space
         transform.position = map.transform.TransformPoint(provincePos);
