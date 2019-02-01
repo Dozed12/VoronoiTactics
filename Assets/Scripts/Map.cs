@@ -1136,12 +1136,16 @@ public class Map : MonoBehaviour
         //Click on pixel
         if (Input.GetMouseButtonDown(0))
         {
-            var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            pos.z = transform.position.z;
-            var tpos = transform.InverseTransformPoint(pos);
-
+            //Check there is a map
             if (mapData != null)
             {
+
+                //Mouse position on map
+                var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                pos.z = transform.position.z;
+                var tpos = transform.InverseTransformPoint(pos);
+
+                //Convert coordinates to 2D xy axis
                 int xPixel = Mathf.RoundToInt(tpos.x * 100);
                 xPixel += mapData.settings.WIDTH / 2;
                 int yPixel = Mathf.RoundToInt(tpos.y * 100);
