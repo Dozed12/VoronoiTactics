@@ -1183,6 +1183,9 @@ public class Map : MonoBehaviour
             if (mapData != null)
             {
 
+                //TODO This conversion could be done in a function since its done often, It's also used in Unit.cs and could be done in Province setup
+                // Also if we optimize by checking map bounds we would need to do this for the 4 map corners, preprocessed of course
+
                 //Mouse position on map
                 var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 pos.z = transform.position.z;
