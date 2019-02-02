@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,79 @@ using VoronoiLib.Structures;
 public static class Geometry
 {
 
-    public static bool InsideConvex(List<VPoint> polygon, VPoint point)
+    //Extended version of Unity Vector2 prepared for circular sorting
+    public class Vector2X : IComparable, IEquatable<Vector2X>
+    {
+        public Vector2 value;
+
+        private Vector2 center;
+        private double angle;
+        public void findAngle(Vector2 center)
+        {
+            this.center = center;
+            angle = Mathf.Rad2Deg * Mathf.Atan2(this.value.y - center.y, this.value.x - center.x);
+            if (angle < 0)
+                angle += 360;
+        }
+
+        public Vector2X(int X, int Y)
+        {
+            value = new Vector2(X, Y);
+        }
+
+        public Vector2X(float X, float Y)
+        {
+            value = new Vector2(X, Y);
+        }
+
+        //Comparators
+        int IComparable.CompareTo(object obj)
+        {
+            Vector2X b = (Vector2X)obj;
+            return (int)(this.angle - b.angle);
+        }
+        public bool Equals(Vector2X obj)
+        {
+            if (this.value.x == obj.value.x && this.value.y == obj.value.y)
+                return true;
+            return false;
+        }
+        public override int GetHashCode()
+        {
+            int hashFirstName = value.x.GetHashCode();
+            int hashLastName = value.y.GetHashCode();
+
+            return hashFirstName ^ hashLastName;
+        }
+
+    }
+
+    //Vector2 based Edge
+    public class Vector2Edge
+    {
+        public Vector2X start;
+        public Vector2X end;
+
+        public FortuneSite left;
+        public FortuneSite right;
+
+        public Vector2Edge(Vector2X Start, Vector2X End)
+        {
+            start = Start;
+            end = End;
+        }
+
+        public Vector2Edge(Vector2X Start, Vector2X End, FortuneSite Left, FortuneSite Right)
+        {
+            start = Start;
+            end = End;
+            left = Left;
+            right = Right;
+        }
+
+    }
+
+    public static bool InsideConvex(List<Vector2X> polygon, Vector2X point)
     {
         //Check if a triangle or higher n-gon
         if (polygon.Count < 3)
@@ -27,17 +100,17 @@ public static class Geometry
                 return true;
 
             //Form a segment between the i'th point
-            var x1 = polygon[i].X;
-            var y1 = polygon[i].Y;
+            var x1 = polygon[i].value.x;
+            var y1 = polygon[i].value.y;
 
             //And the i+1'th, or if i is the last, with the first point
             var i2 = i < polygon.Count - 1 ? i + 1 : 0;
 
-            var x2 = polygon[i2].X;
-            var y2 = polygon[i2].Y;
+            var x2 = polygon[i2].value.x;
+            var y2 = polygon[i2].value.y;
 
-            var x = point.X;
-            var y = point.Y;
+            var x = point.value.x;
+            var y = point.value.y;
 
             //Compute the cross product
             var d = (x - x1) * (y2 - y1) - (y - y1) * (x2 - x1);
@@ -55,7 +128,7 @@ public static class Geometry
     }
 
     //Point inside concave polygon
-    public static bool InsideConcave(List<VPoint> polygon, VPoint point)
+    public static bool InsideConcave(List<Vector2X> polygon, Vector2X point)
     {
 
         //Check if a triangle or higher n-gon
@@ -66,9 +139,9 @@ public static class Geometry
         int j = polygon.Count() - 1;
         for (int i = 0; i < polygon.Count(); i++)
         {
-            if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
+            if (polygon[i].value.y < point.value.y && polygon[j].value.y >= point.value.y || polygon[j].value.y < point.value.y && polygon[i].value.y >= point.value.y)
             {
-                if (polygon[i].X + (point.Y - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X) < point.X)
+                if (polygon[i].value.x + (point.value.y - polygon[i].value.y) / (polygon[j].value.y - polygon[i].value.y) * (polygon[j].value.x - polygon[i].value.x) < point.value.x)
                 {
                     result = !result;
                 }
@@ -78,42 +151,42 @@ public static class Geometry
         return result;
     }
 
-    //Jitters a line segment of 2 VPoints
-    public static List<VPoint> Jitter(VPoint start, VPoint end, int divisions, double magnitude)
+    //Jitters a line segment of 2 Vector2
+    public static List<Vector2X> Jitter(Vector2X start, Vector2X end, int divisions, double magnitude)
     {
 
         //Create list and add start
-        List<VPoint> jitter = new List<VPoint>();
+        List<Vector2X> jitter = new List<Vector2X>();
         jitter.Add(start);
 
         //Vector
-        double vecX = end.X - start.X;
-        double vecY = end.Y - start.Y;
+        float vecX = end.value.x - start.value.x;
+        float vecY = end.value.y - start.value.y;
 
         //Distance of points
-        double distance = System.Math.Sqrt(vecX * vecX + vecY * vecY);
+        float distance = Mathf.Sqrt(vecX * vecX + vecY * vecY);
 
         //Jitter distance
-        double jitterDistance = distance / divisions;
+        float jitterDistance = distance / divisions;
 
         //Normalized Vector
-        double dirX = vecX / distance;
-        double dirY = vecY / distance;
+        float dirX = vecX / distance;
+        float dirY = vecY / distance;
 
         //Perpendicular
-        double normalX = dirY;
-        double normalY = -dirX;
+        float normalX = dirY;
+        float normalY = -dirX;
 
         //Division step
-        double divisionX = dirX * jitterDistance;
-        double divisionY = dirY * jitterDistance;
+        float divisionX = dirX * jitterDistance;
+        float divisionY = dirY * jitterDistance;
 
         //For each division
         for (int i = 1; i < divisions; i++)
         {
             //Begin at first point
-            double finalX = start.X;
-            double finalY = start.Y;
+            float finalX = start.value.x;
+            float finalY = start.value.y;
 
             //Move N divisions
             finalX += i * divisionX;
@@ -124,7 +197,7 @@ public static class Geometry
             finalY += UnityEngine.Random.Range(-(float)magnitude, (float)magnitude) * normalY;
 
             //Add new point
-            jitter.Add(new VPoint(finalX, finalY));
+            jitter.Add(new Vector2X(finalX, finalY));
 
         }
 
@@ -252,13 +325,13 @@ public static class Geometry
     }
 
     //Point inside polygon
-    public static bool PointInPolygon(List<VPoint> poly, VPoint point)
+    public static bool PointInPolygon(List<Vector2X> poly, Vector2X point)
     {
         bool c = false;
         int i, j;
         for (i = 0, j = poly.Count - 1; i < poly.Count; j = i++)
         {
-            if (((poly[i].Y > point.Y) != (poly[j].Y > point.Y)) && (point.X < (poly[j].X - poly[i].X) * (point.Y - poly[i].Y) / (poly[j].Y - poly[i].Y) + poly[i].X))
+            if (((poly[i].value.y > point.value.y) != (poly[j].value.y > point.value.y)) && (point.value.x < (poly[j].value.x - poly[i].value.x) * (point.value.y - poly[i].value.y) / (poly[j].value.y - poly[i].value.y) + poly[i].value.x))
                 c = !c;
         }
         return c;

@@ -326,7 +326,7 @@ public static class Graphics
     //Fill Polygon
     //Looks much faster and quite promissing
     //http://alienryderflex.com/polygon_fill/
-    public static PixelMatrix FillPolygon(PixelMatrix original, List<VPoint> polygon, Color cl)
+    public static PixelMatrix FillPolygon(PixelMatrix original, List<Geometry.Vector2X> polygon, Color cl)
     {
 
         int pixelX, pixelY, swap;
@@ -338,14 +338,14 @@ public static class Graphics
 
         for (int p = 0; p < polygon.Count; p++)
         {
-            if (polygon[p].X > IMAGE_RIGHT)
-                IMAGE_RIGHT = (int)polygon[p].X;
-            if (polygon[p].X < IMAGE_LEFT)
-                IMAGE_LEFT = (int)polygon[p].X;
-            if (polygon[p].Y < IMAGE_TOP)
-                IMAGE_TOP = (int)polygon[p].Y;
-            if (polygon[p].Y > IMAGE_BOT)
-                IMAGE_BOT = (int)polygon[p].Y;
+            if (polygon[p].value.x > IMAGE_RIGHT)
+                IMAGE_RIGHT = (int)polygon[p].value.x;
+            if (polygon[p].value.x < IMAGE_LEFT)
+                IMAGE_LEFT = (int)polygon[p].value.x;
+            if (polygon[p].value.y < IMAGE_TOP)
+                IMAGE_TOP = (int)polygon[p].value.y;
+            if (polygon[p].value.y > IMAGE_BOT)
+                IMAGE_BOT = (int)polygon[p].value.y;
         }
 
         //  Loop through the rows of the image.
@@ -356,9 +356,9 @@ public static class Graphics
             nodes = 0; j = polygon.Count - 1;
             for (i = 0; i < polygon.Count; i++)
             {
-                if (polygon[i].Y < (double)pixelY && polygon[j].Y >= (double)pixelY || polygon[j].Y < (double)pixelY && polygon[i].Y >= (double)pixelY)
+                if (polygon[i].value.y < (double)pixelY && polygon[j].value.y >= (double)pixelY || polygon[j].value.y < (double)pixelY && polygon[i].value.y >= (double)pixelY)
                 {
-                    nodeX[nodes++] = (int)(polygon[i].X + (pixelY - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X));
+                    nodeX[nodes++] = (int)(polygon[i].value.x + (pixelY - polygon[i].value.y) / (polygon[j].value.y - polygon[i].value.y) * (polygon[j].value.x - polygon[i].value.x));
                 }
                 j = i;
             }

@@ -40,8 +40,8 @@ public class ProvinceData
     public VPoint pos;
     //Neighbor information from voronoi
     public List<FortuneSite> neighborsRAW;
-    public List<VPoint> vertices;
-    public VPoint center;
+    public List<Geometry.Vector2X> vertices;
+    public Vector2 center;
     public Vector3 center3D;
     //TODO neighbor will be a custom struct(to holdmodifiers)
     public List<ProvinceData> neighbors;
@@ -84,7 +84,7 @@ public class MapData
     private LinkedList<VEdge> edges;
 
     //Simplified Voronoi Edges
-    private List<VEdge> simpleEdges;
+    private List<Geometry.Vector2Edge> simpleEdges;
 
     //Pathfinding graph (Dijkstra)
     private Graph graph = new Graph();
@@ -211,11 +211,11 @@ public class MapData
     {
 
         //Convert Linked Edges to simple List
-        simpleEdges = new List<VEdge>();
+        simpleEdges = new List<Geometry.Vector2Edge>();
         var edge = edges.First;
         for (int j = 0; j < edges.Count; j++)
         {
-            simpleEdges.Add(edge.Value);
+            simpleEdges.Add(new Geometry.Vector2Edge(new Geometry.Vector2X((float)edge.Value.Start.X,(float)edge.Value.Start.Y), new Geometry.Vector2X((float)edge.Value.End.X,(float)edge.Value.End.Y),edge.Value.Left,edge.Value.Right));
 
             //Next edge
             edge = edge.Next;
@@ -225,40 +225,40 @@ public class MapData
         //TODO Settings should be in another place
         int divisions = 3;
         double magnitude = 5;
-        List<VEdge> jitteredEdges = new List<VEdge>();
+        List<Geometry.Vector2Edge> jitteredEdges = new List<Geometry.Vector2Edge>();
 
         for (int j = 0; j < simpleEdges.Count; j++)
         {
 
             //Dont jitter map border edges
-            if (simpleEdges[j].Start.X == 0 && simpleEdges[j].End.X == 0)
+            if (simpleEdges[j].start.value.x == 0 && simpleEdges[j].end.value.x == 0)
             {
                 jitteredEdges.Add(simpleEdges[j]);
                 continue;
             }
-            if (simpleEdges[j].Start.Y == 0 && simpleEdges[j].End.Y == 0)
+            if (simpleEdges[j].start.value.y == 0 && simpleEdges[j].end.value.y == 0)
             {
                 jitteredEdges.Add(simpleEdges[j]);
                 continue;
             }
-            if (simpleEdges[j].Start.X == settings.WIDTH - 1 && simpleEdges[j].End.X == settings.WIDTH - 1)
+            if (simpleEdges[j].start.value.x == settings.WIDTH - 1 && simpleEdges[j].end.value.x == settings.WIDTH - 1)
             {
                 jitteredEdges.Add(simpleEdges[j]);
                 continue;
             }
-            if (simpleEdges[j].Start.Y == settings.HEIGHT - 1 && simpleEdges[j].End.Y == settings.HEIGHT - 1)
+            if (simpleEdges[j].start.value.y == settings.HEIGHT - 1 && simpleEdges[j].end.value.y == settings.HEIGHT - 1)
             {
                 jitteredEdges.Add(simpleEdges[j]);
                 continue;
             }
 
             //Jitter
-            List<VPoint> jitter = Geometry.Jitter(simpleEdges[j].Start, simpleEdges[j].End, divisions, magnitude);
+            List<Geometry.Vector2X> jitter = Geometry.Jitter(simpleEdges[j].start, simpleEdges[j].end, divisions, magnitude);
 
             //Add jitter edges
             for (int i = 0; i < jitter.Count - 1; i++)
             {
-                VEdge nEdge = new VEdge(jitter[i], jitter[i + 1], simpleEdges[j].Left, simpleEdges[j].Right);
+                Geometry.Vector2Edge nEdge = new Geometry.Vector2Edge(jitter[i], jitter[i + 1], simpleEdges[j].left, simpleEdges[j].right);
                 jitteredEdges.Add(nEdge);
             }
         }
@@ -274,7 +274,7 @@ public class MapData
             for (int j = 0; j < simpleEdges.Count; j++)
             {
                 //Side with same ID
-                if (simpleEdges[j].Left.ID == points[i].ID || simpleEdges[j].Right.ID == points[i].ID)
+                if (simpleEdges[j].left.ID == points[i].ID || simpleEdges[j].right.ID == points[i].ID)
                 {
                     points[i].Cell.Add(simpleEdges[j]);
                 }
@@ -521,11 +521,11 @@ public class MapData
             }
 
             //Vertices
-            nProvince.vertices = new List<VPoint>();
+            nProvince.vertices = new List<Geometry.Vector2X>();
             for (int j = 0; j < points[i].Cell.Count; j++)
             {
-                nProvince.vertices.Add(points[i].Cell[j].Start);
-                nProvince.vertices.Add(points[i].Cell[j].End);
+                nProvince.vertices.Add(points[i].Cell[j].start);
+                nProvince.vertices.Add(points[i].Cell[j].end);
             }
 
             //Make sure vertices are unique
@@ -535,24 +535,24 @@ public class MapData
             //TODO This is a bit dangerous if site relaxation is very low, expected corner sites might not actually end in corner
             //TODO Test to make sure ^
             if (i == 0)
-                nProvince.vertices.Add(new VPoint(0, 0));
+                nProvince.vertices.Add(new Geometry.Vector2X(0, 0));
             else if (i == pointsHorizontal - 1)
-                nProvince.vertices.Add(new VPoint(0, settings.HEIGHT));
+                nProvince.vertices.Add(new Geometry.Vector2X(0, settings.HEIGHT));
             else if (i == points.Count - pointsHorizontal)
-                nProvince.vertices.Add(new VPoint(settings.WIDTH, 0));
+                nProvince.vertices.Add(new Geometry.Vector2X(settings.WIDTH, 0));
             else if (i == points.Count - 1)
-                nProvince.vertices.Add(new VPoint(settings.WIDTH, settings.HEIGHT));
+                nProvince.vertices.Add(new Geometry.Vector2X(settings.WIDTH, settings.HEIGHT));
 
             //Geometric Center
-            double x = 0, y = 0;
+            float x = 0, y = 0;
             for (int j = 0; j < nProvince.vertices.Count; j++)
             {
-                x += nProvince.vertices[j].X;
-                y += nProvince.vertices[j].Y;
+                x += nProvince.vertices[j].value.x;
+                y += nProvince.vertices[j].value.y;
             }
             x /= nProvince.vertices.Count;
             y /= nProvince.vertices.Count;
-            nProvince.center = new VPoint(x, y);
+            nProvince.center = new Vector2(x, y);
 
             //3D World province center
             nProvince.center3D = mapObject.MapToWorld(new Vector2((float)x, (float)y));
@@ -962,8 +962,8 @@ public class MapData
                         float cos = UnityEngine.Random.Range(-1.0f, 1.0f);
                         float sin = UnityEngine.Random.Range(-1.0f, 1.0f);
                         float radius = UnityEngine.Random.Range(0, reach);
-                        float x = (float)provinces[i].center.X + cos * radius;
-                        float y = (float)provinces[i].center.Y + sin * radius;
+                        float x = provinces[i].center.x + cos * radius;
+                        float y = provinces[i].center.y + sin * radius;
 
                         //Decal rotations available
                         Graphics.PixelMatrix[] decalRotations = data.decals[provinces[i].height.decals[d].name];
@@ -1017,8 +1017,8 @@ public class MapData
                         float cos = UnityEngine.Random.Range(-1.0f, 1.0f);
                         float sin = UnityEngine.Random.Range(-1.0f, 1.0f);
                         float radius = UnityEngine.Random.Range(0, reach);
-                        float x = (float)provinces[i].center.X + cos * radius;
-                        float y = (float)provinces[i].center.Y + sin * radius;
+                        float x = provinces[i].center.x + cos * radius;
+                        float y = provinces[i].center.y + sin * radius;
 
                         //Decal rotations available
                         Graphics.PixelMatrix[] decalRotations = data.decals[provinces[i].terrain.decals[d].name];
@@ -1101,10 +1101,10 @@ public class MapData
                 for (int j = 0; j < provinces[i].vertices.Count - 1; j++)
                 {
                     //Round
-                    int startX = Mathf.FloorToInt((float)provinces[i].vertices[j].X);
-                    int startY = Mathf.FloorToInt((float)provinces[i].vertices[j].Y);
-                    int endX = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].X);
-                    int endY = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].Y);
+                    int startX = Mathf.FloorToInt((float)provinces[i].vertices[j].value.x);
+                    int startY = Mathf.FloorToInt((float)provinces[i].vertices[j].value.y);
+                    int endX = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].value.x);
+                    int endY = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].value.y);
 
                     //Draw Edge
                     pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, circleRadius);
@@ -1117,7 +1117,7 @@ public class MapData
             Graphics.PixelMatrix center = Graphics.FilledCircle(siteRadius, Color.black);
             for (int i = 0; i < provinces.Count; i++)
             {
-                pixelMatrix = Graphics.Decal(pixelMatrix, center, (int)provinces[i].center.X, (int)provinces[i].center.Y);
+                pixelMatrix = Graphics.Decal(pixelMatrix, center, (int)provinces[i].center.x, (int)provinces[i].center.y);
             }
 
             return pixelMatrix;
@@ -1244,7 +1244,7 @@ public class Map : MonoBehaviour
                 for (int i = 0; i < mapData.provinces.Count; i++)
                 {
                     //Check if inside
-                    if (Geometry.PointInPolygon(mapData.provinces[i].vertices, new VPoint(mapPos.x, mapPos.y)))
+                    if (Geometry.PointInPolygon(mapData.provinces[i].vertices, new Geometry.Vector2X(mapPos.x, mapPos.y)))
                     {
                         id = i;
                         break;
