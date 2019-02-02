@@ -8,7 +8,7 @@ namespace VoronoiLib
     {
         public static LinkedList<VEdge> Run(List<FortuneSite> sites, float minX, float minY, float maxX, float maxY)
         {
-            var eventQueue = new MinHeap<FortuneEvent>(5*sites.Count);
+            var eventQueue = new MinHeap<FortuneEvent>(5 * sites.Count);
             foreach (var s in sites)
             {
                 eventQueue.Insert(new FortuneSiteEvent(s));
@@ -23,20 +23,20 @@ namespace VoronoiLib
             {
                 var fEvent = eventQueue.Pop();
                 if (fEvent is FortuneSiteEvent)
-                    beachLine.AddBeachSection((FortuneSiteEvent) fEvent, eventQueue, deleted, edges);
+                    beachLine.AddBeachSection((FortuneSiteEvent)fEvent, eventQueue, deleted, edges);
                 else
                 {
-                    if (deleted.Contains((FortuneCircleEvent) fEvent))
+                    if (deleted.Contains((FortuneCircleEvent)fEvent))
                     {
-                        deleted.Remove((FortuneCircleEvent) fEvent);
+                        deleted.Remove((FortuneCircleEvent)fEvent);
                     }
                     else
                     {
-                        beachLine.RemoveBeachSection((FortuneCircleEvent) fEvent, eventQueue, deleted, edges);
+                        beachLine.RemoveBeachSection((FortuneCircleEvent)fEvent, eventQueue, deleted, edges);
                     }
                 }
             }
-            
+
 
             //clip edges
             var edgeNode = edges.First;
@@ -87,22 +87,22 @@ namespace VoronoiLib
 
                     if ((outcode & 0x8) != 0) // top
                     {
-                        x = edge.Start.X + (edge.End.X - edge.Start.X)*(maxY - edge.Start.Y)/(edge.End.Y - edge.Start.Y);
+                        x = edge.Start.X + (edge.End.X - edge.Start.X) * (maxY - edge.Start.Y) / (edge.End.Y - edge.Start.Y);
                         y = maxY;
                     }
                     else if ((outcode & 0x4) != 0) // bottom
                     {
-                        x = edge.Start.X + (edge.End.X - edge.Start.X)*(minY - edge.Start.Y)/(edge.End.Y - edge.Start.Y);
+                        x = edge.Start.X + (edge.End.X - edge.Start.X) * (minY - edge.Start.Y) / (edge.End.Y - edge.Start.Y);
                         y = minY;
                     }
                     else if ((outcode & 0x2) != 0) //right
                     {
-                        y = edge.Start.Y + (edge.End.Y - edge.Start.Y)*(maxX - edge.Start.X)/(edge.End.X - edge.Start.X);
+                        y = edge.Start.Y + (edge.End.Y - edge.Start.Y) * (maxX - edge.Start.X) / (edge.End.X - edge.Start.X);
                         x = maxX;
                     }
                     else if ((outcode & 0x1) != 0) //left
                     {
-                        y = edge.Start.Y + (edge.End.Y - edge.Start.Y)*(minX - edge.Start.X)/(edge.End.X - edge.Start.X);
+                        y = edge.Start.Y + (edge.End.Y - edge.Start.Y) * (minX - edge.Start.X) / (edge.End.X - edge.Start.X);
                         x = minX;
                     }
 
@@ -139,7 +139,7 @@ namespace VoronoiLib
             }
             return accept;
         }
-        
+
         private static int ComputeOutCode(float x, float y, float minX, float minY, float maxX, float maxY)
         {
             int code = 0;
@@ -224,7 +224,7 @@ namespace VoronoiLib
                 }
                 return true;
             }
-            
+
             //works for outside
             Debug.Assert(edge.Slope != null, "edge.Slope != null");
             Debug.Assert(edge.Intercept != null, "edge.Intercept != null");
@@ -251,7 +251,7 @@ namespace VoronoiLib
                 //grab vector representing the edge
                 var ax = candidate.X - start.X;
                 var ay = candidate.Y - start.Y;
-                if (edge.SlopeRun*ax + edge.SlopeRise*ay < 0)
+                if (edge.SlopeRun * ax + edge.SlopeRise * ay < 0)
                     candidates.RemoveAt(i);
             }
 
@@ -263,7 +263,7 @@ namespace VoronoiLib
                 var ay = candidates[0].Y - start.Y;
                 var bx = candidates[1].X - start.X;
                 var by = candidates[1].Y - start.Y;
-                if (ax*ax + ay*ay > bx*bx + by*by)
+                if (ax * ax + ay * ay > bx * bx + by * by)
                 {
                     edge.Start = candidates[1];
                     edge.End = candidates[0];

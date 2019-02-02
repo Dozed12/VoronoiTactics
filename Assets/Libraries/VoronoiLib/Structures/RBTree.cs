@@ -15,9 +15,9 @@ namespace VoronoiLib.Structures
 
         internal bool Red { get; set; }
 
-        internal RBTreeNode ()
+        internal RBTreeNode()
         {
-            
+
         }
     }
 
@@ -27,7 +27,7 @@ namespace VoronoiLib.Structures
 
         public RBTreeNode<T> InsertSuccessor(RBTreeNode<T> node, T successorData)
         {
-            var successor = new RBTreeNode<T> {Data = successorData};
+            var successor = new RBTreeNode<T> { Data = successorData };
 
             RBTreeNode<T> parent;
 
@@ -79,7 +79,7 @@ namespace VoronoiLib.Structures
             RBTreeNode<T> grandma;
             RBTreeNode<T> aunt;
             node = successor;
-            while (parent != null  && parent.Red)
+            while (parent != null && parent.Red)
             {
                 grandma = parent.Parent;
                 if (parent == grandma.Left)

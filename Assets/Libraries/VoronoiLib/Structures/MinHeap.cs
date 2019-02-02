@@ -73,7 +73,7 @@ namespace VoronoiLib.Structures
 
             Count--;
             Swap(index, Count);
-            if (LeftLessThanRight(index, (index - 1)/2))
+            if (LeftLessThanRight(index, (index - 1) / 2))
                 PercolateUp(index);
             else
                 PercolateDown(index);
@@ -84,8 +84,8 @@ namespace VoronoiLib.Structures
         {
             while (true)
             {
-                var left = 2*index + 1;
-                var right = 2*index + 2;
+                var left = 2 * index + 1;
+                var right = 2 * index + 2;
                 var largest = index;
 
                 if (left < Count && LeftLessThanRight(left, largest))
@@ -105,7 +105,7 @@ namespace VoronoiLib.Structures
             {
                 if (index >= Count || index <= 0)
                     return;
-                var parent = (index - 1)/2;
+                var parent = (index - 1) / 2;
 
                 if (LeftLessThanRight(parent, index))
                     return;

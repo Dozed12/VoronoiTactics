@@ -5,11 +5,11 @@ namespace VoronoiLib
 {
     public static class ParabolaMath
     {
-        public const double EPSILON = double.Epsilon*1E100;
+        public const double EPSILON = double.Epsilon * 1E100;
 
         public static float EvalParabola(float focusX, float focusY, float directrix, float x)
         {
-            return .5f*( (x - focusX) * (x - focusX) /(focusY - directrix) + focusY + directrix);
+            return .5f * ((x - focusX) * (x - focusX) / (focusY - directrix) + focusY + directrix);
         }
 
         //gives the intersect point such that parabola 1 will be on top of parabola 2 slightly before the intersect
@@ -20,13 +20,13 @@ namespace VoronoiLib
             //admittedly this is pure voodoo.
             //there is attached documentation for this function
             return focus1Y.ApproxEqual(focus2Y)
-                ? (focus1X + focus2X)/2
-                : (focus1X*(directrix - focus2Y) + focus2X*(focus1Y - directrix) +
-                   (float)Math.Sqrt((directrix - focus1Y)*(directrix - focus2Y)*
-                             ((focus1X - focus2X)*(focus1X - focus2X) +
-                              (focus1Y - focus2Y)*(focus1Y - focus2Y))
+                ? (focus1X + focus2X) / 2
+                : (focus1X * (directrix - focus2Y) + focus2X * (focus1Y - directrix) +
+                   (float)Math.Sqrt((directrix - focus1Y) * (directrix - focus2Y) *
+                             ((focus1X - focus2X) * (focus1X - focus2X) +
+                              (focus1Y - focus2Y) * (focus1Y - focus2Y))
                    )
-                  )/(focus1Y - focus2Y);
+                  ) / (focus1Y - focus2Y);
         }
 
         public static bool ApproxEqual(this float value1, float value2)

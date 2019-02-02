@@ -16,6 +16,6 @@
             var c = Y.CompareTo(other.Y);
             return c == 0 ? X.CompareTo(other.X) : c;
         }
-     
+
     }
 }

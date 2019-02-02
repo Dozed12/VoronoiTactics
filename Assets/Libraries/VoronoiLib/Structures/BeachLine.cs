@@ -5,7 +5,7 @@ namespace VoronoiLib.Structures
 {
     internal class BeachSection
     {
-        internal FortuneSite Site { get;}
+        internal FortuneSite Site { get; }
         internal VEdge Edge { get; set; }
         //NOTE: this will change
         internal FortuneCircleEvent CircleEvent { get; set; }
@@ -138,7 +138,7 @@ namespace VoronoiLib.Structures
                 //store the left edge on each arc section
                 newSection.Data.Edge = leftEdge;
                 rightSection.Data.Edge = rightEdge;
-                
+
                 //store neighbors for delaunay
                 leftSection.Data.Site.Neighbors.Add(newSection.Data.Site);
                 newSection.Data.Site.Neighbors.Add(leftSection.Data.Site);
@@ -153,7 +153,7 @@ namespace VoronoiLib.Structures
             //had the same y value
             else if (leftSection != null && rightSection == null)
             {
-                var start = new VPoint((leftSection.Data.Site.X + site.X)/ 2, float.MinValue);
+                var start = new VPoint((leftSection.Data.Site.X + site.X) / 2, float.MinValue);
                 var infEdge = new VEdge(start, leftSection.Data.Site, site);
                 var newEdge = new VEdge(start, site, leftSection.Data.Site);
 
@@ -164,7 +164,7 @@ namespace VoronoiLib.Structures
                 newSection.Data.Site.Neighbors.Add(leftSection.Data.Site);
 
                 newSection.Data.Edge = newEdge;
-                
+
                 //cant check circles since they are colinear
             }
 
@@ -201,12 +201,12 @@ namespace VoronoiLib.Structures
                 var rightSite = rightSection.Data.Site;
                 var cx = rightSite.X - ax;
                 var cy = rightSite.Y - ay;
-                var d = bx*cy - by*cx;
-                var magnitudeB = bx*bx + by*by;
-                var magnitudeC = cx*cx + cy*cy;
+                var d = bx * cy - by * cx;
+                var magnitudeB = bx * bx + by * by;
+                var magnitudeC = cx * cx + cy * cy;
                 var vertex = new VPoint(
-                    (cy*magnitudeB - by * magnitudeC)/(2*d) + ax,
-                    (bx*magnitudeC - cx * magnitudeB)/(2*d) + ay);
+                    (cy * magnitudeB - by * magnitudeC) / (2 * d) + ax,
+                    (bx * magnitudeC - cx * magnitudeB) / (2 * d) + ay);
 
                 rightSection.Data.Edge.End = vertex;
 
@@ -241,8 +241,8 @@ namespace VoronoiLib.Structures
 
             //look left
             var prev = section.Previous;
-            while (prev.Data.CircleEvent != null && 
-                (x - prev.Data.CircleEvent.X).ApproxEqual(0) && 
+            while (prev.Data.CircleEvent != null &&
+                (x - prev.Data.CircleEvent.X).ApproxEqual(0) &&
                 (y - prev.Data.CircleEvent.Y).ApproxEqual(0))
             {
                 toBeRemoved.Add(prev);
@@ -293,7 +293,7 @@ namespace VoronoiLib.Structures
             //add neighbors for delaunay
             prev.Data.Site.Neighbors.Add(next.Data.Site);
             next.Data.Site.Neighbors.Add(prev.Data.Site);
-            
+
             //remove the sectionfrom the tree
             beachLine.RemoveNode(section);
             foreach (var remove in toBeRemoved)
@@ -372,14 +372,14 @@ namespace VoronoiLib.Structures
 
             //The center beach section can only dissapear when
             //the angle between a and c is negative
-            var d = ax*cy - ay*cx;
+            var d = ax * cy - ay * cx;
             if (d.ApproxGreaterThanOrEqualTo(0))
                 return;
 
-            var magnitudeA = ax*ax + ay*ay;
-            var magnitudeC = cx*cx + cy*cy;
-            var x = (cy*magnitudeA - ay*magnitudeC)/(2*d);
-            var y = (ax*magnitudeC - cx*magnitudeA)/(2*d);
+            var magnitudeA = ax * ax + ay * ay;
+            var magnitudeC = cx * cx + cy * cy;
+            var x = (cy * magnitudeA - ay * magnitudeC) / (2 * d);
+            var y = (ax * magnitudeC - cx * magnitudeA) / (2 * d);
 
             //add back offset
             var ycenter = y + by;
