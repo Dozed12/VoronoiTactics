@@ -37,7 +37,7 @@ public struct MapSettings
 public class ProvinceData
 {
     public int id;
-    public VPoint pos;
+    public Vector2 pos;
     //Neighbor information from voronoi
     public List<FortuneSite> neighborsRAW;
     public List<Geometry.Vector2X> vertices;
@@ -422,7 +422,7 @@ public class MapData
             nProvince.id = i;
             nProvince.neighborsRAW = points[i].Neighbors;
             nProvince.neighbors = new List<ProvinceData>();
-            nProvince.pos = new VPoint(points[i].X, points[i].Y);
+            nProvince.pos = new Vector2((float)points[i].X, (float)points[i].Y);
 
             //Average calculation ranges
             int horizontalAverageRange = (int)pointsHorizontalSeparation / 4;
@@ -433,13 +433,13 @@ public class MapData
             float heightN = 0;
             for (int a = -horizontalAverageRange; a < horizontalAverageRange / 4; a++)
             {
-                if ((int)nProvince.pos.X + a < 0 || (int)nProvince.pos.X + a > settings.WIDTH - 1)
+                if ((int)nProvince.pos.x + a < 0 || (int)nProvince.pos.x + a > settings.WIDTH - 1)
                     continue;
                 for (int b = -verticalAverageRange; b < verticalAverageRange; b++)
                 {
-                    if ((int)nProvince.pos.Y + b < 0 || (int)nProvince.pos.Y + b > settings.HEIGHT - 1)
+                    if ((int)nProvince.pos.y + b < 0 || (int)nProvince.pos.y + b > settings.HEIGHT - 1)
                         continue;
-                    heightTotal += geography.HEIGHTMAP[(int)nProvince.pos.X + a, (int)nProvince.pos.Y + b];
+                    heightTotal += geography.HEIGHTMAP[(int)nProvince.pos.x + a, (int)nProvince.pos.y + b];
                     heightN++;
                 }
             }
@@ -449,13 +449,13 @@ public class MapData
             float terrainN = 0;
             for (int a = -horizontalAverageRange; a < horizontalAverageRange / 4; a++)
             {
-                if ((int)nProvince.pos.X + a < 0 || (int)nProvince.pos.X + a > settings.WIDTH - 1)
+                if ((int)nProvince.pos.x + a < 0 || (int)nProvince.pos.x + a > settings.WIDTH - 1)
                     continue;
                 for (int b = -verticalAverageRange; b < verticalAverageRange; b++)
                 {
-                    if ((int)nProvince.pos.Y + b < 0 || (int)nProvince.pos.Y + b > settings.HEIGHT - 1)
+                    if ((int)nProvince.pos.y + b < 0 || (int)nProvince.pos.y + b > settings.HEIGHT - 1)
                         continue;
-                    terrainTotal += geography.TERRAINMAP[(int)nProvince.pos.X + a, (int)nProvince.pos.Y + b];
+                    terrainTotal += geography.TERRAINMAP[(int)nProvince.pos.x + a, (int)nProvince.pos.y + b];
                     terrainN++;
                 }
             }
