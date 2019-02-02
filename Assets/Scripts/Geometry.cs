@@ -152,7 +152,7 @@ public static class Geometry
     }
 
     //Jitters a line segment of 2 Vector2
-    public static List<Vector2X> Jitter(Vector2X start, Vector2X end, int divisions, double magnitude)
+    public static List<Vector2X> Jitter(Vector2X start, Vector2X end, int divisions, float magnitude)
     {
 
         //Create list and add start
@@ -193,8 +193,8 @@ public static class Geometry
             finalY += i * divisionY;
 
             //Move randomly in perpendicular
-            finalX += UnityEngine.Random.Range(-(float)magnitude, (float)magnitude) * normalX;
-            finalY += UnityEngine.Random.Range(-(float)magnitude, (float)magnitude) * normalY;
+            finalX += UnityEngine.Random.Range(-magnitude, magnitude) * normalX;
+            finalY += UnityEngine.Random.Range(-magnitude, magnitude) * normalY;
 
             //Add new point
             jitter.Add(new Vector2X(finalX, finalY));

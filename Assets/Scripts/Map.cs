@@ -215,7 +215,7 @@ public class MapData
         var edge = edges.First;
         for (int j = 0; j < edges.Count; j++)
         {
-            simpleEdges.Add(new Geometry.Vector2Edge(new Geometry.Vector2X((float)edge.Value.Start.X,(float)edge.Value.Start.Y), new Geometry.Vector2X((float)edge.Value.End.X,(float)edge.Value.End.Y),edge.Value.Left,edge.Value.Right));
+            simpleEdges.Add(new Geometry.Vector2Edge(new Geometry.Vector2X((float)edge.Value.Start.X, (float)edge.Value.Start.Y), new Geometry.Vector2X((float)edge.Value.End.X, (float)edge.Value.End.Y), edge.Value.Left, edge.Value.Right));
 
             //Next edge
             edge = edge.Next;
@@ -224,7 +224,7 @@ public class MapData
         //Jittering
         //TODO Settings should be in another place
         int divisions = 3;
-        double magnitude = 5;
+        float magnitude = 5;
         List<Geometry.Vector2Edge> jitteredEdges = new List<Geometry.Vector2Edge>();
 
         for (int j = 0; j < simpleEdges.Count; j++)
@@ -555,7 +555,7 @@ public class MapData
             nProvince.center = new Vector2(x, y);
 
             //3D World province center
-            nProvince.center3D = mapObject.MapToWorld(new Vector2((float)x, (float)y));
+            nProvince.center3D = mapObject.MapToWorld(new Vector2(x, y));
 
             //Give center to vertices for sorting
             for (int j = 0; j < nProvince.vertices.Count; j++)
@@ -1101,10 +1101,10 @@ public class MapData
                 for (int j = 0; j < provinces[i].vertices.Count - 1; j++)
                 {
                     //Round
-                    int startX = Mathf.FloorToInt((float)provinces[i].vertices[j].value.x);
-                    int startY = Mathf.FloorToInt((float)provinces[i].vertices[j].value.y);
-                    int endX = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].value.x);
-                    int endY = Mathf.FloorToInt((float)provinces[i].vertices[j + 1].value.y);
+                    int startX = Mathf.FloorToInt(provinces[i].vertices[j].value.x);
+                    int startY = Mathf.FloorToInt(provinces[i].vertices[j].value.y);
+                    int endX = Mathf.FloorToInt(provinces[i].vertices[j + 1].value.x);
+                    int endY = Mathf.FloorToInt(provinces[i].vertices[j + 1].value.y);
 
                     //Draw Edge
                     pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, circleRadius);
