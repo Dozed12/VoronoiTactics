@@ -964,7 +964,7 @@ public class MapData
                         int randomRotation = 0;
 
                         //Pick random rotation if required
-                        if(provinces[i].height.decals[d].rotate)
+                        if (provinces[i].height.decals[d].rotate)
                             randomRotation = UnityEngine.Random.Range(0, 4);
 
                         //Final decal                    
@@ -1155,7 +1155,8 @@ public class Map : MonoBehaviour
     }
 
     //World coordinates to map
-    public Vector2 WorldToMap(Vector3 pos){
+    public Vector2 WorldToMap(Vector3 pos)
+    {
 
         //World position to object
         pos.z = transform.position.z;
@@ -1168,6 +1169,24 @@ public class Map : MonoBehaviour
         yPixel += mapData.settings.HEIGHT / 2;
 
         return new Vector2(yPixel, xPixel);
+
+    }
+
+    //Map coordinates to world
+    public Vector3 MapToWorld(Vector2 pos)
+    {
+
+        float axisAllignedX = (pos.x - mapData.settings.WIDTH / 2);
+        float axisAllignedY = (pos.y - mapData.settings.HEIGHT / 2);
+
+        //Inverted
+        int pixelsPerUnit = 100;
+        Vector3 provincePos = new Vector3(axisAllignedY / pixelsPerUnit, axisAllignedX / pixelsPerUnit, -0.002f);
+
+        //Transform to world space
+        Vector3 final = transform.TransformPoint(provincePos);
+
+        return new Vector3(final.x, final.y, final.z);
 
     }
 
@@ -1215,14 +1234,16 @@ public class Map : MonoBehaviour
                 for (int i = 0; i < mapData.provinces.Count; i++)
                 {
                     //Check if inside
-                    if(Geometry.PointInPolygon(mapData.provinces[i].vertices, new VPoint(mapPos.x, mapPos.y))){
+                    if (Geometry.PointInPolygon(mapData.provinces[i].vertices, new VPoint(mapPos.x, mapPos.y)))
+                    {
                         id = i;
                         break;
                     }
                 }
 
                 //Check if found any province
-                if(id != -1){
+                if (id != -1)
+                {
 
                     //Check province vacant
                     if (mapData.provinces[id].unit == null)
@@ -1233,7 +1254,7 @@ public class Map : MonoBehaviour
                         mapData.provinces[id].unit = t.GetComponent<Unit>().PlaceOnMap(this, mapData.provinces[id]);
                     }
 
-                }                
+                }
 
             }
         }

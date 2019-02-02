@@ -41,23 +41,15 @@ public class Unit : MonoBehaviour
     public Unit PlaceOnMap(Map map, ProvinceData province)
     {
 
-        //TODO These calculations can be done by each province on generation since map wont me moved in the 3D space
-        //Saves some light calculations so not big deal but more readable
-
         //Assign
         this.province = province;
         this.map = map;
 
-        //Province position        
-        float axisAllignedX = (float)(province.center.X - map.mapData.settings.WIDTH / 2);
-        float axisAllignedY = (float)(province.center.Y - map.mapData.settings.HEIGHT / 2);
+        //TODO These calculations can be done by each province on generation since map wont me moved in the 3D space
+        //Saves some light calculations so not big deal but more readable
 
-        //Inverted
-        int pixelsPerUnit = 100;
-        Vector3 provincePos = new Vector3(axisAllignedY / pixelsPerUnit, axisAllignedX / pixelsPerUnit, -0.002f);
-
-        //Transform to world space
-        transform.position = map.transform.TransformPoint(provincePos);
+        //World coordinates from province
+        transform.position = map.MapToWorld(new Vector2((float)province.center.X, (float)province.center.Y));
 
         return this;
 
