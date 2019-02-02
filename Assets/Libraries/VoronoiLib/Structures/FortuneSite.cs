@@ -4,15 +4,15 @@ namespace VoronoiLib.Structures
 {
     public class FortuneSite
     {
-        public double X { get; }
-        public double Y { get; }
+        public float X { get; }
+        public float Y { get; }
         public int ID { get; }
 
         public List<Geometry.Vector2Edge> Cell { get; private set; }
 
         public List<FortuneSite> Neighbors { get; private set; }
 
-        public FortuneSite(double x, double y, int id)
+        public FortuneSite(float x, float y, int id)
         {
             X = x;
             Y = y;

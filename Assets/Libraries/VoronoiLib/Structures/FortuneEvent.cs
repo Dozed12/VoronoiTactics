@@ -4,7 +4,7 @@ namespace VoronoiLib.Structures
 {
     interface FortuneEvent : IComparable<FortuneEvent>
     {
-        double X { get; }
-        double Y { get; }
+        float X { get; }
+        float Y { get; }
     }
 }

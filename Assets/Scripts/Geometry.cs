@@ -17,7 +17,7 @@ public static class Geometry
         public Vector2 value;
 
         private Vector2 center;
-        private double angle;
+        private float angle;
         public void findAngle(Vector2 center)
         {
             this.center = center;
@@ -283,7 +283,7 @@ public static class Geometry
             nodes = 0; j = polygon.Count - 1;
             for (i = 0; i < polygon.Count; i++)
             {
-                if (polygon[i].Y < (double)pixelY && polygon[j].Y >= (double)pixelY || polygon[j].Y < (double)pixelY && polygon[i].Y >= (double)pixelY)
+                if (polygon[i].Y < (float)pixelY && polygon[j].Y >= (float)pixelY || polygon[j].Y < (float)pixelY && polygon[i].Y >= (float)pixelY)
                 {
                     nodeX[nodes++] = (int)(polygon[i].X + (pixelY - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X));
                 }

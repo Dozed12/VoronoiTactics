@@ -30,7 +30,7 @@
 //#define FN_USE_DOUBLES
 
 #if FN_USE_DOUBLES
-using FN_DECIMAL = System.Double;
+using FN_DECIMAL = System.float;
 #else
 using FN_DECIMAL = System.Single;
 #endif
@@ -76,7 +76,7 @@ public class FastNoise
         CalculateFractalBounding();
     }
 
-    // Returns a 0 float/double
+    // Returns a 0 float/float
     public static FN_DECIMAL GetDecimalType() { return 0; }
 
     // Returns the seed used by this object

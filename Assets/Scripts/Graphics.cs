@@ -356,7 +356,7 @@ public static class Graphics
             nodes = 0; j = polygon.Count - 1;
             for (i = 0; i < polygon.Count; i++)
             {
-                if (polygon[i].value.y < (double)pixelY && polygon[j].value.y >= (double)pixelY || polygon[j].value.y < (double)pixelY && polygon[i].value.y >= (double)pixelY)
+                if (polygon[i].value.y < (float)pixelY && polygon[j].value.y >= (float)pixelY || polygon[j].value.y < (float)pixelY && polygon[i].value.y >= (float)pixelY)
                 {
                     nodeX[nodes++] = (int)(polygon[i].value.x + (pixelY - polygon[i].value.y) / (polygon[j].value.y - polygon[i].value.y) * (polygon[j].value.x - polygon[i].value.x));
                 }

@@ -3,10 +3,10 @@
     internal class FortuneCircleEvent : FortuneEvent
     {
         internal VPoint Lowest { get; }
-        internal double YCenter { get; }
+        internal float YCenter { get; }
         internal RBTreeNode<BeachSection> ToDelete { get; }
 
-        internal FortuneCircleEvent(VPoint lowest, double yCenter, RBTreeNode<BeachSection> toDelete)
+        internal FortuneCircleEvent(VPoint lowest, float yCenter, RBTreeNode<BeachSection> toDelete)
         {
             Lowest = lowest;
             YCenter = yCenter;
@@ -19,7 +19,7 @@
             return c == 0 ? X.CompareTo(other.X) : c;
         }
 
-        public double X => Lowest.X;
-        public double Y => Lowest.Y;
+        public float X => Lowest.X;
+        public float Y => Lowest.Y;
     }
 }

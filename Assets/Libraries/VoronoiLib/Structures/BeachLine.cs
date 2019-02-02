@@ -153,7 +153,7 @@ namespace VoronoiLib.Structures
             //had the same y value
             else if (leftSection != null && rightSection == null)
             {
-                var start = new VPoint((leftSection.Data.Site.X + site.X)/ 2, double.MinValue);
+                var start = new VPoint((leftSection.Data.Site.X + site.X)/ 2, float.MinValue);
                 var infEdge = new VEdge(start, leftSection.Data.Site, site);
                 var newEdge = new VEdge(start, site, leftSection.Data.Site);
 
@@ -262,7 +262,7 @@ namespace VoronoiLib.Structures
             section.Next.Data.Edge.End = vertex;
             section.Data.CircleEvent = null;
 
-            //odds are this double writes a few edges but this is clean...
+            //odds are this float writes a few edges but this is clean...
             foreach (var remove in toBeRemoved)
             {
                 remove.Data.Edge.End = vertex;
@@ -305,7 +305,7 @@ namespace VoronoiLib.Structures
             CheckCircle(next, eventQueue);
         }
 
-        private static double LeftBreakpoint(RBTreeNode<BeachSection> node, double directrix)
+        private static float LeftBreakpoint(RBTreeNode<BeachSection> node, float directrix)
         {
             var leftNode = node.Previous;
             //degenerate parabola
@@ -313,7 +313,7 @@ namespace VoronoiLib.Structures
                 return node.Data.Site.X;
             //node is the first piece of the beach line
             if (leftNode == null)
-                return double.NegativeInfinity;
+                return float.NegativeInfinity;
             //left node is degenerate
             if ((leftNode.Data.Site.Y - directrix).ApproxEqual(0))
                 return leftNode.Data.Site.X;
@@ -322,7 +322,7 @@ namespace VoronoiLib.Structures
             return ParabolaMath.IntersectParabolaX(leftSite.X, leftSite.Y, site.X, site.Y, directrix);
         }
 
-        private static double RightBreakpoint(RBTreeNode<BeachSection> node, double directrix)
+        private static float RightBreakpoint(RBTreeNode<BeachSection> node, float directrix)
         {
             var rightNode = node.Next;
             //degenerate parabola
@@ -330,7 +330,7 @@ namespace VoronoiLib.Structures
                 return node.Data.Site.X;
             //node is the last piece of the beach line
             if (rightNode == null)
-                return double.PositiveInfinity;
+                return float.PositiveInfinity;
             //left node is degenerate
             if ((rightNode.Data.Site.Y - directrix).ApproxEqual(0))
                 return rightNode.Data.Site.X;
@@ -363,7 +363,7 @@ namespace VoronoiLib.Structures
             //MATH HACKS: place center at origin and
             //draw vectors a and c to
             //left and right respectively
-            double bx = centerSite.X,
+            float bx = centerSite.X,
                 by = centerSite.Y,
                 ax = leftSite.X - bx,
                 ay = leftSite.Y - by,
@@ -385,7 +385,7 @@ namespace VoronoiLib.Structures
             var ycenter = y + by;
             //y center is off
             var circleEvent = new FortuneCircleEvent(
-                new VPoint(x + bx, ycenter + Math.Sqrt(x * x + y * y)),
+                new VPoint(x + bx, ycenter + (float)Math.Sqrt(x * x + y * y)),
                 ycenter, section
             );
             section.Data.CircleEvent = circleEvent;

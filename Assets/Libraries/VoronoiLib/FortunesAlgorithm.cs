@@ -6,7 +6,7 @@ namespace VoronoiLib
 {
     public static class FortunesAlgorithm
     {
-        public static LinkedList<VEdge> Run(List<FortuneSite> sites, double minX, double minY, double maxX, double maxY)
+        public static LinkedList<VEdge> Run(List<FortuneSite> sites, float minX, float minY, float maxX, float maxY)
         {
             var eventQueue = new MinHeap<FortuneEvent>(5*sites.Count);
             foreach (var s in sites)
@@ -55,7 +55,7 @@ namespace VoronoiLib
         }
 
         //combination of personal ray clipping alg and cohen sutherland
-        private static bool ClipEdge(VEdge edge, double minX, double minY, double maxX, double maxY)
+        private static bool ClipEdge(VEdge edge, float minX, float minY, float maxX, float maxY)
         {
             var accept = false;
 
@@ -82,7 +82,7 @@ namespace VoronoiLib
                         break;
                     }
 
-                    double x = -1, y = -1;
+                    float x = -1, y = -1;
                     var outcode = start != 0 ? start : end;
 
                     if ((outcode & 0x8) != 0) // top
@@ -140,7 +140,7 @@ namespace VoronoiLib
             return accept;
         }
         
-        private static int ComputeOutCode(double x, double y, double minX, double minY, double maxX, double maxY)
+        private static int ComputeOutCode(float x, float y, float minX, float minY, float maxX, float maxY)
         {
             int code = 0;
             if (x.ApproxEqual(minX) || x.ApproxEqual(maxX))
@@ -159,7 +159,7 @@ namespace VoronoiLib
             return code;
         }
 
-        private static bool ClipRay(VEdge edge, double minX, double minY, double maxX, double maxY)
+        private static bool ClipRay(VEdge edge, float minX, float minY, float maxX, float maxY)
         {
             var start = edge.Start;
             //horizontal ray
@@ -283,17 +283,17 @@ namespace VoronoiLib
             return edge.End != null;
         }
 
-        private static bool Within(double x, double a, double b)
+        private static bool Within(float x, float a, float b)
         {
             return x.ApproxGreaterThanOrEqualTo(a) && x.ApproxLessThanOrEqualTo(b);
         }
 
-        private static double CalcY(double m, double x, double b)
+        private static float CalcY(float m, float x, float b)
         {
             return m * x + b;
         }
 
-        private static double CalcX(double m, double y, double b)
+        private static float CalcX(float m, float y, float b)
         {
             return (y - b) / m;
         }

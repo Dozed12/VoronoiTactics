@@ -6,10 +6,10 @@
         public VPoint End { get; internal set; }
         public FortuneSite Left { get; }
         public FortuneSite Right { get; }
-        internal double SlopeRise { get; }
-        internal double SlopeRun { get; }
-        internal double? Slope { get; }
-        internal double? Intercept { get; }
+        internal float SlopeRise { get; }
+        internal float SlopeRun { get; }
+        internal float? Slope { get; }
+        internal float? Intercept { get; }
 
         public VEdge Neighbor { get; internal set; }
 
