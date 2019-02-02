@@ -1154,6 +1154,23 @@ public class Map : MonoBehaviour
         biomePick.AddOptions(biomeStrings);
     }
 
+    //World coordinates to map
+    public Vector2 WorldToMap(Vector3 pos){
+
+        //World position to object
+        pos.z = transform.position.z;
+        var tpos = transform.InverseTransformPoint(pos);
+
+        //Pixel conversions xy 2D
+        int xPixel = Mathf.RoundToInt(pos.x * 100);
+        xPixel += mapData.settings.WIDTH / 2;
+        int yPixel = Mathf.RoundToInt(pos.y * 100);
+        yPixel += mapData.settings.HEIGHT / 2;
+
+        return new Vector2(yPixel, xPixel);
+
+    }
+
     //Mouse controls (TEMPORARY)
     public float panSpeed = 10.0f;
     void Update()
@@ -1183,21 +1200,11 @@ public class Map : MonoBehaviour
             if (mapData != null)
             {
 
-                //TODO This conversion could be done in a function since its done often, It's also used in Unit.cs and could be done in Province setup
-                // Also if we optimize by checking map bounds we would need to do this for the 4 map corners, preprocessed of course
-
                 //Mouse position on map
-                var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                pos.z = transform.position.z;
-                var tpos = transform.InverseTransformPoint(pos);
+                Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 mapPos = WorldToMap(pos);
 
-                //Convert coordinates to 2D xy axis
-                int xPixel = Mathf.RoundToInt(tpos.x * 100);
-                xPixel += mapData.settings.WIDTH / 2;
-                int yPixel = Mathf.RoundToInt(tpos.y * 100);
-                yPixel += mapData.settings.HEIGHT / 2;
-
-                Debug.Log("Click (" + xPixel + ", " + yPixel + ")");
+                Debug.Log("Click (" + mapPos.x + ", " + mapPos.y + ")");
 
                 //Test placement
                 //TODO will be elsewhere probably (on Army Deployment Phase)
@@ -1208,7 +1215,7 @@ public class Map : MonoBehaviour
                 for (int i = 0; i < mapData.provinces.Count; i++)
                 {
                     //Check if inside
-                    if(Geometry.PointInPolygon(mapData.provinces[i].vertices, new VPoint(yPixel, xPixel))){
+                    if(Geometry.PointInPolygon(mapData.provinces[i].vertices, new VPoint(mapPos.x, mapPos.y))){
                         id = i;
                         break;
                     }
