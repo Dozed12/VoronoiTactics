@@ -42,6 +42,7 @@ public class ProvinceData
     public List<FortuneSite> neighborsRAW;
     public List<VPoint> vertices;
     public VPoint center;
+    public Vector3 center3D;
     //TODO neighbor will be a custom struct(to holdmodifiers)
     public List<ProvinceData> neighbors;
     public Unit unit = null;
@@ -63,6 +64,9 @@ public struct MapGeography
 //Map data
 public class MapData
 {
+
+    //Object holding this map data
+    private Map mapObject;
 
     //Noise server
     private FastNoise fastnoise = new FastNoise();
@@ -104,9 +108,10 @@ public class MapData
     public List<ProvinceData> provinces;
 
     //Constructor just receives the file data
-    public MapData(Data data)
+    public MapData(Data data, Map obj)
     {
         this.data = data;
+        this.mapObject = obj;
     }
 
     //Generate the map data
@@ -548,6 +553,9 @@ public class MapData
             x /= nProvince.vertices.Count;
             y /= nProvince.vertices.Count;
             nProvince.center = new VPoint(x, y);
+
+            //3D World province center
+            nProvince.center3D = mapObject.MapToWorld(new Vector2((float)x, (float)y));
 
             //Give center to vertices for sorting
             for (int j = 0; j < nProvince.vertices.Count; j++)
@@ -1168,6 +1176,7 @@ public class Map : MonoBehaviour
         int yPixel = Mathf.RoundToInt(pos.y * 100);
         yPixel += mapData.settings.HEIGHT / 2;
 
+        //Flipped so they don't need to be flipped by whatever uses this function
         return new Vector2(yPixel, xPixel);
 
     }
@@ -1176,6 +1185,7 @@ public class Map : MonoBehaviour
     public Vector3 MapToWorld(Vector2 pos)
     {
 
+        //Axis aligned coordinates
         float axisAllignedX = (pos.x - mapData.settings.WIDTH / 2);
         float axisAllignedY = (pos.y - mapData.settings.HEIGHT / 2);
 
@@ -1293,7 +1303,7 @@ public class Map : MonoBehaviour
 
         //New map data with settings
         //TODO Settings probably wont be here
-        mapData = new MapData(data);
+        mapData = new MapData(data, this);
         //TODO Pixel size could be tied to province number to keep it consistent across different make sizes
         mapData.settings = new MapSettings(2000, 2000, 200, 2.0f);
 
@@ -1331,6 +1341,7 @@ public class Map : MonoBehaviour
 
     }
 
+    //Assign new mapmode texture from UI Dropdown
     public void OnMapModeChange()
     {
 

@@ -45,11 +45,8 @@ public class Unit : MonoBehaviour
         this.province = province;
         this.map = map;
 
-        //TODO These calculations can be done by each province on generation since map wont me moved in the 3D space
-        //Saves some light calculations so not big deal but more readable
-
-        //World coordinates from province
-        transform.position = map.MapToWorld(new Vector2((float)province.center.X, (float)province.center.Y));
+        //Coordinates from province center in 3D World
+        transform.position = province.center3D;
 
         return this;
 
