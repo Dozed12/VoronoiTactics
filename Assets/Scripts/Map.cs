@@ -1054,17 +1054,20 @@ public class MapData
             //Multithreaded
             Parallel.For(0, settings.WIDTH, i =>
             {
+                //Random Number Generator for this thread
+                System.Random random = new System.Random(BitConverter.ToInt32(Guid.NewGuid().ToByteArray(), 0));
+                
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
                     //Randomly skip
-                    if (Utilities.random.Next(0, 101) < 100 - randomization)
+                    if (random.Next(0, 101) < 100 - randomization)
                         continue;
 
                     //Add some difference
                     Color color = pixelMatrix.GetPixelSafe(i, j);
-                    color.r = color.r + Utilities.NextFloat(-variation, variation);
-                    color.g = color.g + Utilities.NextFloat(-variation, variation);
-                    color.b = color.b + Utilities.NextFloat(-variation, variation);
+                    color.r = color.r + Utilities.NextFloat(random, -variation, variation);
+                    color.g = color.g + Utilities.NextFloat(random, -variation, variation);
+                    color.b = color.b + Utilities.NextFloat(random, -variation, variation);
                     pixelMatrix.SetPixelSafe(i, j, color);
                 }
             });

@@ -1,5 +1,6 @@
 
 using System;
+using System.Threading;
 
 using UnityEngine;
 
@@ -8,15 +9,12 @@ public static class Utilities
     public static readonly float PI2 = Mathf.PI * 2;
     public static readonly float HALFPI = Mathf.PI / 2;
 
-    public static System.Random random = new System.Random();
-
-    public static float NextFloat(float min, float max)
+    public static float NextFloat(System.Random random, double min, double max)
     {
-        double range = (double)max - (double)min;
+        double range = max - min;
         double sample = random.NextDouble();
-        double scaled = (sample * range) + (double)min;
-        float f = (float)scaled;
-        return f;
+        double scaled = (sample * range) + min;
+        return (float)scaled;
     }
 }
 
