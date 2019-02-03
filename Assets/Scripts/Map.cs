@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -323,38 +324,15 @@ public class MapData
             //Temporary noise blocks
             float[,] blocks = new float[widthNBlocks, heightNBlocks];
 
-            //Setup threads
-            List<Thread> threads = new List<Thread>();
-            int nThreads = 4;
-            int blocksPerThread = widthNBlocks / nThreads;
-            for (int i = 0; i < nThreads; i++)
+            //Multithreaded noise blocks
+            Parallel.For(0, widthNBlocks, i =>
             {
-                Thread t = new Thread(n =>
+                int finalI = i * heightBlockSize;
+                for (int h = 0; h < heightNBlocks; h++)
                 {
-                    int start = (int)n * blocksPerThread;
-                    for (int j = start; j < start + blocksPerThread; j++)
-                    {
-                        int finalJ = j * heightBlockSize;
-                        for (int h = 0; h < heightNBlocks; h++)
-                        {
-                            blocks[j, h] = (fastnoise.GetNoise(finalJ, h * heightBlockSize, 0) + 1) / 2;
-                        }
-                    }
-                });
-                threads.Add(t);
-            }
-
-            //Start threads
-            for (int i = 0; i < nThreads; i++)
-            {
-                threads[i].Start(i);
-            }
-
-            //Sync threads
-            for (int i = 0; i < nThreads; i++)
-            {
-                threads[i].Join();
-            }
+                    blocks[i, h] = (fastnoise.GetNoise(finalI, h * heightBlockSize, 0) + 1) / 2;
+                }
+            });
 
             //Full noise
             geography.HEIGHTMAP = new float[settings.WIDTH, settings.HEIGHT];
