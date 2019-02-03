@@ -70,6 +70,11 @@ public static class Graphics
             return pixels[x * width + y];
         }
 
+        public Color GetPixelSafe(int x, int y)
+        {
+            return pixels[x * width + y];
+        }
+
         public void SetPixel(int x, int y, Color cl)
         {
 
@@ -434,7 +439,7 @@ public static class Graphics
             int finalI = original.width - i - 1;
             for (int j = 0; j < original.height; j++)
             {
-                rotated.SetPixelSafe(j, finalI, original.GetPixel(i, j));
+                rotated.SetPixelSafe(j, finalI, original.GetPixelSafe(i, j));
             }
         }
 
@@ -466,7 +471,7 @@ public static class Graphics
             {
 
                 //Get color
-                Color cl = decal.GetPixel(i, j);
+                Color cl = decal.GetPixelSafe(i, j);
 
                 //Skip transparent pixels
                 //TODO Blend with transparency?

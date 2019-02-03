@@ -1060,7 +1060,7 @@ public class MapData
                         continue;
 
                     //Add some difference
-                    Color color = pixelMatrix.GetPixel(i, j);
+                    Color color = pixelMatrix.GetPixelSafe(i, j);
                     color.r = color.r + UnityEngine.Random.Range(-variation, variation);
                     color.g = color.g + UnityEngine.Random.Range(-variation, variation);
                     color.b = color.b + UnityEngine.Random.Range(-variation, variation);
