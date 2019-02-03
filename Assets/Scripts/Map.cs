@@ -1064,7 +1064,7 @@ public class MapData
                     color.r = color.r + UnityEngine.Random.Range(-variation, variation);
                     color.g = color.g + UnityEngine.Random.Range(-variation, variation);
                     color.b = color.b + UnityEngine.Random.Range(-variation, variation);
-                    pixelMatrix.SetPixel(i, j, color, true);
+                    pixelMatrix.SetPixelSafe(i, j, color);
                 }
             }
 

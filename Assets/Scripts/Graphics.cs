@@ -81,16 +81,8 @@ public static class Graphics
 
         }
 
-        public void SetPixel(int x, int y, Color cl, bool safe)
+        public void SetPixelSafe(int x, int y, Color cl)
         {
-
-            //Use safe=true if we know for sure there wont be out of bounds
-            if (!safe)
-            {
-                //Check if outside
-                if (x < 0 || x >= width || y < 0 || y >= height)
-                    return;
-            }
 
             pixels[x * width + y] = cl;
 
@@ -221,13 +213,13 @@ public static class Graphics
     {
         for (int i = 0; i < bitmap.height; i++)
         {
-            bitmap.SetPixel(0, i, color);
-            bitmap.SetPixel(bitmap.width - 1, i, color);
+            bitmap.SetPixelSafe(0, i, color);
+            bitmap.SetPixelSafe(bitmap.width - 1, i, color);
         }
         for (int i = 0; i < bitmap.width; i++)
         {
-            bitmap.SetPixel(i, 0, color);
-            bitmap.SetPixel(i, bitmap.height - 1, color);
+            bitmap.SetPixelSafe(i, 0, color);
+            bitmap.SetPixelSafe(i, bitmap.height - 1, color);
         }
         return bitmap;
     }
@@ -318,7 +310,7 @@ public static class Graphics
 
             while (y1 < bmp.height && bmp.GetPixel(temp.x, y1) == targetColor)
             {
-                bmp.SetPixel(temp.x, y1, replacementColor);
+                bmp.SetPixelSafe(temp.x, y1, replacementColor);
 
                 Color clm1 = bmp.GetPixel(temp.x - 1, y1);
                 Color clp1 = bmp.GetPixel(temp.x + 1, y1);
@@ -416,7 +408,7 @@ public static class Graphics
                     if (nodeX[i + 1] > IMAGE_RIGHT)
                         nodeX[i + 1] = IMAGE_RIGHT;
                     for (pixelX = nodeX[i]; pixelX < nodeX[i + 1]; pixelX++)
-                        original.SetPixel((int)pixelX, (int)pixelY, cl);
+                        original.SetPixelSafe((int)pixelX, (int)pixelY, cl);
                 }
             }
         }
@@ -442,7 +434,7 @@ public static class Graphics
             int finalI = original.width - i - 1;
             for (int j = 0; j < original.height; j++)
             {
-                rotated.SetPixel(j, finalI, original.GetPixel(i, j));
+                rotated.SetPixelSafe(j, finalI, original.GetPixel(i, j));
             }
         }
 
