@@ -877,13 +877,15 @@ public class MapData
             int block = 20;
             int blocksW = settings.WIDTH / block;
             int blocksH = settings.HEIGHT / block;
-            for (int i = 0; i < settings.WIDTH; i += block / 2)
+
+            //Multithreaded
+            Parallel.For(0, settings.WIDTH / (block / 2), i =>
             {
                 for (int j = 0; j < settings.HEIGHT; j += block / 2)
                 {
 
                     //Get terrain noise
-                    float val = this.geography.TERRAINMAP[i, j];
+                    float val = this.geography.TERRAINMAP[i * (block / 2), j];
 
                     //Calculate distance to noises
                     List<Pair<TerrainType, float>> distances = new List<Pair<TerrainType, float>>();
@@ -922,7 +924,8 @@ public class MapData
 
                     pixelMatrix = Graphics.Decal(pixelMatrix, decal, i, j);
                 }
-            }
+            });
+
 
             Debug.Log("======== Color blend took: " + (Time.realtimeSinceStartup - time) + "s");
             time = Time.realtimeSinceStartup;
