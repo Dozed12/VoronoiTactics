@@ -127,8 +127,16 @@ public static class Graphics
             bitmap.SetPixel(x0, y0, color);
             if (x0 == x1 && y0 == y1) break;
             e2 = err;
-            if (e2 > -dx) { err -= dy; x0 += sx; }
-            if (e2 < dy) { err += dx; y0 += sy; }
+            if (e2 > -dx)
+            {
+                err -= dy;
+                x0 += sx;
+            }
+            if (e2 < dy)
+            {
+                err += dx;
+                y0 += sy;
+            }
         } while (true);
 
         return bitmap;
