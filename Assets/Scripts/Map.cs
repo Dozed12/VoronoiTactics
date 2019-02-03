@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -299,7 +300,7 @@ public class MapData
         //Noise block size
         //TODO probably better in other place
         int terrainBlockSize = 10;
-        int heightBlockSize = 10;
+        int heightBlockSize = 1;
 
         //Noise lookups
         HeightMap();
@@ -322,14 +323,37 @@ public class MapData
             //Temporary noise blocks
             float[,] blocks = new float[widthNBlocks, heightNBlocks];
 
-            //Get noise blocks
-            for (int i = 0; i < widthNBlocks; i++)
+            //Setup threads
+            List<Thread> threads = new List<Thread>();
+            int nThreads = 4;
+            int blocksPerThread = widthNBlocks / nThreads;
+            for (int i = 0; i < nThreads; i++)
             {
-                int finalI = i * heightBlockSize;
-                for (int j = 0; j < heightNBlocks; j++)
+                Thread t = new Thread(n =>
                 {
-                    blocks[i, j] = (fastnoise.GetNoise(finalI, j * heightBlockSize, 0) + 1) / 2;
-                }
+                    int start = (int)n * blocksPerThread;
+                    for (int j = start; j < start + blocksPerThread; j++)
+                    {
+                        int finalJ = j * heightBlockSize;
+                        for (int h = 0; h < heightNBlocks; h++)
+                        {
+                            blocks[j, h] = (fastnoise.GetNoise(finalJ, h * heightBlockSize, 0) + 1) / 2;
+                        }
+                    }
+                });
+                threads.Add(t);
+            }
+
+            //Start threads
+            for (int i = 0; i < nThreads; i++)
+            {
+                threads[i].Start(i);
+            }
+
+            //Sync threads
+            for (int i = 0; i < nThreads; i++)
+            {
+                threads[i].Join();
             }
 
             //Full noise
