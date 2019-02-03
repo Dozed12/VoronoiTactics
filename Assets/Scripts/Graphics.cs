@@ -102,7 +102,8 @@ public static class Graphics
     {
 
         //New Decal
-        PixelMatrix decal = new PixelMatrix(radius * 2 + 1, radius * 2 + 1, new Color(0, 0, 0, 0));
+        int size = radius * 2 + 1;
+        PixelMatrix decal = new PixelMatrix(size, size, new Color(0, 0, 0, 0));
 
         //Circle perimeter
         decal = BresenhamCircle(decal, radius, radius, radius, color);
