@@ -3,9 +3,21 @@ using System;
 
 using UnityEngine;
 
-public static class Utilities{
+public static class Utilities
+{
     public static readonly float PI2 = Mathf.PI * 2;
     public static readonly float HALFPI = Mathf.PI / 2;
+
+    public static System.Random random = new System.Random();
+
+    public static float NextFloat(float min, float max)
+    {
+        double range = (double)max - (double)min;
+        double sample = random.NextDouble();
+        double scaled = (sample * range) + (double)min;
+        float f = (float)scaled;
+        return f;
+    }
 }
 
 //Pair class

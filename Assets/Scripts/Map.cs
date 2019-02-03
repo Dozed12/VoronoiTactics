@@ -1051,22 +1051,23 @@ public class MapData
             //TODO Settings should be in other place
             float randomization = 30;
             float variation = 0.05f;
-            for (int i = 0; i < settings.WIDTH; i++)
+            //Multithreaded
+            Parallel.For(0, settings.WIDTH, i =>
             {
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
                     //Randomly skip
-                    if (UnityEngine.Random.Range(1, 100) < 100 - randomization)
+                    if (Utilities.random.Next(0, 101) < 100 - randomization)
                         continue;
 
                     //Add some difference
                     Color color = pixelMatrix.GetPixelSafe(i, j);
-                    color.r = color.r + UnityEngine.Random.Range(-variation, variation);
-                    color.g = color.g + UnityEngine.Random.Range(-variation, variation);
-                    color.b = color.b + UnityEngine.Random.Range(-variation, variation);
+                    color.r = color.r + Utilities.NextFloat(-variation, variation);
+                    color.g = color.g + Utilities.NextFloat(-variation, variation);
+                    color.b = color.b + Utilities.NextFloat(-variation, variation);
                     pixelMatrix.SetPixelSafe(i, j, color);
                 }
-            }
+            });
 
             Debug.Log("======== Randomization took: " + (Time.realtimeSinceStartup - time) + "s");
             time = Time.realtimeSinceStartup;

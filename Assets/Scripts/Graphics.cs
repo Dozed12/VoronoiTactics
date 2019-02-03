@@ -68,6 +68,7 @@ public static class Graphics
                 y = height - 1;
 
             return pixels[x * width + y];
+
         }
 
         public Color GetPixelSafe(int x, int y)
@@ -88,9 +89,7 @@ public static class Graphics
 
         public void SetPixelSafe(int x, int y, Color cl)
         {
-
             pixels[x * width + y] = cl;
-
         }
 
     }
