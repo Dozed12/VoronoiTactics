@@ -9,12 +9,12 @@ public static class Utilities
     public static readonly float PI2 = Mathf.PI * 2;
     public static readonly float HALFPI = Mathf.PI / 2;
 
-    public static float NextFloat(System.Random random, double min, double max)
+    public static float NextFloat(System.Random random, float min, float max)
     {
-        double range = max - min;
-        double sample = random.NextDouble();
-        double scaled = (sample * range) + min;
-        return (float)scaled;
+        float range = max - min;
+        float sample = (float)random.NextDouble();
+        float scaled = (sample * range) + min;
+        return scaled;
     }
 }
 
