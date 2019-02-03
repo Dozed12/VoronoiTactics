@@ -56,7 +56,7 @@ public static class Graphics
 
         public Color GetPixel(int x, int y)
         {
-            
+
             if (x < 0)
                 x = 0;
             else if (x > width - 1)
@@ -78,6 +78,22 @@ public static class Graphics
                 return;
 
             pixels[x * width + y] = cl;
+
+        }
+
+        public void SetPixel(int x, int y, Color cl, bool safe)
+        {
+
+            //Use safe=true if we know for sure there wont be out of bounds
+            if (!safe)
+            {
+                //Check if outside
+                if (x < 0 || x >= width || y < 0 || y >= height)
+                    return;
+            }
+
+            pixels[x * width + y] = cl;
+
         }
 
     }
