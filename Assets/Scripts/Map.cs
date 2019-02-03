@@ -301,7 +301,7 @@ public class MapData
         //Noise block size
         //TODO probably better in other place
         int terrainBlockSize = 10;
-        int heightBlockSize = 1;
+        int heightBlockSize = 3;
 
         //Noise lookups
         HeightMap();
@@ -375,14 +375,14 @@ public class MapData
             float[,] blocks = new float[widthNBlocks, heightNBlocks];
 
             //Get noise blocks
-            for (int i = 0; i < widthNBlocks; i++)
+            Parallel.For(0, widthNBlocks, i =>
             {
                 int finalI = i * terrainBlockSize;
                 for (int j = 0; j < heightNBlocks; j++)
                 {
                     blocks[i, j] = (fastnoise.GetNoise(finalI, j * terrainBlockSize, 0) + 1) / 2;
                 }
-            }
+            });
 
             //Full noise
             geography.TERRAINMAP = new float[settings.WIDTH, settings.HEIGHT];
