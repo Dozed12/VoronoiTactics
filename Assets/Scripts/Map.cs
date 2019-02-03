@@ -922,10 +922,9 @@ public class MapData
 
                     Graphics.PixelMatrix decal = new Graphics.PixelMatrix(block, block, color);
 
-                    pixelMatrix = Graphics.Decal(pixelMatrix, decal, i, j);
+                    pixelMatrix = Graphics.Decal(pixelMatrix, decal, i * (block / 2), j);
                 }
             });
-
 
             Debug.Log("======== Color blend took: " + (Time.realtimeSinceStartup - time) + "s");
             time = Time.realtimeSinceStartup;
