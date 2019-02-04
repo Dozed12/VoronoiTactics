@@ -833,18 +833,19 @@ public class MapData
             Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT, maxCl);
 
             //Fill sites color
-            for (int i = 0; i < provinces.Count; i++)
+            //Multithreaded
+            Parallel.For(0, provinces.Count, i =>
             {
                 //Calculate color
                 Color c = new Color(provinces[i].terrain.color[0] / 255.0f, provinces[i].terrain.color[1] / 255.0f, provinces[i].terrain.color[2] / 255.0f);
 
                 //Dont draw if background was same color
                 if (c == maxCl)
-                    continue;
+                    return;
 
                 //Draw polygon
                 pixelMatrix = Graphics.FillPolygon(pixelMatrix, provinces[i].vertices, c);
-            }
+            });
 
             //Draw frame
             pixelMatrix = DrawFrame(pixelMatrix);
