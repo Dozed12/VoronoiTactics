@@ -61,6 +61,7 @@ public struct MapGeography
 {
     public float[,] HEIGHTMAP;
     public float[,] TERRAINMAP;
+    public float[,] SHADEMAP;
 }
 
 //Map data
@@ -352,6 +353,58 @@ public class MapData
                             geography.HEIGHTMAP[xIndexFinal, yIndexCorner + y] = blocks[i, j];
                         }
                     }
+                }
+            }
+
+            //Generate Shading map
+            //TODO Different function
+            //TODO Use proper color modification (not direct multiplication)
+            geography.SHADEMAP = new float[settings.WIDTH, settings.HEIGHT];
+
+            int differencePower = 5;
+            float basePower = 0.7f;
+            for (int i = 0; i < widthNBlocks; i++)
+            {
+                int xIndexCorner = i * heightBlockSize;
+                for (int j = 0; j < heightNBlocks; j++)
+                {
+                    int yIndexCorner = j * heightBlockSize;
+
+                    //Local block
+                    float curr = blocks[i, j];
+
+                    //Neighbor blocks
+                    float neighbor = curr;
+
+                    //Direction
+                    if (j + 1 <= heightNBlocks - 1)
+                        neighbor = blocks[i, j + 1];
+
+                    //Difference from neighbor
+                    float diff = Mathf.Abs(curr - neighbor);
+
+                    //Difference scale
+                    diff *= differencePower;
+
+                    //Base height value for modifier
+                    float heightBase = 1 + (curr - 0.5f) * basePower;
+
+                    //Darken or Lighten
+                    if (curr < neighbor)
+                        diff = heightBase + diff;
+                    else
+                        diff = heightBase - diff;
+
+                    //Store in proper size matrix
+                    for (int x = 0; x < heightBlockSize; x++)
+                    {
+                        int xIndexFinal = xIndexCorner + x;
+                        for (int y = 0; y < heightBlockSize; y++)
+                        {
+                            geography.SHADEMAP[xIndexFinal, yIndexCorner + y] = diff;
+                        }
+                    }
+
                 }
             }
 
@@ -933,6 +986,26 @@ public class MapData
             Debug.Log("======== Color blend took: " + (Time.realtimeSinceStartup - time) + "s");
             time = Time.realtimeSinceStartup;
 
+            //Height Shading
+            //Apply the Shade map modifier
+            for (int i = 0; i < settings.WIDTH; i++)
+            {
+                for (int j = 0; j < settings.HEIGHT; j++)
+                {
+
+                    Color cl = pixelMatrix.GetPixelSafe(i, j);
+                    float modifier = geography.SHADEMAP[i, j];
+                    cl.r *= modifier;
+                    cl.g *= modifier;
+                    cl.b *= modifier;
+                    pixelMatrix.SetPixelSafe(i, j, cl);
+
+                }
+            }
+
+            Debug.Log("======== Shading took: " + (Time.realtimeSinceStartup - time) + "s");
+            time = Time.realtimeSinceStartup;
+
             //Add decals
             float halfHorizontalSeparation = pointsHorizontalSeparation / 2;
             float halfVerticalSeparation = pointsVerticalSeparation / 2;
@@ -1120,6 +1193,7 @@ public class MapData
             //TODO Should be defined elsewhere
             int thickness = 2;
             int circleRadius = thickness / 2;
+            //Multithreaded
             Parallel.For(0, provinces.Count, i =>
             {
                 for (int j = 0; j < provinces[i].vertices.Count - 1; j++)
