@@ -1120,7 +1120,7 @@ public class MapData
             //TODO Should be defined elsewhere
             int thickness = 2;
             int circleRadius = thickness / 2;
-            for (int i = 0; i < provinces.Count; i++)
+            Parallel.For(0, provinces.Count, i =>
             {
                 for (int j = 0; j < provinces[i].vertices.Count - 1; j++)
                 {
@@ -1133,7 +1133,7 @@ public class MapData
                     //Draw Edge
                     pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, circleRadius);
                 }
-            }
+            });
 
             //Add Site centers
             //TODO Should be defined elsewhere
