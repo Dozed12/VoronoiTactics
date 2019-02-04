@@ -339,7 +339,8 @@ public class MapData
             geography.HEIGHTMAP = new float[settings.WIDTH, settings.HEIGHT];
 
             //Get full noise from blocks
-            for (int i = 0; i < widthNBlocks; i++)
+            //Multithreaded
+            Parallel.For(0, widthNBlocks, i =>
             {
                 int xIndexCorner = i * heightBlockSize;
                 for (int j = 0; j < heightNBlocks; j++)
@@ -354,7 +355,7 @@ public class MapData
                         }
                     }
                 }
-            }
+            });
 
             //Generate Shading map
             //TODO Place this in different function
@@ -364,7 +365,8 @@ public class MapData
             //TODO settings elsewhere
             int differencePower = 5;
             float basePower = 0.7f;
-            for (int i = 0; i < widthNBlocks; i++)
+            //Multithreaded
+            Parallel.For(0, widthNBlocks, i =>
             {
                 int xIndexCorner = i * heightBlockSize;
                 for (int j = 0; j < heightNBlocks; j++)
@@ -407,7 +409,7 @@ public class MapData
                     }
 
                 }
-            }
+            });
 
         }
 
@@ -442,7 +444,8 @@ public class MapData
             geography.TERRAINMAP = new float[settings.WIDTH, settings.HEIGHT];
 
             //Get full noise from blocks
-            for (int i = 0; i < widthNBlocks; i++)
+            //Multithreaded
+            Parallel.For(0, widthNBlocks, i =>
             {
                 int xIndexCorner = i * terrainBlockSize;
                 for (int j = 0; j < heightNBlocks; j++)
@@ -457,7 +460,7 @@ public class MapData
                         }
                     }
                 }
-            }
+            });
 
         }
 
