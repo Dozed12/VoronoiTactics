@@ -934,11 +934,15 @@ public class MapData
             float halfVerticalSeparation = pointsVerticalSeparation / 2;
 
             //Height decals
-            for (int i = 0; i < provinces.Count; i++)
+            //Multithreaded
+            Parallel.For(0, provinces.Count, i =>
             {
                 //No decals so skip
                 if (provinces[i].height.decals == null)
-                    continue;
+                    return;
+
+                //Random Number Generator for this thread
+                System.Random random = new System.Random(BitConverter.ToInt32(Guid.NewGuid().ToByteArray(), 0));
 
                 //Each decal
                 for (int d = 0; d < provinces[i].height.decals.Length; d++)
@@ -959,13 +963,13 @@ public class MapData
                             chance = provinces[i].height.decals[d].chance;
 
                         //Chance to not place this one
-                        if (UnityEngine.Random.Range(0, 100) > chance * 100)
+                        if (random.Next(0, 100) > chance * 100)
                             continue;
 
                         //Position of decal center
-                        float cos = UnityEngine.Random.Range(-1.0f, 1.0f);
-                        float sin = UnityEngine.Random.Range(-1.0f, 1.0f);
-                        float radius = UnityEngine.Random.Range(0, reach);
+                        float cos = Utilities.NextFloat(random, -1.0f, 1.0f);
+                        float sin = Utilities.NextFloat(random, -1.0f, 1.0f);
+                        float radius = Utilities.NextFloat(random, 0f, reach);
                         float x = provinces[i].center.x + cos * radius;
                         float y = provinces[i].center.y + sin * radius;
 
@@ -977,7 +981,7 @@ public class MapData
 
                         //Pick random rotation if required
                         if (provinces[i].height.decals[d].rotate)
-                            randomRotation = UnityEngine.Random.Range(0, 4);
+                            randomRotation = random.Next(0, 4);
 
                         //Final decal                    
                         Graphics.PixelMatrix decal = decalRotations[randomRotation];
@@ -986,14 +990,19 @@ public class MapData
                         pixelMatrix = Graphics.Decal(pixelMatrix, decal, (int)x, (int)y);
                     }
                 }
-            }
+            });
 
             //Terrain decals
-            for (int i = 0; i < provinces.Count; i++)
+            //Multithreaded
+            Parallel.For(0, provinces.Count, i =>
             {
+
                 //No decals so skip
                 if (provinces[i].terrain.decals == null)
-                    continue;
+                    return;
+
+                //Random Number Generator for this thread
+                System.Random random = new System.Random(BitConverter.ToInt32(Guid.NewGuid().ToByteArray(), 0));
 
                 //Each decal
                 for (int d = 0; d < provinces[i].terrain.decals.Length; d++)
@@ -1014,13 +1023,13 @@ public class MapData
                             chance = provinces[i].terrain.decals[d].chance;
 
                         //Chance to not place this one
-                        if (UnityEngine.Random.Range(0, 100) > chance * 100)
+                        if (random.Next(0, 100) > chance * 100)
                             continue;
 
                         //Position of decal center
-                        float cos = UnityEngine.Random.Range(-1.0f, 1.0f);
-                        float sin = UnityEngine.Random.Range(-1.0f, 1.0f);
-                        float radius = UnityEngine.Random.Range(0, reach);
+                        float cos = Utilities.NextFloat(random, -1.0f, 1.0f);
+                        float sin = Utilities.NextFloat(random, -1.0f, 1.0f);
+                        float radius = Utilities.NextFloat(random, 0f, reach);
                         float x = provinces[i].center.x + cos * radius;
                         float y = provinces[i].center.y + sin * radius;
 
@@ -1032,7 +1041,7 @@ public class MapData
 
                         //Pick random rotation if required
                         if (provinces[i].terrain.decals[d].rotate)
-                            randomRotation = UnityEngine.Random.Range(0, 4);
+                            randomRotation = random.Next(0, 4);
 
                         //Final decal                    
                         Graphics.PixelMatrix decal = decalRotations[randomRotation];
@@ -1042,7 +1051,7 @@ public class MapData
                     }
                 }
 
-            }
+            });
 
             Debug.Log("======== Decals took: " + (Time.realtimeSinceStartup - time) + "s");
             time = Time.realtimeSinceStartup;
@@ -1056,7 +1065,7 @@ public class MapData
             {
                 //Random Number Generator for this thread
                 System.Random random = new System.Random(BitConverter.ToInt32(Guid.NewGuid().ToByteArray(), 0));
-                
+
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
                     //Randomly skip
