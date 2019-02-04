@@ -756,7 +756,8 @@ public class MapData
             Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT, maxCl);
 
             //Fill sites color
-            for (int i = 0; i < provinces.Count; i++)
+            //Multithreaded
+            Parallel.For(0, provinces.Count, i =>
             {
                 //Grey value
                 float grey = provinces[i].height.color / 255.0f;
@@ -766,11 +767,11 @@ public class MapData
 
                 //Dont draw if background was same color
                 if (c == maxCl)
-                    continue;
+                    return;
 
                 //Draw polygon
                 pixelMatrix = Graphics.FillPolygon(pixelMatrix, provinces[i].vertices, c);
-            }
+            });
 
             //Draw frame
             pixelMatrix = DrawFrame(pixelMatrix);
