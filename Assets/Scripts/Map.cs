@@ -357,10 +357,11 @@ public class MapData
             }
 
             //Generate Shading map
-            //TODO Different function
+            //TODO Place this in different function
             //TODO Use proper color modification (not direct multiplication)
             geography.SHADEMAP = new float[settings.WIDTH, settings.HEIGHT];
 
+            //TODO settings elsewhere
             int differencePower = 5;
             float basePower = 0.7f;
             for (int i = 0; i < widthNBlocks; i++)
@@ -988,7 +989,8 @@ public class MapData
 
             //Height Shading
             //Apply the Shade map modifier
-            for (int i = 0; i < settings.WIDTH; i++)
+            //Multithreaded
+            Parallel.For(0, settings.WIDTH, i =>
             {
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
@@ -1001,7 +1003,7 @@ public class MapData
                     pixelMatrix.SetPixelSafe(i, j, cl);
 
                 }
-            }
+            });
 
             Debug.Log("======== Shading took: " + (Time.realtimeSinceStartup - time) + "s");
             time = Time.realtimeSinceStartup;
