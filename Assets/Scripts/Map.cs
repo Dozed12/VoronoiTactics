@@ -683,7 +683,8 @@ public class MapData
 
             //Terrain Greyscale (Quite simple so doesnt need PixelMatrix)
             Color[] pixels = new Color[settings.WIDTH * settings.HEIGHT];
-            for (int i = 0; i < settings.WIDTH; i++)
+            //Multithreaded
+            Parallel.For(0, settings.WIDTH, i =>
             {
                 int finalI = i * settings.WIDTH;
                 for (int j = 0; j < settings.HEIGHT; j++)
@@ -691,7 +692,7 @@ public class MapData
                     float val = geography.TERRAINMAP[i, j];
                     pixels[finalI + j] = new Color(val, val, val);
                 }
-            }
+            });
 
             //Create texture
             Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
