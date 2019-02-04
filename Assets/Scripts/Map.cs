@@ -1408,7 +1408,7 @@ public class Map : MonoBehaviour
         //TODO Settings probably wont be here
         mapData = new MapData(data, this);
         //TODO Pixel size could be tied to province number to keep it consistent across different make sizes
-        mapData.settings = new MapSettings(2000, 2000, 200, 2.0f);
+        mapData.settings = new MapSettings(2000, 2000, 400, 2.0f);
 
         //Get selected biome
         int idBiome = biomePick.value;
