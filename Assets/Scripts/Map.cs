@@ -1267,9 +1267,10 @@ public class Map : MonoBehaviour
         var tpos = transform.InverseTransformPoint(pos);
 
         //Pixel conversions xy 2D
-        int xPixel = Mathf.RoundToInt(pos.x * 100);
+        int pixelsPerUnit = 100;
+        int xPixel = Mathf.RoundToInt(pos.x * pixelsPerUnit);
         xPixel += mapData.settings.WIDTH / 2;
-        int yPixel = Mathf.RoundToInt(pos.y * 100);
+        int yPixel = Mathf.RoundToInt(pos.y * pixelsPerUnit);
         yPixel += mapData.settings.HEIGHT / 2;
 
         //Flipped so they don't need to be flipped by whatever uses this function
@@ -1287,7 +1288,7 @@ public class Map : MonoBehaviour
 
         //Inverted
         int pixelsPerUnit = 100;
-        Vector3 provincePos = new Vector3(axisAllignedY / pixelsPerUnit, axisAllignedX / pixelsPerUnit, -0.002f);
+        Vector3 provincePos = new Vector3(axisAllignedY / pixelsPerUnit / transform.localScale.x, axisAllignedX / pixelsPerUnit / transform.localScale.y, -0.002f);
 
         //Transform to world space
         Vector3 final = transform.TransformPoint(provincePos);
