@@ -2,7 +2,7 @@
     "Items": [
         {
             "name": "Woodland",
-            "heightFreq": 0.0015,
+            "heightFreq": 0.001,
             "heights": [
                 {
                     "name": "Low Mountains",
@@ -54,7 +54,7 @@
         },
         {
             "name": "Forest",
-            "heightFreq": 0.0015,
+            "heightFreq": 0.001,
             "heights": [
                 {
                     "name": "Hills",
@@ -101,7 +101,7 @@
         },
         {
             "name": "Dryland",
-            "heightFreq": 0.0015,
+            "heightFreq": 0.001,
             "heights": [
                 {
                     "name": "Low Mountains",

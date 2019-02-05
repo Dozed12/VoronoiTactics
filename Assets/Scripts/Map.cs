@@ -363,7 +363,7 @@ public class MapData
             geography.SHADEMAP = new float[settings.WIDTH, settings.HEIGHT];
 
             //TODO settings elsewhere
-            int differencePower = 20;
+            int differencePower = 40;
             //Multithreaded
             Parallel.For(0, widthNBlocks, i =>
             {
