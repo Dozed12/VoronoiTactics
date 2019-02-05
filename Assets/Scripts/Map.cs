@@ -390,9 +390,9 @@ public class MapData
 
                     //Darken or Lighten
                     if (curr < neighbor)
-                        diff = 1 + diff;
-                    else
                         diff = 1 - diff;
+                    else
+                        diff = 1 + diff;
 
                     //Store in proper size matrix
                     for (int x = 0; x < heightBlockSize; x++)
