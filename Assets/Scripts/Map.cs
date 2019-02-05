@@ -228,6 +228,7 @@ public class MapData
         //TODO Settings should be in another place
         int divisions = 3;
         float magnitude = 5;
+        float minSize = 30;
         List<Geometry.Vector2Edge> jitteredEdges = new List<Geometry.Vector2Edge>();
 
         for (int j = 0; j < simpleEdges.Count; j++)
@@ -251,6 +252,12 @@ public class MapData
             }
             if (simpleEdges[j].start.value.y == settings.HEIGHT - 1 && simpleEdges[j].end.value.y == settings.HEIGHT - 1)
             {
+                jitteredEdges.Add(simpleEdges[j]);
+                continue;
+            }
+
+            //Minimum size to jitter
+            if(Vector2.Distance(simpleEdges[j].start.value, simpleEdges[j].end.value) < minSize){
                 jitteredEdges.Add(simpleEdges[j]);
                 continue;
             }
