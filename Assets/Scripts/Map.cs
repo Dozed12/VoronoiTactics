@@ -1236,9 +1236,6 @@ public class Map : MonoBehaviour
     //Prefab Unit
     public GameObject unit;
 
-    //Graphical Mapmodes
-    public Dictionary<string, Sprite> mapModes;
-
     //UI Elements
     public Dropdown biomePick;
     public Dropdown mapModePick;
@@ -1416,16 +1413,9 @@ public class Map : MonoBehaviour
         //Master generate
         mapData.Generate();
 
-        //Create mapmode sprites
-        mapModes = new Dictionary<string, Sprite>();
-        foreach (KeyValuePair<string, Texture2D> entry in mapData.mapModes)
-        {
-            mapModes.Add(entry.Key, Sprite.Create(entry.Value, new Rect(0, 0, entry.Value.width, entry.Value.height), new Vector2(0.5f, 0.5f)));
-        }
-
         //Add to mapmodes Dropdown
         List<string> mapModesStrings = new List<string>();
-        foreach (KeyValuePair<string, Sprite> entry in mapModes)
+        foreach (KeyValuePair<string, Texture2D> entry in mapData.mapModes)
         {
             mapModesStrings.Add(entry.Key);
         }
@@ -1449,7 +1439,7 @@ public class Map : MonoBehaviour
         string nameMapMode = mapModePick.options[idMapMode].text;
 
         //Set sprite to map
-        GetComponent<SpriteRenderer>().sprite = mapModes[nameMapMode];
+        GetComponent<Renderer>().material.mainTexture = mapData.mapModes[nameMapMode];
 
     }
 
