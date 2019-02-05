@@ -363,7 +363,8 @@ public class MapData
             geography.SHADEMAP = new float[settings.WIDTH, settings.HEIGHT];
 
             //TODO settings elsewhere
-            int differencePower = 40;
+            int differenceScale = 80;
+            int differencePow = 2;
             //Multithreaded
             Parallel.For(0, widthNBlocks, i =>
             {
@@ -383,10 +384,17 @@ public class MapData
                         neighbor = blocks[i, j + 1];
 
                     //Difference from neighbor
-                    float diff = Mathf.Abs(curr - neighbor);
+                    float tmp = Mathf.Abs(curr - neighbor);
 
                     //Difference scale
-                    diff *= differencePower;
+                    tmp *= differenceScale;
+
+                    //Difference power
+                    float diff = 1;
+                    for (int p = 0; p < differencePow; p++)
+                    {
+                        diff *= tmp;
+                    }
 
                     //Darken or Lighten
                     if (curr < neighbor)
