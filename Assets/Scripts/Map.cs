@@ -994,27 +994,6 @@ public class MapData
             Debug.Log("======== Color blend took: " + (Time.realtimeSinceStartup - time) + "s");
             time = Time.realtimeSinceStartup;
 
-            //Height Shading
-            //Apply the Shade map modifier
-            //Multithreaded
-            Parallel.For(0, settings.WIDTH, i =>
-            {
-                for (int j = 0; j < settings.HEIGHT; j++)
-                {
-
-                    Color cl = pixelMatrix.GetPixelSafe(i, j);
-                    float modifier = geography.SHADEMAP[i, j];
-                    cl.r *= modifier;
-                    cl.g *= modifier;
-                    cl.b *= modifier;
-                    pixelMatrix.SetPixelSafe(i, j, cl);
-
-                }
-            });
-
-            Debug.Log("======== Shading took: " + (Time.realtimeSinceStartup - time) + "s");
-            time = Time.realtimeSinceStartup;
-
             //Add decals
             float halfHorizontalSeparation = pointsHorizontalSeparation / 2;
             float halfVerticalSeparation = pointsVerticalSeparation / 2;
@@ -1168,6 +1147,27 @@ public class MapData
             });
 
             Debug.Log("======== Randomization took: " + (Time.realtimeSinceStartup - time) + "s");
+            time = Time.realtimeSinceStartup;
+
+            //Height Shading
+            //Apply the Shade map modifier
+            //Multithreaded
+            Parallel.For(0, settings.WIDTH, i =>
+            {
+                for (int j = 0; j < settings.HEIGHT; j++)
+                {
+
+                    Color cl = pixelMatrix.GetPixelSafe(i, j);
+                    float modifier = geography.SHADEMAP[i, j];
+                    cl.r *= modifier;
+                    cl.g *= modifier;
+                    cl.b *= modifier;
+                    pixelMatrix.SetPixelSafe(i, j, cl);
+
+                }
+            });
+
+            Debug.Log("======== Shading took: " + (Time.realtimeSinceStartup - time) + "s");
             time = Time.realtimeSinceStartup;
 
             //Draw frame
