@@ -302,6 +302,7 @@ public class MapData
         //TODO Should be set elsewhere
         //TODO Wont need so many octaves considering we dont use all the detail, but maybe we will
         fastnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
+        fastnoise.SetFractalType(FastNoise.FractalType.FBM);
         fastnoise.SetFractalOctaves(3);
         fastnoise.SetFractalLacunarity(2.0f);
         fastnoise.SetFrequency(1);

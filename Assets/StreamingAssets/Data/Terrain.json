@@ -19,7 +19,7 @@
                     "reach": 1,
                     "number": 5,
                     "rotate": true,
-                    "chance": 0.2
+                    "chance": 0.1
                 }
             ],
             "height_names": [
