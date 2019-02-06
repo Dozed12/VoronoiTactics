@@ -5,18 +5,28 @@
             "heightFreq": 0.001,
             "heights": [
                 {
-                    "name": "Low Mountains",
+                    "name": "Grassland Very High",
                     "noiseMax": 1.0,
                     "noiseMin": 0.85
                 },
                 {
-                    "name": "Hills",
+                    "name": "Grassland High",
                     "noiseMax": 0.85,
-                    "noiseMin": 0.75
+                    "noiseMin": 0.7
                 },
                 {
-                    "name": "Plains",
-                    "noiseMax": 0.75,
+                    "name": "Grassland Medium",
+                    "noiseMax": 0.7,
+                    "noiseMin": 0.3
+                },
+                {
+                    "name": "Grassland Low",
+                    "noiseMax": 0.3,
+                    "noiseMin": 0.15
+                },
+                {
+                    "name": "Grassland Very Low",
+                    "noiseMax": 0.15,
                     "noiseMin": 0
                 }
             ],
@@ -40,100 +50,6 @@
                 {
                     "name": "Barren",
                     "noiseMax": 0.1,
-                    "noiseMin": 0
-                }
-            ],
-            "structureFreq": 0.01,
-            "structures": [
-                {
-                    "name": "Village",
-                    "noiseMax": 1,
-                    "noiseMin": 0.90
-                }
-            ]
-        },
-        {
-            "name": "Forest",
-            "heightFreq": 0.001,
-            "heights": [
-                {
-                    "name": "Hills",
-                    "noiseMax": 1.0,
-                    "noiseMin": 0.8
-                },
-                {
-                    "name": "Plains",
-                    "noiseMax": 0.8,
-                    "noiseMin": 0
-                }
-            ],
-            "terrainFreq": 0.0007,
-            "terrains": [
-                {
-                    "name": "Forest",
-                    "noiseMax": 1,
-                    "noiseMin": 0.6
-                },
-                {
-                    "name": "Woods",
-                    "noiseMax": 0.6,
-                    "noiseMin": 0.5
-                },
-                {
-                    "name": "Grassland",
-                    "noiseMax": 0.6,
-                    "noiseMin": 0.2
-                },
-                {
-                    "name": "Barren",
-                    "noiseMax": 0.2,
-                    "noiseMin": 0
-                }
-            ],
-            "structureFreq": 0.01,
-            "structures": [
-                {
-                    "name": "Village",
-                    "noiseMax": 1,
-                    "noiseMin": 0.90
-                }
-            ]
-        },
-        {
-            "name": "Dryland",
-            "heightFreq": 0.001,
-            "heights": [
-                {
-                    "name": "Low Mountains",
-                    "noiseMax": 1.0,
-                    "noiseMin": 0.9
-                },
-                {
-                    "name": "Hills",
-                    "noiseMax": 0.9,
-                    "noiseMin": 0.7
-                },
-                {
-                    "name": "Plains",
-                    "noiseMax": 0.7,
-                    "noiseMin": 0
-                }
-            ],
-            "terrainFreq": 0.0007,
-            "terrains": [
-                {
-                    "name": "Woods",
-                    "noiseMax": 1.0,
-                    "noiseMin": 0.7
-                },
-                {
-                    "name": "Grassland",
-                    "noiseMax": 0.7,
-                    "noiseMin": 0.5
-                },
-                {
-                    "name": "Barren",
-                    "noiseMax": 0.5,
                     "noiseMin": 0
                 }
             ],
