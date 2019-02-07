@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 //https://github.com/Zalgo2462/VoronoiLib
 using VoronoiLib;
@@ -257,7 +258,8 @@ public class MapData
             }
 
             //Minimum size to jitter
-            if(Vector2.Distance(simpleEdges[j].start.value, simpleEdges[j].end.value) < minSize){
+            if (Vector2.Distance(simpleEdges[j].start.value, simpleEdges[j].end.value) < minSize)
+            {
                 jitteredEdges.Add(simpleEdges[j]);
                 continue;
             }
@@ -371,7 +373,7 @@ public class MapData
             geography.SHADEMAP = new float[settings.WIDTH, settings.HEIGHT];
 
             //TODO settings elsewhere
-            int differenceScale = 80;
+            int differenceScale = 70;
             int differencePow = 2;
             //Multithreaded
             Parallel.For(0, widthNBlocks, i =>
@@ -1342,41 +1344,45 @@ public class Map : MonoBehaviour
             if (mapData != null)
             {
 
-                //Mouse position on map
-                Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Vector2 mapPos = WorldToMap(pos);
-
-                Debug.Log("Click (" + mapPos.x + ", " + mapPos.y + ")");
-
-                //Test placement
-                //TODO will be elsewhere probably (on Army Deployment Phase)
-
-                //Find province clicked using Geometry.PointInPolygon
-                //TODO Could optimize this to check if click is inside map bounds
-                int id = -1;
-                for (int i = 0; i < mapData.provinces.Count; i++)
+                //Ignore if clicked on UI
+                if (!EventSystem.current.IsPointerOverGameObject())
                 {
-                    //Check if inside
-                    if (Geometry.PointInPolygon(mapData.provinces[i].vertices, new Geometry.Vector2X(mapPos.x, mapPos.y)))
-                    {
-                        id = i;
-                        break;
-                    }
-                }
+                    //Mouse position on map
+                    Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    Vector2 mapPos = WorldToMap(pos);
 
-                //Check if found any province
-                if (id != -1)
-                {
+                    Debug.Log("Click (" + mapPos.x + ", " + mapPos.y + ")");
 
-                    //Check province vacant
-                    if (mapData.provinces[id].unit == null)
+                    //Test placement
+                    //TODO will be elsewhere probably (on Army Deployment Phase)
+
+                    //Find province clicked using Geometry.PointInPolygon
+                    //TODO Could optimize this to check if click is inside map bounds
+                    int id = -1;
+                    for (int i = 0; i < mapData.provinces.Count; i++)
                     {
-                        //Instantiate unit
-                        GameObject t = Instantiate(unit);
-                        //Place it on map and setup references
-                        mapData.provinces[id].unit = t.GetComponent<Unit>().PlaceOnMap(this, mapData.provinces[id]);
+                        //Check if inside
+                        if (Geometry.PointInPolygon(mapData.provinces[i].vertices, new Geometry.Vector2X(mapPos.x, mapPos.y)))
+                        {
+                            id = i;
+                            break;
+                        }
                     }
 
+                    //Check if found any province
+                    if (id != -1)
+                    {
+
+                        //Check province vacant
+                        if (mapData.provinces[id].unit == null)
+                        {
+                            //Instantiate unit
+                            GameObject t = Instantiate(unit);
+                            //Place it on map and setup references
+                            mapData.provinces[id].unit = t.GetComponent<Unit>().PlaceOnMap(this, mapData.provinces[id]);
+                        }
+
+                    }
                 }
 
             }
