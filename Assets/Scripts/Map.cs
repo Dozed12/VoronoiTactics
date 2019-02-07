@@ -303,14 +303,18 @@ public class MapData
         //TODO Wont need so many octaves considering we dont use all the detail, but maybe we will
         fastnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
         fastnoise.SetFractalType(FastNoise.FractalType.FBM);
-        fastnoise.SetFractalOctaves(6);
         fastnoise.SetFractalLacunarity(2.0f);
         fastnoise.SetFrequency(1);
 
         //Noise block size
-        //TODO probably better in other place
+        //TODO Settings probably better in other place
         int terrainBlockSize = 10;
-        int heightBlockSize = 1;
+        int heightBlockSize = 2;
+
+        //Octaves
+        //TODO Settings probably better in other place
+        int heightOctaves = 6;
+        int terrainOctaves = 2;
 
         //Noise lookups
         HeightMap();
@@ -322,6 +326,9 @@ public class MapData
 
             //New seed
             fastnoise.SetSeed(UnityEngine.Random.Range(Int16.MinValue, Int16.MaxValue));
+
+            //Octaves
+            fastnoise.SetFractalOctaves(heightOctaves);
 
             //Biome height frequency
             fastnoise.SetFrequency(biome.heightFreq);
@@ -373,6 +380,9 @@ public class MapData
 
             //New seed
             fastnoise.SetSeed(UnityEngine.Random.Range(Int16.MinValue, Int16.MaxValue));
+
+            //Octaves
+            fastnoise.SetFractalOctaves(terrainOctaves);
 
             //Biome terrain frequency
             fastnoise.SetFrequency(biome.terrainFreq);
