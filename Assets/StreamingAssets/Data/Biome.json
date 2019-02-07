@@ -40,11 +40,11 @@
                 {
                     "name": "Woods",
                     "noiseMax": 0.8,
-                    "noiseMin": 0.6
+                    "noiseMin": 0.55
                 },
                 {
                     "name": "Grassland",
-                    "noiseMax": 0.6,
+                    "noiseMax": 0.55,
                     "noiseMin": 0.1
                 },
                 {
