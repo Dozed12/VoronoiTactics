@@ -502,7 +502,7 @@ public class MapData
             //Calculate average terrain and height for this province
             float heightTotal = 0;
             float heightN = 0;
-            for (int a = -horizontalAverageRange; a < horizontalAverageRange; a++)
+            for (int a = -horizontalAverageRange; a < horizontalAverageRange / 4; a++)
             {
                 if ((int)nProvince.pos.x + a < 0 || (int)nProvince.pos.x + a > settings.WIDTH - 1)
                     continue;
@@ -518,7 +518,7 @@ public class MapData
 
             float terrainTotal = 0;
             float terrainN = 0;
-            for (int a = -horizontalAverageRange; a < horizontalAverageRange; a++)
+            for (int a = -horizontalAverageRange; a < horizontalAverageRange / 4; a++)
             {
                 if ((int)nProvince.pos.x + a < 0 || (int)nProvince.pos.x + a > settings.WIDTH - 1)
                     continue;
