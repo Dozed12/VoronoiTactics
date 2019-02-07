@@ -824,7 +824,7 @@ public class MapData
             //Pixel matrix for texture start with most used color
             Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT, maxCl);
 
-            //Fill sites color
+            //Fill province color
             //Multithreaded
             Parallel.For(0, provinces.Count, i =>
             {
@@ -902,7 +902,7 @@ public class MapData
             //Pixel matrix for texture start with most used color
             Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT, maxCl);
 
-            //Fill sites color
+            //Fill province color
             //Multithreaded
             Parallel.For(0, provinces.Count, i =>
             {

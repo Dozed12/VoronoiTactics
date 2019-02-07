@@ -203,7 +203,7 @@ public class Data
         //Add to dictionary
         for (int i = 0; i < e.Length; i++)
         {
-            e[i].uColor = new Color(e[i].color/255,e[i].color/255,e[i].color/255);
+            e[i].uColor = new Color(e[i].color / 255.0f, e[i].color / 255.0f, e[i].color / 255.0f);
             heights.Add(e[i].name, e[i]);
         }
 
@@ -254,7 +254,7 @@ public class Data
             }
 
             //Add to dictionary
-            e[i].uColor = new Color(e[i].color[0]/255,e[i].color[1]/255,e[i].color[2]/255);
+            e[i].uColor = new Color(e[i].color[0] / 255.0f, e[i].color[1] / 255.0f, e[i].color[2] / 255.0f);
             terrains.Add(e[i].name, e[i]);
         }
 
@@ -283,7 +283,7 @@ public class Data
         //Add to dictionary
         for (int i = 0; i < e.Length; i++)
         {
-            e[i].uColor = new Color(e[i].color[0]/255,e[i].color[1]/255,e[i].color[2]/255);
+            e[i].uColor = new Color(e[i].color[0] / 255.0f, e[i].color[1] / 255.0f, e[i].color[2] / 255.0f);
             structures.Add(e[i].name, e[i]);
         }
 
