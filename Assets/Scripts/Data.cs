@@ -34,8 +34,10 @@ public struct TerrainHeight
 {
     //Name of Height
     public string name;
-    //Simplified color (greyscale)
+    //Color
     public int[] color;
+    //Unity Color
+    public Color uColor;
     //Height Impact (Actual value used when comparing province height)
     public int heightImpact;
 }
@@ -46,8 +48,10 @@ public struct TerrainStructure
 {
     //Name of Type
     public string name;
-    //Simplified color
+    //Color
     public int[] color;
+    //Unity Color
+    public Color uColor;
     //Attack modifier
     public float attack;
     //Defense modifier
@@ -78,8 +82,10 @@ public struct TerrainType
 
     //Name of Type
     public string name;
-    //Simplified color
+    //Color
     public int[] color;
+    //Unity Color
+    public Color uColor;
     //Decals to use
     public Decal[] decals;
     //Attack modifier
@@ -166,6 +172,7 @@ public class Data
         for (int i = 0; i < e.Length; i++)
         {
             //Add to dictionary
+            e[i].uColor = new Color(e[i].color[0]/255.0f,e[i].color[1]/255.0f,e[i].color[2]/255.0f);
             heights.Add(e[i].name, e[i]);
         }
 
@@ -195,6 +202,7 @@ public class Data
         for (int i = 0; i < e.Length; i++)
         {
             //Add to dictionary
+            e[i].uColor = new Color(e[i].color[0]/255.0f,e[i].color[1]/255.0f,e[i].color[2]/255.0f);
             terrains.Add(e[i].name, e[i]);
         }
 

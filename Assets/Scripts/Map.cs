@@ -750,7 +750,7 @@ public class MapData
             for (int i = 0; i < provinces.Count; i++)
             {
 
-                Color cl = new Color(provinces[i].height.color[0] / 255.0f, provinces[i].height.color[1] / 255.0f, provinces[i].height.color[2] / 255.0f);
+                Color cl = provinces[i].height.uColor;
 
                 //Count
                 int curVal;
@@ -789,7 +789,7 @@ public class MapData
             {
 
                 //Calculate color
-                Color c = new Color(provinces[i].height.color[0] / 255.0f, provinces[i].height.color[1] / 255.0f, provinces[i].height.color[2] / 255.0f);
+                Color c = provinces[i].height.uColor;
 
                 //Dont draw if background was same color
                 if (c == maxCl)
@@ -827,7 +827,7 @@ public class MapData
             Dictionary<Color, int> colors = new Dictionary<Color, int>();
             for (int i = 0; i < provinces.Count; i++)
             {
-                Color cl = new Color(provinces[i].terrain.color[0] / 255.0f, provinces[i].terrain.color[1] / 255.0f, provinces[i].terrain.color[2] / 255.0f);
+                Color cl = provinces[i].terrain.uColor;
 
                 //Count
                 int curVal;
@@ -864,7 +864,7 @@ public class MapData
             Parallel.For(0, provinces.Count, i =>
             {
                 //Calculate color
-                Color c = new Color(provinces[i].terrain.color[0] / 255.0f, provinces[i].terrain.color[1] / 255.0f, provinces[i].terrain.color[2] / 255.0f);
+                Color c = provinces[i].terrain.uColor;
 
                 //Dont draw if background was same color
                 if (c == maxCl)
@@ -905,7 +905,7 @@ public class MapData
             for (int h = 0; h < biome.heights.Length; h++)
             {
                 if(guess >=  biome.heights[h].noiseMin && guess <  biome.heights[h].noiseMax){
-                    dominant = new Color(data.heights[biome.heights[h].name].color[0] / 255.0f, data.heights[biome.heights[h].name].color[1] / 255.0f, data.heights[biome.heights[h].name].color[2] / 255.0f);
+                    dominant = data.heights[biome.heights[h].name].uColor;
                     max = biome.heights[h].noiseMax;
                     min = biome.heights[h].noiseMin;
                     break;
@@ -934,7 +934,7 @@ public class MapData
                     for (int h = 0; h < biome.heights.Length; h++)
                     {
                         if(val >=  biome.heights[h].noiseMin && val <  biome.heights[h].noiseMax){
-                            Color color = new Color(data.heights[biome.heights[h].name].color[0] / 255.0f, data.heights[biome.heights[h].name].color[1] / 255.0f, data.heights[biome.heights[h].name].color[2] / 255.0f);
+                            Color color = data.heights[biome.heights[h].name].uColor;
                             pixelMatrix.SetPixelSafe(i,j,color);
                             break;
                         }
