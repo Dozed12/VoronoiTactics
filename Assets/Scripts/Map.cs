@@ -303,14 +303,14 @@ public class MapData
         //TODO Wont need so many octaves considering we dont use all the detail, but maybe we will
         fastnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
         fastnoise.SetFractalType(FastNoise.FractalType.FBM);
-        fastnoise.SetFractalOctaves(4);
+        fastnoise.SetFractalOctaves(3);
         fastnoise.SetFractalLacunarity(2.0f);
         fastnoise.SetFrequency(1);
 
         //Noise block size
         //TODO probably better in other place
         int terrainBlockSize = 10;
-        int heightBlockSize = 1;
+        int heightBlockSize = 3;
 
         //Noise lookups
         HeightMap();
@@ -900,35 +900,64 @@ public class MapData
             //Pixel set
             Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT, Color.white);
 
-            //Height Based Color
+            //Weighted color blend for terrain type
+            //https://stackoverflow.com/a/29576746/9015010
             //TODO Settings should be in other place
             time = Time.realtimeSinceStartup;
+            int differentiation = 2;
+            int block = 20;
+            int blocksW = settings.WIDTH / block;
+            int blocksH = settings.HEIGHT / block;
 
             //Multithreaded
-            Parallel.For(0, settings.WIDTH, i =>
+            Parallel.For(0, settings.WIDTH / (block / 2), i =>
             {
-                for (int j = 0; j < settings.HEIGHT; j ++)
+                for (int j = 0; j < settings.HEIGHT; j += block / 2)
                 {
 
-                    //Get height value
-                    float val = this.geography.HEIGHTMAP[i, j];
+                    //Get terrain noise
+                    float val = this.geography.TERRAINMAP[i * (block / 2), j];
 
-                    Color color = Color.white;
-
-                    for (int h = 0; h < biome.heights.Length; h++)
+                    //Calculate distance to noises
+                    List<Pair<TerrainType, float>> distances = new List<Pair<TerrainType, float>>();
+                    foreach (KeyValuePair<TerrainType, float> item in biome.terrainNoiseMiddles)
                     {
-                        if(val >=  biome.heights[h].noiseMin && val <  biome.heights[h].noiseMax){
-                            color = new Color(data.heights[biome.heights[h].name].color[0] / 255.0f, data.heights[biome.heights[h].name].color[1] / 255.0f, data.heights[biome.heights[h].name].color[2] / 255.0f);
-                            break;
+                        float diff = 1 - Mathf.Abs(val - item.Value);
+                        float power = 1;
+                        for (int d = 0; d < differentiation; d++)
+                        {
+                            power *= diff;
                         }
+                        distances.Add(new Pair<TerrainType, float>(item.Key, power));
                     }
 
-                    pixelMatrix.SetPixelSafe(i,j,color);
-                    
+                    //Calculate weighted color
+                    float r = 0;
+                    float g = 0;
+                    float b = 0;
+                    float total = 0;
+                    for (int d = 0; d < distances.Count; d++)
+                    {
+                        float t = distances[d].Second / 255.0f;
+                        t *= t;
+                        r += t * distances[d].First.color[0] * distances[d].First.color[0];
+                        g += t * distances[d].First.color[1] * distances[d].First.color[1];
+                        b += t * distances[d].First.color[2] * distances[d].First.color[2];
+                        total += distances[d].Second;
+                    }
+                    r = Mathf.Sqrt(r / total);
+                    g = Mathf.Sqrt(g / total);
+                    b = Mathf.Sqrt(b / total);
+
+                    Color color = new Color(r, g, b);
+
+                    Graphics.PixelMatrix decal = new Graphics.PixelMatrix(block, block, color);
+
+                    pixelMatrix = Graphics.Decal(pixelMatrix, decal, i * (block / 2), j);
                 }
             });
 
-            Debug.Log("======== Height Color took: " + (Time.realtimeSinceStartup - time) + "s");
+            Debug.Log("======== Color blend took: " + (Time.realtimeSinceStartup - time) + "s");
             time = Time.realtimeSinceStartup;
 
             //Add decals
@@ -1001,7 +1030,7 @@ public class MapData
 
             //Add randomization to color
             //TODO Settings should be in other place
-            float randomization = 40;
+            float randomization = 30;
             float variation = 0.05f;
             //Multithreaded
             Parallel.For(0, settings.WIDTH, i =>
