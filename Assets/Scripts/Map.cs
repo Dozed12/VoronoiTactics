@@ -456,11 +456,11 @@ public class MapData
             float heightN = 0;
             for (int a = -horizontalAverageRange; a < horizontalAverageRange; a++)
             {
-                if (nProvince.pos.x + a < 0 || nProvince.pos.x + a > settings.WIDTH - 1)
+                if ((int)nProvince.pos.x + a < 0 || (int)nProvince.pos.x + a > settings.WIDTH - 1)
                     continue;
                 for (int b = -verticalAverageRange; b < verticalAverageRange; b++)
                 {
-                    if (nProvince.pos.y + b < 0 || nProvince.pos.y + b > settings.HEIGHT - 1)
+                    if ((int)nProvince.pos.y + b < 0 || (int)nProvince.pos.y + b > settings.HEIGHT - 1)
                         continue;
                     heightTotal += geography.HEIGHTMAP[(int)nProvince.pos.x + a, (int)nProvince.pos.y + b];
                     heightN++;
@@ -472,11 +472,11 @@ public class MapData
             float terrainN = 0;
             for (int a = -horizontalAverageRange; a < horizontalAverageRange; a++)
             {
-                if (nProvince.pos.x + a < 0 || nProvince.pos.x + a > settings.WIDTH - 1)
+                if ((int)nProvince.pos.x + a < 0 || (int)nProvince.pos.x + a > settings.WIDTH - 1)
                     continue;
                 for (int b = -verticalAverageRange; b < verticalAverageRange; b++)
                 {
-                    if (nProvince.pos.y + b < 0 || nProvince.pos.y + b > settings.HEIGHT - 1)
+                    if ((int)nProvince.pos.y + b < 0 || (int)nProvince.pos.y + b > settings.HEIGHT - 1)
                         continue;
                     terrainTotal += geography.TERRAINMAP[(int)nProvince.pos.x + a, (int)nProvince.pos.y + b];
                     terrainN++;
