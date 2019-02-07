@@ -54,6 +54,8 @@ public struct TerrainHeight
     public Decal[] decals;
     //Simplified color (greyscale)
     public int color;
+    //Unity color
+    public Color uColor;
     //Attack modifier
     public float attack;
     //Defense modifier
@@ -70,6 +72,8 @@ public struct TerrainStructure
     public string name;
     //Simplified color
     public int[] color;
+    //Unity color
+    public Color uColor;
     //Attack modifier
     public float attack;
     //Defense modifier
@@ -102,6 +106,8 @@ public struct TerrainType
     public string name;
     //Simplified color
     public int[] color;
+    //Unity color
+    public Color uColor;
     //Decals to use
     public Decal[] decals;
     //Heights allowed (names)
@@ -195,9 +201,10 @@ public class Data
         }
 
         //Add to dictionary
-        foreach (var item in e)
+        for (int i = 0; i < e.Length; i++)
         {
-            heights.Add(item.name, item);
+            e[i].uColor = new Color(e[i].color/255,e[i].color/255,e[i].color/255);
+            heights.Add(e[i].name, e[i]);
         }
 
         Debug.Log("Height types loaded (Height.json)");
@@ -247,6 +254,7 @@ public class Data
             }
 
             //Add to dictionary
+            e[i].uColor = new Color(e[i].color[0]/255,e[i].color[1]/255,e[i].color[2]/255);
             terrains.Add(e[i].name, e[i]);
         }
 
@@ -273,9 +281,10 @@ public class Data
         }
 
         //Add to dictionary
-        foreach (var item in e)
+        for (int i = 0; i < e.Length; i++)
         {
-            structures.Add(item.name, item);
+            e[i].uColor = new Color(e[i].color[0]/255,e[i].color[1]/255,e[i].color[2]/255);
+            structures.Add(e[i].name, e[i]);
         }
 
         Debug.Log("Structure types loaded (Structure.json)");

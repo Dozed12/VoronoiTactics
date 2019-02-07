@@ -791,10 +791,7 @@ public class MapData
             for (int i = 0; i < provinces.Count; i++)
             {
 
-                //Grey value
-                float grey = provinces[i].height.color / 255.0f;
-
-                Color cl = new Color(grey, grey, grey);
+                Color cl = provinces[i].height.uColor;
 
                 //Count
                 int curVal;
@@ -808,6 +805,7 @@ public class MapData
                 {
                     colors.Add(cl, 1);
                 }
+
             }
 
             //Find max value
@@ -830,11 +828,9 @@ public class MapData
             //Multithreaded
             Parallel.For(0, provinces.Count, i =>
             {
-                //Grey value
-                float grey = provinces[i].height.color / 255.0f;
 
                 //Calculate color
-                Color c = new Color(grey, grey, grey);
+                Color c = provinces[i].height.uColor;
 
                 //Dont draw if background was same color
                 if (c == maxCl)
@@ -842,6 +838,7 @@ public class MapData
 
                 //Draw polygon
                 pixelMatrix = Graphics.FillPolygon(pixelMatrix, provinces[i].vertices, c);
+
             });
 
             //Draw frame
@@ -871,7 +868,8 @@ public class MapData
             Dictionary<Color, int> colors = new Dictionary<Color, int>();
             for (int i = 0; i < provinces.Count; i++)
             {
-                Color cl = new Color(provinces[i].terrain.color[0] / 255.0f, provinces[i].terrain.color[1] / 255.0f, provinces[i].terrain.color[2] / 255.0f);
+
+                Color cl = provinces[i].terrain.uColor;
 
                 //Count
                 int curVal;
@@ -885,6 +883,7 @@ public class MapData
                 {
                     colors.Add(cl, 1);
                 }
+
             }
 
             //Find max value
@@ -908,7 +907,7 @@ public class MapData
             Parallel.For(0, provinces.Count, i =>
             {
                 //Calculate color
-                Color c = new Color(provinces[i].terrain.color[0] / 255.0f, provinces[i].terrain.color[1] / 255.0f, provinces[i].terrain.color[2] / 255.0f);
+                Color c = provinces[i].terrain.uColor;
 
                 //Dont draw if background was same color
                 if (c == maxCl)
