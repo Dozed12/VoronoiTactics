@@ -897,13 +897,26 @@ public class MapData
         void FinalMapTexture()
         {
 
+            //Dominant Height Color (Guess dominant is the one that includes 0.5f)
+            Color dominant = new Color();
+            float guess = 0.5f;
+            float max = 0;
+            float min = 0;
+            for (int h = 0; h < biome.heights.Length; h++)
+            {
+                if(guess >=  biome.heights[h].noiseMin && guess <  biome.heights[h].noiseMax){
+                    dominant = new Color(data.heights[biome.heights[h].name].color[0] / 255.0f, data.heights[biome.heights[h].name].color[1] / 255.0f, data.heights[biome.heights[h].name].color[2] / 255.0f);
+                    max = biome.heights[h].noiseMax;
+                    min = biome.heights[h].noiseMin;
+                    break;
+                }
+            }
+
             //Pixel set
-            Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT, Color.white);
+            Graphics.PixelMatrix pixelMatrix = new Graphics.PixelMatrix(settings.WIDTH, settings.HEIGHT, dominant);
 
             //Height Based Color
-            //TODO Settings should be in other place
             time = Time.realtimeSinceStartup;
-
             //Multithreaded
             Parallel.For(0, settings.WIDTH, i =>
             {
@@ -913,17 +926,19 @@ public class MapData
                     //Get height value
                     float val = this.geography.HEIGHTMAP[i, j];
 
-                    Color color = Color.white;
+                    //Skip if dominant
+                    if(val >=  min && val < max)
+                        continue;
 
+                    //Find correspondent color
                     for (int h = 0; h < biome.heights.Length; h++)
                     {
                         if(val >=  biome.heights[h].noiseMin && val <  biome.heights[h].noiseMax){
-                            color = new Color(data.heights[biome.heights[h].name].color[0] / 255.0f, data.heights[biome.heights[h].name].color[1] / 255.0f, data.heights[biome.heights[h].name].color[2] / 255.0f);
+                            Color color = new Color(data.heights[biome.heights[h].name].color[0] / 255.0f, data.heights[biome.heights[h].name].color[1] / 255.0f, data.heights[biome.heights[h].name].color[2] / 255.0f);
+                            pixelMatrix.SetPixelSafe(i,j,color);
                             break;
                         }
-                    }
-
-                    pixelMatrix.SetPixelSafe(i,j,color);
+                    }                    
                     
                 }
             });
