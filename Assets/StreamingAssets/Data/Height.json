@@ -3,45 +3,45 @@
         {
             "name": "Grassland Very Low",
             "color": [
-                73,
-                89,
-                54
+                78,
+                96,
+                58
             ],
             "heightImpact": 1
         },
         {
             "name": "Grassland Low",
             "color": [
-                86,
-                104,
-                63
+                96,
+                117,
+                76
             ],
             "heightImpact": 1
         },
         {
             "name": "Grassland Medium",
             "color": [
-                100,
-                122,
-                74
+                127,
+                141,
+                95
             ],
             "heightImpact": 2
         },
         {
             "name": "Grassland High",
             "color": [
-                115,
-                140,
-                85
+                155,
+                173,
+                119
             ],
             "heightImpact": 3
         },
         {
             "name": "Grassland Very High",
             "color": [
-                130,
-                158,
-                96
+                171,
+                191,
+                131
             ],
             "heightImpact": 3
         }
