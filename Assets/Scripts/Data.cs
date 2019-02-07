@@ -36,6 +36,8 @@ public struct TerrainHeight
     public string name;
     //Simplified color (greyscale)
     public int[] color;
+    //Height Impact (Actual value used when comparing province height)
+    public int heightImpact;
 }
 
 //Human terrain structures
