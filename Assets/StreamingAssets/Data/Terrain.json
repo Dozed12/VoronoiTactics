@@ -22,6 +22,11 @@
                     "chance": 0.1
                 }
             ],
+            "height_names": [
+                "Hills",
+                "Plains"
+            ],
+            "height_default_fallback": "Barren",
             "modifiers": {
                 "attack": 1.0,
                 "defense": 1.0,
@@ -42,6 +47,14 @@
                     "number": 100,
                     "rotate": true
                 }
+            ],
+            "height_names": [
+                "Plains"
+            ],
+            "height_default_fallback": "Woods",
+            "height_pair_fallbacks": [
+                "Low Mountains",
+                "Grassland"
             ],
             "modifiers": {
                 "attack": 1.1,
@@ -70,6 +83,11 @@
                     "rotate": false
                 }
             ],
+            "height_default_fallback": "Grassland",
+            "height_names": [
+                "Hills",
+                "Plains"
+            ],
             "modifiers": {
                 "attack": 1.1,
                 "defense": 0.8,
@@ -82,6 +100,11 @@
                 150,
                 145,
                 85
+            ],
+            "height_names": [
+                "Low Mountains",
+                "Hills",
+                "Plains"
             ],
             "modifiers": {
                 "attack": 1.1,

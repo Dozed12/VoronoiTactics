@@ -1,44 +1,89 @@
 {
     "Items": [
         {
-            "name": "Grassland Very Low",
-            "color": [
-                138,
-                195,
-                129
-            ]
+            "name": "Plains",
+            "color": 50,
+            "attack": 1,
+            "defense": 1,
+            "movement": 1
         },
         {
-            "name": "Grassland Low",
-            "color": [
-                110,
-                171,
-                111
-            ]
+            "name": "Hills",
+            "color": 100,
+            "decals": [
+                {
+                    "name": "rock_1.png",
+                    "reach": 1.1,
+                    "number": 5,
+                    "rotate": true
+                },
+                {
+                    "name": "rock_2.png",
+                    "reach": 1.1,
+                    "number": 5,
+                    "rotate": true
+                },
+                {
+                    "name": "rock_3.png",
+                    "reach": 1.1,
+                    "number": 5,
+                    "rotate": true
+                },
+                {
+                    "name": "rock_4.png",
+                    "reach": 1.1,
+                    "number": 5,
+                    "rotate": true
+                },
+                {
+                    "name": "rock_5.png",
+                    "reach": 1.1,
+                    "number": 5,
+                    "rotate": true
+                }
+            ],
+            "attack": 0.9,
+            "defense": 1.1,
+            "movement": 1.2
         },
         {
-            "name": "Grassland Medium",
-            "color": [
-                71,
-                148,
-                88
-            ]
-        },
-        {
-            "name": "Grassland High",
-            "color": [
-                70,
-                193,
-                79
-            ]
-        },
-        {
-            "name": "Grassland Very High",
-            "color": [
-                118,
-                219,
-                78
-            ]
+            "name": "Low Mountains",
+            "color": 150,
+            "decals": [
+                {
+                    "name": "rock_1.png",
+                    "reach": 1.1,
+                    "number": 20,
+                    "rotate": true
+                },
+                {
+                    "name": "rock_2.png",
+                    "reach": 1.1,
+                    "number": 20,
+                    "rotate": true
+                },
+                {
+                    "name": "rock_3.png",
+                    "reach": 1.1,
+                    "number": 20,
+                    "rotate": true
+                },
+                {
+                    "name": "rock_4.png",
+                    "reach": 1.1,
+                    "number": 20,
+                    "rotate": true
+                },
+                {
+                    "name": "rock_5.png",
+                    "reach": 1.1,
+                    "number": 20,
+                    "rotate": true
+                }
+            ],
+            "attack": 0.8,
+            "defense": 1.2,
+            "movement": 1.3
         }
     ]
 }

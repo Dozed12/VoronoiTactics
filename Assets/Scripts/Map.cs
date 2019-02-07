@@ -547,8 +547,47 @@ public class MapData
             {
                 if (biome.terrains[j].noiseMin <= nProvince.terrainVal && nProvince.terrainVal < biome.terrains[j].noiseMax)
                 {
-                    nProvince.terrain = data.terrains[biome.terrains[j].name];
-                    break;
+                    //Need to check if height present is accepted by terrain, if not then use fallback instead
+                    //Search
+                    bool found = false;
+                    for (int h = 0; h < biome.terrains[j].type.heights.Length; h++)
+                    {
+                        if (biome.terrains[j].type.heights[h].name == nProvince.height.name)
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    //Use fallback
+                    if (!found)
+                    {
+
+                        //Default fallback
+                        nProvince.terrain = data.terrains[biome.terrains[j].type.height_default_fallback];
+
+                        //No specific fallbacks, break
+                        if (data.terrains[biome.terrains[j].name].height_fallbacks == null)
+                            break;
+
+                        //Specific fallbacks
+                        for (int f = 0; f < data.terrains[biome.terrains[j].name].height_fallbacks.Count; f++)
+                        {
+                            if (nProvince.height.name == data.terrains[biome.terrains[j].name].height_fallbacks[f].First.name)
+                            {
+                                nProvince.terrain = data.terrains[biome.terrains[j].name].height_fallbacks[f].Second;
+                                break;
+                            }
+                        }
+
+                        break;
+                    }
+                    //Use original
+                    else
+                    {
+                        nProvince.terrain = data.terrains[biome.terrains[j].name];
+                        break;
+                    }
                 }
             }
 
@@ -750,7 +789,10 @@ public class MapData
             for (int i = 0; i < provinces.Count; i++)
             {
 
-                Color cl = new Color(provinces[i].height.color[0] / 255.0f, provinces[i].height.color[1] / 255.0f, provinces[i].height.color[2] / 255.0f);
+                //Grey value
+                float grey = provinces[i].height.color / 255.0f;
+
+                Color cl = new Color(grey, grey, grey);
 
                 //Count
                 int curVal;
@@ -764,7 +806,6 @@ public class MapData
                 {
                     colors.Add(cl, 1);
                 }
-
             }
 
             //Find max value
@@ -787,9 +828,11 @@ public class MapData
             //Multithreaded
             Parallel.For(0, provinces.Count, i =>
             {
+                //Grey value
+                float grey = provinces[i].height.color / 255.0f;
 
                 //Calculate color
-                Color c = new Color(provinces[i].height.color[0] / 255.0f, provinces[i].height.color[1] / 255.0f, provinces[i].height.color[2] / 255.0f);
+                Color c = new Color(grey, grey, grey);
 
                 //Dont draw if background was same color
                 if (c == maxCl)
@@ -797,7 +840,6 @@ public class MapData
 
                 //Draw polygon
                 pixelMatrix = Graphics.FillPolygon(pixelMatrix, provinces[i].vertices, c);
-
             });
 
             //Draw frame
@@ -963,6 +1005,65 @@ public class MapData
             //Add decals
             float halfHorizontalSeparation = pointsHorizontalSeparation / 2;
             float halfVerticalSeparation = pointsVerticalSeparation / 2;
+
+            //Height decals
+            //Multithreaded
+            Parallel.For(0, provinces.Count, i =>
+            {
+                //No decals so skip
+                if (provinces[i].height.decals == null)
+                    return;
+
+                //Random Number Generator for this thread
+                System.Random random = new System.Random(BitConverter.ToInt32(Guid.NewGuid().ToByteArray(), 0));
+
+                //Each decal
+                for (int d = 0; d < provinces[i].height.decals.Length; d++)
+                {
+
+                    //Decal reach
+                    float decalHorizontalReach = halfHorizontalSeparation * provinces[i].height.decals[d].reach;
+                    float decalVerticalReach = halfVerticalSeparation * provinces[i].height.decals[d].reach;
+                    float reach = Mathf.Max(decalHorizontalReach, decalVerticalReach);
+
+                    //Add decals in a circular way with random angle and radius
+                    for (int c = 0; c < provinces[i].height.decals[d].number; c++)
+                    {
+
+                        //Chance value defined in JSON
+                        float chance = 1;
+                        if (provinces[i].height.decals[d].chance != 0)
+                            chance = provinces[i].height.decals[d].chance;
+
+                        //Chance to not place this one
+                        if (random.Next(0, 100) > chance * 100)
+                            continue;
+
+                        //Position of decal center
+                        float cos = Utilities.NextFloat(random, -1.0f, 1.0f);
+                        float sin = Utilities.NextFloat(random, -1.0f, 1.0f);
+                        float radius = Utilities.NextFloat(random, 0f, reach);
+                        float x = provinces[i].center.x + cos * radius;
+                        float y = provinces[i].center.y + sin * radius;
+
+                        //Decal rotations available
+                        Graphics.PixelMatrix[] decalRotations = data.decals[provinces[i].height.decals[d].name];
+
+                        //Pick random rotation if required
+                        int randomRotation = 0;
+
+                        //Pick random rotation if required
+                        if (provinces[i].height.decals[d].rotate)
+                            randomRotation = random.Next(0, 4);
+
+                        //Final decal                    
+                        Graphics.PixelMatrix decal = decalRotations[randomRotation];
+
+                        //Add decal
+                        pixelMatrix = Graphics.Decal(pixelMatrix, decal, (int)x, (int)y);
+                    }
+                }
+            });
 
             //Terrain decals
             //Multithreaded

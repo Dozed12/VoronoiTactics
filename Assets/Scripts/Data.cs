@@ -32,10 +32,34 @@ using UnityEngine;
 [System.Serializable]
 public struct TerrainHeight
 {
+
+    [System.Serializable]
+    public struct Decal
+    {
+        //File
+        public string name;
+        //Reach of decal in cell seperations (1 = max(cell width, cell height))
+        public float reach;
+        //Number to spawn
+        public int number;
+        //Randomize rotation
+        public bool rotate;
+        //Chance of each decal appearing (default is 1)
+        public float chance;
+    }
+
     //Name of Height
     public string name;
+    //Decals to use
+    public Decal[] decals;
     //Simplified color (greyscale)
-    public int[] color;
+    public int color;
+    //Attack modifier
+    public float attack;
+    //Defense modifier
+    public float defense;
+    //Movement modifier
+    public float movement;
 }
 
 //Human terrain structures
@@ -80,6 +104,16 @@ public struct TerrainType
     public int[] color;
     //Decals to use
     public Decal[] decals;
+    //Heights allowed (names)
+    public string[] height_names;
+    //Heights allowed (references)
+    public TerrainHeight[] heights;
+    //Height fallback, when height present isnt allowed then fallback to type with this name
+    public string height_default_fallback;
+    //Specific fallbacks, after using default fallback these will be used (just raw Json parse, come in pairs)
+    public string[] height_pair_fallbacks;
+    //Actual processed pairs of fallbacks
+    public List<Pair<TerrainHeight, TerrainType>> height_fallbacks;
     //Attack modifier
     public float attack;
     //Defense modifier
@@ -160,11 +194,10 @@ public class Data
             return;
         }
 
-        //Add
-        for (int i = 0; i < e.Length; i++)
+        //Add to dictionary
+        foreach (var item in e)
         {
-            //Add to dictionary
-            heights.Add(e[i].name, e[i]);
+            heights.Add(item.name, item);
         }
 
         Debug.Log("Height types loaded (Height.json)");
@@ -189,9 +222,30 @@ public class Data
             return;
         }
 
-        //Add
+        //Process heights (still need to process fallbacks)
         for (int i = 0; i < e.Length; i++)
         {
+            //Get heights
+            e[i].heights = new TerrainHeight[e[i].height_names.Length];
+            for (int j = 0; j < e[i].height_names.Length; j++)
+            {
+                e[i].heights[j] = heights[e[i].height_names[j]];
+            }
+        }
+
+        //Process specific fallbacks and add to dictionary after
+        for (int i = 0; i < e.Length; i++)
+        {
+            //Process fallbacks
+            if (e[i].height_pair_fallbacks != null)
+            {
+                e[i].height_fallbacks = new List<Pair<TerrainHeight, TerrainType>>();
+                for (int h = 0; h < e[i].height_pair_fallbacks.Length; h += 2)
+                {
+                    e[i].height_fallbacks.Add(new Pair<TerrainHeight, TerrainType>(heights[e[i].height_pair_fallbacks[h]], terrains[e[i].height_pair_fallbacks[h + 1]]));
+                }
+            }
+
             //Add to dictionary
             terrains.Add(e[i].name, e[i]);
         }
