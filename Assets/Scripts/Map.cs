@@ -257,8 +257,7 @@ public class MapData
             }
 
             //Minimum size to jitter
-            if (Vector2.Distance(simpleEdges[j].start.value, simpleEdges[j].end.value) < minSize)
-            {
+            if(Vector2.Distance(simpleEdges[j].start.value, simpleEdges[j].end.value) < minSize){
                 jitteredEdges.Add(simpleEdges[j]);
                 continue;
             }
@@ -905,8 +904,7 @@ public class MapData
             float min = 0;
             for (int h = 0; h < biome.heights.Length; h++)
             {
-                if (guess >= biome.heights[h].noiseMin && guess < biome.heights[h].noiseMax)
-                {
+                if(guess >=  biome.heights[h].noiseMin && guess <  biome.heights[h].noiseMax){
                     dominant = data.heights[biome.heights[h].name].uColor;
                     max = biome.heights[h].noiseMax;
                     min = biome.heights[h].noiseMin;
@@ -922,27 +920,26 @@ public class MapData
             //Multithreaded
             Parallel.For(0, settings.WIDTH, i =>
             {
-                for (int j = 0; j < settings.HEIGHT; j++)
+                for (int j = 0; j < settings.HEIGHT; j ++)
                 {
 
                     //Get height value
                     float val = this.geography.HEIGHTMAP[i, j];
 
                     //Skip if dominant
-                    if (val >= min && val < max)
+                    if(val >=  min && val < max)
                         continue;
 
                     //Find correspondent color
                     for (int h = 0; h < biome.heights.Length; h++)
                     {
-                        if (val >= biome.heights[h].noiseMin && val < biome.heights[h].noiseMax)
-                        {
+                        if(val >=  biome.heights[h].noiseMin && val <  biome.heights[h].noiseMax){
                             Color color = data.heights[biome.heights[h].name].uColor;
-                            pixelMatrix.SetPixelSafe(i, j, color);
+                            pixelMatrix.SetPixelSafe(i,j,color);
                             break;
                         }
-                    }
-
+                    }                    
+                    
                 }
             });
 
