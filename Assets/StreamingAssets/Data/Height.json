@@ -3,41 +3,41 @@
         {
             "name": "Grassland Very Low",
             "color": [
-                138,
-                195,
-                129
+                78,
+                96,
+                58
             ]
         },
         {
             "name": "Grassland Low",
             "color": [
-                110,
-                171,
-                111
+                96,
+                117,
+                76
             ]
         },
         {
             "name": "Grassland Medium",
             "color": [
-                71,
-                148,
-                88
+                127,
+                141,
+                95
             ]
         },
         {
             "name": "Grassland High",
             "color": [
-                70,
-                193,
-                79
+                155,
+                173,
+                119
             ]
         },
         {
             "name": "Grassland Very High",
             "color": [
-                118,
-                219,
-                78
+                171,
+                191,
+                131
             ]
         }
     ]
