@@ -305,7 +305,7 @@ public class MapData
         //TODO Wont need so many octaves considering we dont use all the detail, but maybe we will
         fastnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
         fastnoise.SetFractalType(FastNoise.FractalType.FBM);
-        fastnoise.SetFractalOctaves(3);
+        fastnoise.SetFractalOctaves(2);
         fastnoise.SetFractalLacunarity(2.0f);
         fastnoise.SetFrequency(1);
 
@@ -382,8 +382,8 @@ public class MapData
             geography.SHADEMAP = new float[settings.WIDTH, settings.HEIGHT];
 
             //TODO settings elsewhere
-            int differenceScale = 100;
-            int differencePow = 2;
+            int differenceScale = 200;
+            int differencePow = 5;
             float differenceLimit = 0.4f;
             //Multithreaded
             Parallel.For(0, widthNBlocks, i =>
