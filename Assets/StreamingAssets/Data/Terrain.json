@@ -10,7 +10,7 @@
             "decals": [
                 {
                     "name": "grass_1.png",
-                    "reach": 1.5,
+                    "reach": 1.1,
                     "number": 20,
                     "rotate": false
                 },
@@ -43,7 +43,7 @@
             "decals": [
                 {
                     "name": "tree_1.png",
-                    "reach": 1.4,
+                    "reach": 1.1,
                     "number": 100,
                     "rotate": true
                 }
@@ -68,13 +68,13 @@
             "decals": [
                 {
                     "name": "tree_1.png",
-                    "reach": 1.4,
+                    "reach": 1.1,
                     "number": 20,
                     "rotate": true
                 },
                 {
                     "name": "grass_1.png",
-                    "reach": 1.5,
+                    "reach": 1.1,
                     "number": 20,
                     "rotate": false
                 }

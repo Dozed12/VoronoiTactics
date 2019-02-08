@@ -1024,8 +1024,6 @@ public class MapData
             time = Time.realtimeSinceStartup;
 
             //Add decals
-            float halfHorizontalSeparation = pointsHorizontalSeparation / 2;
-            float halfVerticalSeparation = pointsVerticalSeparation / 2;
 
             //Height decals
             //Multithreaded
@@ -1042,11 +1040,6 @@ public class MapData
                 for (int d = 0; d < provinces[i].height.decals.Length; d++)
                 {
 
-                    //Decal reach
-                    float decalHorizontalReach = halfHorizontalSeparation * provinces[i].height.decals[d].reach;
-                    float decalVerticalReach = halfVerticalSeparation * provinces[i].height.decals[d].reach;
-                    float reach = Mathf.Max(decalHorizontalReach, decalVerticalReach);
-
                     //Add decals in a circular way with random angle and radius
                     for (int c = 0; c < provinces[i].height.decals[d].number; c++)
                     {
@@ -1060,12 +1053,20 @@ public class MapData
                         if (random.Next(0, 100) > chance * 100)
                             continue;
 
+                        //Reach value defined in JSON
+                        float reach = 1;
+                        if (provinces[i].height.decals[d].reach != 0)
+                            reach = provinces[i].height.decals[d].reach;
+
+                        //Separation allowed
+                        int horizontalReach = (int)(pointsHorizontalSeparation*reach/2);
+                        int verticalReach = (int)(pointsVerticalSeparation*reach/2);
+
                         //Position of decal center
-                        float cos = Utilities.NextFloat(random, -1.0f, 1.0f);
-                        float sin = Utilities.NextFloat(random, -1.0f, 1.0f);
-                        float radius = Utilities.NextFloat(random, 0f, reach);
-                        float x = provinces[i].center.x + cos * radius;
-                        float y = provinces[i].center.y + sin * radius;
+                        float dX = random.Next(-horizontalReach, horizontalReach);
+                        float dY = random.Next(-verticalReach, verticalReach);
+                        float x = provinces[i].center.x + dX;
+                        float y = provinces[i].center.y + dY;
 
                         //Decal rotations available
                         Graphics.PixelMatrix[] decalRotations = data.decals[provinces[i].height.decals[d].name];
@@ -1102,11 +1103,6 @@ public class MapData
                 for (int d = 0; d < provinces[i].terrain.decals.Length; d++)
                 {
 
-                    //Decal reach
-                    float decalHorizontalReach = halfHorizontalSeparation * provinces[i].terrain.decals[d].reach;
-                    float decalVerticalReach = halfVerticalSeparation * provinces[i].terrain.decals[d].reach;
-                    float reach = Mathf.Max(decalHorizontalReach, decalVerticalReach);
-
                     //Add decals in a circular way with random angle and radius
                     for (int c = 0; c < provinces[i].terrain.decals[d].number; c++)
                     {
@@ -1120,12 +1116,20 @@ public class MapData
                         if (random.Next(0, 100) > chance * 100)
                             continue;
 
+                        //Reach value defined in JSON
+                        float reach = 1;
+                        if (provinces[i].terrain.decals[d].reach != 0)
+                            reach = provinces[i].terrain.decals[d].reach;
+
+                        //Separation allowed
+                        int horizontalReach = (int)(pointsHorizontalSeparation*reach/2);
+                        int verticalReach = (int)(pointsVerticalSeparation*reach/2);
+
                         //Position of decal center
-                        float cos = Utilities.NextFloat(random, -1.0f, 1.0f);
-                        float sin = Utilities.NextFloat(random, -1.0f, 1.0f);
-                        float radius = Utilities.NextFloat(random, 0f, reach);
-                        float x = provinces[i].center.x + cos * radius;
-                        float y = provinces[i].center.y + sin * radius;
+                        float dX = random.Next(-horizontalReach, horizontalReach);
+                        float dY = random.Next(-verticalReach, verticalReach);
+                        float x = provinces[i].center.x + dX;
+                        float y = provinces[i].center.y + dY;
 
                         //Decal rotations available
                         Graphics.PixelMatrix[] decalRotations = data.decals[provinces[i].terrain.decals[d].name];

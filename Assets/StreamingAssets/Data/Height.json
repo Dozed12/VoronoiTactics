@@ -49,31 +49,31 @@
             "decals": [
                 {
                     "name": "rock_1.png",
-                    "reach": 1.2,
+                    "reach": 1.1,
                     "number": 50,
                     "rotate": true
                 },
                 {
                     "name": "rock_2.png",
-                    "reach": 1.2,
+                    "reach": 1.1,
                     "number": 50,
                     "rotate": true
                 },
                 {
                     "name": "rock_3.png",
-                    "reach": 1.2,
+                    "reach": 1.1,
                     "number": 50,
                     "rotate": true
                 },
                 {
                     "name": "rock_4.png",
-                    "reach": 1.2,
+                    "reach": 1.1,
                     "number": 50,
                     "rotate": true
                 },
                 {
                     "name": "rock_5.png",
-                    "reach": 1.2,
+                    "reach": 1.1,
                     "number": 50,
                     "rotate": true
                 }
