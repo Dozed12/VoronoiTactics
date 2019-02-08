@@ -401,6 +401,12 @@ public class MapData
                     //Direction
                     if (j + 1 <= heightNBlocks - 1)
                         neighbor = blocks[i, j + 1];
+                    //If out of range use last possible
+                    else
+                    {
+                        curr = neighbor = blocks[i, j - 1];
+                        neighbor = blocks[i, j];
+                    }
 
                     //Difference from neighbor
                     float tmp = Mathf.Abs(curr - neighbor);
@@ -1432,7 +1438,7 @@ public class Map : MonoBehaviour
         //TODO Settings probably wont be here
         mapData = new MapData(data, this);
         //TODO Pixel size could be tied to province number to keep it consistent across different make sizes
-        mapData.settings = new MapSettings(2000, 2000, 400, 2.0f);
+        mapData.settings = new MapSettings(2000, 2000, 450, 2.0f);
 
         //Get selected biome
         int idBiome = biomePick.value;
