@@ -5,18 +5,18 @@
             "heightFreq": 0.001,
             "heights": [
                 {
-                    "name": "Low Mountains",
+                    "name": "High",
                     "noiseMax": 1.0,
-                    "noiseMin": 0.85
+                    "noiseMin": 0.7
                 },
                 {
-                    "name": "Hills",
-                    "noiseMax": 0.85,
-                    "noiseMin": 0.75
+                    "name": "Medium",
+                    "noiseMax": 0.7,
+                    "noiseMin": 0.5
                 },
                 {
-                    "name": "Plains",
-                    "noiseMax": 0.75,
+                    "name": "Low",
+                    "noiseMax": 0.5,
                     "noiseMin": 0
                 }
             ],
@@ -57,12 +57,12 @@
             "heightFreq": 0.001,
             "heights": [
                 {
-                    "name": "Hills",
+                    "name": "Medium",
                     "noiseMax": 1.0,
                     "noiseMin": 0.8
                 },
                 {
-                    "name": "Plains",
+                    "name": "Low",
                     "noiseMax": 0.8,
                     "noiseMin": 0
                 }
@@ -104,17 +104,17 @@
             "heightFreq": 0.001,
             "heights": [
                 {
-                    "name": "Low Mountains",
+                    "name": "High",
                     "noiseMax": 1.0,
                     "noiseMin": 0.9
                 },
                 {
-                    "name": "Hills",
+                    "name": "Medium",
                     "noiseMax": 0.9,
                     "noiseMin": 0.7
                 },
                 {
-                    "name": "Plains",
+                    "name": "Low",
                     "noiseMax": 0.7,
                     "noiseMin": 0
                 }
