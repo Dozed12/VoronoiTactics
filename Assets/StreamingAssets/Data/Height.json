@@ -2,10 +2,7 @@
     "Items": [
         {
             "name": "Plains",
-            "color": 50,
-            "attack": 1,
-            "defense": 1,
-            "movement": 1
+            "color": 50
         },
         {
             "name": "Hills",
@@ -41,10 +38,7 @@
                     "number": 5,
                     "rotate": true
                 }
-            ],
-            "attack": 0.9,
-            "defense": 1.1,
-            "movement": 1.2
+            ]
         },
         {
             "name": "Low Mountains",
@@ -80,10 +74,7 @@
                     "number": 20,
                     "rotate": true
                 }
-            ],
-            "attack": 0.8,
-            "defense": 1.2,
-            "movement": 1.3
+            ]
         }
     ]
 }

@@ -56,12 +56,8 @@ public struct TerrainHeight
     public int color;
     //Unity color
     public Color uColor;
-    //Attack modifier
-    public float attack;
-    //Defense modifier
-    public float defense;
-    //Movement modifier
-    public float movement;
+    //Height impac
+    public int impact;
 }
 
 //Human terrain structures
