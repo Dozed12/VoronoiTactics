@@ -367,13 +367,22 @@ public class MapData
                 }
             });
 
+            //Shademap
+            ShadeMap(widthNBlocks, heightNBlocks, blocks);
+
+        }
+
+        //Generate Shademap
+        void ShadeMap(int widthNBlocks, int heightNBlocks, float[,] blocks)
+        {
+
             //Generate Shading map
             //TODO Place this in different function
             //TODO Use proper color modification (not direct multiplication)
             geography.SHADEMAP = new float[settings.WIDTH, settings.HEIGHT];
 
             //TODO settings elsewhere
-            int differenceScale = 75;
+            int differenceScale = 80;
             int differencePow = 2;
             //Multithreaded
             Parallel.For(0, widthNBlocks, i =>
