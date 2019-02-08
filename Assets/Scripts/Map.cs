@@ -1196,7 +1196,7 @@ public class MapData
             time = Time.realtimeSinceStartup;
 
             //Detect different height border of provinces
-            for (int i = 0; i < provinces.Count; i++)
+            Parallel.For(0, provinces.Count, i =>
             {
                 for (int j = 0; j < provinces[i].neighbors.Count; j++)
                 {
@@ -1222,7 +1222,7 @@ public class MapData
                         }
                     }
                 }
-            }
+            });
 
             //Height Shading
             //Apply the Shade map modifier
