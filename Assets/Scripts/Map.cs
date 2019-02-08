@@ -90,6 +90,9 @@ public class MapData
     //Simplified Voronoi Edges
     private List<Geometry.Vector2Edge> simpleEdges;
 
+    //Jittered Voronoi Edges
+    private List<Geometry.Vector2Edge> jitteredEdges;
+
     //Pathfinding graph (Dijkstra)
     private Graph graph = new Graph();
 
@@ -230,7 +233,7 @@ public class MapData
         int divisions = 3;
         float magnitude = 5;
         float minSize = 30;
-        List<Geometry.Vector2Edge> jitteredEdges = new List<Geometry.Vector2Edge>();
+        jitteredEdges = new List<Geometry.Vector2Edge>();
 
         for (int j = 0; j < simpleEdges.Count; j++)
         {
@@ -274,9 +277,6 @@ public class MapData
                 jitteredEdges.Add(nEdge);
             }
         }
-
-        //Replace edges with jittered version
-        simpleEdges = jitteredEdges;
 
         //For each point
         for (int i = 0; i < points.Count; i++)
