@@ -1218,6 +1218,7 @@ public class MapData
 
             //Province Height Border
             //Multithreaded
+            int borderRadius = 4;
             Parallel.For(0, provinces.Count, i =>
             {
                 for (int j = 0; j < provinces[i].neighbors.Count; j++)
@@ -1247,7 +1248,7 @@ public class MapData
                                 (int)provinces[i].point.CellJitter[h].end.value.x,
                                 (int)provinces[i].point.CellJitter[h].end.value.y,
                                 c,
-                                4);
+                                borderRadius);
                             }
                         }
                     }
