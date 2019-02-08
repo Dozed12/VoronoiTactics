@@ -1223,10 +1223,14 @@ public class MapData
             {
                 for (int j = 0; j < provinces[i].neighbors.Count; j++)
                 {
+                    //If height is same there's no need to do anything
                     if (provinces[i].height == provinces[i].neighbors[j].height)
                         continue;
+
+                    //All edges of neighbor
                     for (int e = 0; e < provinces[i].neighbors[j].point.CellJitter.Count; e++)
                     {
+                        //All edges of self
                         for (int h = 0; h < provinces[i].point.CellJitter.Count; h++)
                         {
                             //Found edge of border
@@ -1249,6 +1253,7 @@ public class MapData
                                 (int)provinces[i].point.CellJitter[h].end.value.y,
                                 c,
                                 borderRadius);
+                                
                             }
                         }
                     }
