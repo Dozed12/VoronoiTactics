@@ -1195,35 +1195,6 @@ public class MapData
             Debug.Log("======== Randomization took: " + (Time.realtimeSinceStartup - time) + "s");
             time = Time.realtimeSinceStartup;
 
-            //Detect different height border of provinces
-            Parallel.For(0, provinces.Count, i =>
-            {
-                for (int j = 0; j < provinces[i].neighbors.Count; j++)
-                {
-                    if (provinces[i].height == provinces[i].neighbors[j].height)
-                        continue;
-                    for (int e = 0; e < provinces[i].neighbors[j].point.CellJitter.Count; e++)
-                    {
-                        for (int h = 0; h < provinces[i].point.CellJitter.Count; h++)
-                        {
-                            //Found edge of border
-                            if (provinces[i].neighbors[j].point.CellJitter[e].start == provinces[i].point.CellJitter[h].start
-                            && provinces[i].neighbors[j].point.CellJitter[e].end == provinces[i].point.CellJitter[h].end)
-                            {
-                                //TODO Draw
-                                pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix,
-                                (int)provinces[i].point.CellJitter[h].start.value.x,
-                                (int)provinces[i].point.CellJitter[h].start.value.y,
-                                (int)provinces[i].point.CellJitter[h].end.value.x,
-                                (int)provinces[i].point.CellJitter[h].end.value.y,
-                                Color.red,
-                                3);
-                            }
-                        }
-                    }
-                }
-            });
-
             //Height Shading
             //Apply the Shade map modifier
             //Multithreaded
@@ -1243,6 +1214,47 @@ public class MapData
             });
 
             Debug.Log("======== Shading took: " + (Time.realtimeSinceStartup - time) + "s");
+            time = Time.realtimeSinceStartup;
+
+            //Province Height Border
+            //Multithreaded
+            Parallel.For(0, provinces.Count, i =>
+            {
+                for (int j = 0; j < provinces[i].neighbors.Count; j++)
+                {
+                    if (provinces[i].height == provinces[i].neighbors[j].height)
+                        continue;
+                    for (int e = 0; e < provinces[i].neighbors[j].point.CellJitter.Count; e++)
+                    {
+                        for (int h = 0; h < provinces[i].point.CellJitter.Count; h++)
+                        {
+                            //Found edge of border
+                            if (provinces[i].neighbors[j].point.CellJitter[e].start == provinces[i].point.CellJitter[h].start
+                            && provinces[i].neighbors[j].point.CellJitter[e].end == provinces[i].point.CellJitter[h].end)
+                            {
+
+                                //Color of highest impact
+                                Color c;
+                                if (provinces[i].height.impact > provinces[i].neighbors[j].height.impact)
+                                    c = provinces[i].height.uColor;
+                                else
+                                    c = provinces[i].neighbors[j].height.uColor;
+
+                                //Draw
+                                pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix,
+                                (int)provinces[i].point.CellJitter[h].start.value.x,
+                                (int)provinces[i].point.CellJitter[h].start.value.y,
+                                (int)provinces[i].point.CellJitter[h].end.value.x,
+                                (int)provinces[i].point.CellJitter[h].end.value.y,
+                                c,
+                                4);
+                            }
+                        }
+                    }
+                }
+            });
+
+            Debug.Log("======== Height borders took: " + (Time.realtimeSinceStartup - time) + "s");
             time = Time.realtimeSinceStartup;
 
             //Draw frame
