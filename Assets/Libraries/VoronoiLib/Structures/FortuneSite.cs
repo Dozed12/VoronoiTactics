@@ -9,6 +9,7 @@ namespace VoronoiLib.Structures
         public int ID { get; }
 
         public List<Geometry.Vector2Edge> Cell { get; private set; }
+        public List<Geometry.Vector2Edge> CellJitter { get; private set; }
 
         public List<FortuneSite> Neighbors { get; private set; }
 
@@ -18,6 +19,7 @@ namespace VoronoiLib.Structures
             Y = y;
             ID = id;
             Cell = new List<Geometry.Vector2Edge>();
+            CellJitter = new List<Geometry.Vector2Edge>();
             Neighbors = new List<FortuneSite>();
         }
     }

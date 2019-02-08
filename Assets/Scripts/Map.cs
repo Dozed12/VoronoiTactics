@@ -292,6 +292,16 @@ public class MapData
                 }
             }
 
+            //Each point has to look for its jitter edges
+            for (int j = 0; j < jitteredEdges.Count; j++)
+            {
+                //Side with same ID
+                if (jitteredEdges[j].left.ID == points[i].ID || jitteredEdges[j].right.ID == points[i].ID)
+                {
+                    points[i].CellJitter.Add(jitteredEdges[j]);
+                }
+            }
+
         }
 
     }
@@ -423,7 +433,7 @@ public class MapData
                     }
 
                     //Limit
-                    if(diff > differenceLimit)
+                    if (diff > differenceLimit)
                         diff = differenceLimit;
 
                     //Darken or Lighten
@@ -613,12 +623,12 @@ public class MapData
                 }
             }
 
-            //Vertices
+            //Vertices (Using jittered Cell)
             nProvince.vertices = new List<Geometry.Vector2X>();
-            for (int j = 0; j < points[i].Cell.Count; j++)
+            for (int j = 0; j < points[i].CellJitter.Count; j++)
             {
-                nProvince.vertices.Add(points[i].Cell[j].start);
-                nProvince.vertices.Add(points[i].Cell[j].end);
+                nProvince.vertices.Add(points[i].CellJitter[j].start);
+                nProvince.vertices.Add(points[i].CellJitter[j].end);
             }
 
             //Make sure vertices are unique
@@ -1059,8 +1069,8 @@ public class MapData
                             reach = provinces[i].height.decals[d].reach;
 
                         //Separation allowed
-                        int horizontalReach = (int)(pointsHorizontalSeparation*reach/2);
-                        int verticalReach = (int)(pointsVerticalSeparation*reach/2);
+                        int horizontalReach = (int)(pointsHorizontalSeparation * reach / 2);
+                        int verticalReach = (int)(pointsVerticalSeparation * reach / 2);
 
                         //Position of decal center
                         float dX = random.Next(-horizontalReach, horizontalReach);
@@ -1122,8 +1132,8 @@ public class MapData
                             reach = provinces[i].terrain.decals[d].reach;
 
                         //Separation allowed
-                        int horizontalReach = (int)(pointsHorizontalSeparation*reach/2);
-                        int verticalReach = (int)(pointsVerticalSeparation*reach/2);
+                        int horizontalReach = (int)(pointsHorizontalSeparation * reach / 2);
+                        int verticalReach = (int)(pointsVerticalSeparation * reach / 2);
 
                         //Position of decal center
                         float dX = random.Next(-horizontalReach, horizontalReach);
