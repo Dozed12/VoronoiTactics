@@ -48,6 +48,8 @@ public class ProvinceData
     public Vector3 center3D;
     //TODO neighbor will be a custom struct(to holdmodifiers)
     public List<ProvinceData> neighbors;
+    //Voronoi Site
+    public FortuneSite point;
     public Unit unit = null;
     public float heightVal;
     public TerrainHeight height;
@@ -523,6 +525,7 @@ public class MapData
 
             //Most data
             nProvince.id = i;
+            nProvince.point = points[i];
             nProvince.neighborsRAW = points[i].Neighbors;
             nProvince.neighbors = new List<ProvinceData>();
             nProvince.pos = new Vector2((float)points[i].X, (float)points[i].Y);
@@ -1191,6 +1194,35 @@ public class MapData
 
             Debug.Log("======== Randomization took: " + (Time.realtimeSinceStartup - time) + "s");
             time = Time.realtimeSinceStartup;
+
+            //Detect different height border of provinces
+            for (int i = 0; i < provinces.Count; i++)
+            {
+                for (int j = 0; j < provinces[i].neighbors.Count; j++)
+                {
+                    if (provinces[i].height == provinces[i].neighbors[j].height)
+                        continue;
+                    for (int e = 0; e < provinces[i].neighbors[j].point.CellJitter.Count; e++)
+                    {
+                        for (int h = 0; h < provinces[i].point.CellJitter.Count; h++)
+                        {
+                            //Found edge of border
+                            if (provinces[i].neighbors[j].point.CellJitter[e].start == provinces[i].point.CellJitter[h].start
+                            && provinces[i].neighbors[j].point.CellJitter[e].end == provinces[i].point.CellJitter[h].end)
+                            {
+                                //TODO Draw
+                                pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix,
+                                (int)provinces[i].point.CellJitter[h].start.value.x,
+                                (int)provinces[i].point.CellJitter[h].start.value.y,
+                                (int)provinces[i].point.CellJitter[h].end.value.x,
+                                (int)provinces[i].point.CellJitter[h].end.value.y,
+                                Color.red,
+                                3);
+                            }
+                        }
+                    }
+                }
+            }
 
             //Height Shading
             //Apply the Shade map modifier

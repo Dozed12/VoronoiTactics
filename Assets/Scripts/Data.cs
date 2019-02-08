@@ -58,6 +58,16 @@ public struct TerrainHeight
     public Color uColor;
     //Height impac
     public int impact;
+
+    public static bool operator ==(TerrainHeight c1, TerrainHeight c2)
+    {
+        return c1.Equals(c2);
+    }
+
+    public static bool operator !=(TerrainHeight c1, TerrainHeight c2)
+    {
+        return !c1.Equals(c2);
+    }
 }
 
 //Human terrain structures
