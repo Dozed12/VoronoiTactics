@@ -1304,10 +1304,10 @@ public class MapData
                 for (int j = 0; j < provinces[i].vertices.Count - 1; j++)
                 {
                     //Round
-                    int startX = Mathf.FloorToInt(provinces[i].vertices[j].value.x);
-                    int startY = Mathf.FloorToInt(provinces[i].vertices[j].value.y);
-                    int endX = Mathf.FloorToInt(provinces[i].vertices[j + 1].value.x);
-                    int endY = Mathf.FloorToInt(provinces[i].vertices[j + 1].value.y);
+                    int startX = (int)provinces[i].vertices[j].value.x;
+                    int startY = (int)provinces[i].vertices[j].value.y;
+                    int endX = (int)provinces[i].vertices[j + 1].value.x;
+                    int endY = (int)provinces[i].vertices[j + 1].value.y;
 
                     //Draw Edge
                     pixelMatrix = Graphics.BresenhamLineThick(pixelMatrix, startX, startY, endX, endY, Color.black, circleRadius);
