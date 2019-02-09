@@ -30,11 +30,11 @@ using UnityEngine;
 
 //Terrain heights
 [System.Serializable]
-public struct TerrainHeight
+public class TerrainHeight
 {
 
     [System.Serializable]
-    public struct Decal
+    public class Decal
     {
         //File
         public string name;
@@ -72,7 +72,7 @@ public struct TerrainHeight
 
 //Human terrain structures
 [System.Serializable]
-public struct TerrainStructure
+public class TerrainStructure
 {
     //Name of Type
     public string name;
@@ -90,11 +90,11 @@ public struct TerrainStructure
 
 //Terrain types
 [System.Serializable]
-public struct TerrainType
+public class TerrainType
 {
 
     [System.Serializable]
-    public struct Decal
+    public class Decal
     {
         //File
         public string name;
@@ -136,10 +136,10 @@ public struct TerrainType
 
 //Biomes to choose
 [System.Serializable]
-public struct Biome
+public class Biome
 {
     [System.Serializable]
-    public struct HeightSetting
+    public class HeightSetting
     {
         public string name;
         public TerrainHeight type;
@@ -148,7 +148,7 @@ public struct Biome
     }
 
     [System.Serializable]
-    public struct TypeSetting
+    public class TypeSetting
     {
         public string name;
         public TerrainType type;
@@ -157,7 +157,7 @@ public struct Biome
     }
 
     [System.Serializable]
-    public struct StructureSetting
+    public class StructureSetting
     {
         public string name;
         public TerrainStructure type;

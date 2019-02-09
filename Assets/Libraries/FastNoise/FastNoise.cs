@@ -157,7 +157,7 @@ public class FastNoise
     // Default: 1.0
     public void SetGradientPerturbAmp(FN_DECIMAL gradientPerturbAmp) { m_gradientPerturbAmp = gradientPerturbAmp; }
 
-    private struct Float2
+    private class Float2
     {
         public readonly FN_DECIMAL x, y;
         public Float2(FN_DECIMAL x, FN_DECIMAL y)
@@ -167,7 +167,7 @@ public class FastNoise
         }
     }
 
-    private struct Float3
+    private class Float3
     {
         public readonly FN_DECIMAL x, y, z;
         public Float3(FN_DECIMAL x, FN_DECIMAL y, FN_DECIMAL z)

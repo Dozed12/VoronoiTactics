@@ -16,7 +16,7 @@ using VoronoiLib.Structures;
 //https://github.com/Auburns/FastNoise_CSharp
 
 //Map generation settings
-public struct MapSettings
+public class MapSettings
 {
     //Pixel width of map
     public int WIDTH;
@@ -60,7 +60,7 @@ public class ProvinceData
 }
 
 //Map geography information from altitude to terrain noise
-public struct MapGeography
+public class MapGeography
 {
     public float[,] HEIGHTMAP;
     public float[,] TERRAINMAP;
@@ -311,6 +311,9 @@ public class MapData
     //Generates all the geography of the map
     private void GenerateGeography()
     {
+
+        //Reset geography
+        geography = new MapGeography();
 
         //Set Settings
         //TODO Should be set elsewhere

@@ -10,7 +10,7 @@ public static class Graphics
 {
 
     //Basic integer based point
-    public struct Point
+    public class Point
     {
         public int x;
         public int y;
