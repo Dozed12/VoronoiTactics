@@ -1420,7 +1420,8 @@ public class Map : MonoBehaviour
         //Mouse Drag
         if (Input.GetMouseButton(1))
         {
-            Camera.main.transform.position += new Vector3(Input.GetAxis("Mouse X") * Time.deltaTime * -panSpeed, Input.GetAxis("Mouse Y") * Time.deltaTime * -panSpeed, 0);
+            float tSpeed = Time.deltaTime * -panSpeed;
+            Camera.main.transform.position += new Vector3(Input.GetAxis("Mouse X") * tSpeed, Input.GetAxis("Mouse Y") * tSpeed, 0);
         }
 
         //Click on map (Currently for testing unit placement)
