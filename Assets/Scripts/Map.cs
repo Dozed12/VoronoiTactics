@@ -1256,7 +1256,7 @@ public class MapData
                                 (int)provinces[i].point.CellJitter[h].end.value.y,
                                 c,
                                 borderRadius);
-                                
+
                             }
                         }
                     }
@@ -1442,33 +1442,38 @@ public class Map : MonoBehaviour
                     //Test placement
                     //TODO will be elsewhere probably (on Army Deployment Phase)
 
-                    //Find province clicked using Geometry.PointInPolygon
-                    //TODO Could optimize this to check if click is inside map bounds
-                    int id = -1;
-                    for (int i = 0; i < mapData.provinces.Count; i++)
+                    //Check inside map bounds
+                    if (mapPos.x > 0 && mapPos.x < mapData.settings.WIDTH && mapPos.y > 0 && mapPos.y < mapData.settings.HEIGHT)
                     {
-                        //Check if inside
-                        if (Geometry.PointInPolygon(mapData.provinces[i].vertices, new Geometry.Vector2X(mapPos.x, mapPos.y)))
+
+                        //Find province clicked using Geometry.PointInPolygon
+                        int id = -1;
+                        for (int i = 0; i < mapData.provinces.Count; i++)
                         {
-                            id = i;
-                            break;
+                            //Check if inside
+                            if (Geometry.PointInPolygon(mapData.provinces[i].vertices, new Geometry.Vector2X(mapPos.x, mapPos.y)))
+                            {
+                                id = i;
+                                break;
+                            }
+                        }
+
+                        //Check if found any province
+                        if (id != -1)
+                        {
+
+                            //Check province vacant
+                            if (mapData.provinces[id].unit == null)
+                            {
+                                //Instantiate unit
+                                GameObject t = Instantiate(unit);
+                                //Place it on map and setup references
+                                mapData.provinces[id].unit = t.GetComponent<Unit>().PlaceOnMap(this, mapData.provinces[id]);
+                            }
+
                         }
                     }
 
-                    //Check if found any province
-                    if (id != -1)
-                    {
-
-                        //Check province vacant
-                        if (mapData.provinces[id].unit == null)
-                        {
-                            //Instantiate unit
-                            GameObject t = Instantiate(unit);
-                            //Place it on map and setup references
-                            mapData.provinces[id].unit = t.GetComponent<Unit>().PlaceOnMap(this, mapData.provinces[id]);
-                        }
-
-                    }
                 }
 
             }
