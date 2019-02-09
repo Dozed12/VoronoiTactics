@@ -83,6 +83,7 @@ public static class Geometry
 
     }
 
+    //Point inside convex polygon
     public static bool InsideConvex(List<Vector2X> polygon, Vector2X point)
     {
         //Check if a triangle or higher n-gon
@@ -127,28 +128,17 @@ public static class Geometry
         return true;
     }
 
-    //Point inside concave polygon
-    public static bool InsideConcave(List<Vector2X> polygon, Vector2X point)
+    //Point inside polygon (convex or concave)
+    public static bool PointInPolygon(List<Vector2X> poly, Vector2X point)
     {
-
-        //Check if a triangle or higher n-gon
-        if (polygon.Count < 3)
-            return false;
-
-        bool result = false;
-        int j = polygon.Count() - 1;
-        for (int i = 0; i < polygon.Count(); i++)
+        bool c = false;
+        int i, j;
+        for (i = 0, j = poly.Count - 1; i < poly.Count; j = i++)
         {
-            if (polygon[i].value.y < point.value.y && polygon[j].value.y >= point.value.y || polygon[j].value.y < point.value.y && polygon[i].value.y >= point.value.y)
-            {
-                if (polygon[i].value.x + (point.value.y - polygon[i].value.y) / (polygon[j].value.y - polygon[i].value.y) * (polygon[j].value.x - polygon[i].value.x) < point.value.x)
-                {
-                    result = !result;
-                }
-            }
-            j = i;
+            if (((poly[i].value.y > point.value.y) != (poly[j].value.y > point.value.y)) && (point.value.x < (poly[j].value.x - poly[i].value.x) * (point.value.y - poly[i].value.y) / (poly[j].value.y - poly[i].value.y) + poly[i].value.x))
+                c = !c;
         }
-        return result;
+        return c;
     }
 
     //Jitters a line segment of 2 Vector2
@@ -322,19 +312,6 @@ public static class Geometry
         }
 
         return list;
-    }
-
-    //Point inside polygon
-    public static bool PointInPolygon(List<Vector2X> poly, Vector2X point)
-    {
-        bool c = false;
-        int i, j;
-        for (i = 0, j = poly.Count - 1; i < poly.Count; j = i++)
-        {
-            if (((poly[i].value.y > point.value.y) != (poly[j].value.y > point.value.y)) && (point.value.x < (poly[j].value.x - poly[i].value.x) * (point.value.y - poly[i].value.y) / (poly[j].value.y - poly[i].value.y) + poly[i].value.x))
-                c = !c;
-        }
-        return c;
     }
 
 }
