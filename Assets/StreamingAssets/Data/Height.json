@@ -8,71 +8,15 @@
         {
             "name": "Medium",
             "color": 100,
-            "impact": 2,
-            "decals": [
-                {
-                    "name": "rock_1.png",
-                    "reach": 1.1,
-                    "number": 0,
-                    "rotate": true
-                },
-                {
-                    "name": "rock_2.png",
-                    "reach": 1.1,
-                    "number": 0,
-                    "rotate": true
-                },
-                {
-                    "name": "rock_3.png",
-                    "reach": 1.1,
-                    "number": 0,
-                    "rotate": true
-                },
-                {
-                    "name": "rock_4.png",
-                    "reach": 1.1,
-                    "number": 0,
-                    "rotate": true
-                },
-                {
-                    "name": "rock_5.png",
-                    "reach": 1.1,
-                    "number": 0,
-                    "rotate": true
-                }
-            ]
+            "impact": 2
         },
         {
             "name": "High",
-            "color": 150,
+            "color": 255,
             "impact": 3,
             "decals": [
                 {
                     "name": "rock_1.png",
-                    "reach": 1.1,
-                    "number": 0,
-                    "rotate": true
-                },
-                {
-                    "name": "rock_2.png",
-                    "reach": 1.1,
-                    "number": 0,
-                    "rotate": true
-                },
-                {
-                    "name": "rock_3.png",
-                    "reach": 1.1,
-                    "number": 0,
-                    "rotate": true
-                },
-                {
-                    "name": "rock_4.png",
-                    "reach": 1.1,
-                    "number": 0,
-                    "rotate": true
-                },
-                {
-                    "name": "rock_5.png",
                     "reach": 1.1,
                     "number": 0,
                     "rotate": true
