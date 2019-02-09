@@ -392,7 +392,11 @@ public static class Graphics
             {
                 if (nodeX[i] > nodeX[i + 1])
                 {
-                    swap = nodeX[i]; nodeX[i] = nodeX[i + 1]; nodeX[i + 1] = swap; if (i != 0) i--;
+                    swap = nodeX[i];
+                    nodeX[i] = nodeX[i + 1];
+                    nodeX[i + 1] = swap;
+                    if (i != 0)
+                        i--;
                 }
                 else
                 {
