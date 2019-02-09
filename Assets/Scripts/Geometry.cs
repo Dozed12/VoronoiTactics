@@ -261,7 +261,7 @@ public static class Geometry
         int[] nodeX = new int[polygon.Count];
 
         //Limits of polygon
-        int IMAGE_TOP = 100000, IMAGE_BOT = -1, IMAGE_RIGHT = -1, IMAGE_LEFT = 100000;
+        int IMAGE_TOP = int.MaxValue, IMAGE_BOT = -1, IMAGE_RIGHT = -1, IMAGE_LEFT = int.MaxValue;
 
         for (int p = 0; p < polygon.Count; p++)
         {
