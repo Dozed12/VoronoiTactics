@@ -1,6 +1,7 @@
 
 using System;
 using System.Threading;
+using System.Text.RegularExpressions;
 
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public static class Utilities
     public static readonly float PI2 = Mathf.PI * 2;
     public static readonly float HALFPI = Mathf.PI / 2;
 
+    //Random float in range using System.Random
     public static float NextFloat(System.Random random, float min, float max)
     {
         float range = max - min;
@@ -16,6 +18,14 @@ public static class Utilities
         float scaled = (sample * range) + min;
         return scaled;
     }
+
+    //Remove line comments from JSON file text
+    public static string CleanJSON(string json)
+    {
+        json = Regex.Replace(json,"//.*(?=\\n)", "");
+        return json;
+    }
+
 }
 
 //Pair class
