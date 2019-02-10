@@ -11,18 +11,26 @@
                 {
                     "name": "Riflemen",
                     "number": 300,
+                    //Has attack range
                     "ranged": true,
                     //Chance of hitting
-                    "rangeAccuracy": 0.3,
+                    "rangedAccuracy": 0.3,
                     //Chance of killing
-                    "rangeAttack": 0.6,
+                    "rangedAttack": 0.8,
                     //Chance of surviving hit
-                    "rangeDefense": 0.2,
+                    "rangedDefense": 0.2,
+                    //Ranged targets(number of targets hit per ranged attack)
+                    "rangedTargets": 1,
+                    //Reload speed(seconds)
+                    "reload": 60,
+                    //Has melee attack
                     "melee": true,
                     //Chance of killing
                     "meleeAttack": 0.2,
                     //Chance of surviving hit
                     "meleeDefense": 0.1,
+                    //Melee speed(seconds)
+                    "meleeTime": 10,
                     //Chance of surviving explosion
                     "explosionDefense": 0
                 }
