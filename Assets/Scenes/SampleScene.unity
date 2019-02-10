@@ -3435,6 +3435,8 @@ MonoBehaviour:
   BattleSetupUI: {fileID: 758085318}
   BattleUI: {fileID: 1034258630}
   MainUI: {fileID: 1619734654}
+  MapPreview: {fileID: 606039218}
+  Map: {fileID: 211036678}
 --- !u!4 &1283673253
 Transform:
   m_ObjectHideFlags: 0
@@ -4338,8 +4340,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 211036678}
-        m_MethodName: Generate
+      - m_Target: {fileID: 1283673252}
+        m_MethodName: OnGenerate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
