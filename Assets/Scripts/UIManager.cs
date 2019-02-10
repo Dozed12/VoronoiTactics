@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
     public GameObject BattleUI;
     public GameObject MainUI;
 
-    //========================================
+    // ============= Main Menu ===============
 
     //Main UI Group TODO do missing
     public void OnRandomBattle()
@@ -21,9 +21,10 @@ public class UIManager : MonoBehaviour
         BattleSetupUI.SetActive(true);
     }
 
-    //========================================
+    // ============= Battle Setup ============
 
     public GameObject MapPreview;
+    public Map Map;
 
     //Battle Setup UI Group TODO do missing
     public void OnGenerate()
@@ -43,8 +44,6 @@ public class UIManager : MonoBehaviour
         BattleUI.SetActive(true);
     }
 
-    //========================================
-
-    public Map Map;
+    // ============= Battle =================
 
 }
