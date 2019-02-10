@@ -11,20 +11,20 @@
                 {
                     "name": "Riflemen",
                     "number": 300,
-                    "ranged" : true,
+                    "ranged": true,
                     //Chance of hitting
                     "rangeAccuracy": 0.3,
                     //Chance of killing
                     "rangeAttack": 0.6,
                     //Chance of surviving hit
-                    "rangeDefense": 0.2,                    
-                    "melee" : true,
+                    "rangeDefense": 0.2,
+                    "melee": true,
                     //Chance of killing
                     "meleeAttack": 0.2,
                     //Chance of surviving hit
                     "meleeDefense": 0.1,
                     //Chance of surviving explosion
-                    "explosiveDefense": 0,
+                    "explosionDefense": 0
                 }
             ]
         }

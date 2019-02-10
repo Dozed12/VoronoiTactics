@@ -198,6 +198,7 @@ public class Data
         if (File.Exists(filePath))
         {
             string dataAsJson = File.ReadAllText(filePath);
+            dataAsJson = Utilities.CleanJSON(dataAsJson);
             e = JsonHelper.FromJson<TerrainHeight>(dataAsJson);
         }
         else
@@ -227,6 +228,7 @@ public class Data
         if (File.Exists(filePath))
         {
             string dataAsJson = File.ReadAllText(filePath);
+            dataAsJson = Utilities.CleanJSON(dataAsJson);
             e = JsonHelper.FromJson<TerrainType>(dataAsJson);
         }
         else
@@ -278,6 +280,7 @@ public class Data
         if (File.Exists(filePath))
         {
             string dataAsJson = File.ReadAllText(filePath);
+            dataAsJson = Utilities.CleanJSON(dataAsJson);
             e = JsonHelper.FromJson<TerrainStructure>(dataAsJson);
         }
         else
@@ -307,6 +310,7 @@ public class Data
         if (File.Exists(filePath))
         {
             string dataAsJson = File.ReadAllText(filePath);
+            dataAsJson = Utilities.CleanJSON(dataAsJson);
             e = JsonHelper.FromJson<Biome>(dataAsJson);
         }
         else
