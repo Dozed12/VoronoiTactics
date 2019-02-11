@@ -73,4 +73,4 @@ a unit will retreat more easily
 At 100% it reduces/increases things by 50%.
 2% fatigue -> 1% reduction/increase
 Reduces attack values, attack accuracy, speed, melee defense
-Increases reload time
+Increases reload time and melee time
