@@ -40,3 +40,11 @@ Combat:
 + B decides to retreat to another tile before A arrives
 + If B retreats fast enough then no combat occurs.
 + If B is not fast enough then combat occurs but B keeps retreating, and like previously, once halfway to retreat tile it is safe
+
+2 units in neighbour tiles.
++ A starts ranged attack on B
++ B starts ranged attack on A
++ A starts melee attack on B (Takes half the time it would take to move to tile of B before it can start melee)
++ B decides to retreat to another tile before A arrives
++ B is not fast enough and combat occurs until B finishes half the retreat
++ B decides to stay and fight in melee cancelling the retreat
