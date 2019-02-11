@@ -69,3 +69,8 @@ Combat Situations:
 a unit will retreat more easily
 * Weather can affect max morale (some % modifier)
 * Seeing a neighbor retreat reduces morale by some % of max morale
+* Fatigue has an impact on all actions. Starts at 0% and increases with every action by a base amount modified by Fatigue Modifier.
+At 100% it reduces/increases things by 50%.
+2% fatigue -> 1% reduction/increase
+Reduces attack values, attack accuracy, speed, melee defense
+Increases reload time
