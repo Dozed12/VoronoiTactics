@@ -33,3 +33,4 @@ Some stat for units that modifies negative impact of weather
 Acclimatization (Spend some deployment points to reduce weather effects on units)
 Terrain have different attack/defense modifiers for ranged, melee and charge
 Some modifier applied if unit is getting combat from multiple directions (modifier to morale)
+Terrain type needs a stealth value for units hidden there(or some view block value). Units using ranged attack from it reduce the value but may not reveal themselves(Artillery hidden in woods far away will stay hidden)
