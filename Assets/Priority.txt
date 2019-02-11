@@ -1,0 +1,14 @@
+Voronoi Tactics Priority:
+Develop a standalone program combat tester(input all variables of 2 units and test result and statistics)
+Keep a version of the final map without the height borders
+Some paradigm for height(Keep height invisible, just a flat map. At battle start players are supposed to analyze the terrain with the alternate map modes and use the drawing tools to keep notes).
+Centralize all options used on MapSettings
+Loaded data shouldn't be stored in Map GameObject but a more central Object(probably some static class)
+Different height border radius defined in JSON
+Still some visual artifacts(lines) show up because of height shading, consider dropping it entirely or figure out why(could be complicated)
+Draw border with highest impact first
+Trees of different color
+Decals for Barren
+"Reject settings" on biome JSON (define % of allowed terrains) (will need to limit the number of tries) (ideia is that maybe we want very prevalent hills but not occupying all the map, instead of regenerating new maps when we dont like it and wasting time on graphics generation, we can define some basic reject rules in JSON) (Calculate number of each province type in SetupProvinces, also to be used on background for Simplified Map Modes)
+Maybe fallbacks should be in Biome.json (we can see in Woodland and Forest some terrains are shared but need different fallbacks since Woodland has low mountain and Forest doesn't) (This will avoid repeating Terrains with same settings but different fallbacks)
+Need to do error check when reading, like biome terrain noise not all used from 0 to 1
