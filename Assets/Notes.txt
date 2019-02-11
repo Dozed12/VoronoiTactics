@@ -1,0 +1,35 @@
+Voronoi Tactics:
+Decals seem to have huge effect on improving the map look for Field of Glory, this is likely the case for this too
+https://commons.wikimedia.org/wiki/NATO_Military_Map_Symbols NATO Counters!
+Deployment options (entrenching/barricades)
+Different battle modes (skirmish - just fight) (attack - time limit to attacker reach province)
+Units have facing direction(whats default?)(no default and assigned on movement)
+Take penalties to have more deployment points (low morale) (low supplies) (not taking winter gear when needed)
+Draw on map to plan
+Assign Color to units on deployment
+Different type of river connections(brook, river,etc)
+Day/Night cycle with different modifiers (temperature, visibility, etc) that change with time. The values they take are based on climate setting
+Another phase of gameplay where the 2 armies move around trying to gain a terrain advantage prior to the battle?
+Units have a distance of visibility(in provinces) and may take time to identify unit
+Battle captains in some units to improve local moral (like Fields of Glory 2) (Chance of dying in combat, will reduce moral around it)
+Civilization level on biome indicating presence of roads, buildings, farms, etc (perhaps something more direct is better, specify number of roads/river bridges/farms/buildings)
+Continuous battle result showing % losses, % cost lost, etc
+Retreats impact neighbor units morale
+Can retreat many tiles away without control
+Basic prediction of combat between 2 units
+Fatigue
+Minimap
+Hidden Map Option in Battle Setup
+Stacking is allowed but huge penalties to combat, only used to position units, cant use ranged attack too
+Low Organization in hard terrain but high defense. So, hard to attack from hard terrain
+Small panel with ambient conditions(weather, sun position, time, wind, ground condition)
+Chemical attack on provinces
+Province on Fire and spread
+Battle decals (bodies, artilery craters)
+In campaign battles/historical battles full date is nice immersion thing
+Territory Pride (Spend some deployment points to give all units a boost to max morale (20%), symbolizes fighting for their country)
+Some stat for units that modifies negative impacts of terrain(movement,attack,defense)
+Some stat for units that modifies negative impact of weather
+Acclimatization (Spend some deployment points to reduce weather effects on units)
+Terrain have different attack/defense modifiers for ranged, melee and charge
+Some modifier applied if unit is getting combat from multiple directions (modifier to morale)
