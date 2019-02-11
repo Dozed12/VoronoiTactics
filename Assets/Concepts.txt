@@ -46,3 +46,10 @@ Combat Situations:
 + B decides to retreat to another tile before A arrives
 + B is not fast enough and combat occurs until B finishes half the retreat
 + B decides to stay and fight in melee cancelling the retreat (Retreat can only be cancelled if less than half was completed)
+
+* At <0 morale a unit retreats to a random vacant or ally(priority to vacant) neighbour. (What happens if it retreats to ally province? Applies the stacking penalties?)
+* If Surrounded by enemies and retreats then it shatters and is captured.
+* Current Max Morale = Current Number / Max Number * Max Morale
+* Morale Lost = Number Lost(at an instance) * Max Morale / Max Number
+* Morale lost is based on original max morale and max number meaning that losing a soldier has always the same impact. However, since max morale decreases with less numbers,
+a unit will retreat more easily
