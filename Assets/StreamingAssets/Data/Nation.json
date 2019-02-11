@@ -9,12 +9,16 @@
             ],
             "units": [
                 {
-                    //GENERIC STATS
+                    //GENERIC INFO
 
                     //Name of unit type
                     "name": "Line Infantry",
                     //Number of soldiers in unit at start
                     "number": 500,
+                    //Max morale
+                    "morale": 10,
+                    //Morale Regain(per second)
+                    "moraleRecover": 0.05,
 
                     //ATTACK STATS
 
@@ -50,6 +54,8 @@
                 {
                     "name": "Lancers",
                     "number": 150,
+                    "morale": 8,
+                    "moraleRecover": 0.05,
 
                     "ranged": false,
                     "melee": true,
