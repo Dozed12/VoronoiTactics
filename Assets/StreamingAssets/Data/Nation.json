@@ -19,6 +19,10 @@
                     "morale": 10,
                     //Morale Regain(per second)
                     "moraleRecover": 0.05,
+                    //Speed (Marching Speed, Run doubles this but increases fatigue)
+                    "speed": 5,
+                    //Fatigue modifier (multiplier to base fatigue, units with heavy armor suffer more fatigue)
+                    "fatigue": 1.3,
 
                     //ATTACK STATS
 
@@ -56,6 +60,8 @@
                     "number": 150,
                     "morale": 8,
                     "moraleRecover": 0.05,
+                    "speed": 10,
+                    "fatigue": 1.0,
 
                     "ranged": false,
                     "melee": true,
