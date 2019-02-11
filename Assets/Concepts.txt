@@ -35,6 +35,20 @@ Combat Situations:
 + A starts ranged attack on B
 + B starts ranged attack on A
 + A starts melee attack on B (Takes half the time it would take to move to tile of B before it can start melee)
++ B starts melee attack on A (Takes half the time it would take to move to tile of B before it can start melee)
++ A applies charge attack on B once (Only if A has charge attack)
++ B applies charge attack on A once (Only if A has charge attack)
+(Both charges only apply if both prepare the melee attack before the other charge hits)
+(Once a charge hits, the other will hit too even if still not arrived at "half the time...")
++ Melee combat between both start
++ B decides to pull back and retreat to another tile
++ A occupies tile of B
++ A continues to apply melee combat to B until B is halfway into retreat tile
+
+- 2 units in neighbour tiles.
++ A starts ranged attack on B
++ B starts ranged attack on A
++ A starts melee attack on B (Takes half the time it would take to move to tile of B before it can start melee)
 + B decides to retreat to another tile before A arrives
 + If B retreats fast enough then no combat occurs.
 + If B is not fast enough then combat occurs but B keeps retreating, and like previously, once halfway to retreat tile it is safe
@@ -53,3 +67,5 @@ Combat Situations:
 * Morale Lost = Number Lost(at an instance) * Max Morale / Max Number
 * Morale lost is based on original max morale and max number meaning that losing a soldier has always the same impact. However, since max morale decreases with less numbers,
 a unit will retreat more easily
+* Weather can affect max morale (some % modifier)
+* Seeing a neighbor retreat reduces morale by some % of max morale
