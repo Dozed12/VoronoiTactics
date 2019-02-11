@@ -1,0 +1,42 @@
+Theme:
+
+Napoleonic era battles with elements of steampunk/dieselpunk and ww1/ww2 technology
+
+Battles:
+
+Full on decisive battles after a long time of preparation and manouvering to decide the battleground
+
+Combat:
+
+- Situations:
+
+2 units in neighbour tiles.
++ A starts ranged attack on B
++ B starts ranged attack on A
++ Combat ends when one of them retreats/surrenders
+
+2 units in neighbour tiles.
++ A starts ranged attack on B
++ B starts ranged attack on A
++ A starts melee attack on B (Takes half the time it would take to move to tile of B before it can start melee)
++ A applies charge attack on B once (Only if A has charge attack)
++ Melee combat between both start
++ Combat ends when one of them retreats/surrenders
+
+2 units in neighbour tiles.
++ A starts ranged attack on B
++ B starts ranged attack on A
++ A starts melee attack on B (Takes half the time it would take to move to tile of B before it can start melee)
++ A applies charge attack on B once (Only if A has charge attack)
++ Melee combat between both start
++ B decides to pull back and retreat to another tile
++ A occupies tile of B
++ A continues to apply melee combat to B until B is halfway into retreat tile
+
+2 units in neighbour tiles.
++ A starts ranged attack on B
++ B starts ranged attack on A
++ A starts melee attack on B (Takes half the time it would take to move to tile of B before it can start melee)
++ B decides to retreat to another tile before A arrives
++ If B retreats fast enough then no combat occurs.
++ If B is not fast enough then combat occurs but B keeps retreating, and like previously, once halfway to retreat tile it is safe
