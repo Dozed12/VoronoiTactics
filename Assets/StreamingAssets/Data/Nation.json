@@ -9,18 +9,25 @@
             ],
             "units": [
                 {
-                    "name": "Riflemen",
-                    "number": 350,
+                    //GENERIC STATS
+
+                    //Name of unit type
+                    "name": "Line Infantry",
+                    //Number of soldiers in unit at start
+                    "number": 500,
+
+                    //ATTACK STATS
+
                     //Has attack range
                     "ranged": true,
                     //Chance of hitting
                     "rangedAccuracy": 0.3,
                     //Chance of killing hit
-                    "rangedAttack": 0.8,
-                    //Chance of surviving ranged killing hit
-                    "rangedDefense": 0.2,
+                    "rangedAttack": 0.8,                    
                     //Ranged targets(number of targets hit per ranged attack)
                     "rangedTargets": 1,
+                    //Range of attack(provinces)
+                    "range": 1,
                     //Reload speed(seconds)
                     "reload": 60,
                     //Has melee attack
@@ -28,30 +35,33 @@
                     "melee": true,
                     //Chance of killing hit
                     "meleeAttack": 0.2,
-                    //Chance of surviving melee killing hit
-                    "meleeDefense": 0.1,
                     //Melee speed(seconds)
                     "meleeTime": 10,
                     //Has charge attack
-                    "charge": false
+                    "charge": false,
+
+                    //DEFENSE STATS
+
+                    //Chance of surviving ranged killing hit
+                    "rangedDefense": 0.2,
+                    //Chance of surviving melee killing hit
+                    "meleeDefense": 0.1
                 },
                 {
                     "name": "Lancers",
-                    "number": 80,
-                    //Has attack range
+                    "number": 150,
+
                     "ranged": false,
-                    //Has melee attack
                     "melee": true,
-                    //Chance of killing hit
                     "meleeAttack": 0.4,
-                    //Chance of surviving melee killing hit
-                    "meleeDefense": 0.3,
-                    //Melee speed(seconds)
                     "meleeTime": 10,
                     //Has charge attack
                     "charge": true,
                     //Chance of killing hit
-                    "chargeAttack": 0.8
+                    "chargeAttack": 0.8,
+
+                    "rangedDefense": 0.2,
+                    "meleeDefense": 0.3
                 }
             ]
         }
