@@ -99,7 +99,7 @@ namespace VoronoiTacticsCombatCalculator
             this.fatigueModB = new System.Windows.Forms.TextBox();
             this.speedB = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
-            this.Distance = new System.Windows.Forms.TextBox();
+            this.distance = new System.Windows.Forms.TextBox();
             this.defenseA = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.attackA = new System.Windows.Forms.TextBox();
@@ -113,6 +113,12 @@ namespace VoronoiTacticsCombatCalculator
             this.label24 = new System.Windows.Forms.Label();
             this.movementB = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
+            this.river = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.heightA = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.heightB = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Start
@@ -123,6 +129,7 @@ namespace VoronoiTacticsCombatCalculator
             this.Start.TabIndex = 1;
             this.Start.Text = "Begin";
             this.Start.UseVisualStyleBackColor = true;
+            this.Start.Click += new System.EventHandler(this.Start_Click);
             // 
             // CombatLog
             // 
@@ -670,18 +677,18 @@ namespace VoronoiTacticsCombatCalculator
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(320, 110);
+            this.label18.Location = new System.Drawing.Point(28, 50);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(49, 13);
             this.label18.TabIndex = 70;
             this.label18.Text = "Distance";
             // 
-            // Distance
+            // distance
             // 
-            this.Distance.Location = new System.Drawing.Point(375, 107);
-            this.Distance.Name = "Distance";
-            this.Distance.Size = new System.Drawing.Size(64, 20);
-            this.Distance.TabIndex = 71;
+            this.distance.Location = new System.Drawing.Point(83, 47);
+            this.distance.Name = "distance";
+            this.distance.Size = new System.Drawing.Size(64, 20);
+            this.distance.TabIndex = 71;
             // 
             // defenseA
             // 
@@ -751,7 +758,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Arial", 15F);
-            this.label23.Location = new System.Drawing.Point(30, 42);
+            this.label23.Location = new System.Drawing.Point(30, 12);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(117, 23);
             this.label23.TabIndex = 80;
@@ -789,11 +796,65 @@ namespace VoronoiTacticsCombatCalculator
             this.label25.TabIndex = 83;
             this.label25.Text = "Movement";
             // 
+            // river
+            // 
+            this.river.Location = new System.Drawing.Point(83, 78);
+            this.river.Name = "river";
+            this.river.Size = new System.Drawing.Size(64, 20);
+            this.river.TabIndex = 86;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(28, 81);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(32, 13);
+            this.label26.TabIndex = 85;
+            this.label26.Text = "River";
+            // 
+            // heightA
+            // 
+            this.heightA.Location = new System.Drawing.Point(262, 104);
+            this.heightA.Name = "heightA";
+            this.heightA.Size = new System.Drawing.Size(64, 20);
+            this.heightA.TabIndex = 88;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(199, 107);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(38, 13);
+            this.label27.TabIndex = 87;
+            this.label27.Text = "Height";
+            // 
+            // heightB
+            // 
+            this.heightB.Location = new System.Drawing.Point(479, 104);
+            this.heightB.Name = "heightB";
+            this.heightB.Size = new System.Drawing.Size(64, 20);
+            this.heightB.TabIndex = 90;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(416, 107);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(38, 13);
+            this.label28.TabIndex = 89;
+            this.label28.Text = "Height";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1004, 786);
+            this.Controls.Add(this.heightB);
+            this.Controls.Add(this.label28);
+            this.Controls.Add(this.heightA);
+            this.Controls.Add(this.label27);
+            this.Controls.Add(this.river);
+            this.Controls.Add(this.label26);
             this.Controls.Add(this.movementB);
             this.Controls.Add(this.label25);
             this.Controls.Add(this.movementA);
@@ -807,7 +868,7 @@ namespace VoronoiTacticsCombatCalculator
             this.Controls.Add(this.label20);
             this.Controls.Add(this.defenseA);
             this.Controls.Add(this.label19);
-            this.Controls.Add(this.Distance);
+            this.Controls.Add(this.distance);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.fatigueModB);
             this.Controls.Add(this.speedB);
@@ -954,7 +1015,7 @@ namespace VoronoiTacticsCombatCalculator
         private System.Windows.Forms.TextBox fatigueModB;
         private System.Windows.Forms.TextBox speedB;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox Distance;
+        private System.Windows.Forms.TextBox distance;
         private System.Windows.Forms.TextBox defenseA;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox attackA;
@@ -968,6 +1029,12 @@ namespace VoronoiTacticsCombatCalculator
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.TextBox movementB;
         private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TextBox river;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox heightA;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TextBox heightB;
+        private System.Windows.Forms.Label label28;
     }
 }
 
