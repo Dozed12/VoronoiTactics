@@ -104,6 +104,30 @@
 
                     "rangedDefense": 0.1,
                     "meleeDefense": 0.1
+                },
+                {
+                    "name": "Towed Mortar",
+                    "number": 40,
+                    "guns": 4,
+                    "numberPerGun": 5,
+                    "morale": 8,
+                    "moraleRecover": 0.05,
+                    "speed": 5,
+                    "fatigueModifier": 1.0,
+
+                    "ranged": true,
+                    "rangedAccuracy": 0.6,
+                    "rangedAttack": 0.9,                    
+                    "rangedTargets": 10,
+                    "range": 3,
+                    "reload": 300,
+
+                    "melee": true,
+                    "meleeAttack": 0.1,
+                    "meleeTime": 10,
+
+                    "rangedDefense": 0.1,
+                    "meleeDefense": 0.1
                 }
             ]
         }
