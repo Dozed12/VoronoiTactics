@@ -78,6 +78,32 @@
 
                     "rangedDefense": 0.2,
                     "meleeDefense": 0.3
+                },
+                {
+                    "name": "Mortar",
+                    "number": 40,
+                    //If gun number is present use this for number of attacks (in this case "number" is the number of people operating the guns)
+                    "guns": 4,
+                    //If guns is present then this needs to be too ("number" of people needed per gun for it to fire)
+                    "numberPerGun": 5,
+                    "morale": 8,
+                    "moraleRecover": 0.05,
+                    "speed": 1,
+                    "fatigueModifier": 1.2,
+
+                    "ranged": true,
+                    "rangedAccuracy": 0.6,
+                    "rangedAttack": 0.9,                    
+                    "rangedTargets": 10,
+                    "range": 3,
+                    "reload": 300,
+
+                    "melee": true,
+                    "meleeAttack": 0.1,
+                    "meleeTime": 10,
+
+                    "rangedDefense": 0.1,
+                    "meleeDefense": 0.1
                 }
             ]
         }
