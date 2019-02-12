@@ -53,7 +53,9 @@
                     //Chance of surviving ranged killing hit
                     "rangedDefense": 0.2,
                     //Chance of surviving melee killing hit
-                    "meleeDefense": 0.1
+                    "meleeDefense": 0.1,
+                    //Chance of surviving charge killing hit (If not present use meleeDefense on charge attack)
+                    "chargeDefense": 0.0
                 },
                 {
                     "name": "Lancers",
