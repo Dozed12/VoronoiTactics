@@ -22,7 +22,24 @@ namespace VoronoiTacticsCombatCalculator
             Unit A = new Unit();
             A.men = Int32.Parse(this.menA.Text);
             A.guns = Int32.Parse(this.gunsA.Text);
-            //TODO add other stats
+            A.menPerGun = Int32.Parse(this.menPerGunA.Text);
+            A.moraleRecover = float.Parse(this.recoverA.Text);
+            A.speed = Int32.Parse(this.speedA.Text);
+            A.fatigueModifier = float.Parse(this.fatigueModA.Text);
+            A.ranged = this.rangedA.Enabled;
+            A.rangedAccuracy = float.Parse(this.rangedAccuracyA.Text);
+            A.rangedAttack = float.Parse(this.rangedAttackA.Text);
+            A.rangedTargets = Int32.Parse(this.rangedTargetsA.Text);
+            A.rangedReload = Int32.Parse(this.reloadA.Text);
+            A.melee = this.meleeA.Enabled;
+            A.meleeAttack = float.Parse(this.meleeAttackA.Text);
+            A.meleeTime = Int32.Parse(this.meleeTimeA.Text);
+            A.rangedDefense = float.Parse(this.rangedDefenseA.Text);
+            A.meleeDefense = float.Parse(this.meleeDefenseA.Text);
+            A.chargeDefense = float.Parse(this.chargeDefenseA.Text);
+            A.charge = this.chargeA.Enabled;
+            A.chargeAttack = float.Parse(this.chargeAttackA.Text);
+            A.chargeMoraleImpact = float.Parse(this.chargeMoraleImpactA.Text);
 
             Unit B = new Unit();
             B.men = Int32.Parse(this.menB.Text);
@@ -38,6 +55,7 @@ namespace VoronoiTacticsCombatCalculator
             Connection c = new Connection();
             c.river = float.Parse(this.river.Text);
             c.distance = Int32.Parse(this.distance.Text);
+            //TODO probably would have other stats(fortifications,etc)
 
             //Create combat
             Combat combat = new Combat(A, B, a, b, c);
