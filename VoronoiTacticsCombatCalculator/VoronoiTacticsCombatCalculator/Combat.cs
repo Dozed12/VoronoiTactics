@@ -13,17 +13,15 @@ namespace VoronoiTacticsCombatCalculator
         Terrain terrainA;
         Terrain terrainB;
 
-        public float river;
-        public int distance;
+        Connection connection;
 
-        public Combat(Unit A, Unit B, Terrain a, Terrain b, float River, int Distance)
+        public Combat(Unit A, Unit B, Terrain a, Terrain b, Connection C)
         {
             unitA = A;
             unitB = B;
             terrainA = a;
             terrainB = b;
-            river = River;
-            distance = Distance;
+            connection = C;
         }
     }
 }

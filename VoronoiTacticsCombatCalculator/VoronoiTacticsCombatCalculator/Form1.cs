@@ -35,12 +35,12 @@ namespace VoronoiTacticsCombatCalculator
             Terrain b = new Terrain();
             //TODO add other stats
 
-            //Connection stats
-            float river = float.Parse(this.river.Text);
-            int distance = Int32.Parse(this.distance.Text);
+            Connection c = new Connection();
+            c.river = float.Parse(this.river.Text);
+            c.distance = Int32.Parse(this.distance.Text);
 
             //Create combat
-            Combat combat = new Combat(A, B, a, b, river, distance);
+            Combat combat = new Combat(A, B, a, b, c);
         }
     }
 }
