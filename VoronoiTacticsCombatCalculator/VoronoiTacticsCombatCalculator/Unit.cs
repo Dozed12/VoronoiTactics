@@ -8,8 +8,6 @@ namespace VoronoiTacticsCombatCalculator
     class Unit
     {
 
-        //Unit data
-
         public int men;
         public int guns;
         public int menPerGun;
@@ -35,8 +33,6 @@ namespace VoronoiTacticsCombatCalculator
         public float rangedDefense;
         public float meleeDefense;
         public float chargeDefense;
-
-        //Terrain data (Just for test here)
 
     }
 }

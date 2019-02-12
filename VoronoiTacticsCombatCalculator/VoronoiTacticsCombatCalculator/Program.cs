@@ -7,9 +7,6 @@ namespace VoronoiTacticsCombatCalculator
 {
     static class Program
     {
-
-        public static Combat combat;
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

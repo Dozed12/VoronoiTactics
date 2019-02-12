@@ -19,7 +19,28 @@ namespace VoronoiTacticsCombatCalculator
 
         private void Start_Click(object sender, EventArgs e)
         {
-            Program.combat = new Combat();
+            Unit A = new Unit();
+            A.men = Int32.Parse(this.menA.Text);
+            A.guns = Int32.Parse(this.gunsA.Text);
+            //TODO add other stats
+
+            Unit B = new Unit();
+            B.men = Int32.Parse(this.menB.Text);
+            B.guns = Int32.Parse(this.gunsB.Text);
+            //TODO add other stats
+
+            Terrain a = new Terrain();
+            //TODO add other stats
+
+            Terrain b = new Terrain();
+            //TODO add other stats
+
+            //Connection stats
+            float river = float.Parse(this.river.Text);
+            int distance = Int32.Parse(this.distance.Text);
+
+            //Create combat
+            Combat combat = new Combat(A, B, a, b, river, distance);
         }
     }
 }
