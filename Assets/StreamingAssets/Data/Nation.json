@@ -55,7 +55,7 @@
                     //Chance of surviving melee killing hit
                     "meleeDefense": 0.1,
                     //Chance of surviving charge killing hit (If not present use meleeDefense on charge attack)
-                    "chargeDefense": 0.0
+                    "chargeDefense": 0.2
                 },
                 {
                     "name": "Lancers",
@@ -73,6 +73,8 @@
                     "charge": true,
                     //Chance of killing hit
                     "chargeAttack": 0.8,
+                    //Modifier to charge morale damage (charge morale damage is 20% more)
+                    "chargeMoraleImpact": 0.2,
 
                     "rangedDefense": 0.2,
                     "meleeDefense": 0.3
