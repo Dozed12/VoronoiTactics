@@ -14,7 +14,7 @@
                     //Name of unit type
                     "name": "Line Infantry",
                     //Number of soldiers in unit at start
-                    "number": 500,
+                    "men": 500,
                     //Max morale
                     "morale": 10,
                     //Morale Regain(per second)
@@ -59,7 +59,7 @@
                 },
                 {
                     "name": "Lancers",
-                    "number": 150,
+                    "men": 150,
                     "morale": 8,
                     "moraleRecover": 0.05,
                     "speed": 10,
@@ -81,11 +81,11 @@
                 },
                 {
                     "name": "Mortar",
-                    "number": 40,
-                    //If gun number is present use this for number of attacks (in this case "number" is the number of people operating the guns)
+                    "men": 40,
+                    //If guns is present use this for number of attacks (in this case "men" is the number of people operating the guns)
                     "guns": 4,
-                    //If guns is present then this needs to be too ("number" of people needed per gun for it to fire)
-                    "numberPerGun": 5,
+                    //If guns is present then this needs to be too ("men" of people needed per gun for it to fire)
+                    "menPerGun": 5,
                     "morale": 8,
                     "moraleRecover": 0.05,
                     "speed": 1,
@@ -107,9 +107,9 @@
                 },
                 {
                     "name": "Towed Mortar",
-                    "number": 40,
+                    "men": 40,
                     "guns": 4,
-                    "numberPerGun": 5,
+                    "menPerGun": 5,
                     "morale": 8,
                     "moraleRecover": 0.05,
                     "speed": 5,
