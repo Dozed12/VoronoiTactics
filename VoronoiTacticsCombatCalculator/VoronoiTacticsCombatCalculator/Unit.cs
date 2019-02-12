@@ -10,7 +10,9 @@ namespace VoronoiTacticsCombatCalculator
 
         //Unit data
 
-        public int number;
+        public int men;
+        public int guns;
+        public int menPerGun;
         public float morale;
         public float moraleRecover;
         public float speed;
@@ -26,11 +28,13 @@ namespace VoronoiTacticsCombatCalculator
         public float meleeAttack;
         public int meleeTime;
 
-        public float rangedDefense;
-        public float meleeDefense;
-
         public bool charge;
         public float chargeAttack;
+        public float chargeMoraleImpact;
+
+        public float rangedDefense;
+        public float meleeDefense;
+        public float chargeDefense;
 
         //Terrain data (Just for test here)
 
