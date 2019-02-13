@@ -23,6 +23,7 @@ namespace VoronoiTacticsCombatCalculator
         private void Start_Click(object sender, EventArgs e)
         {
 
+            //Unit A setup
             Unit A = new Unit();
             A.men = Int32.Parse(this.menA.Text);
             A.guns = Int32.Parse(this.gunsA.Text);
@@ -46,6 +47,7 @@ namespace VoronoiTacticsCombatCalculator
             A.chargeAttack = float.Parse(this.chargeAttackA.Text);
             A.chargeMoraleImpact = float.Parse(this.chargeMoraleImpactA.Text);
 
+            //Unit B setup
             Unit B = new Unit();
             B.men = Int32.Parse(this.menB.Text);
             B.guns = Int32.Parse(this.gunsB.Text);
@@ -69,18 +71,21 @@ namespace VoronoiTacticsCombatCalculator
             B.chargeAttack = float.Parse(this.chargeAttackB.Text);
             B.chargeMoraleImpact = float.Parse(this.chargeMoraleImpactB.Text);
 
+            //Terrain A setup
             Terrain a = new Terrain();
             a.attack = float.Parse(this.attackA.Text);
             a.defense = float.Parse(this.defenseA.Text);
             a.movement = float.Parse(this.movementA.Text);
             a.heightImpact = Int32.Parse(this.heightA.Text);
 
+            //Terrain B setup
             Terrain b = new Terrain();
             b.attack = float.Parse(this.attackB.Text);
             b.defense = float.Parse(this.defenseB.Text);
             b.movement = float.Parse(this.movementB.Text);
             b.heightImpact = Int32.Parse(this.heightB.Text);
 
+            //Connection setup
             Connection c = new Connection();
             c.river = float.Parse(this.river.Text);
             c.distance = Int32.Parse(this.distance.Text);
