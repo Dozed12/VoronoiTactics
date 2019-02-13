@@ -24,6 +24,7 @@ namespace VoronoiTacticsCombatCalculator
             A.guns = Int32.Parse(this.gunsA.Text);
             A.menPerGun = Int32.Parse(this.menPerGunA.Text);
             A.moraleRecover = float.Parse(this.recoverA.Text);
+            A.minimumMorale = float.Parse(this.minimumMoraleA.Text);
             A.speed = Int32.Parse(this.speedA.Text);
             A.fatigueModifier = float.Parse(this.fatigueModA.Text);
             A.ranged = this.rangedA.Enabled;

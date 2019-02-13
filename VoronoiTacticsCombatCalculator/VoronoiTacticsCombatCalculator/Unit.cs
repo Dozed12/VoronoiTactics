@@ -12,6 +12,7 @@ namespace VoronoiTacticsCombatCalculator
         public int guns;
         public int menPerGun;
         public float morale;
+        public float minimumMorale;
         public float moraleRecover;
         public float speed;
         public float fatigueModifier;

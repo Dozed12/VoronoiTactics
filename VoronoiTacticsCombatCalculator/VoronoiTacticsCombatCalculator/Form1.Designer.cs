@@ -48,7 +48,7 @@ namespace VoronoiTacticsCombatCalculator
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.moraleA = new System.Windows.Forms.TextBox();
+            this.minimumMoraleA = new System.Windows.Forms.TextBox();
             this.recoverA = new System.Windows.Forms.TextBox();
             this.rangedAccuracyA = new System.Windows.Forms.TextBox();
             this.rangedAttackA = new System.Windows.Forms.TextBox();
@@ -71,7 +71,7 @@ namespace VoronoiTacticsCombatCalculator
             this.rangedAttackB = new System.Windows.Forms.TextBox();
             this.rangedAccuracyB = new System.Windows.Forms.TextBox();
             this.recoverB = new System.Windows.Forms.TextBox();
-            this.moraleB = new System.Windows.Forms.TextBox();
+            this.minimumMoraleB = new System.Windows.Forms.TextBox();
             this.menB = new System.Windows.Forms.TextBox();
             this.Resume = new System.Windows.Forms.Button();
             this.Pause = new System.Windows.Forms.Button();
@@ -193,9 +193,9 @@ namespace VoronoiTacticsCombatCalculator
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(30, 271);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 13);
+            this.label2.Size = new System.Drawing.Size(83, 13);
             this.label2.TabIndex = 7;
-            this.label2.Text = "Morale";
+            this.label2.Text = "Minimum Morale";
             // 
             // label3
             // 
@@ -296,12 +296,12 @@ namespace VoronoiTacticsCombatCalculator
             this.label13.TabIndex = 18;
             this.label13.Text = "Melee Defense";
             // 
-            // moraleA
+            // minimumMoraleA
             // 
-            this.moraleA.Location = new System.Drawing.Point(174, 268);
-            this.moraleA.Name = "moraleA";
-            this.moraleA.Size = new System.Drawing.Size(64, 20);
-            this.moraleA.TabIndex = 19;
+            this.minimumMoraleA.Location = new System.Drawing.Point(174, 268);
+            this.minimumMoraleA.Name = "minimumMoraleA";
+            this.minimumMoraleA.Size = new System.Drawing.Size(64, 20);
+            this.minimumMoraleA.TabIndex = 19;
             // 
             // recoverA
             // 
@@ -465,12 +465,12 @@ namespace VoronoiTacticsCombatCalculator
             this.recoverB.Size = new System.Drawing.Size(64, 20);
             this.recoverB.TabIndex = 33;
             // 
-            // moraleB
+            // minimumMoraleB
             // 
-            this.moraleB.Location = new System.Drawing.Point(390, 268);
-            this.moraleB.Name = "moraleB";
-            this.moraleB.Size = new System.Drawing.Size(64, 20);
-            this.moraleB.TabIndex = 32;
+            this.minimumMoraleB.Location = new System.Drawing.Point(390, 268);
+            this.minimumMoraleB.Name = "minimumMoraleB";
+            this.minimumMoraleB.Size = new System.Drawing.Size(64, 20);
+            this.minimumMoraleB.TabIndex = 32;
             // 
             // menB
             // 
@@ -1022,7 +1022,7 @@ namespace VoronoiTacticsCombatCalculator
             this.Controls.Add(this.rangedAttackB);
             this.Controls.Add(this.rangedAccuracyB);
             this.Controls.Add(this.recoverB);
-            this.Controls.Add(this.moraleB);
+            this.Controls.Add(this.minimumMoraleB);
             this.Controls.Add(this.menB);
             this.Controls.Add(this.meleeA);
             this.Controls.Add(this.rangedA);
@@ -1035,7 +1035,7 @@ namespace VoronoiTacticsCombatCalculator
             this.Controls.Add(this.rangedAttackA);
             this.Controls.Add(this.rangedAccuracyA);
             this.Controls.Add(this.recoverA);
-            this.Controls.Add(this.moraleA);
+            this.Controls.Add(this.minimumMoraleA);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
@@ -1080,7 +1080,7 @@ namespace VoronoiTacticsCombatCalculator
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox moraleA;
+        private System.Windows.Forms.TextBox minimumMoraleA;
         private System.Windows.Forms.TextBox recoverA;
         private System.Windows.Forms.TextBox rangedAccuracyA;
         private System.Windows.Forms.TextBox rangedAttackA;
@@ -1103,7 +1103,7 @@ namespace VoronoiTacticsCombatCalculator
         private System.Windows.Forms.TextBox rangedAttackB;
         private System.Windows.Forms.TextBox rangedAccuracyB;
         private System.Windows.Forms.TextBox recoverB;
-        private System.Windows.Forms.TextBox moraleB;
+        private System.Windows.Forms.TextBox minimumMoraleB;
         private System.Windows.Forms.TextBox menB;
         private System.Windows.Forms.Button Resume;
         private System.Windows.Forms.Button Pause;
