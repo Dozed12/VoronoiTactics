@@ -45,7 +45,25 @@ namespace VoronoiTacticsCombatCalculator
             Unit B = new Unit();
             B.men = Int32.Parse(this.menB.Text);
             B.guns = Int32.Parse(this.gunsB.Text);
-            //TODO add other stats
+            B.menPerGun = Int32.Parse(this.menPerGunB.Text);
+            B.moraleRecover = float.Parse(this.recoverB.Text);
+            B.minimumMorale = float.Parse(this.minimumMoraleB.Text);
+            B.speed = Int32.Parse(this.speedB.Text);
+            B.fatigueModifier = float.Parse(this.fatigueModB.Text);
+            B.ranged = this.rangedB.Enabled;
+            B.rangedAccuracy = float.Parse(this.rangedAccuracyB.Text);
+            B.rangedAttack = float.Parse(this.rangedAttackB.Text);
+            B.rangedTargets = Int32.Parse(this.rangedTargetsB.Text);
+            B.rangedReload = Int32.Parse(this.reloadB.Text);
+            B.melee = this.meleeB.Enabled;
+            B.meleeAttack = float.Parse(this.meleeAttackB.Text);
+            B.meleeTime = Int32.Parse(this.meleeTimeB.Text);
+            B.rangedDefense = float.Parse(this.rangedDefenseB.Text);
+            B.meleeDefense = float.Parse(this.meleeDefenseB.Text);
+            B.chargeDefense = float.Parse(this.chargeDefenseB.Text);
+            B.charge = this.chargeB.Enabled;
+            B.chargeAttack = float.Parse(this.chargeAttackB.Text);
+            B.chargeMoraleImpact = float.Parse(this.chargeMoraleImpactB.Text);
 
             Terrain a = new Terrain();
             //TODO add other stats
