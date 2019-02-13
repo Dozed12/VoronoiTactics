@@ -1182,16 +1182,16 @@ public class MapData
 
                 for (int j = 0; j < settings.HEIGHT; j++)
                 {
-                    //Randomly skip
-                    if (random.Next(0, 101) < 100 - randomization)
-                        continue;
-
-                    //Add some difference
-                    Color color = pixelMatrix.GetPixelSafe(i, j);
-                    color.r = color.r + Utilities.NextFloat(random, -variation, variation);
-                    color.g = color.g + Utilities.NextFloat(random, -variation, variation);
-                    color.b = color.b + Utilities.NextFloat(random, -variation, variation);
-                    pixelMatrix.SetPixelSafe(i, j, color);
+                    //Do for some
+                    if (random.Next(0, 101) < randomization)
+                    {
+                        //Add some difference
+                        Color color = pixelMatrix.GetPixelSafe(i, j);
+                        color.r = color.r + Utilities.NextFloat(random, -variation, variation);
+                        color.g = color.g + Utilities.NextFloat(random, -variation, variation);
+                        color.b = color.b + Utilities.NextFloat(random, -variation, variation);
+                        pixelMatrix.SetPixelSafe(i, j, color);
+                    }
                 }
             });
 
