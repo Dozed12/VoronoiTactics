@@ -66,10 +66,16 @@ namespace VoronoiTacticsCombatCalculator
             B.chargeMoraleImpact = float.Parse(this.chargeMoraleImpactB.Text);
 
             Terrain a = new Terrain();
-            //TODO add other stats
+            a.attack = float.Parse(this.attackA.Text);
+            a.defense = float.Parse(this.defenseA.Text);
+            a.movement = float.Parse(this.movementA.Text);
+            a.heightImpact = Int32.Parse(this.heightA.Text);
 
             Terrain b = new Terrain();
-            //TODO add other stats
+            b.attack = float.Parse(this.attackB.Text);
+            b.defense = float.Parse(this.defenseB.Text);
+            b.movement = float.Parse(this.movementB.Text);
+            b.heightImpact = Int32.Parse(this.heightB.Text);
 
             Connection c = new Connection();
             c.river = float.Parse(this.river.Text);

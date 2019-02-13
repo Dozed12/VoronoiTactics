@@ -10,6 +10,6 @@ namespace VoronoiTacticsCombatCalculator
         public float attack;
         public float defense;
         public float movement;
-        public float heightImpact;
+        public int heightImpact;
     }
 }
