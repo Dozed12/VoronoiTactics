@@ -32,6 +32,10 @@ namespace VoronoiTacticsCombatCalculator
             //Unit A setup
             unitA = new Unit();
             unitA.maxMen = Int32.Parse(this.menA.Text);
+            //TEMPORARY starting = max
+            unitA.currentMen = unitA.maxMen;
+            //TEMPORARY morale starting at 100%
+            unitA.currentMorale = 1;
             unitA.usable = Int32.Parse(this.usableA.Text);
             unitA.guns = Int32.Parse(this.gunsA.Text);
             unitA.menPerGun = Int32.Parse(this.menPerGunA.Text);
@@ -44,9 +48,11 @@ namespace VoronoiTacticsCombatCalculator
             unitA.rangedAttack = float.Parse(this.rangedAttackA.Text);
             unitA.rangedTargets = Int32.Parse(this.rangedTargetsA.Text);
             unitA.rangedReload = Int32.Parse(this.reloadA.Text);
+            unitA.reloadTimer = unitA.rangedReload;
             unitA.melee = this.meleeA.Enabled;
             unitA.meleeAttack = float.Parse(this.meleeAttackA.Text);
             unitA.meleeTime = Int32.Parse(this.meleeTimeA.Text);
+            unitA.meleeTimer = unitA.meleeTime;
             unitA.rangedDefense = float.Parse(this.rangedDefenseA.Text);
             unitA.meleeDefense = float.Parse(this.meleeDefenseA.Text);
             unitA.chargeDefense = float.Parse(this.chargeDefenseA.Text);
@@ -57,6 +63,11 @@ namespace VoronoiTacticsCombatCalculator
             //Unit B setup
             unitB = new Unit();
             unitB.maxMen = Int32.Parse(this.menB.Text);
+            //TEMPORARY starting = max
+            unitB.currentMen = unitB.maxMen;
+            //TEMPORARY morale starting at 100%
+            unitB.currentMorale = 1;
+
             unitB.usable = Int32.Parse(this.usableB.Text);
             unitB.guns = Int32.Parse(this.gunsB.Text);
             unitB.menPerGun = Int32.Parse(this.menPerGunB.Text);
@@ -69,9 +80,11 @@ namespace VoronoiTacticsCombatCalculator
             unitB.rangedAttack = float.Parse(this.rangedAttackB.Text);
             unitB.rangedTargets = Int32.Parse(this.rangedTargetsB.Text);
             unitB.rangedReload = Int32.Parse(this.reloadB.Text);
+            unitB.reloadTimer = unitB.rangedReload;
             unitB.melee = this.meleeB.Enabled;
             unitB.meleeAttack = float.Parse(this.meleeAttackB.Text);
             unitB.meleeTime = Int32.Parse(this.meleeTimeB.Text);
+            unitB.meleeTimer = unitB.meleeTime;
             unitB.rangedDefense = float.Parse(this.rangedDefenseB.Text);
             unitB.meleeDefense = float.Parse(this.meleeDefenseB.Text);
             unitB.chargeDefense = float.Parse(this.chargeDefenseB.Text);
