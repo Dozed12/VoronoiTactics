@@ -32,6 +32,7 @@ namespace VoronoiTacticsCombatCalculator
             //Unit A setup
             unitA = new Unit();
             unitA.maxMen = Int32.Parse(this.menA.Text);
+            unitA.usable = Int32.Parse(this.usableA.Text);
             unitA.guns = Int32.Parse(this.gunsA.Text);
             unitA.menPerGun = Int32.Parse(this.menPerGunA.Text);
             unitA.moraleRecover = float.Parse(this.recoverA.Text);
@@ -56,6 +57,7 @@ namespace VoronoiTacticsCombatCalculator
             //Unit B setup
             unitB = new Unit();
             unitB.maxMen = Int32.Parse(this.menB.Text);
+            unitB.usable = Int32.Parse(this.usableB.Text);
             unitB.guns = Int32.Parse(this.gunsB.Text);
             unitB.menPerGun = Int32.Parse(this.menPerGunB.Text);
             unitB.moraleRecover = float.Parse(this.recoverB.Text);

@@ -10,6 +10,7 @@ namespace VoronoiTacticsCombatCalculator
         //Stats
         public int maxMen;
         public int guns;
+        public int usable;
         public int menPerGun;
         public float minimumMorale;
         public float moraleRecover;
