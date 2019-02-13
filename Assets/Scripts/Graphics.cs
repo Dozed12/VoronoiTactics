@@ -363,11 +363,11 @@ public static class Graphics
         {
             if (polygon[p].value.x > IMAGE_RIGHT)
                 IMAGE_RIGHT = (int)polygon[p].value.x;
-            if (polygon[p].value.x < IMAGE_LEFT)
+            else if (polygon[p].value.x < IMAGE_LEFT)
                 IMAGE_LEFT = (int)polygon[p].value.x;
             if (polygon[p].value.y < IMAGE_TOP)
                 IMAGE_TOP = (int)polygon[p].value.y;
-            if (polygon[p].value.y > IMAGE_BOT)
+            else if (polygon[p].value.y > IMAGE_BOT)
                 IMAGE_BOT = (int)polygon[p].value.y;
         }
 
