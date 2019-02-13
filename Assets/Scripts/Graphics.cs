@@ -379,7 +379,7 @@ public static class Graphics
             nodes = 0; j = polygon.Count - 1;
             for (i = 0; i < polygon.Count; i++)
             {
-                if (polygon[i].value.y < (float)pixelY && polygon[j].value.y >= (float)pixelY || polygon[j].value.y < (float)pixelY && polygon[i].value.y >= (float)pixelY)
+                if (polygon[i].value.y < pixelY && polygon[j].value.y >= pixelY || polygon[j].value.y < pixelY && polygon[i].value.y >= pixelY)
                 {
                     nodeX[nodes++] = (int)(polygon[i].value.x + (pixelY - polygon[i].value.y) / (polygon[j].value.y - polygon[i].value.y) * (polygon[j].value.x - polygon[i].value.x));
                 }
@@ -416,7 +416,7 @@ public static class Graphics
                     if (nodeX[i + 1] > IMAGE_RIGHT)
                         nodeX[i + 1] = IMAGE_RIGHT;
                     for (pixelX = nodeX[i]; pixelX < nodeX[i + 1]; pixelX++)
-                        original.SetPixelSafe((int)pixelX, (int)pixelY, cl);
+                        original.SetPixelSafe(pixelX, pixelY, cl);
                 }
             }
         }
