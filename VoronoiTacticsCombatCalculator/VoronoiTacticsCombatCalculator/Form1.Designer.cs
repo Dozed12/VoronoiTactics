@@ -613,6 +613,7 @@ namespace VoronoiTacticsCombatCalculator
             this.StartRangedA.TabIndex = 60;
             this.StartRangedA.Text = "Start Ranged";
             this.StartRangedA.UseVisualStyleBackColor = true;
+            this.StartRangedA.Click += new System.EventHandler(this.StartRangedA_Click);
             // 
             // StartMeleeA
             // 
