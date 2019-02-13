@@ -1171,6 +1171,7 @@ public class MapData
             time = Time.realtimeSinceStartup;
 
             //Add randomization to color
+            //TODO Available Optimization (around 0.3sec) Calculate variation for 3 color channels in a single random instead of 3 separate
             //TODO Settings should be in other place
             float randomization = 30;
             float variation = 0.05f;
