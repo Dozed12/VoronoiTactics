@@ -1224,6 +1224,7 @@ public class MapData
             int borderRadius = 4;
             Parallel.For(0, provinces.Count, i =>
             {
+                //All neighbors
                 for (int j = 0; j < provinces[i].neighbors.Count; j++)
                 {
                     //If height is same there's no need to do anything
@@ -1256,6 +1257,9 @@ public class MapData
                                 (int)provinces[i].point.CellJitter[h].end.value.y,
                                 c,
                                 borderRadius);
+
+                                //This one done
+                                break;
 
                             }
                         }
