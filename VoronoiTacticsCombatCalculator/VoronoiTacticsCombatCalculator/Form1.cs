@@ -19,6 +19,7 @@ namespace VoronoiTacticsCombatCalculator
 
         private void Start_Click(object sender, EventArgs e)
         {
+
             Unit A = new Unit();
             A.men = Int32.Parse(this.menA.Text);
             A.guns = Int32.Parse(this.gunsA.Text);
