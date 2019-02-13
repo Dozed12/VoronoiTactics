@@ -12,6 +12,7 @@ namespace VoronoiTacticsCombatCalculator
     public partial class Form1 : Form
     {
 
+        int time;
         public Combat combat;
 
         public Form1()
@@ -87,11 +88,32 @@ namespace VoronoiTacticsCombatCalculator
 
             //Create combat
             combat = new Combat(A, B, a, b, c);
+
+            //Enable timer
+            this.timer1.Enabled = true;
+
+            //Reset time
+            time = 0;
+
+            //First call (to display time right away)
+            timer1_Tick(this, new EventArgs() );
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            //Time
+            int seconds = this.time;
+            int minutes = seconds / 60;
+            int hours = minutes / 60;
 
+            //Time string
+            string sTime = hours.ToString() + "h " + minutes.ToString() + "m " + seconds.ToString() + "s ";
+
+            //Display on UI
+            this.Time.Text = sTime;
+
+            //Increment time(seconds)
+            time++;
         }
     }
 }

@@ -601,6 +601,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             this.Time.Location = new System.Drawing.Point(392, 864);
             this.Time.Name = "Time";
+            this.Time.ReadOnly = true;
             this.Time.Size = new System.Drawing.Size(112, 20);
             this.Time.TabIndex = 58;
             // 
@@ -981,7 +982,7 @@ namespace VoronoiTacticsCombatCalculator
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(31, 110);
+            this.label33.Location = new System.Drawing.Point(28, 108);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(74, 13);
             this.label33.TabIndex = 103;
@@ -989,6 +990,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // timer1
             // 
+            this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
