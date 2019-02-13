@@ -31,7 +31,7 @@ namespace VoronoiTacticsCombatCalculator
 
             //Unit A setup
             unitA = new Unit();
-            unitA.men = Int32.Parse(this.menA.Text);
+            unitA.maxMen = Int32.Parse(this.menA.Text);
             unitA.guns = Int32.Parse(this.gunsA.Text);
             unitA.menPerGun = Int32.Parse(this.menPerGunA.Text);
             unitA.moraleRecover = float.Parse(this.recoverA.Text);
@@ -55,7 +55,7 @@ namespace VoronoiTacticsCombatCalculator
 
             //Unit B setup
             unitB = new Unit();
-            unitB.men = Int32.Parse(this.menB.Text);
+            unitB.maxMen = Int32.Parse(this.menB.Text);
             unitB.guns = Int32.Parse(this.gunsB.Text);
             unitB.menPerGun = Int32.Parse(this.menPerGunB.Text);
             unitB.moraleRecover = float.Parse(this.recoverB.Text);
@@ -122,12 +122,27 @@ namespace VoronoiTacticsCombatCalculator
 
             //Increment time(seconds)
             time++;
+
+            //Process Combat
+            combat.Process();
         }
 
         private void StartRangedA_Click(object sender, EventArgs e)
         {
+
             //Create combat
-            combat = new Combat(unitA, unitB, terrainA, terrainB, connection);
+            combat = new Combat(unitA, unitB, terrainA, terrainB, connection, Combat.Phase.RANGED);
+
+            //Disable ranged attack buttons
+            this.StartRangedA.Enabled = false;
+            this.StartRangedB.Enabled = false;
+
+        }
+
+        private void StartRangedB_Click(object sender, EventArgs e)
+        {
+
+            //TODO Same as StartRangedA_Click
 
         }
     }

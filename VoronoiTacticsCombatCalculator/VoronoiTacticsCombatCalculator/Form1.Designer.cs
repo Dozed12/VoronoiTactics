@@ -156,7 +156,8 @@ namespace VoronoiTacticsCombatCalculator
             // 
             this.A.AutoSize = true;
             this.A.Font = new System.Drawing.Font("Arial", 15F);
-            this.A.Location = new System.Drawing.Point(235, 147);
+            this.A.ForeColor = System.Drawing.Color.Red;
+            this.A.Location = new System.Drawing.Point(198, 147);
             this.A.Name = "A";
             this.A.Size = new System.Drawing.Size(23, 23);
             this.A.TabIndex = 3;
@@ -165,8 +166,10 @@ namespace VoronoiTacticsCombatCalculator
             // B
             // 
             this.B.AutoSize = true;
+            this.B.BackColor = System.Drawing.Color.White;
             this.B.Font = new System.Drawing.Font("Arial", 15F);
-            this.B.Location = new System.Drawing.Point(453, 147);
+            this.B.ForeColor = System.Drawing.Color.Blue;
+            this.B.Location = new System.Drawing.Point(415, 147);
             this.B.Name = "B";
             this.B.Size = new System.Drawing.Size(23, 23);
             this.B.TabIndex = 4;
@@ -590,7 +593,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // Swap
             // 
-            this.Swap.Location = new System.Drawing.Point(339, 142);
+            this.Swap.Location = new System.Drawing.Point(294, 147);
             this.Swap.Name = "Swap";
             this.Swap.Size = new System.Drawing.Size(40, 38);
             this.Swap.TabIndex = 53;
@@ -641,6 +644,7 @@ namespace VoronoiTacticsCombatCalculator
             this.StartRangedB.TabIndex = 62;
             this.StartRangedB.Text = "Start Ranged";
             this.StartRangedB.UseVisualStyleBackColor = true;
+            this.StartRangedB.Click += new System.EventHandler(this.StartRangedB_Click);
             // 
             // label16
             // 

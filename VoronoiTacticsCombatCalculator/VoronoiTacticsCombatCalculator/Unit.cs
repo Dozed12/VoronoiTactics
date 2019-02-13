@@ -7,11 +7,10 @@ namespace VoronoiTacticsCombatCalculator
 {
     public class Unit
     {
-
-        public int men;
+        //Stats
+        public int maxMen;
         public int guns;
         public int menPerGun;
-        public float morale;
         public float minimumMorale;
         public float moraleRecover;
         public float speed;
@@ -34,6 +33,12 @@ namespace VoronoiTacticsCombatCalculator
         public float rangedDefense;
         public float meleeDefense;
         public float chargeDefense;
+
+        //Situation
+        public int currentMen;
+        public float currentMorale;
+        public int reloadTimer;
+        public int meleeTimer;
 
     }
 }
