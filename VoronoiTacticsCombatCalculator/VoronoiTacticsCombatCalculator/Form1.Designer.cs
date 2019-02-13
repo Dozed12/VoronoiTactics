@@ -30,6 +30,7 @@ namespace VoronoiTacticsCombatCalculator
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.Begin = new System.Windows.Forms.Button();
             this.CombatLog = new System.Windows.Forms.TextBox();
             this.A = new System.Windows.Forms.Label();
@@ -129,6 +130,7 @@ namespace VoronoiTacticsCombatCalculator
             this.label32 = new System.Windows.Forms.Label();
             this.tiles = new System.Windows.Forms.TextBox();
             this.label33 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // Begin
@@ -985,6 +987,10 @@ namespace VoronoiTacticsCombatCalculator
             this.label33.TabIndex = 103;
             this.label33.Text = "Tiles Between";
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1196,6 +1202,7 @@ namespace VoronoiTacticsCombatCalculator
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.TextBox tiles;
         private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

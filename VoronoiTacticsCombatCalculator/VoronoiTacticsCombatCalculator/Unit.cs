@@ -5,7 +5,7 @@ using System.Text;
 
 namespace VoronoiTacticsCombatCalculator
 {
-    class Unit
+    public class Unit
     {
 
         public int men;

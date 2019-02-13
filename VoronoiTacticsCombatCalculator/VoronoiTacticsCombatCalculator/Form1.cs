@@ -12,6 +12,8 @@ namespace VoronoiTacticsCombatCalculator
     public partial class Form1 : Form
     {
 
+        public Combat combat;
+
         public Form1()
         {
             InitializeComponent();
@@ -84,7 +86,12 @@ namespace VoronoiTacticsCombatCalculator
             //TODO probably would have other stats(fortifications,etc)
 
             //Create combat
-            Combat combat = new Combat(A, B, a, b, c);
+            combat = new Combat(A, B, a, b, c);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+
         }
     }
 }

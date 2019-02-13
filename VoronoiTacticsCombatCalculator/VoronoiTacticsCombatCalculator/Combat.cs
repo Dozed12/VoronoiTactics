@@ -5,15 +5,15 @@ using System.Text;
 
 namespace VoronoiTacticsCombatCalculator
 {
-    class Combat
+    public class Combat
     {
-        Unit unitA;
-        Unit unitB;
+        public Unit unitA;
+        public Unit unitB;
 
-        Terrain terrainA;
-        Terrain terrainB;
+        public Terrain terrainA;
+        public Terrain terrainB;
 
-        Connection connection;
+        public Connection connection;
 
         public Combat(Unit A, Unit B, Terrain a, Terrain b, Connection C)
         {

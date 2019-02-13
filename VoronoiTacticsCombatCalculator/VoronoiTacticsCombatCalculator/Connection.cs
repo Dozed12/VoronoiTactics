@@ -5,7 +5,7 @@ using System.Text;
 
 namespace VoronoiTacticsCombatCalculator
 {
-    class Connection
+    public class Connection
     {
         public float river;
         public int distance;

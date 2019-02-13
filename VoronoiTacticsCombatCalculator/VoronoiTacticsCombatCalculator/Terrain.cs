@@ -5,7 +5,7 @@ using System.Text;
 
 namespace VoronoiTacticsCombatCalculator
 {
-    class Terrain
+    public class Terrain
     {
         public float attack;
         public float defense;
