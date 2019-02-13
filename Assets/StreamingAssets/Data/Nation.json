@@ -15,8 +15,8 @@
                     "name": "Line Infantry",
                     //Number of soldiers in unit at start
                     "men": 500,
-                    //Max morale
-                    "morale": 10,
+                    //Minimum Morale
+                    "moraleMinimum": 0.2,
                     //Morale Regain(per second)
                     "moraleRecover": 0.05,
                     //Speed (Marching Speed, Run doubles this but increases fatigue)
@@ -60,7 +60,7 @@
                 {
                     "name": "Lancers",
                     "men": 150,
-                    "morale": 8,
+                    "moraleMinimum": 0.2,
                     "moraleRecover": 0.05,
                     "speed": 10,
                     "fatigueModifier": 1.0,
@@ -86,7 +86,7 @@
                     "guns": 4,
                     //If guns is present then this needs to be too ("men" of people needed per gun for it to fire)
                     "menPerGun": 5,
-                    "morale": 8,
+                    "moraleMinimum": 0.5,
                     "moraleRecover": 0.05,
                     "speed": 1,
                     "fatigueModifier": 1.2,
@@ -110,7 +110,7 @@
                     "men": 40,
                     "guns": 4,
                     "menPerGun": 5,
-                    "morale": 8,
+                    "moraleMinimum": 0.5,
                     "moraleRecover": 0.05,
                     "speed": 5,
                     "fatigueModifier": 1.0,
