@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace VoronoiTacticsCombatCalculator
 {
@@ -40,6 +44,77 @@ namespace VoronoiTacticsCombatCalculator
         public float currentMorale;
         public int reloadTimer;
         public int meleeTimer;
+
+        //RNG
+        public Random random;
+
+        //Log
+        public TextBox log;
+
+        public Unit(TextBox Log)
+        {
+            log = Log;
+            random = new Random();
+        }
+
+        public int Fire(string who)
+        {
+
+            int kills = 0;
+
+            //Check Reload
+            if (reloadTimer == rangedReload)
+            {
+
+                //Number of fires
+                int fires = usable;
+                if (currentMen < usable)
+                    fires = currentMen;
+
+                //Number of hits
+                int hits = 0;
+                for (int i = 0; i < fires; i++)
+                {
+                    if (random.Next(0, 100) < rangedAccuracy * 100)
+                        hits++;
+                }
+
+                //Number of potential kills
+                int mortal = 0;
+                for (int i = 0; i < hits; i++)
+                {
+                    if (random.Next(0, 100) < rangedAttack * 100)
+                        mortal++;
+                }
+
+                //Number of kills
+                kills = 0;
+                for (int i = 0; i < mortal; i++)
+                {
+                    if (random.Next(0, 100) < rangedAttack * 100)
+                        kills++;
+                }
+
+                //Message for log
+                //TODO Log defended shots
+                //TODO Look at RichTextBox for multi color text box
+                log.AppendText(who);
+                string message = " fired " + fires + " shots, hit " + hits + " men, " + kills + " mortally\n";
+                log.AppendText(message);
+                log.AppendText(Environment.NewLine);
+
+                //Start Reload
+                reloadTimer = 0;
+
+            }
+            else
+            {
+                //Progress reload
+                reloadTimer++;
+            }
+
+            return kills;
+        }
 
     }
 }

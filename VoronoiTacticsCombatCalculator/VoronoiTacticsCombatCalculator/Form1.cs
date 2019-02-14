@@ -30,7 +30,7 @@ namespace VoronoiTacticsCombatCalculator
         {
 
             //Unit A setup
-            unitA = new Unit();
+            unitA = new Unit(this.CombatLog);
             unitA.maxMen = Int32.Parse(this.menA.Text);
             //TEMPORARY starting = max
             unitA.currentMen = unitA.maxMen;
@@ -61,7 +61,7 @@ namespace VoronoiTacticsCombatCalculator
             unitA.chargeMoraleImpact = float.Parse(this.chargeMoraleImpactA.Text);
 
             //Unit B setup
-            unitB = new Unit();
+            unitB = new Unit(this.CombatLog);
             unitB.maxMen = Int32.Parse(this.menB.Text);
             //TEMPORARY starting = max
             unitB.currentMen = unitB.maxMen;

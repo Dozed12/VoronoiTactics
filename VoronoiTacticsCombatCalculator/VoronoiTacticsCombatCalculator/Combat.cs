@@ -59,55 +59,8 @@ namespace VoronoiTacticsCombatCalculator
             switch (phase)
             {
                 case Phase.RANGED:
-                    //Reload complete
-                    if(attacker.reloadTimer == attacker.rangedReload)
-                    {
-
-                        //Number of fires
-                        int fires = attacker.usable;
-                        if (attacker.currentMen < attacker.usable)
-                            fires = attacker.currentMen;
-
-                        //Number of hits
-                        int hits = 0;
-                        for (int i = 0; i < fires; i++)
-                        {
-                            if (random.Next(0, 100) < attacker.rangedAccuracy * 100)
-                                hits++;
-                        }
-
-                        //Number of potential kills
-                        int mortal = 0;
-                        for (int i = 0; i < hits; i++)
-                        {
-                            if (random.Next(0, 100) < attacker.rangedAttack * 100)
-                                mortal++;
-                        }
-
-                        //Number of kills
-                        int kills = 0;
-                        for (int i = 0; i < mortal; i++)
-                        {
-                            if (random.Next(0, 100) < attacker.rangedAttack * 100)
-                                kills++;
-                        }
-
-                        //Message for log
-                        //TODO Log defended shots
-                        //TODO Look at RichTextBox for multi color text box
-                        string message = "Attacker fired " + fires + " shots, hit " + hits + " men, " + kills + " mortally\n";
-                        log.AppendText(message);
-                        log.AppendText(Environment.NewLine);
-
-                        //Start Reload
-                        attacker.reloadTimer = 0;
-
-                    }
-                    else
-                    {
-                        //Continue reloading
-                        attacker.reloadTimer++;
-                    }
+                    int killsA = attacker.Fire("Attacker");
+                    int killsB = defender.Fire("Defender");
                     break;
                 case Phase.MELEE:
                     if(round == 1)
