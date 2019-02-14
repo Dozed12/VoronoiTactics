@@ -24,7 +24,7 @@
                     //Speed (Marching Speed, Run doubles this but increases fatigue)
                     "speed": 5,
                     //Fatigue modifier (multiplier to base fatigue, units with heavy armor suffer more fatigue)
-                    "fatigueModifier": 1.3,
+                    "fatigueModifier": 1.1,
 
                     //ATTACK STATS
 
