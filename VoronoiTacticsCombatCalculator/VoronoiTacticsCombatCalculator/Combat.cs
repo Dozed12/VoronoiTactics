@@ -59,8 +59,8 @@ namespace VoronoiTacticsCombatCalculator
             switch (phase)
             {
                 case Phase.RANGED:
-                    int killsA = attacker.Fire("Attacker");
-                    int killsB = defender.Fire("Defender");
+                    casualtiesDefender = attacker.Fire(random,"Attacker");
+                    casualtiesAttacker = defender.Fire(random,"Defender");
                     break;
                 case Phase.MELEE:
                     if(round == 1)

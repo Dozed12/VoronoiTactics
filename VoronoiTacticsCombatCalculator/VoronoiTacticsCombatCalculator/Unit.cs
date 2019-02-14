@@ -45,19 +45,15 @@ namespace VoronoiTacticsCombatCalculator
         public int reloadTimer;
         public int meleeTimer;
 
-        //RNG
-        public Random random;
-
         //Log
         public TextBox log;
 
         public Unit(TextBox Log)
         {
             log = Log;
-            random = new Random();
         }
 
-        public int Fire(string who)
+        public int Fire(Random random, string who)
         {
 
             int kills = 0;
