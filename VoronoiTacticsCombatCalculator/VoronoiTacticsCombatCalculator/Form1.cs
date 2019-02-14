@@ -118,6 +118,10 @@ namespace VoronoiTacticsCombatCalculator
             //Reset time
             time = 0;
 
+            //Reset UI things
+            this.StartRangedA.Enabled = true;
+            this.StartRangedB.Enabled = true;
+
             //First call (to display time right away)
             timer1_Tick(this, new EventArgs() );
         }

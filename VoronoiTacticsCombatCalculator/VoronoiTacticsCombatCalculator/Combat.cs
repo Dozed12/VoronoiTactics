@@ -94,6 +94,7 @@ namespace VoronoiTacticsCombatCalculator
 
                         //Message for log
                         //TODO Log defended shots
+                        //TODO Look at RichTextBox for multi color text box
                         string message = "Attacker fired " + fires + " shots, hit " + hits + " men, " + kills + " mortally\n";
                         log.AppendText(message);
                         log.AppendText(Environment.NewLine);
