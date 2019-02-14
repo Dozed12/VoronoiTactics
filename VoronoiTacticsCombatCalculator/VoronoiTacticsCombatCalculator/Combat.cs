@@ -93,6 +93,7 @@ namespace VoronoiTacticsCombatCalculator
                         }
 
                         //Message for log
+                        //TODO Log defended shots
                         string message = "Attacker fired " + fires + " shots, hit " + hits + " men, " + kills + " mortally\n";
                         log.AppendText(message);
                         log.AppendText(Environment.NewLine);
