@@ -139,14 +139,15 @@ namespace VoronoiTacticsCombatCalculator
             time++;
 
             //Process Combat
-            combat.Process();
+            if(combat !=null)
+                combat.Process();
         }
 
         private void StartRangedA_Click(object sender, EventArgs e)
         {
 
             //Create combat
-            combat = new Combat(unitA, unitB, terrainA, terrainB, connection, Combat.Phase.RANGED);
+            combat = new Combat(this.CombatLog, unitA, unitB, terrainA, terrainB, connection, Combat.Phase.RANGED);
 
             //Disable ranged attack buttons
             this.StartRangedA.Enabled = false;
@@ -159,6 +160,16 @@ namespace VoronoiTacticsCombatCalculator
 
             //TODO Same as StartRangedA_Click
 
+        }
+
+        private void Resume_Click(object sender, EventArgs e)
+        {
+            this.timer1.Interval = 1000;
+        }
+
+        private void Fast_Click(object sender, EventArgs e)
+        {
+            this.timer1.Interval = 250;
         }
     }
 }

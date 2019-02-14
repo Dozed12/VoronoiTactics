@@ -523,6 +523,7 @@ namespace VoronoiTacticsCombatCalculator
             this.Resume.TabIndex = 44;
             this.Resume.Text = "x1";
             this.Resume.UseVisualStyleBackColor = true;
+            this.Resume.Click += new System.EventHandler(this.Resume_Click);
             // 
             // Pause
             // 
@@ -541,6 +542,7 @@ namespace VoronoiTacticsCombatCalculator
             this.Fast.TabIndex = 46;
             this.Fast.Text = "x4";
             this.Fast.UseVisualStyleBackColor = true;
+            this.Fast.Click += new System.EventHandler(this.Fast_Click);
             // 
             // chargeA
             // 

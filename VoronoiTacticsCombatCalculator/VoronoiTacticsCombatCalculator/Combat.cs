@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace VoronoiTacticsCombatCalculator
 {
@@ -18,6 +22,8 @@ namespace VoronoiTacticsCombatCalculator
             CHASE
         }
 
+        public TextBox log;
+
         public Unit attacker;
         public Unit defender;
 
@@ -30,8 +36,9 @@ namespace VoronoiTacticsCombatCalculator
 
         public int round;
 
-        public Combat(Unit A, Unit B, Terrain a, Terrain b, Connection C, Phase Phase)
+        public Combat(TextBox log, Unit A, Unit B, Terrain a, Terrain b, Connection C, Phase Phase)
         {
+            this.log = log;
             attacker = A;
             defender = B;
             terrainAttacker = a;
@@ -47,6 +54,8 @@ namespace VoronoiTacticsCombatCalculator
             int casualtiesAttacker = 0;
             int casualtiesDefender = 0;
 
+            System.Random random = new System.Random();
+
             switch (phase)
             {
                 case Phase.RANGED:
@@ -54,8 +63,39 @@ namespace VoronoiTacticsCombatCalculator
                     if(attacker.reloadTimer == attacker.rangedReload)
                     {
 
-                        //Fire
+                        //Number of fires
+                        int fires = attacker.usable;
+                        if (attacker.currentMen < attacker.usable)
+                            fires = attacker.currentMen;
 
+                        //Number of hits
+                        int hits = 0;
+                        for (int i = 0; i < fires; i++)
+                        {
+                            if (random.Next(0, 100) < attacker.rangedAccuracy * 100)
+                                hits++;
+                        }
+
+                        //Number of potential kills
+                        int mortal = 0;
+                        for (int i = 0; i < hits; i++)
+                        {
+                            if (random.Next(0, 100) < attacker.rangedAttack * 100)
+                                mortal++;
+                        }
+
+                        //Number of kills
+                        int kills = 0;
+                        for (int i = 0; i < mortal; i++)
+                        {
+                            if (random.Next(0, 100) < attacker.rangedAttack * 100)
+                                kills++;
+                        }
+
+                        //Message for log
+                        string message = "Attacker fired " + fires + " shots, hit " + hits + " men, " + kills + " mortally\n";
+                        log.AppendText(message);
+                        log.AppendText(Environment.NewLine);
 
                         //Start Reload
                         attacker.reloadTimer = 0;
