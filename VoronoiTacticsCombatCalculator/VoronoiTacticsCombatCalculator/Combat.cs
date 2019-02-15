@@ -51,9 +51,19 @@ namespace VoronoiTacticsCombatCalculator
         public void Process()
         {
 
+            //Recover morale
+            attacker.currentMorale += attacker.moraleRecover;
+            defender.currentMorale += defender.moraleRecover;
+            if (attacker.currentMorale > 1)
+                attacker.currentMorale = 1;
+            if (defender.currentMorale > 1)
+                defender.currentMorale = 1;
+
+            //Casualities
             int casualtiesAttacker = 0;
             int casualtiesDefender = 0;
 
+            //Random server
             System.Random random = new System.Random();
 
             switch (phase)
@@ -76,7 +86,7 @@ namespace VoronoiTacticsCombatCalculator
                     break;
             }
 
-            //TODO Apply casualties/morale after combat
+            //Apply casualties/morale after combat
             if(casualtiesAttacker != 0 || casualtiesDefender != 0)
             {
                 attacker.currentMen -= casualtiesAttacker;
