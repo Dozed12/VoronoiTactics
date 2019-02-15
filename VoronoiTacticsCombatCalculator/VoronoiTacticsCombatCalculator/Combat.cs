@@ -77,8 +77,20 @@ namespace VoronoiTacticsCombatCalculator
             }
 
             //TODO Apply casualties/morale after combat
-            attacker.currentMen -= casualtiesAttacker;
-            defender.currentMen -= casualtiesDefender;            
+            if(casualtiesAttacker != 0 || casualtiesDefender != 0)
+            {
+                attacker.currentMen -= casualtiesAttacker;
+                defender.currentMen -= casualtiesDefender;
+
+                attacker.currentMorale -= casualtiesAttacker / (float)attacker.maxMen;
+                defender.currentMorale -= casualtiesDefender / (float)defender.maxMen;
+
+                log.AppendText("Attacker morale: " + attacker.currentMorale);
+                log.AppendText(Environment.NewLine);
+                log.AppendText("Defender morale: " + defender.currentMorale);
+                log.AppendText(Environment.NewLine);
+                log.AppendText(Environment.NewLine);
+            } 
 
             //TODO Check Retreat(morale)
 

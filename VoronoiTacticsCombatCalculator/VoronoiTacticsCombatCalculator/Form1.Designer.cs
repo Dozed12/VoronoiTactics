@@ -615,6 +615,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // StartRangedA
             // 
+            this.StartRangedA.Enabled = false;
             this.StartRangedA.Location = new System.Drawing.Point(155, 838);
             this.StartRangedA.Name = "StartRangedA";
             this.StartRangedA.Size = new System.Drawing.Size(80, 31);
@@ -625,6 +626,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // StartMeleeA
             // 
+            this.StartMeleeA.Enabled = false;
             this.StartMeleeA.Location = new System.Drawing.Point(254, 838);
             this.StartMeleeA.Name = "StartMeleeA";
             this.StartMeleeA.Size = new System.Drawing.Size(80, 31);
@@ -634,6 +636,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // StartMeleeB
             // 
+            this.StartMeleeB.Enabled = false;
             this.StartMeleeB.Location = new System.Drawing.Point(471, 838);
             this.StartMeleeB.Name = "StartMeleeB";
             this.StartMeleeB.Size = new System.Drawing.Size(80, 31);
@@ -643,6 +646,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // StartRangedB
             // 
+            this.StartRangedB.Enabled = false;
             this.StartRangedB.Location = new System.Drawing.Point(372, 838);
             this.StartRangedB.Name = "StartRangedB";
             this.StartRangedB.Size = new System.Drawing.Size(80, 31);

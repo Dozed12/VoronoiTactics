@@ -76,11 +76,11 @@ At 100% it reduces/increases things by 50%.
 Reduces attack values, attack accuracy, speed, melee defense
 Increases reload time and melee time
 * Armor stat indicating how many hits unit needs to be destroyed(To be hit needs to be hit by unit with HardAttack flag, like artillery)
-Basically have single or up to 3 units in a group of armor, 3 tanks.
+Basically have single or low number of tanks in a unit
 Artillery, with HardAttack flag, can bombard these tanks and maybe pennetrate
 After N hits a tank is lost
 (This implies we can no longer call it "men" but instead something else)
 This way we can also have anti-tank guns.
 Concept is that an anti-tank regiment needs quite a lot of men and guns to pennetrate a tank(tanks are very heavy, need many hits)
 (How do we keep track which tank was hit? Probably just merge all hits in a tank at a time)
-(In case of multi target hits just add up all the hits)
+(Multi hits dont apply here, "rangedTargets" stat)
