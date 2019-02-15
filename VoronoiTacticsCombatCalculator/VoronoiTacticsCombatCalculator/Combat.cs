@@ -92,11 +92,15 @@ namespace VoronoiTacticsCombatCalculator
             //Apply casualties/morale after combat
             if (casualtiesAttacker != 0 || casualtiesDefender != 0)
             {
-                attacker.currentMen -= casualtiesAttacker;
-                defender.currentMen -= casualtiesDefender;
 
-                attacker.currentMorale -= casualtiesAttacker / (float)attacker.maxMen;
-                defender.currentMorale -= casualtiesDefender / (float)defender.maxMen;
+                int casualtiesAttackerTrue = Math.Min(casualtiesAttacker, attacker.currentMen);
+                int casualtiesDefenderTrue = Math.Min(casualtiesDefender, defender.currentMen);
+
+                attacker.currentMen -= casualtiesAttackerTrue;
+                defender.currentMen -= casualtiesDefenderTrue;
+
+                attacker.currentMorale -= casualtiesAttackerTrue / (float)attacker.maxMen;
+                defender.currentMorale -= casualtiesDefenderTrue / (float)defender.maxMen;
 
                 attacker.CalculateMaxMorale();
                 defender.CalculateMaxMorale();
