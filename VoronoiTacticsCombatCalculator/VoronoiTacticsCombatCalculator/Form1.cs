@@ -178,5 +178,10 @@ namespace VoronoiTacticsCombatCalculator
         {
             this.timer1.Interval = 250;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.timer1.Interval = 100;
+        }
     }
 }
