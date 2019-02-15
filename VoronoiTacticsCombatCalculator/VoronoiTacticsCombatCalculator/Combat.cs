@@ -62,6 +62,8 @@ namespace VoronoiTacticsCombatCalculator
             if (defender.currentMorale > defender.currentMaxMorale)
                 defender.currentMorale = defender.currentMaxMorale;
 
+            Console.WriteLine(defender.currentMaxMorale);
+
             //Casualities
             int casualtiesAttacker = 0;
             int casualtiesDefender = 0;
