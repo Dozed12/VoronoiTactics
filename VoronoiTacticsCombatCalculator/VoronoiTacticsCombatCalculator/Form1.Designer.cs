@@ -611,7 +611,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // Time
             // 
-            this.Time.Location = new System.Drawing.Point(402, 894);
+            this.Time.Location = new System.Drawing.Point(419, 894);
             this.Time.Name = "Time";
             this.Time.ReadOnly = true;
             this.Time.Size = new System.Drawing.Size(112, 20);

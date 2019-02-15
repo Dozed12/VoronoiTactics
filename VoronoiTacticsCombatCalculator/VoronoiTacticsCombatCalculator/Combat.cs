@@ -54,15 +54,13 @@ namespace VoronoiTacticsCombatCalculator
             //TODO Fatigue and Fatigue Modifier not applied
             //TODO Terrain and Connection not used
 
-            //Recover morale
+            //Recover morale based on currentMaxMorale
             attacker.currentMorale += attacker.moraleRecover;
             defender.currentMorale += defender.moraleRecover;
             if (attacker.currentMorale > attacker.currentMaxMorale)
                 attacker.currentMorale = attacker.currentMaxMorale;
             if (defender.currentMorale > defender.currentMaxMorale)
                 defender.currentMorale = defender.currentMaxMorale;
-
-            Console.WriteLine(defender.currentMaxMorale);
 
             //Casualities
             int casualtiesAttacker = 0;

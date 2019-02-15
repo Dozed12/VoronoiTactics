@@ -56,7 +56,7 @@ namespace VoronoiTacticsCombatCalculator
 
         public void CalculateMaxMorale()
         {
-            currentMaxMorale = ((currentMen * currentMen) / maxMen) / (float)maxMen;
+            currentMaxMorale = ((float)(currentMen * currentMen) / (float)(maxMen * maxMen));
         }
 
         public int Fire(Random random, string who)
