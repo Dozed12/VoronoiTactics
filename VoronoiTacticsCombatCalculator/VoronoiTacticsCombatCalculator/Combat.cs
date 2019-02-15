@@ -54,10 +54,10 @@ namespace VoronoiTacticsCombatCalculator
             //Recover morale
             attacker.currentMorale += attacker.moraleRecover;
             defender.currentMorale += defender.moraleRecover;
-            if (attacker.currentMorale > 1)
-                attacker.currentMorale = 1;
-            if (defender.currentMorale > 1)
-                defender.currentMorale = 1;
+            if (attacker.currentMorale > attacker.currentMaxMorale)
+                attacker.currentMorale = attacker.currentMaxMorale;
+            if (defender.currentMorale > defender.currentMaxMorale)
+                defender.currentMorale = defender.currentMaxMorale;
 
             //Casualities
             int casualtiesAttacker = 0;
@@ -94,6 +94,9 @@ namespace VoronoiTacticsCombatCalculator
 
                 attacker.currentMorale -= casualtiesAttacker / (float)attacker.maxMen;
                 defender.currentMorale -= casualtiesDefender / (float)defender.maxMen;
+
+                attacker.CalculateMaxMorale();
+                defender.CalculateMaxMorale();
 
                 log.AppendText("Attacker morale: " + attacker.currentMorale);
                 log.AppendText(Environment.NewLine);

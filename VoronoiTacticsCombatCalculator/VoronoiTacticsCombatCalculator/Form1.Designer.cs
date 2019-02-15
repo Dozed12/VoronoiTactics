@@ -311,7 +311,7 @@ namespace VoronoiTacticsCombatCalculator
             this.minimumMoraleA.Name = "minimumMoraleA";
             this.minimumMoraleA.Size = new System.Drawing.Size(64, 20);
             this.minimumMoraleA.TabIndex = 19;
-            this.minimumMoraleA.Text = "0.2";
+            this.minimumMoraleA.Text = "0.3";
             // 
             // recoverA
             // 
@@ -319,7 +319,7 @@ namespace VoronoiTacticsCombatCalculator
             this.recoverA.Name = "recoverA";
             this.recoverA.Size = new System.Drawing.Size(64, 20);
             this.recoverA.TabIndex = 20;
-            this.recoverA.Text = "0.02";
+            this.recoverA.Text = "0.001";
             // 
             // rangedAccuracyA
             // 
@@ -351,7 +351,7 @@ namespace VoronoiTacticsCombatCalculator
             this.reloadA.Name = "reloadA";
             this.reloadA.Size = new System.Drawing.Size(64, 20);
             this.reloadA.TabIndex = 24;
-            this.reloadA.Text = "30";
+            this.reloadA.Text = "20";
             // 
             // meleeAttackA
             // 
@@ -467,7 +467,7 @@ namespace VoronoiTacticsCombatCalculator
             this.reloadB.Name = "reloadB";
             this.reloadB.Size = new System.Drawing.Size(64, 20);
             this.reloadB.TabIndex = 37;
-            this.reloadB.Text = "30";
+            this.reloadB.Text = "20";
             // 
             // rangedTargetsB
             // 
@@ -499,7 +499,7 @@ namespace VoronoiTacticsCombatCalculator
             this.recoverB.Name = "recoverB";
             this.recoverB.Size = new System.Drawing.Size(64, 20);
             this.recoverB.TabIndex = 33;
-            this.recoverB.Text = "0.02";
+            this.recoverB.Text = "0.001";
             // 
             // minimumMoraleB
             // 
@@ -507,7 +507,7 @@ namespace VoronoiTacticsCombatCalculator
             this.minimumMoraleB.Name = "minimumMoraleB";
             this.minimumMoraleB.Size = new System.Drawing.Size(64, 20);
             this.minimumMoraleB.TabIndex = 32;
-            this.minimumMoraleB.Text = "0.2";
+            this.minimumMoraleB.Text = "0.3";
             // 
             // menB
             // 

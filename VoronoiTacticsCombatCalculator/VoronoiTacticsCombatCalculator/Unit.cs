@@ -42,6 +42,7 @@ namespace VoronoiTacticsCombatCalculator
         //Situation
         public int currentMen;
         public float currentMorale;
+        public float currentMaxMorale;
         public int reloadTimer;
         public int meleeTimer;
 
@@ -51,6 +52,11 @@ namespace VoronoiTacticsCombatCalculator
         public Unit(TextBox Log)
         {
             log = Log;
+        }
+
+        public void CalculateMaxMorale()
+        {
+            currentMaxMorale = (currentMen * currentMen) / maxMen + maxMen;
         }
 
         public int Fire(Random random, string who)

@@ -36,6 +36,7 @@ namespace VoronoiTacticsCombatCalculator
             unitA.currentMen = unitA.maxMen;
             //TEMPORARY morale starting at 100%
             unitA.currentMorale = 1;
+            unitA.currentMaxMorale = 1;
             unitA.usable = Int32.Parse(this.usableA.Text);
             unitA.guns = Int32.Parse(this.gunsA.Text);
             unitA.menPerGun = Int32.Parse(this.menPerGunA.Text);
@@ -67,7 +68,7 @@ namespace VoronoiTacticsCombatCalculator
             unitB.currentMen = unitB.maxMen;
             //TEMPORARY morale starting at 100%
             unitB.currentMorale = 1;
-
+            unitB.currentMaxMorale = 1;
             unitB.usable = Int32.Parse(this.usableB.Text);
             unitB.guns = Int32.Parse(this.gunsB.Text);
             unitB.menPerGun = Int32.Parse(this.menPerGunB.Text);
