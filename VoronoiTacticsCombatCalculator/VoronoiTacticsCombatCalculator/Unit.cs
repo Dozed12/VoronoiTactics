@@ -104,7 +104,6 @@ namespace VoronoiTacticsCombatCalculator
                 string message = " fired " + fires + " shots, hit " + hits + " men, " + kills + " mortally\n";
                 log.AppendText(message);
 
-
                 //Start Reload
                 reloadTimer = 0;
 

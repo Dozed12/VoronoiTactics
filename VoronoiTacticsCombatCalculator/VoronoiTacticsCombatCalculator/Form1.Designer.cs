@@ -312,7 +312,7 @@ namespace VoronoiTacticsCombatCalculator
             this.minimumMoraleA.Name = "minimumMoraleA";
             this.minimumMoraleA.Size = new System.Drawing.Size(64, 20);
             this.minimumMoraleA.TabIndex = 19;
-            this.minimumMoraleA.Text = "0.3";
+            this.minimumMoraleA.Text = "0.5";
             // 
             // recoverA
             // 
@@ -508,7 +508,7 @@ namespace VoronoiTacticsCombatCalculator
             this.minimumMoraleB.Name = "minimumMoraleB";
             this.minimumMoraleB.Size = new System.Drawing.Size(64, 20);
             this.minimumMoraleB.TabIndex = 32;
-            this.minimumMoraleB.Text = "0.3";
+            this.minimumMoraleB.Text = "0.5";
             // 
             // menB
             // 

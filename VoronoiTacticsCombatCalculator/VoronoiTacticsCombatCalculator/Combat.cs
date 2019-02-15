@@ -52,6 +52,7 @@ namespace VoronoiTacticsCombatCalculator
         {
 
             //TODO Fatigue and Fatigue Modifier not applied
+            //TODO Terrain and Connection not used
 
             //Recover morale
             attacker.currentMorale += attacker.moraleRecover;
@@ -71,11 +72,11 @@ namespace VoronoiTacticsCombatCalculator
             switch (phase)
             {
                 case Phase.RANGED:
-                    casualtiesDefender = attacker.Fire(random,"Attacker");
-                    casualtiesAttacker = defender.Fire(random,"Defender");
+                    casualtiesDefender = attacker.Fire(random, "Attacker");
+                    casualtiesAttacker = defender.Fire(random, "Defender");
                     break;
                 case Phase.MELEE:
-                    if(round == 1)
+                    if (round == 1)
                     {
                         //TODO do charge on first round of melee
                         //if melee comes after ranged and we have a single combat object for all combat then round != 0, what will we do?
@@ -89,7 +90,7 @@ namespace VoronoiTacticsCombatCalculator
             }
 
             //Apply casualties/morale after combat
-            if(casualtiesAttacker != 0 || casualtiesDefender != 0)
+            if (casualtiesAttacker != 0 || casualtiesDefender != 0)
             {
                 attacker.currentMen -= casualtiesAttacker;
                 defender.currentMen -= casualtiesDefender;
@@ -105,10 +106,10 @@ namespace VoronoiTacticsCombatCalculator
                 log.AppendText("Defender morale: " + defender.currentMorale);
                 log.AppendText(Environment.NewLine);
                 log.AppendText(Environment.NewLine);
-            } 
+            }
 
             //TODO Check Retreat(morale)
-            if(attacker.currentMorale < attacker.minimumMorale)
+            if (attacker.currentMorale < attacker.minimumMorale)
             {
 
             }

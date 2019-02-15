@@ -125,7 +125,7 @@ namespace VoronoiTacticsCombatCalculator
             this.StartRangedB.Enabled = true;
 
             //First call (to display time right away)
-            timer1_Tick(this, new EventArgs() );
+            timer1_Tick(this, new EventArgs());
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -148,7 +148,7 @@ namespace VoronoiTacticsCombatCalculator
             time++;
 
             //Process Combat
-            if(combat !=null)
+            if (combat != null)
                 combat.Process();
         }
 
