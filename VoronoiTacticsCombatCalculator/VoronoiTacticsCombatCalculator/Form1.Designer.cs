@@ -135,11 +135,12 @@ namespace VoronoiTacticsCombatCalculator
             this.usableA = new System.Windows.Forms.TextBox();
             this.label34 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Begin
             // 
-            this.Begin.Location = new System.Drawing.Point(100, 884);
+            this.Begin.Location = new System.Drawing.Point(46, 884);
             this.Begin.Name = "Begin";
             this.Begin.Size = new System.Drawing.Size(103, 38);
             this.Begin.TabIndex = 1;
@@ -518,7 +519,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // Resume
             // 
-            this.Resume.Location = new System.Drawing.Point(272, 884);
+            this.Resume.Location = new System.Drawing.Point(218, 884);
             this.Resume.Name = "Resume";
             this.Resume.Size = new System.Drawing.Size(30, 38);
             this.Resume.TabIndex = 44;
@@ -528,7 +529,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // Pause
             // 
-            this.Pause.Location = new System.Drawing.Point(236, 884);
+            this.Pause.Location = new System.Drawing.Point(182, 884);
             this.Pause.Name = "Pause";
             this.Pause.Size = new System.Drawing.Size(30, 38);
             this.Pause.TabIndex = 45;
@@ -537,7 +538,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // Fast
             // 
-            this.Fast.Location = new System.Drawing.Point(308, 884);
+            this.Fast.Location = new System.Drawing.Point(254, 884);
             this.Fast.Name = "Fast";
             this.Fast.Size = new System.Drawing.Size(30, 38);
             this.Fast.TabIndex = 46;
@@ -1035,7 +1036,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(344, 884);
+            this.button1.Location = new System.Drawing.Point(290, 884);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(42, 38);
             this.button1.TabIndex = 108;
@@ -1043,11 +1044,22 @@ namespace VoronoiTacticsCombatCalculator
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(338, 884);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(42, 38);
+            this.button2.TabIndex = 109;
+            this.button2.Text = "x20";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1004, 956);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.usableB);
             this.Controls.Add(this.usableA);
@@ -1263,6 +1275,7 @@ namespace VoronoiTacticsCombatCalculator
         private System.Windows.Forms.TextBox usableA;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 
