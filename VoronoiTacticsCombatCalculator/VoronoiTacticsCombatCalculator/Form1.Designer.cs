@@ -317,7 +317,7 @@ namespace VoronoiTacticsCombatCalculator
             this.recoverA.Name = "recoverA";
             this.recoverA.Size = new System.Drawing.Size(64, 20);
             this.recoverA.TabIndex = 20;
-            this.recoverA.Text = "0.5";
+            this.recoverA.Text = "0.02";
             // 
             // rangedAccuracyA
             // 
@@ -497,7 +497,7 @@ namespace VoronoiTacticsCombatCalculator
             this.recoverB.Name = "recoverB";
             this.recoverB.Size = new System.Drawing.Size(64, 20);
             this.recoverB.TabIndex = 33;
-            this.recoverB.Text = "0.5";
+            this.recoverB.Text = "0.02";
             // 
             // minimumMoraleB
             // 
