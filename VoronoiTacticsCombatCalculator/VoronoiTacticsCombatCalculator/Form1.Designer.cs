@@ -154,6 +154,7 @@ namespace VoronoiTacticsCombatCalculator
             this.CombatLog.Multiline = true;
             this.CombatLog.Name = "CombatLog";
             this.CombatLog.ReadOnly = true;
+            this.CombatLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.CombatLog.Size = new System.Drawing.Size(420, 932);
             this.CombatLog.TabIndex = 2;
             // 
@@ -535,6 +536,7 @@ namespace VoronoiTacticsCombatCalculator
             this.Pause.TabIndex = 45;
             this.Pause.Text = "| |";
             this.Pause.UseVisualStyleBackColor = true;
+            this.Pause.Click += new System.EventHandler(this.Pause_Click);
             // 
             // Fast
             // 

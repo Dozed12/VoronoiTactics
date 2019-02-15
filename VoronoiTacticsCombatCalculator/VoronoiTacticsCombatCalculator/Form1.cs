@@ -115,6 +115,7 @@ namespace VoronoiTacticsCombatCalculator
 
             //Enable timer
             this.timer1.Enabled = true;
+            this.timer1.Interval = 1000;
 
             //Reset time
             time = 0;
@@ -172,22 +173,31 @@ namespace VoronoiTacticsCombatCalculator
 
         private void Resume_Click(object sender, EventArgs e)
         {
+            this.timer1.Enabled = true;
             this.timer1.Interval = 1000;
         }
 
         private void Fast_Click(object sender, EventArgs e)
         {
+            this.timer1.Enabled = true;
             this.timer1.Interval = 250;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            this.timer1.Enabled = true;
             this.timer1.Interval = 100;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            this.timer1.Enabled = true;
             this.timer1.Interval = 50;
+        }
+
+        private void Pause_Click(object sender, EventArgs e)
+        {
+            this.timer1.Enabled = false;
         }
     }
 }

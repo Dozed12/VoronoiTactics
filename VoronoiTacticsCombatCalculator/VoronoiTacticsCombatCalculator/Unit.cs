@@ -103,7 +103,7 @@ namespace VoronoiTacticsCombatCalculator
                 log.AppendText(who);
                 string message = " fired " + fires + " shots, hit " + hits + " men, " + kills + " mortally\n";
                 log.AppendText(message);
-                log.AppendText(Environment.NewLine);
+
 
                 //Start Reload
                 reloadTimer = 0;

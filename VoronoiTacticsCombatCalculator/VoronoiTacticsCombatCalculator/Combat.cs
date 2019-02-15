@@ -51,6 +51,8 @@ namespace VoronoiTacticsCombatCalculator
         public void Process()
         {
 
+            //TODO Fatigue and Fatigue Modifier not applied
+
             //Recover morale
             attacker.currentMorale += attacker.moraleRecover;
             defender.currentMorale += defender.moraleRecover;
@@ -106,6 +108,14 @@ namespace VoronoiTacticsCombatCalculator
             } 
 
             //TODO Check Retreat(morale)
+            if(attacker.currentMorale < attacker.minimumMorale)
+            {
+
+            }
+            if (defender.currentMorale < defender.minimumMorale)
+            {
+
+            }
 
             //TODO Apply fatigue
 
