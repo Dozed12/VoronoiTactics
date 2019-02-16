@@ -38,6 +38,15 @@ public static class Graphics
 
         }
 
+        public PixelMatrix(PixelMatrix c)
+        {
+
+            this.width = c.width;
+            this.height = c.height;
+            this.pixels = (Color[])c.pixels.Clone();
+
+        }
+
         public PixelMatrix(int width, int height, Color clear)
         {
 
