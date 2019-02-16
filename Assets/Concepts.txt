@@ -76,9 +76,9 @@ Condition Recover = Base Cost * (1 - (Weight - 1))
 Condition Cost = Base Cost * (1 - (Weight - 1))
 * Some estimate of base values relation for condition
     - Recovery: 0.001
-    - Reload: 0.0015
-    - March: 0.002
-    - Run: 0.005
+    - Reload: 0.0015 (Higher than Recovery but not too much)
+    - March: 0.002 (About double of Recovery)
+    - Run: 0.005 (More than double of March)
 * Condition has an impact on all actions. Starts at 100% and decreases with every action by a base amount modified by Weight.
 At 0% it reduces/increases things by 50%.
 2% condition lost -> 1% reduction/increase in actions
