@@ -19,7 +19,7 @@ namespace VoronoiTacticsCombatCalculator
         public float minimumMorale;
         public float moraleRecover;
         public float speed;
-        public float fatigueModifier;
+        public float weight;
 
         public bool ranged;
         public float rangedAccuracy;
@@ -41,7 +41,7 @@ namespace VoronoiTacticsCombatCalculator
 
         //Situation
         public int currentMen;
-        public float currentFatigue;
+        public float currentCondition;
         public float currentMorale;
         public float currentMaxMorale;
         public int reloadTimer;

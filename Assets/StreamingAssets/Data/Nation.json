@@ -23,8 +23,8 @@
                     "moraleRecover": 0.05,
                     //Speed (Marching Speed, Run doubles this but increases fatigue)
                     "speed": 5,
-                    //Fatigue modifier (multiplier to base fatigue, units with heavy armor suffer more fatigue)
-                    "fatigueModifier": 1.1,
+                    //Weight modifier (affects rate of Condition reduction)
+                    "weight": 1.1,
 
                     //ATTACK STATS
 
@@ -66,7 +66,7 @@
                     "moraleMinimum": 0.2,
                     "moraleRecover": 0.05,
                     "speed": 10,
-                    "fatigueModifier": 1.0,
+                    "weight": 1.0,
 
                     "ranged": false,
                     "melee": true,
@@ -93,7 +93,7 @@
                     "moraleMinimum": 0.5,
                     "moraleRecover": 0.05,
                     "speed": 1,
-                    "fatigueModifier": 1.2,
+                    "weight": 1.2,
 
                     "ranged": true,
                     "rangedAccuracy": 0.6,
@@ -118,7 +118,7 @@
                     "moraleMinimum": 0.5,
                     "moraleRecover": 0.05,
                     "speed": 5,
-                    "fatigueModifier": 1.0,
+                    "weight": 1.0,
 
                     "ranged": true,
                     "rangedAccuracy": 0.6,

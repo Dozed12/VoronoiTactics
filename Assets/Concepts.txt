@@ -70,20 +70,18 @@ Combat Situations:
 * At < Minimum Morale morale a unit retreats to a random vacant or ally(priority to vacant) neighbour. (What happens if it retreats to ally province? Applies the stacking penalties?)
 * Weather can affect max morale (some % modifier)
 * Seeing a neighbor retreat reduces morale by some % of max morale
-* Fatigue always recharging to 100% at a base rate, modified by Fatigue Modifier.
-Base Cost = 0.01
-Fatigue Recover = Base Cost * (1 - (Fatigue Modifier - 1))
-* Fatigue from reloading/marching/running has a base value also modified by Fatigue Modifier.
-Base Cost = 0.01 (Will be different based on action)
-Fatigue Cost = Base Cost * (1 - (Fatigue Modifier - 1))
-* Some estimate of base values relation for fatigue
+* Condition always recharging to 0% at a base rate, modified by Weight.
+Condition Recover = Base Cost * (1 - (Weight - 1))
+* Condition from reloading/marching/running has a base value also modified by Weight.
+Condition Cost = Base Cost * (1 - (Weight - 1))
+* Some estimate of base values relation for condition
     - Recovery: 0.001
     - Reload: 0.0015
     - March: 0.002
     - Run: 0.005
-* Fatigue has an impact on all actions. Starts at 0% and increases with every action by a base amount modified by Fatigue Modifier.
-At 100% it reduces/increases things by 50%.
-2% fatigue -> 1% reduction/increase
+* Condition has an impact on all actions. Starts at 100% and decreases with every action by a base amount modified by Weight.
+At 0% it reduces/increases things by 50%.
+2% condition lost -> 1% reduction/increase in actions
 Reduces attack values, attack accuracy, speed, melee defense
 Increases reload time and melee time
 * Armor stat indicating how many hits unit needs to be destroyed(To be hit needs to be hit by unit with HardAttack flag, like artillery)

@@ -92,8 +92,8 @@ namespace VoronoiTacticsCombatCalculator
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.speedA = new System.Windows.Forms.TextBox();
-            this.fatigueModA = new System.Windows.Forms.TextBox();
-            this.fatigueModB = new System.Windows.Forms.TextBox();
+            this.weightA = new System.Windows.Forms.TextBox();
+            this.weightB = new System.Windows.Forms.TextBox();
             this.speedB = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.distance = new System.Windows.Forms.TextBox();
@@ -673,9 +673,9 @@ namespace VoronoiTacticsCombatCalculator
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(31, 388);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(82, 13);
+            this.label17.Size = new System.Drawing.Size(41, 13);
             this.label17.TabIndex = 65;
-            this.label17.Text = "Fatigue Modifier";
+            this.label17.Text = "Weight";
             // 
             // speedA
             // 
@@ -685,21 +685,21 @@ namespace VoronoiTacticsCombatCalculator
             this.speedA.TabIndex = 66;
             this.speedA.Text = "10";
             // 
-            // fatigueModA
+            // weightA
             // 
-            this.fatigueModA.Location = new System.Drawing.Point(174, 385);
-            this.fatigueModA.Name = "fatigueModA";
-            this.fatigueModA.Size = new System.Drawing.Size(64, 20);
-            this.fatigueModA.TabIndex = 67;
-            this.fatigueModA.Text = "1.0";
+            this.weightA.Location = new System.Drawing.Point(174, 385);
+            this.weightA.Name = "weightA";
+            this.weightA.Size = new System.Drawing.Size(64, 20);
+            this.weightA.TabIndex = 67;
+            this.weightA.Text = "1.0";
             // 
-            // fatigueModB
+            // weightB
             // 
-            this.fatigueModB.Location = new System.Drawing.Point(390, 381);
-            this.fatigueModB.Name = "fatigueModB";
-            this.fatigueModB.Size = new System.Drawing.Size(64, 20);
-            this.fatigueModB.TabIndex = 69;
-            this.fatigueModB.Text = "1.0";
+            this.weightB.Location = new System.Drawing.Point(390, 381);
+            this.weightB.Name = "weightB";
+            this.weightB.Size = new System.Drawing.Size(64, 20);
+            this.weightB.TabIndex = 69;
+            this.weightB.Text = "1.0";
             // 
             // speedB
             // 
@@ -1101,9 +1101,9 @@ namespace VoronoiTacticsCombatCalculator
             this.Controls.Add(this.label19);
             this.Controls.Add(this.distance);
             this.Controls.Add(this.label18);
-            this.Controls.Add(this.fatigueModB);
+            this.Controls.Add(this.weightB);
             this.Controls.Add(this.speedB);
-            this.Controls.Add(this.fatigueModA);
+            this.Controls.Add(this.weightA);
             this.Controls.Add(this.speedA);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.label16);
@@ -1234,8 +1234,8 @@ namespace VoronoiTacticsCombatCalculator
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox speedA;
-        private System.Windows.Forms.TextBox fatigueModA;
-        private System.Windows.Forms.TextBox fatigueModB;
+        private System.Windows.Forms.TextBox weightA;
+        private System.Windows.Forms.TextBox weightB;
         private System.Windows.Forms.TextBox speedB;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox distance;

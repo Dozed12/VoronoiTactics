@@ -43,7 +43,7 @@ namespace VoronoiTacticsCombatCalculator
             unitA.moraleRecover = float.Parse(this.recoverA.Text);
             unitA.minimumMorale = float.Parse(this.minimumMoraleA.Text);
             unitA.speed = Int32.Parse(this.speedA.Text);
-            unitA.fatigueModifier = float.Parse(this.fatigueModA.Text);
+            unitA.weight = float.Parse(this.weightA.Text);
             unitA.ranged = this.rangedA.Enabled;
             unitA.rangedAccuracy = float.Parse(this.rangedAccuracyA.Text);
             unitA.rangedAttack = float.Parse(this.rangedAttackA.Text);
@@ -75,7 +75,7 @@ namespace VoronoiTacticsCombatCalculator
             unitB.moraleRecover = float.Parse(this.recoverB.Text);
             unitB.minimumMorale = float.Parse(this.minimumMoraleB.Text);
             unitB.speed = Int32.Parse(this.speedB.Text);
-            unitB.fatigueModifier = float.Parse(this.fatigueModB.Text);
+            unitB.weight = float.Parse(this.weightB.Text);
             unitB.ranged = this.rangedB.Enabled;
             unitB.rangedAccuracy = float.Parse(this.rangedAccuracyB.Text);
             unitB.rangedAttack = float.Parse(this.rangedAttackB.Text);

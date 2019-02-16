@@ -51,7 +51,7 @@ namespace VoronoiTacticsCombatCalculator
         public void Process()
         {
 
-            //TODO Fatigue and Fatigue Modifier not applied
+            //TODO Condition and Weight not applied
             //TODO Terrain and Connection not used
 
             //Recover morale based on currentMaxMorale
@@ -128,7 +128,7 @@ namespace VoronoiTacticsCombatCalculator
                 phase = Phase.CHASE;
             }
 
-            //TODO Apply fatigue
+            //TODO Apply Condition change
 
             //Increment round
             round++;
