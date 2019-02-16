@@ -55,6 +55,7 @@ namespace VoronoiTacticsCombatCalculator
             //TODO Terrain and Connection not used
 
             //Recover morale based on currentMaxMorale
+            Console.WriteLine(defender.currentMorale);
             attacker.currentMorale += attacker.moraleRecover;
             defender.currentMorale += defender.moraleRecover;
             if (attacker.currentMorale > attacker.currentMaxMorale)
@@ -92,7 +93,6 @@ namespace VoronoiTacticsCombatCalculator
             //Apply casualties/morale after combat
             if (casualtiesAttacker != 0 || casualtiesDefender != 0)
             {
-
                 int casualtiesAttackerTrue = Math.Min(casualtiesAttacker, attacker.currentMen);
                 int casualtiesDefenderTrue = Math.Min(casualtiesDefender, defender.currentMen);
 
@@ -115,11 +115,17 @@ namespace VoronoiTacticsCombatCalculator
             //TODO Check Retreat(morale)
             if (attacker.currentMorale < attacker.minimumMorale)
             {
+                log.AppendText("Attacker retreats");
+                log.AppendText(Environment.NewLine);
 
+                phase = Phase.CHASE;
             }
             if (defender.currentMorale < defender.minimumMorale)
             {
+                log.AppendText("Defender retreats");
+                log.AppendText(Environment.NewLine);
 
+                phase = Phase.CHASE;
             }
 
             //TODO Apply fatigue

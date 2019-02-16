@@ -196,7 +196,7 @@ namespace VoronoiTacticsCombatCalculator
             this.menA.Name = "menA";
             this.menA.Size = new System.Drawing.Size(64, 20);
             this.menA.TabIndex = 6;
-            this.menA.Text = "300";
+            this.menA.Text = "500";
             // 
             // label2
             // 
@@ -312,7 +312,7 @@ namespace VoronoiTacticsCombatCalculator
             this.minimumMoraleA.Name = "minimumMoraleA";
             this.minimumMoraleA.Size = new System.Drawing.Size(64, 20);
             this.minimumMoraleA.TabIndex = 19;
-            this.minimumMoraleA.Text = "0.5";
+            this.minimumMoraleA.Text = "0.4";
             // 
             // recoverA
             // 
@@ -320,7 +320,7 @@ namespace VoronoiTacticsCombatCalculator
             this.recoverA.Name = "recoverA";
             this.recoverA.Size = new System.Drawing.Size(64, 20);
             this.recoverA.TabIndex = 20;
-            this.recoverA.Text = "0.001";
+            this.recoverA.Text = "0.1";
             // 
             // rangedAccuracyA
             // 
@@ -328,7 +328,7 @@ namespace VoronoiTacticsCombatCalculator
             this.rangedAccuracyA.Name = "rangedAccuracyA";
             this.rangedAccuracyA.Size = new System.Drawing.Size(64, 20);
             this.rangedAccuracyA.TabIndex = 21;
-            this.rangedAccuracyA.Text = "0.4";
+            this.rangedAccuracyA.Text = "0.2";
             // 
             // rangedAttackA
             // 
@@ -492,7 +492,7 @@ namespace VoronoiTacticsCombatCalculator
             this.rangedAccuracyB.Name = "rangedAccuracyB";
             this.rangedAccuracyB.Size = new System.Drawing.Size(64, 20);
             this.rangedAccuracyB.TabIndex = 34;
-            this.rangedAccuracyB.Text = "0.4";
+            this.rangedAccuracyB.Text = "0.2";
             // 
             // recoverB
             // 
@@ -500,7 +500,7 @@ namespace VoronoiTacticsCombatCalculator
             this.recoverB.Name = "recoverB";
             this.recoverB.Size = new System.Drawing.Size(64, 20);
             this.recoverB.TabIndex = 33;
-            this.recoverB.Text = "0.001";
+            this.recoverB.Text = "0.1";
             // 
             // minimumMoraleB
             // 
@@ -508,7 +508,7 @@ namespace VoronoiTacticsCombatCalculator
             this.minimumMoraleB.Name = "minimumMoraleB";
             this.minimumMoraleB.Size = new System.Drawing.Size(64, 20);
             this.minimumMoraleB.TabIndex = 32;
-            this.minimumMoraleB.Text = "0.5";
+            this.minimumMoraleB.Text = "0.4";
             // 
             // menB
             // 
@@ -516,7 +516,7 @@ namespace VoronoiTacticsCombatCalculator
             this.menB.Name = "menB";
             this.menB.Size = new System.Drawing.Size(64, 20);
             this.menB.TabIndex = 31;
-            this.menB.Text = "300";
+            this.menB.Text = "500";
             // 
             // Resume
             // 
@@ -1017,7 +1017,7 @@ namespace VoronoiTacticsCombatCalculator
             this.usableB.Name = "usableB";
             this.usableB.Size = new System.Drawing.Size(64, 20);
             this.usableB.TabIndex = 107;
-            this.usableB.Text = "100";
+            this.usableB.Text = "80";
             // 
             // usableA
             // 
@@ -1025,7 +1025,7 @@ namespace VoronoiTacticsCombatCalculator
             this.usableA.Name = "usableA";
             this.usableA.Size = new System.Drawing.Size(64, 20);
             this.usableA.TabIndex = 106;
-            this.usableA.Text = "100";
+            this.usableA.Text = "80";
             // 
             // label34
             // 
