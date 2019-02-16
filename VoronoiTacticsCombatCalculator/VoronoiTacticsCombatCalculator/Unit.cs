@@ -41,6 +41,7 @@ namespace VoronoiTacticsCombatCalculator
 
         //Situation
         public int currentMen;
+        public float currentFatigue;
         public float currentMorale;
         public float currentMaxMorale;
         public int reloadTimer;
