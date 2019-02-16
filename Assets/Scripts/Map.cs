@@ -1220,6 +1220,9 @@ public class MapData
             Debug.Log("======== Shading took: " + (Time.realtimeSinceStartup - time) + "s");
             time = Time.realtimeSinceStartup;
 
+            //Store alternate version without Height Border
+            Graphics.PixelMatrix withoutHeightBorder = new Graphics.PixelMatrix(pixelMatrix);
+
             //Province Height Border
             //Multithreaded
             int borderRadius = 4;
@@ -1272,24 +1275,30 @@ public class MapData
             time = Time.realtimeSinceStartup;
 
             //Draw frame
+            withoutHeightBorder = DrawFrame(withoutHeightBorder);
             pixelMatrix = DrawFrame(pixelMatrix);
 
             Debug.Log("======== Frame took: " + (Time.realtimeSinceStartup - time) + "s");
 
             //Create texture
             Texture2D texture = new Texture2D(settings.WIDTH, settings.HEIGHT);
+            Texture2D textureWithoutHeightBorder = new Texture2D(settings.WIDTH, settings.HEIGHT);
 
             //Apply pixel set
             texture.SetPixels(pixelMatrix.pixels);
+            textureWithoutHeightBorder.SetPixels(withoutHeightBorder.pixels);
 
             //Apply to texture
             texture.Apply();
+            textureWithoutHeightBorder.Apply();
 
             //Settings
             texture.filterMode = FilterMode.Trilinear;
+            textureWithoutHeightBorder.filterMode = FilterMode.Trilinear;;
 
             //Add to list
             mapModes.Add("Map", texture);
+            mapModes.Add("Map (No Height Border)", textureWithoutHeightBorder);
         }
 
         //Draw the frame(edges, border and sites)
