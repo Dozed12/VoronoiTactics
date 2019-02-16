@@ -74,8 +74,13 @@ Combat Situations:
 Base Cost = 0.01
 Fatigue Recover = Base Cost * (1 - (Fatigue Modifier - 1))
 * Fatigue from reloading/marching/running has a base value also modified by Fatigue Modifier.
-Base Cost = 0.01
+Base Cost = 0.01 (Will be different based on action)
 Fatigue Cost = Base Cost * (1 - (Fatigue Modifier - 1))
+* Some estimate of base values relation for fatigue
+    - Recovery: 0.001
+    - Reload: 0.0015
+    - March: 0.002
+    - Run: 0.005
 * Fatigue has an impact on all actions. Starts at 0% and increases with every action by a base amount modified by Fatigue Modifier.
 At 100% it reduces/increases things by 50%.
 2% fatigue -> 1% reduction/increase
