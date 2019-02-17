@@ -55,7 +55,6 @@ namespace VoronoiTacticsCombatCalculator
             //TODO Terrain and Connection not used
 
             //Recover morale based on currentMaxMorale
-            Console.WriteLine(defender.currentMorale);
             attacker.currentMorale += attacker.moraleRecover;
             defender.currentMorale += defender.moraleRecover;
             if (attacker.currentMorale > attacker.currentMaxMorale)
@@ -93,18 +92,23 @@ namespace VoronoiTacticsCombatCalculator
             //Apply casualties/morale after combat
             if (casualtiesAttacker != 0 || casualtiesDefender != 0)
             {
+                //Real casualities(Can't lose more than current amount)
                 int casualtiesAttackerTrue = Math.Min(casualtiesAttacker, attacker.currentMen);
                 int casualtiesDefenderTrue = Math.Min(casualtiesDefender, defender.currentMen);
 
+                //Remove casualities
                 attacker.currentMen -= casualtiesAttackerTrue;
                 defender.currentMen -= casualtiesDefenderTrue;
 
+                //Morale impact as percentage of total men
                 attacker.currentMorale -= casualtiesAttackerTrue / (float)attacker.maxMen;
                 defender.currentMorale -= casualtiesDefenderTrue / (float)defender.maxMen;
 
+                //Recalculate max morale
                 attacker.CalculateMaxMorale();
                 defender.CalculateMaxMorale();
 
+                //Display in log
                 log.AppendText("Attacker morale: " + attacker.currentMorale);
                 log.AppendText(Environment.NewLine);
                 log.AppendText("Defender morale: " + defender.currentMorale);
