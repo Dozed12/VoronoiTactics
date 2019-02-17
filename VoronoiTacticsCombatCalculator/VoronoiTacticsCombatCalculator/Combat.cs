@@ -52,6 +52,8 @@ namespace VoronoiTacticsCombatCalculator
         public void Process()
         {
 
+            //TODO Most things should be functions inside Unit.cs
+
             //TODO Increment can be precalculated(Always the same)
             attacker.currentCondition += conditionRecovery * (1 - (attacker.weight - 1));
             if (attacker.currentCondition > 1)

@@ -114,6 +114,14 @@ namespace VoronoiTacticsCombatCalculator
             {
                 //Progress reload
                 reloadTimer++;
+
+                //Reload cost on Condition
+                currentCondition -= Combat.conditionReload * (1 - (weight - 1));
+                if (currentCondition < 0)
+                    currentCondition = 0;
+                currentCondition -= Combat.conditionReload * (1 - (weight - 1));
+                if (currentCondition < 0)
+                    currentCondition = 0;
             }
 
             return kills;
