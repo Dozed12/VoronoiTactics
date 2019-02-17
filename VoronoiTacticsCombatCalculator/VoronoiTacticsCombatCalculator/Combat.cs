@@ -1,16 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace VoronoiTacticsCombatCalculator
 {
     public class Combat
     {
+
+        //Fatigue base values
+        public static float fatigueRecovery = 0.001f;
+        public static float fatigueReload = 0.0015f;
+        public static float fatigueMarch = 0.002f;
+        public static float fatigueRun = 0.005f;
+        public static float fatigueMelee = 0.003f;
 
         public enum Phase
         {
@@ -116,7 +117,10 @@ namespace VoronoiTacticsCombatCalculator
                 log.AppendText(Environment.NewLine);
             }
 
-            //TODO Check Retreat(morale)
+            //Check Retreat(morale)
+            //TODO If both fall morale at same time who retreats?
+            //  - The one with lowest morale?
+            //  - The one with lowest morale in percentage?
             if (attacker.currentMorale < attacker.minimumMorale && phase != Phase.CHASE)
             {
                 log.AppendText("Attacker retreats");
