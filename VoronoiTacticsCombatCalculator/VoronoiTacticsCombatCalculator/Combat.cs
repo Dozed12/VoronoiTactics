@@ -6,12 +6,12 @@ namespace VoronoiTacticsCombatCalculator
     public class Combat
     {
 
-        //Fatigue base values
-        public static float fatigueRecovery = 0.001f;
-        public static float fatigueReload = 0.0015f;
-        public static float fatigueMarch = 0.002f;
-        public static float fatigueRun = 0.005f;
-        public static float fatigueMelee = 0.003f;
+        //Condition base values
+        public static float conditionRecovery = 0.001f;
+        public static float conditionReload = 0.0015f;
+        public static float conditionMarch = 0.002f;
+        public static float conditionRun = 0.005f;
+        public static float conditionMelee = 0.003f;
 
         public enum Phase
         {
@@ -51,6 +51,14 @@ namespace VoronoiTacticsCombatCalculator
 
         public void Process()
         {
+
+            //TODO Increment can be precalculated(Always the same)
+            attacker.currentCondition += conditionRecovery * (1 - (attacker.weight - 1));
+            if (attacker.currentCondition > 1)
+                attacker.currentCondition = 1;
+            defender.currentCondition += conditionRecovery * (1 - (defender.weight - 1));
+            if (defender.currentCondition > 1)
+                defender.currentCondition = 1;
 
             //TODO Condition and Weight not applied
             //TODO Terrain and Connection not used
