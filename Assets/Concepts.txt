@@ -103,3 +103,8 @@ Concept is that an anti-tank regiment needs quite a lot of men and guns to penne
     - Ranged accuracy against lower position is increased by 10% per height difference
     - Melee fatigue against higher position is increased by 20% per height difference
     - Melee fatigue against lower position is decreased by 20% per height difference
+* Height difference impacts movement too.
+    - Movement fatigue from moving to higher position is increased by 20% per height difference
+    - Movement fatigue from moving to lower position is decreased by 20% per height difference
+    - Movement speed in moving to higher position is decreased by 20% per height difference
+    - Movement speed in moving to lower position is increased by 20% per height difference
