@@ -124,6 +124,9 @@ namespace VoronoiTacticsCombatCalculator
             this.StartRangedA.Enabled = true;
             this.StartRangedB.Enabled = true;
 
+            //Dispose of previous combat
+            combat = null;
+
             //First call (to display time right away)
             timer1_Tick(this, new EventArgs());
         }
