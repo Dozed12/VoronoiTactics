@@ -51,7 +51,10 @@ namespace VoronoiTacticsCombatCalculator
 
         public void Process()
         {
-
+            //TODO Melee Combat
+            //TODO Charge
+            //TODO Condition impact on combat
+            //TODO Terrain and Connection impact on combat
             //TODO Most things should be functions inside Unit.cs
 
             //TODO Increment can be precalculated(Always the same)
@@ -61,9 +64,6 @@ namespace VoronoiTacticsCombatCalculator
             defender.currentCondition += conditionRecovery * (1 - (defender.weight - 1));
             if (defender.currentCondition > 1)
                 defender.currentCondition = 1;
-
-            //TODO Condition and Weight not applied
-            //TODO Terrain and Connection not used
 
             //Recover morale based on currentMaxMorale
             attacker.currentMorale += attacker.moraleRecover;

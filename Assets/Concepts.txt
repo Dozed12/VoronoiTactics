@@ -110,3 +110,4 @@ Concept is that an anti-tank regiment needs quite a lot of men and guns to penne
     - Movement fatigue from moving to lower position is decreased by 20% per height difference
     - Movement speed in moving to higher position is decreased by 20% per height difference
     - Movement speed in moving to lower position is increased by 20% per height difference
+* Charge attack replaces first melee attack for those with charge

@@ -76,8 +76,8 @@
                     "charge": true,
                     //Chance of killing hit
                     "chargeAttack": 0.8,
-                    //Modifier to charge morale damage (charge morale damage is 20% more)
-                    "chargeMoraleImpact": 0.2,
+                    //Modifier to charge morale damage (charge morale damage is 20% higher)
+                    "chargeMoraleImpact": 1.2,
 
                     "rangedDefense": 0.2,
                     "meleeDefense": 0.3

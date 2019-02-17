@@ -55,12 +55,14 @@ namespace VoronoiTacticsCombatCalculator
             log = Log;
         }
 
+        //Calculate max morale given men lost
         public void CalculateMaxMorale()
         {
             int diff = maxMen - currentMen;
             currentMaxMorale = -(float)diff * (float)diff / (float)maxMen / (float)maxMen + 1;
         }
 
+        //Fire, calculate and log casualities
         public int Fire(Random random, string who)
         {
 
@@ -101,7 +103,7 @@ namespace VoronoiTacticsCombatCalculator
 
                 //Message for log
                 //TODO Log defended shots
-                //TODO Look at RichTextBox for multi color text box
+                //TODO Look at RichTextBox for multi color text box(Color for each side)
                 log.AppendText(who);
                 string message = " fired " + fires + " shots, hit " + hits + " men, " + kills + " mortally\n";
                 log.AppendText(message);
