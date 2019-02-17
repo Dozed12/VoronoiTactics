@@ -117,14 +117,14 @@ namespace VoronoiTacticsCombatCalculator
             }
 
             //TODO Check Retreat(morale)
-            if (attacker.currentMorale < attacker.minimumMorale)
+            if (attacker.currentMorale < attacker.minimumMorale && phase != Phase.CHASE)
             {
                 log.AppendText("Attacker retreats");
                 log.AppendText(Environment.NewLine);
 
                 phase = Phase.CHASE;
             }
-            if (defender.currentMorale < defender.minimumMorale)
+            if (defender.currentMorale < defender.minimumMorale && phase != Phase.CHASE)
             {
                 log.AppendText("Defender retreats");
                 log.AppendText(Environment.NewLine);
