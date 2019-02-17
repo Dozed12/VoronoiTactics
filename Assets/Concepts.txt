@@ -95,3 +95,11 @@ Concept is that an anti-tank regiment needs quite a lot of men and guns to penne
 (How do we keep track which tank was hit? Probably just merge all hits in a tank at a time)
 (Multi hits dont apply when target has Armor > 0 , "rangedTargets" stat)
 * Units with Armor (Original value, just because it lost some armor doesnt mean it can engage in melee) stat greater than 0 can't engage or be engaged in melee(makes no sense to do so)
+* Height difference impacts a series of specific combat parts based on point difference:
+    - Charge attack is reduced by 25% per height difference (Hard to do an efficient charge up hill)
+    - Melee attack against higher position is reduced by 20% per height difference
+    - Melee attack against lower position is increased by 20% per height difference
+    - Ranged accuracy against higher position is decreased by 10% per height difference
+    - Ranged accuracy against lower position is increased by 10% per height difference
+    - Melee fatigue against higher position is increased by 20% per height difference
+    - Melee fatigue against lower position is decreased by 20% per height difference
