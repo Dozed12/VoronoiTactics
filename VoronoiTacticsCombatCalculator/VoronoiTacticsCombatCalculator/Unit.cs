@@ -63,7 +63,7 @@ namespace VoronoiTacticsCombatCalculator
         }
 
         //Fire, calculate and log casualities
-        public int Fire(Random random, string who)
+        public int Fire(Random random, string who, Unit target)
         {
 
             int kills = 0;
@@ -97,7 +97,7 @@ namespace VoronoiTacticsCombatCalculator
                 kills = 0;
                 for (int i = 0; i < mortal; i++)
                 {
-                    if (random.Next(0, 100) < rangedAttack * 100)
+                    if (random.Next(0, 100) > target.rangedDefense * 100)
                         kills++;
                 }
 
