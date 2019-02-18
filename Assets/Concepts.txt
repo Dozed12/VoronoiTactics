@@ -113,4 +113,6 @@ Concept is that an anti-tank regiment needs quite a lot of men and guns to penne
 * Charge attack replaces first melee attack for those with charge
 * Ranged/Melee/Charge attacks have a modifier for morale impact (chargeMoraleImpact 1.2 means 20% more morale damage)
 * Units have a value indicating their morale defense, reducing all morale damage (Professionalism or Coesion, something like that)
-* Units getting attacked from multiple directions take a flanking penalty to morale. (Each extra enemy adds 20% morale damage to everything)
+* Units getting attacked from multiple directions take a flanking penalty to morale.
+(Each extra enemy adds 20% morale damage to everything)
+(Each extra enemy reduces defender melee/ranged/charge defense by 20%)
