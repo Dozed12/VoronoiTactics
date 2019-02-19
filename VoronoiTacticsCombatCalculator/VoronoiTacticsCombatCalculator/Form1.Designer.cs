@@ -637,6 +637,7 @@ namespace VoronoiTacticsCombatCalculator
             this.StartMeleeA.TabIndex = 61;
             this.StartMeleeA.Text = "Start Melee";
             this.StartMeleeA.UseVisualStyleBackColor = true;
+            this.StartMeleeA.Click += new System.EventHandler(this.StartMeleeA_Click);
             // 
             // StartMeleeB
             // 
@@ -647,6 +648,7 @@ namespace VoronoiTacticsCombatCalculator
             this.StartMeleeB.TabIndex = 63;
             this.StartMeleeB.Text = "Start Melee";
             this.StartMeleeB.UseVisualStyleBackColor = true;
+            this.StartMeleeB.Click += new System.EventHandler(this.StartMeleeB_Click);
             // 
             // StartRangedB
             // 

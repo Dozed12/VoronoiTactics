@@ -90,14 +90,21 @@ namespace VoronoiTacticsCombatCalculator
                     casualtiesAttacker = defender.Fire(random, "Defender", attacker);
                     break;
                 case Phase.MELEE:
+
                     //Charge round
                     if (firstMelee)
                     {
-                        casualtiesDefender = attacker.Charge(random, "Attacker", defender);
-                        casualtiesAttacker = defender.Charge(random, "Defender", attacker);
+                        casualtiesDefender = attacker.Melee(random, "Attacker", defender, true);
+                        casualtiesAttacker = defender.Melee(random, "Defender", attacker, true);
                         firstMelee = false;
                     }
                     //Normal melee
+                    else
+                    {
+                        casualtiesDefender = attacker.Melee(random, "Attacker", defender, false);
+                        casualtiesAttacker = defender.Melee(random, "Defender", attacker, false);
+                    }
+
                     break;
                 case Phase.CHASE:
                     break;

@@ -156,6 +156,13 @@ namespace VoronoiTacticsCombatCalculator
                     if (random.Next(0, 100) > target.meleeDefense * 100)
                         kills++;
                 }
+
+                //Message for log
+                //TODO Log defended hits
+                //TODO Look at RichTextBox for multi color text box(Color for each side)
+                log.AppendText(who);
+                string message = " melee'ed " + usable + " times, " + kills + " mortally\n";
+                log.AppendText(message);
             }
 
             return kills;

@@ -123,6 +123,8 @@ namespace VoronoiTacticsCombatCalculator
             //Reset UI things
             this.StartRangedA.Enabled = true;
             this.StartRangedB.Enabled = true;
+            this.StartMeleeA.Enabled = true;
+            this.StartMeleeB.Enabled = true;
 
             //Dispose of previous combat
             combat = null;
@@ -155,25 +157,6 @@ namespace VoronoiTacticsCombatCalculator
                 combat.Process();
         }
 
-        private void StartRangedA_Click(object sender, EventArgs e)
-        {
-
-            //Create combat
-            combat = new Combat(this.CombatLog, unitA, unitB, terrainA, terrainB, connection, Combat.Phase.RANGED);
-
-            //Disable ranged attack buttons
-            this.StartRangedA.Enabled = false;
-            this.StartRangedB.Enabled = false;
-
-        }
-
-        private void StartRangedB_Click(object sender, EventArgs e)
-        {
-
-            //TODO Same as StartRangedA_Click
-
-        }
-
         private void Resume_Click(object sender, EventArgs e)
         {
             this.timer1.Enabled = true;
@@ -201,6 +184,48 @@ namespace VoronoiTacticsCombatCalculator
         private void Pause_Click(object sender, EventArgs e)
         {
             this.timer1.Enabled = false;
+        }
+
+        private void StartRangedA_Click(object sender, EventArgs e)
+        {
+
+            //Create combat
+            combat = new Combat(this.CombatLog, unitA, unitB, terrainA, terrainB, connection, Combat.Phase.RANGED);
+
+            //Disable ranged attack buttons
+            this.StartRangedA.Enabled = false;
+            this.StartRangedB.Enabled = false;
+
+        }
+
+        private void StartRangedB_Click(object sender, EventArgs e)
+        {
+
+            //TODO Same as StartRangedA_Click
+
+        }
+
+        private void StartMeleeA_Click(object sender, EventArgs e)
+        {
+
+            //Create combat
+            combat = new Combat(this.CombatLog, unitA, unitB, terrainA, terrainB, connection, Combat.Phase.MELEE);
+
+            //Disable ranged attack buttons
+            this.StartRangedA.Enabled = false;
+            this.StartRangedB.Enabled = false;
+
+            //Disable melee attack buttons
+            this.StartMeleeA.Enabled = false;
+            this.StartMeleeB.Enabled = false;
+
+        }
+
+        private void StartMeleeB_Click(object sender, EventArgs e)
+        {
+
+            //TODO Same as StartMeleeA_Click
+
         }
     }
 }
