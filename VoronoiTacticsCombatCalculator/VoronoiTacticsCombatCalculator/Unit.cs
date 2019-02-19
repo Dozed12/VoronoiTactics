@@ -134,14 +134,39 @@ namespace VoronoiTacticsCombatCalculator
 
             int kills = 0;
 
+            Console.WriteLine(this.charge);
+
             //Charge
-            if (charge)
+            if (charge && this.charge)
             {
+
+                //Number of hits
+                int hits = 0;
+                for (int i = 0; i < usable; i++)
+                {
+                    if (random.Next(0, 100) < chargeAttack * 100)
+                        hits++;
+                }
+
+                //Number of kills
+                for (int i = 0; i < hits; i++)
+                {
+                    if (random.Next(0, 100) > target.chargeDefense * 100)
+                        kills++;
+                }
+
+                //Message for log
+                //TODO Log defended hits
+                //TODO Look at RichTextBox for multi color text box(Color for each side)
+                log.AppendText(who);
+                string message = " charged " + usable + " times, " + kills + " mortally\n";
+                log.AppendText(message);
 
             }
             //Normal Melee
             else
             {
+
                 //Number of hits
                 int hits = 0;
                 for (int i = 0; i < usable; i++)
@@ -163,6 +188,7 @@ namespace VoronoiTacticsCombatCalculator
                 log.AppendText(who);
                 string message = " melee'ed " + usable + " times, " + kills + " mortally\n";
                 log.AppendText(message);
+
             }
 
             return kills;
