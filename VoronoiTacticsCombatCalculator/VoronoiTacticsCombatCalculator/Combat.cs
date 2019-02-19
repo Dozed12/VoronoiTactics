@@ -37,16 +37,19 @@ namespace VoronoiTacticsCombatCalculator
 
         public int round;
 
+        public bool firstMelee;
+
         public Combat(TextBox log, Unit A, Unit B, Terrain a, Terrain b, Connection C, Phase Phase)
         {
             this.log = log;
-            attacker = A;
-            defender = B;
-            terrainAttacker = a;
-            terrainDefender = b;
-            connection = C;
-            phase = Phase;
-            round = 1;
+            this.attacker = A;
+            this.defender = B;
+            this.terrainAttacker = a;
+            this.terrainDefender = b;
+            this.connection = C;
+            this.phase = Phase;
+            this.round = 1;
+            this.firstMelee = true;
         }
 
         public void Process()
@@ -87,12 +90,14 @@ namespace VoronoiTacticsCombatCalculator
                     casualtiesAttacker = defender.Fire(random, "Defender", attacker);
                     break;
                 case Phase.MELEE:
-                    if (round == 1)
+                    //Charge round
+                    if (firstMelee)
                     {
-                        //TODO do charge on first round of melee
-                        //if melee comes after ranged and we have a single combat object for all combat then round != 0, what will we do?
-                        //keep track if there was a melee round before(simple flag)
+                        casualtiesDefender = attacker.Charge(random, "Attacker", defender);
+                        casualtiesAttacker = defender.Charge(random, "Defender", attacker);
+                        firstMelee = false;
                     }
+                    //Normal melee
                     break;
                 case Phase.CHASE:
                     break;

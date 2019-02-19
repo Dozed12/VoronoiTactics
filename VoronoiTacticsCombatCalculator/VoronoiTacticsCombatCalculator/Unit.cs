@@ -94,7 +94,6 @@ namespace VoronoiTacticsCombatCalculator
                 }
 
                 //Number of kills
-                kills = 0;
                 for (int i = 0; i < mortal; i++)
                 {
                     if (random.Next(0, 100) > target.rangedDefense * 100)
@@ -128,6 +127,40 @@ namespace VoronoiTacticsCombatCalculator
 
             return kills;
         }
+
+        //Charge, calculate and log casualities
+        public int Melee(Random random, string who, Unit target, bool charge)
+        {
+
+            int kills = 0;
+
+            //Charge
+            if (charge)
+            {
+
+            }
+            //Normal Melee
+            else
+            {
+                //Number of hits
+                int hits = 0;
+                for (int i = 0; i < usable; i++)
+                {
+                    if (random.Next(0, 100) < meleeAttack * 100)
+                        hits++;
+                }
+
+                //Number of kills
+                for (int i = 0; i < hits; i++)
+                {
+                    if (random.Next(0, 100) > target.meleeDefense * 100)
+                        kills++;
+                }
+            }
+
+            return kills;
+        }
+
 
     }
 }
