@@ -44,20 +44,20 @@ namespace VoronoiTacticsCombatCalculator
             unitA.minimumMorale = float.Parse(this.minimumMoraleA.Text);
             unitA.speed = Int32.Parse(this.speedA.Text);
             unitA.weight = float.Parse(this.weightA.Text);
-            unitA.ranged = this.rangedA.Enabled;
+            unitA.ranged = this.rangedA.Checked;
             unitA.rangedAccuracy = float.Parse(this.rangedAccuracyA.Text);
             unitA.rangedAttack = float.Parse(this.rangedAttackA.Text);
             unitA.rangedTargets = Int32.Parse(this.rangedTargetsA.Text);
             unitA.rangedReload = Int32.Parse(this.reloadA.Text);
             unitA.reloadTimer = unitA.rangedReload;
-            unitA.melee = this.meleeA.Enabled;
+            unitA.melee = this.meleeA.Checked;
             unitA.meleeAttack = float.Parse(this.meleeAttackA.Text);
             unitA.meleeTime = Int32.Parse(this.meleeTimeA.Text);
             unitA.meleeTimer = unitA.meleeTime;
             unitA.rangedDefense = float.Parse(this.rangedDefenseA.Text);
             unitA.meleeDefense = float.Parse(this.meleeDefenseA.Text);
             unitA.chargeDefense = float.Parse(this.chargeDefenseA.Text);
-            unitA.charge = this.chargeA.Enabled;
+            unitA.charge = this.chargeA.Checked;
             unitA.chargeAttack = float.Parse(this.chargeAttackA.Text);
             unitA.chargeMoraleImpact = float.Parse(this.chargeMoraleImpactA.Text);
 
@@ -76,20 +76,20 @@ namespace VoronoiTacticsCombatCalculator
             unitB.minimumMorale = float.Parse(this.minimumMoraleB.Text);
             unitB.speed = Int32.Parse(this.speedB.Text);
             unitB.weight = float.Parse(this.weightB.Text);
-            unitB.ranged = this.rangedB.Enabled;
+            unitB.ranged = this.rangedB.Checked;
             unitB.rangedAccuracy = float.Parse(this.rangedAccuracyB.Text);
             unitB.rangedAttack = float.Parse(this.rangedAttackB.Text);
             unitB.rangedTargets = Int32.Parse(this.rangedTargetsB.Text);
             unitB.rangedReload = Int32.Parse(this.reloadB.Text);
             unitB.reloadTimer = unitB.rangedReload;
-            unitB.melee = this.meleeB.Enabled;
+            unitB.melee = this.meleeB.Checked;
             unitB.meleeAttack = float.Parse(this.meleeAttackB.Text);
             unitB.meleeTime = Int32.Parse(this.meleeTimeB.Text);
             unitB.meleeTimer = unitB.meleeTime;
             unitB.rangedDefense = float.Parse(this.rangedDefenseB.Text);
             unitB.meleeDefense = float.Parse(this.meleeDefenseB.Text);
             unitB.chargeDefense = float.Parse(this.chargeDefenseB.Text);
-            unitB.charge = this.chargeB.Enabled;
+            unitB.charge = this.chargeB.Checked;
             unitB.chargeAttack = float.Parse(this.chargeAttackB.Text);
             unitB.chargeMoraleImpact = float.Parse(this.chargeMoraleImpactB.Text);
 
