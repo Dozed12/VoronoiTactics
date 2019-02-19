@@ -181,6 +181,12 @@ namespace VoronoiTacticsCombatCalculator
             this.timer1.Interval = 50;
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 10;
+        }
+
         private void Pause_Click(object sender, EventArgs e)
         {
             this.timer1.Enabled = false;
@@ -227,5 +233,6 @@ namespace VoronoiTacticsCombatCalculator
             //TODO Same as StartMeleeA_Click
 
         }
+
     }
 }
