@@ -143,6 +143,9 @@ namespace VoronoiTacticsCombatCalculator
             //0-59 seconds
             seconds %= 60;
 
+            //0-59 minutes
+            minutes %= 60;
+
             //Time string
             string sTime = hours.ToString() + "h " + minutes.ToString() + "m " + seconds.ToString() + "s ";
 
