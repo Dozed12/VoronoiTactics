@@ -186,7 +186,7 @@ namespace VoronoiTacticsCombatCalculator
                 //TODO Log defended hits
                 //TODO Look at RichTextBox for multi color text box(Color for each side)
                 log.AppendText(who);
-                string message = " melee'ed " + usable + " times, " + kills + " mortally\n";
+                string message = " melee'd " + usable + " times, " + kills + " mortally\n";
                 log.AppendText(message);
 
             }
