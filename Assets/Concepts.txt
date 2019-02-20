@@ -83,10 +83,10 @@ Condition Cost = Base Cost * (1 - (Weight - 1))
     - Run: 0.005 (More than double of March)
     - Melee: 0.003 (Slightly higher than marching)
 * Condition has an impact on all actions. Starts at 100% and decreases with every action by a base amount modified by Weight.
-At 0% it reduces/increases things by 50%.
-2% condition lost -> 1% reduction/increase in actions
+At 0% it reduces/increases things by 25%.
+4% condition lost -> 1% reduction/increase in actions
 Reduces attack values, attack accuracy, speed, melee defense
-Increases reload time and melee time
+Increases reload time, melee time and morale damage
 * Armor stat indicating how many hits unit needs to be destroyed(To be hit needs to be hit by unit with HardAttack flag, like artillery)
 Basically have single or low number of tanks in a unit
 Artillery, with HardAttack flag, can bombard these tanks and maybe pennetrate

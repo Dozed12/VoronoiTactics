@@ -195,7 +195,7 @@ namespace VoronoiTacticsCombatCalculator
         }
 
         //Apply casualities and morale damage
-        public void Casualities(int number, string who, float modifier)
+        public void Casualities(int number, string who, float moraleModifier)
         {
 
             //No Casualities
@@ -208,8 +208,11 @@ namespace VoronoiTacticsCombatCalculator
             //Remove casualities
             currentMen -= trueCasualities;
 
-            //Morale impact as percentage of total men
-            currentMorale -= trueCasualities / (float)maxMen;
+            //Base Morale impact as percentage of total men
+            float baseMoraleLost = trueCasualities / (float)maxMen;
+
+            //Apply morale
+            currentMorale -= baseMoraleLost * moraleModifier;
 
             //Recalculate max morale
             CalculateMaxMorale();
