@@ -194,6 +194,31 @@ namespace VoronoiTacticsCombatCalculator
             return kills;
         }
 
+        //Apply casualities and morale damage
+        public void Casualities(int number, string who, float modifier)
+        {
+
+            //No Casualities
+            if (number == 0)
+                return;
+
+            //Real casualities(Can't lose more than current amount)
+            int trueCasualities = Math.Min(number, currentMen);
+
+            //Remove casualities
+            currentMen -= trueCasualities;
+
+            //Morale impact as percentage of total men
+            currentMorale -= trueCasualities / (float)maxMen;
+
+            //Recalculate max morale
+            CalculateMaxMorale();
+
+            //Display in log
+            log.AppendText(who + " morale: " + currentMorale);
+            log.AppendText(Environment.NewLine);
+
+        }
 
     }
 }
