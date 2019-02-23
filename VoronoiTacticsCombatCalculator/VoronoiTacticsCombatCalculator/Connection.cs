@@ -9,5 +9,6 @@ namespace VoronoiTacticsCombatCalculator
     {
         public float river;
         public int distance;
+        public float weather;
     }
 }

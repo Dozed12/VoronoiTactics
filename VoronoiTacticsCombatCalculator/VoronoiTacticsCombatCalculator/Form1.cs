@@ -111,6 +111,7 @@ namespace VoronoiTacticsCombatCalculator
             connection = new Connection();
             connection.river = float.Parse(this.river.Text);
             connection.distance = Int32.Parse(this.distance.Text);
+            connection.weather = float.Parse(this.weather.Text);
             //TODO probably would have other stats(fortifications,etc)
 
             //Enable timer
