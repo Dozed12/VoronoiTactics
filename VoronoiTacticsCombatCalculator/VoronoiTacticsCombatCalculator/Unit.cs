@@ -58,6 +58,7 @@ namespace VoronoiTacticsCombatCalculator
         //Calculate max morale given men lost
         public void CalculateMaxMorale()
         {
+            //TODO Add weather impact to max morale(negated by Acclimatization)
             int diff = maxMen - currentMen;
             currentMaxMorale = -(float)diff * (float)diff / (float)maxMen / (float)maxMen + 1;
         }
@@ -211,7 +212,9 @@ namespace VoronoiTacticsCombatCalculator
             //Base Morale impact as percentage of total men
             float baseMoraleLost = trueCasualities / (float)maxMen;
 
-            //Apply morale
+            //TODO Apply fatigue to morale
+
+            //Apply final morale
             currentMorale -= baseMoraleLost * moraleModifier;
 
             //Recalculate max morale

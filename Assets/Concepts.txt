@@ -71,6 +71,7 @@ Many concepts:
 * Units have Minimum Morale (%), if below that value unit retreats, if Current Max Morale > Max Morale * Minimum Morale unit shatters and disappears completely
 * At < Minimum Morale morale a unit retreats to a random vacant or ally(priority to vacant) neighbour. (What happens if it retreats to ally province? Applies the stacking penalties?)
 * Weather can affect max morale (some % modifier)
+Can be negated by Acclimatization set to entire army, at expense of some Deployment Points
 * Seeing a neighbor retreat reduces morale by some % of max morale
 * Condition always recharging to 0% at a base rate, modified by Weight.
 Condition Recover = Base Cost * (1 - (Weight - 1))
