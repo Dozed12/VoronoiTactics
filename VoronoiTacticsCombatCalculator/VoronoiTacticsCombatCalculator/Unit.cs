@@ -12,6 +12,7 @@ namespace VoronoiTacticsCombatCalculator
     public class Unit
     {
         //Stats
+        public bool acclimatized;
         public int maxMen;
         public int guns;
         public int usable;

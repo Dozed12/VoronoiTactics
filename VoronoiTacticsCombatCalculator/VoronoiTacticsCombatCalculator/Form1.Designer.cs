@@ -139,11 +139,14 @@ namespace VoronoiTacticsCombatCalculator
             this.button3 = new System.Windows.Forms.Button();
             this.weather = new System.Windows.Forms.TextBox();
             this.label35 = new System.Windows.Forms.Label();
+            this.acclimatizedB = new System.Windows.Forms.CheckBox();
+            this.acclimatizedA = new System.Windows.Forms.CheckBox();
+            this.label36 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Begin
             // 
-            this.Begin.Location = new System.Drawing.Point(18, 906);
+            this.Begin.Location = new System.Drawing.Point(18, 933);
             this.Begin.Name = "Begin";
             this.Begin.Size = new System.Drawing.Size(103, 38);
             this.Begin.TabIndex = 1;
@@ -158,7 +161,7 @@ namespace VoronoiTacticsCombatCalculator
             this.CombatLog.Name = "CombatLog";
             this.CombatLog.ReadOnly = true;
             this.CombatLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.CombatLog.Size = new System.Drawing.Size(420, 932);
+            this.CombatLog.Size = new System.Drawing.Size(420, 959);
             this.CombatLog.TabIndex = 2;
             // 
             // A
@@ -187,7 +190,7 @@ namespace VoronoiTacticsCombatCalculator
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(31, 209);
+            this.label1.Location = new System.Drawing.Point(31, 236);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(28, 13);
             this.label1.TabIndex = 5;
@@ -195,7 +198,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // menA
             // 
-            this.menA.Location = new System.Drawing.Point(175, 206);
+            this.menA.Location = new System.Drawing.Point(175, 233);
             this.menA.Name = "menA";
             this.menA.Size = new System.Drawing.Size(64, 20);
             this.menA.TabIndex = 6;
@@ -204,7 +207,7 @@ namespace VoronoiTacticsCombatCalculator
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(31, 323);
+            this.label2.Location = new System.Drawing.Point(31, 350);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 13);
             this.label2.TabIndex = 7;
@@ -213,7 +216,7 @@ namespace VoronoiTacticsCombatCalculator
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(31, 353);
+            this.label3.Location = new System.Drawing.Point(31, 380);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(83, 13);
             this.label3.TabIndex = 8;
@@ -222,7 +225,7 @@ namespace VoronoiTacticsCombatCalculator
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(31, 440);
+            this.label4.Location = new System.Drawing.Point(31, 467);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(45, 13);
             this.label4.TabIndex = 9;
@@ -231,7 +234,7 @@ namespace VoronoiTacticsCombatCalculator
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(31, 469);
+            this.label5.Location = new System.Drawing.Point(31, 496);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(93, 13);
             this.label5.TabIndex = 10;
@@ -240,7 +243,7 @@ namespace VoronoiTacticsCombatCalculator
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(31, 500);
+            this.label6.Location = new System.Drawing.Point(31, 527);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(79, 13);
             this.label6.TabIndex = 11;
@@ -249,7 +252,7 @@ namespace VoronoiTacticsCombatCalculator
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(31, 531);
+            this.label7.Location = new System.Drawing.Point(31, 558);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(84, 13);
             this.label7.TabIndex = 12;
@@ -258,7 +261,7 @@ namespace VoronoiTacticsCombatCalculator
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(31, 564);
+            this.label8.Location = new System.Drawing.Point(31, 591);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(41, 13);
             this.label8.TabIndex = 13;
@@ -267,7 +270,7 @@ namespace VoronoiTacticsCombatCalculator
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(31, 596);
+            this.label9.Location = new System.Drawing.Point(31, 623);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(36, 13);
             this.label9.TabIndex = 14;
@@ -276,7 +279,7 @@ namespace VoronoiTacticsCombatCalculator
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(31, 623);
+            this.label10.Location = new System.Drawing.Point(31, 650);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(70, 13);
             this.label10.TabIndex = 15;
@@ -285,7 +288,7 @@ namespace VoronoiTacticsCombatCalculator
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(31, 650);
+            this.label11.Location = new System.Drawing.Point(31, 677);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(62, 13);
             this.label11.TabIndex = 16;
@@ -294,7 +297,7 @@ namespace VoronoiTacticsCombatCalculator
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(31, 678);
+            this.label12.Location = new System.Drawing.Point(31, 705);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(88, 13);
             this.label12.TabIndex = 17;
@@ -303,7 +306,7 @@ namespace VoronoiTacticsCombatCalculator
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(31, 708);
+            this.label13.Location = new System.Drawing.Point(31, 735);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(79, 13);
             this.label13.TabIndex = 18;
@@ -311,7 +314,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // minimumMoraleA
             // 
-            this.minimumMoraleA.Location = new System.Drawing.Point(175, 320);
+            this.minimumMoraleA.Location = new System.Drawing.Point(175, 347);
             this.minimumMoraleA.Name = "minimumMoraleA";
             this.minimumMoraleA.Size = new System.Drawing.Size(64, 20);
             this.minimumMoraleA.TabIndex = 19;
@@ -319,7 +322,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // recoverA
             // 
-            this.recoverA.Location = new System.Drawing.Point(175, 350);
+            this.recoverA.Location = new System.Drawing.Point(175, 377);
             this.recoverA.Name = "recoverA";
             this.recoverA.Size = new System.Drawing.Size(64, 20);
             this.recoverA.TabIndex = 20;
@@ -327,7 +330,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // rangedAccuracyA
             // 
-            this.rangedAccuracyA.Location = new System.Drawing.Point(175, 466);
+            this.rangedAccuracyA.Location = new System.Drawing.Point(175, 493);
             this.rangedAccuracyA.Name = "rangedAccuracyA";
             this.rangedAccuracyA.Size = new System.Drawing.Size(64, 20);
             this.rangedAccuracyA.TabIndex = 21;
@@ -335,7 +338,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // rangedAttackA
             // 
-            this.rangedAttackA.Location = new System.Drawing.Point(175, 497);
+            this.rangedAttackA.Location = new System.Drawing.Point(175, 524);
             this.rangedAttackA.Name = "rangedAttackA";
             this.rangedAttackA.Size = new System.Drawing.Size(64, 20);
             this.rangedAttackA.TabIndex = 22;
@@ -343,7 +346,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // rangedTargetsA
             // 
-            this.rangedTargetsA.Location = new System.Drawing.Point(175, 528);
+            this.rangedTargetsA.Location = new System.Drawing.Point(175, 555);
             this.rangedTargetsA.Name = "rangedTargetsA";
             this.rangedTargetsA.Size = new System.Drawing.Size(64, 20);
             this.rangedTargetsA.TabIndex = 23;
@@ -351,7 +354,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // reloadA
             // 
-            this.reloadA.Location = new System.Drawing.Point(175, 561);
+            this.reloadA.Location = new System.Drawing.Point(175, 588);
             this.reloadA.Name = "reloadA";
             this.reloadA.Size = new System.Drawing.Size(64, 20);
             this.reloadA.TabIndex = 24;
@@ -359,7 +362,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // meleeAttackA
             // 
-            this.meleeAttackA.Location = new System.Drawing.Point(175, 620);
+            this.meleeAttackA.Location = new System.Drawing.Point(175, 647);
             this.meleeAttackA.Name = "meleeAttackA";
             this.meleeAttackA.Size = new System.Drawing.Size(64, 20);
             this.meleeAttackA.TabIndex = 25;
@@ -367,7 +370,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // meleeTimeA
             // 
-            this.meleeTimeA.Location = new System.Drawing.Point(175, 647);
+            this.meleeTimeA.Location = new System.Drawing.Point(175, 674);
             this.meleeTimeA.Name = "meleeTimeA";
             this.meleeTimeA.Size = new System.Drawing.Size(64, 20);
             this.meleeTimeA.TabIndex = 26;
@@ -375,7 +378,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // rangedDefenseA
             // 
-            this.rangedDefenseA.Location = new System.Drawing.Point(175, 675);
+            this.rangedDefenseA.Location = new System.Drawing.Point(175, 702);
             this.rangedDefenseA.Name = "rangedDefenseA";
             this.rangedDefenseA.Size = new System.Drawing.Size(64, 20);
             this.rangedDefenseA.TabIndex = 27;
@@ -383,7 +386,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // meleeDefenseA
             // 
-            this.meleeDefenseA.Location = new System.Drawing.Point(175, 705);
+            this.meleeDefenseA.Location = new System.Drawing.Point(175, 732);
             this.meleeDefenseA.Name = "meleeDefenseA";
             this.meleeDefenseA.Size = new System.Drawing.Size(64, 20);
             this.meleeDefenseA.TabIndex = 28;
@@ -394,7 +397,7 @@ namespace VoronoiTacticsCombatCalculator
             this.rangedA.AutoSize = true;
             this.rangedA.Checked = true;
             this.rangedA.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.rangedA.Location = new System.Drawing.Point(224, 440);
+            this.rangedA.Location = new System.Drawing.Point(224, 467);
             this.rangedA.Name = "rangedA";
             this.rangedA.Size = new System.Drawing.Size(15, 14);
             this.rangedA.TabIndex = 29;
@@ -405,7 +408,7 @@ namespace VoronoiTacticsCombatCalculator
             this.meleeA.AutoSize = true;
             this.meleeA.Checked = true;
             this.meleeA.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.meleeA.Location = new System.Drawing.Point(224, 595);
+            this.meleeA.Location = new System.Drawing.Point(224, 622);
             this.meleeA.Name = "meleeA";
             this.meleeA.Size = new System.Drawing.Size(15, 14);
             this.meleeA.TabIndex = 30;
@@ -416,7 +419,7 @@ namespace VoronoiTacticsCombatCalculator
             this.meleeB.AutoSize = true;
             this.meleeB.Checked = true;
             this.meleeB.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.meleeB.Location = new System.Drawing.Point(440, 595);
+            this.meleeB.Location = new System.Drawing.Point(440, 622);
             this.meleeB.Name = "meleeB";
             this.meleeB.Size = new System.Drawing.Size(15, 14);
             this.meleeB.TabIndex = 43;
@@ -427,7 +430,7 @@ namespace VoronoiTacticsCombatCalculator
             this.rangedB.AutoSize = true;
             this.rangedB.Checked = true;
             this.rangedB.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.rangedB.Location = new System.Drawing.Point(440, 440);
+            this.rangedB.Location = new System.Drawing.Point(440, 467);
             this.rangedB.Name = "rangedB";
             this.rangedB.Size = new System.Drawing.Size(15, 14);
             this.rangedB.TabIndex = 42;
@@ -435,7 +438,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // meleeDefenseB
             // 
-            this.meleeDefenseB.Location = new System.Drawing.Point(391, 705);
+            this.meleeDefenseB.Location = new System.Drawing.Point(391, 732);
             this.meleeDefenseB.Name = "meleeDefenseB";
             this.meleeDefenseB.Size = new System.Drawing.Size(64, 20);
             this.meleeDefenseB.TabIndex = 41;
@@ -443,7 +446,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // rangedDefenseB
             // 
-            this.rangedDefenseB.Location = new System.Drawing.Point(391, 675);
+            this.rangedDefenseB.Location = new System.Drawing.Point(391, 702);
             this.rangedDefenseB.Name = "rangedDefenseB";
             this.rangedDefenseB.Size = new System.Drawing.Size(64, 20);
             this.rangedDefenseB.TabIndex = 40;
@@ -451,7 +454,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // meleeTimeB
             // 
-            this.meleeTimeB.Location = new System.Drawing.Point(391, 647);
+            this.meleeTimeB.Location = new System.Drawing.Point(391, 674);
             this.meleeTimeB.Name = "meleeTimeB";
             this.meleeTimeB.Size = new System.Drawing.Size(64, 20);
             this.meleeTimeB.TabIndex = 39;
@@ -459,7 +462,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // meleeAttackB
             // 
-            this.meleeAttackB.Location = new System.Drawing.Point(391, 620);
+            this.meleeAttackB.Location = new System.Drawing.Point(391, 647);
             this.meleeAttackB.Name = "meleeAttackB";
             this.meleeAttackB.Size = new System.Drawing.Size(64, 20);
             this.meleeAttackB.TabIndex = 38;
@@ -467,7 +470,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // reloadB
             // 
-            this.reloadB.Location = new System.Drawing.Point(391, 561);
+            this.reloadB.Location = new System.Drawing.Point(391, 588);
             this.reloadB.Name = "reloadB";
             this.reloadB.Size = new System.Drawing.Size(64, 20);
             this.reloadB.TabIndex = 37;
@@ -475,7 +478,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // rangedTargetsB
             // 
-            this.rangedTargetsB.Location = new System.Drawing.Point(391, 528);
+            this.rangedTargetsB.Location = new System.Drawing.Point(391, 555);
             this.rangedTargetsB.Name = "rangedTargetsB";
             this.rangedTargetsB.Size = new System.Drawing.Size(64, 20);
             this.rangedTargetsB.TabIndex = 36;
@@ -483,7 +486,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // rangedAttackB
             // 
-            this.rangedAttackB.Location = new System.Drawing.Point(391, 497);
+            this.rangedAttackB.Location = new System.Drawing.Point(391, 524);
             this.rangedAttackB.Name = "rangedAttackB";
             this.rangedAttackB.Size = new System.Drawing.Size(64, 20);
             this.rangedAttackB.TabIndex = 35;
@@ -491,7 +494,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // rangedAccuracyB
             // 
-            this.rangedAccuracyB.Location = new System.Drawing.Point(391, 466);
+            this.rangedAccuracyB.Location = new System.Drawing.Point(391, 493);
             this.rangedAccuracyB.Name = "rangedAccuracyB";
             this.rangedAccuracyB.Size = new System.Drawing.Size(64, 20);
             this.rangedAccuracyB.TabIndex = 34;
@@ -499,7 +502,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // recoverB
             // 
-            this.recoverB.Location = new System.Drawing.Point(391, 350);
+            this.recoverB.Location = new System.Drawing.Point(391, 377);
             this.recoverB.Name = "recoverB";
             this.recoverB.Size = new System.Drawing.Size(64, 20);
             this.recoverB.TabIndex = 33;
@@ -507,7 +510,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // minimumMoraleB
             // 
-            this.minimumMoraleB.Location = new System.Drawing.Point(391, 320);
+            this.minimumMoraleB.Location = new System.Drawing.Point(391, 347);
             this.minimumMoraleB.Name = "minimumMoraleB";
             this.minimumMoraleB.Size = new System.Drawing.Size(64, 20);
             this.minimumMoraleB.TabIndex = 32;
@@ -515,7 +518,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // menB
             // 
-            this.menB.Location = new System.Drawing.Point(391, 205);
+            this.menB.Location = new System.Drawing.Point(391, 232);
             this.menB.Name = "menB";
             this.menB.Size = new System.Drawing.Size(64, 20);
             this.menB.TabIndex = 31;
@@ -523,7 +526,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // Resume
             // 
-            this.Resume.Location = new System.Drawing.Point(190, 906);
+            this.Resume.Location = new System.Drawing.Point(190, 933);
             this.Resume.Name = "Resume";
             this.Resume.Size = new System.Drawing.Size(30, 38);
             this.Resume.TabIndex = 44;
@@ -533,7 +536,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // Pause
             // 
-            this.Pause.Location = new System.Drawing.Point(154, 906);
+            this.Pause.Location = new System.Drawing.Point(154, 933);
             this.Pause.Name = "Pause";
             this.Pause.Size = new System.Drawing.Size(30, 38);
             this.Pause.TabIndex = 45;
@@ -543,7 +546,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // Fast
             // 
-            this.Fast.Location = new System.Drawing.Point(226, 906);
+            this.Fast.Location = new System.Drawing.Point(226, 933);
             this.Fast.Name = "Fast";
             this.Fast.Size = new System.Drawing.Size(30, 38);
             this.Fast.TabIndex = 46;
@@ -554,7 +557,7 @@ namespace VoronoiTacticsCombatCalculator
             // chargeA
             // 
             this.chargeA.AutoSize = true;
-            this.chargeA.Location = new System.Drawing.Point(224, 769);
+            this.chargeA.Location = new System.Drawing.Point(224, 796);
             this.chargeA.Name = "chargeA";
             this.chargeA.Size = new System.Drawing.Size(15, 14);
             this.chargeA.TabIndex = 48;
@@ -563,7 +566,7 @@ namespace VoronoiTacticsCombatCalculator
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(31, 770);
+            this.label14.Location = new System.Drawing.Point(31, 797);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(41, 13);
             this.label14.TabIndex = 47;
@@ -572,7 +575,7 @@ namespace VoronoiTacticsCombatCalculator
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(31, 797);
+            this.label15.Location = new System.Drawing.Point(31, 824);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(75, 13);
             this.label15.TabIndex = 49;
@@ -580,7 +583,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // chargeAttackA
             // 
-            this.chargeAttackA.Location = new System.Drawing.Point(175, 794);
+            this.chargeAttackA.Location = new System.Drawing.Point(175, 821);
             this.chargeAttackA.Name = "chargeAttackA";
             this.chargeAttackA.Size = new System.Drawing.Size(64, 20);
             this.chargeAttackA.TabIndex = 50;
@@ -588,7 +591,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // chargeAttackB
             // 
-            this.chargeAttackB.Location = new System.Drawing.Point(391, 794);
+            this.chargeAttackB.Location = new System.Drawing.Point(391, 821);
             this.chargeAttackB.Name = "chargeAttackB";
             this.chargeAttackB.Size = new System.Drawing.Size(64, 20);
             this.chargeAttackB.TabIndex = 52;
@@ -597,7 +600,7 @@ namespace VoronoiTacticsCombatCalculator
             // chargeB
             // 
             this.chargeB.AutoSize = true;
-            this.chargeB.Location = new System.Drawing.Point(440, 769);
+            this.chargeB.Location = new System.Drawing.Point(440, 796);
             this.chargeB.Name = "chargeB";
             this.chargeB.Size = new System.Drawing.Size(15, 14);
             this.chargeB.TabIndex = 51;
@@ -605,7 +608,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // Swap
             // 
-            this.Swap.Location = new System.Drawing.Point(295, 169);
+            this.Swap.Location = new System.Drawing.Point(295, 154);
             this.Swap.Name = "Swap";
             this.Swap.Size = new System.Drawing.Size(40, 38);
             this.Swap.TabIndex = 53;
@@ -614,7 +617,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // Time
             // 
-            this.Time.Location = new System.Drawing.Point(440, 916);
+            this.Time.Location = new System.Drawing.Point(440, 943);
             this.Time.Name = "Time";
             this.Time.ReadOnly = true;
             this.Time.Size = new System.Drawing.Size(112, 20);
@@ -623,7 +626,7 @@ namespace VoronoiTacticsCombatCalculator
             // StartRangedA
             // 
             this.StartRangedA.Enabled = false;
-            this.StartRangedA.Location = new System.Drawing.Point(156, 860);
+            this.StartRangedA.Location = new System.Drawing.Point(156, 887);
             this.StartRangedA.Name = "StartRangedA";
             this.StartRangedA.Size = new System.Drawing.Size(80, 31);
             this.StartRangedA.TabIndex = 60;
@@ -634,7 +637,7 @@ namespace VoronoiTacticsCombatCalculator
             // StartMeleeA
             // 
             this.StartMeleeA.Enabled = false;
-            this.StartMeleeA.Location = new System.Drawing.Point(255, 860);
+            this.StartMeleeA.Location = new System.Drawing.Point(255, 887);
             this.StartMeleeA.Name = "StartMeleeA";
             this.StartMeleeA.Size = new System.Drawing.Size(80, 31);
             this.StartMeleeA.TabIndex = 61;
@@ -645,7 +648,7 @@ namespace VoronoiTacticsCombatCalculator
             // StartMeleeB
             // 
             this.StartMeleeB.Enabled = false;
-            this.StartMeleeB.Location = new System.Drawing.Point(472, 860);
+            this.StartMeleeB.Location = new System.Drawing.Point(472, 887);
             this.StartMeleeB.Name = "StartMeleeB";
             this.StartMeleeB.Size = new System.Drawing.Size(80, 31);
             this.StartMeleeB.TabIndex = 63;
@@ -656,7 +659,7 @@ namespace VoronoiTacticsCombatCalculator
             // StartRangedB
             // 
             this.StartRangedB.Enabled = false;
-            this.StartRangedB.Location = new System.Drawing.Point(373, 860);
+            this.StartRangedB.Location = new System.Drawing.Point(373, 887);
             this.StartRangedB.Name = "StartRangedB";
             this.StartRangedB.Size = new System.Drawing.Size(80, 31);
             this.StartRangedB.TabIndex = 62;
@@ -667,7 +670,7 @@ namespace VoronoiTacticsCombatCalculator
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(32, 382);
+            this.label16.Location = new System.Drawing.Point(32, 409);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(38, 13);
             this.label16.TabIndex = 64;
@@ -676,7 +679,7 @@ namespace VoronoiTacticsCombatCalculator
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(32, 410);
+            this.label17.Location = new System.Drawing.Point(32, 437);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(41, 13);
             this.label17.TabIndex = 65;
@@ -684,7 +687,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // speedA
             // 
-            this.speedA.Location = new System.Drawing.Point(175, 379);
+            this.speedA.Location = new System.Drawing.Point(175, 406);
             this.speedA.Name = "speedA";
             this.speedA.Size = new System.Drawing.Size(64, 20);
             this.speedA.TabIndex = 66;
@@ -692,7 +695,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // weightA
             // 
-            this.weightA.Location = new System.Drawing.Point(175, 407);
+            this.weightA.Location = new System.Drawing.Point(175, 434);
             this.weightA.Name = "weightA";
             this.weightA.Size = new System.Drawing.Size(64, 20);
             this.weightA.TabIndex = 67;
@@ -700,7 +703,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // weightB
             // 
-            this.weightB.Location = new System.Drawing.Point(391, 403);
+            this.weightB.Location = new System.Drawing.Point(391, 430);
             this.weightB.Name = "weightB";
             this.weightB.Size = new System.Drawing.Size(64, 20);
             this.weightB.TabIndex = 69;
@@ -708,7 +711,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // speedB
             // 
-            this.speedB.Location = new System.Drawing.Point(391, 375);
+            this.speedB.Location = new System.Drawing.Point(391, 402);
             this.speedB.Name = "speedB";
             this.speedB.Size = new System.Drawing.Size(64, 20);
             this.speedB.TabIndex = 68;
@@ -896,7 +899,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // chargeMoraleImpactB
             // 
-            this.chargeMoraleImpactB.Location = new System.Drawing.Point(392, 822);
+            this.chargeMoraleImpactB.Location = new System.Drawing.Point(392, 849);
             this.chargeMoraleImpactB.Name = "chargeMoraleImpactB";
             this.chargeMoraleImpactB.Size = new System.Drawing.Size(64, 20);
             this.chargeMoraleImpactB.TabIndex = 93;
@@ -904,7 +907,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // chargeMoraleImpactA
             // 
-            this.chargeMoraleImpactA.Location = new System.Drawing.Point(176, 822);
+            this.chargeMoraleImpactA.Location = new System.Drawing.Point(176, 849);
             this.chargeMoraleImpactA.Name = "chargeMoraleImpactA";
             this.chargeMoraleImpactA.Size = new System.Drawing.Size(64, 20);
             this.chargeMoraleImpactA.TabIndex = 92;
@@ -913,7 +916,7 @@ namespace VoronoiTacticsCombatCalculator
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(32, 825);
+            this.label29.Location = new System.Drawing.Point(32, 852);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(111, 13);
             this.label29.TabIndex = 91;
@@ -921,7 +924,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // gunsB
             // 
-            this.gunsB.Location = new System.Drawing.Point(391, 264);
+            this.gunsB.Location = new System.Drawing.Point(391, 291);
             this.gunsB.Name = "gunsB";
             this.gunsB.Size = new System.Drawing.Size(64, 20);
             this.gunsB.TabIndex = 96;
@@ -929,7 +932,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // gunsA
             // 
-            this.gunsA.Location = new System.Drawing.Point(175, 264);
+            this.gunsA.Location = new System.Drawing.Point(175, 291);
             this.gunsA.Name = "gunsA";
             this.gunsA.Size = new System.Drawing.Size(64, 20);
             this.gunsA.TabIndex = 95;
@@ -938,7 +941,7 @@ namespace VoronoiTacticsCombatCalculator
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(31, 267);
+            this.label30.Location = new System.Drawing.Point(31, 294);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(32, 13);
             this.label30.TabIndex = 94;
@@ -946,7 +949,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // menPerGunB
             // 
-            this.menPerGunB.Location = new System.Drawing.Point(391, 292);
+            this.menPerGunB.Location = new System.Drawing.Point(391, 319);
             this.menPerGunB.Name = "menPerGunB";
             this.menPerGunB.Size = new System.Drawing.Size(64, 20);
             this.menPerGunB.TabIndex = 99;
@@ -954,7 +957,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // menPerGunA
             // 
-            this.menPerGunA.Location = new System.Drawing.Point(175, 292);
+            this.menPerGunA.Location = new System.Drawing.Point(175, 319);
             this.menPerGunA.Name = "menPerGunA";
             this.menPerGunA.Size = new System.Drawing.Size(64, 20);
             this.menPerGunA.TabIndex = 98;
@@ -963,7 +966,7 @@ namespace VoronoiTacticsCombatCalculator
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(31, 295);
+            this.label31.Location = new System.Drawing.Point(31, 322);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(70, 13);
             this.label31.TabIndex = 97;
@@ -971,7 +974,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // chargeDefenseB
             // 
-            this.chargeDefenseB.Location = new System.Drawing.Point(392, 735);
+            this.chargeDefenseB.Location = new System.Drawing.Point(392, 762);
             this.chargeDefenseB.Name = "chargeDefenseB";
             this.chargeDefenseB.Size = new System.Drawing.Size(64, 20);
             this.chargeDefenseB.TabIndex = 102;
@@ -979,7 +982,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // chargeDefenseA
             // 
-            this.chargeDefenseA.Location = new System.Drawing.Point(176, 735);
+            this.chargeDefenseA.Location = new System.Drawing.Point(176, 762);
             this.chargeDefenseA.Name = "chargeDefenseA";
             this.chargeDefenseA.Size = new System.Drawing.Size(64, 20);
             this.chargeDefenseA.TabIndex = 101;
@@ -988,7 +991,7 @@ namespace VoronoiTacticsCombatCalculator
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(32, 738);
+            this.label32.Location = new System.Drawing.Point(32, 765);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(84, 13);
             this.label32.TabIndex = 100;
@@ -1018,7 +1021,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // usableB
             // 
-            this.usableB.Location = new System.Drawing.Point(391, 235);
+            this.usableB.Location = new System.Drawing.Point(391, 262);
             this.usableB.Name = "usableB";
             this.usableB.Size = new System.Drawing.Size(64, 20);
             this.usableB.TabIndex = 107;
@@ -1026,7 +1029,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // usableA
             // 
-            this.usableA.Location = new System.Drawing.Point(175, 235);
+            this.usableA.Location = new System.Drawing.Point(175, 262);
             this.usableA.Name = "usableA";
             this.usableA.Size = new System.Drawing.Size(64, 20);
             this.usableA.TabIndex = 106;
@@ -1035,7 +1038,7 @@ namespace VoronoiTacticsCombatCalculator
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(31, 238);
+            this.label34.Location = new System.Drawing.Point(31, 265);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(40, 13);
             this.label34.TabIndex = 105;
@@ -1043,7 +1046,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(262, 906);
+            this.button1.Location = new System.Drawing.Point(262, 933);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(42, 38);
             this.button1.TabIndex = 108;
@@ -1053,7 +1056,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(310, 906);
+            this.button2.Location = new System.Drawing.Point(310, 933);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(42, 38);
             this.button2.TabIndex = 109;
@@ -1063,7 +1066,7 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(358, 906);
+            this.button3.Location = new System.Drawing.Point(358, 933);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(42, 38);
             this.button3.TabIndex = 110;
@@ -1088,11 +1091,41 @@ namespace VoronoiTacticsCombatCalculator
             this.label35.TabIndex = 111;
             this.label35.Text = "Weather Impact";
             // 
+            // acclimatizedB
+            // 
+            this.acclimatizedB.AutoSize = true;
+            this.acclimatizedB.Location = new System.Drawing.Point(441, 207);
+            this.acclimatizedB.Name = "acclimatizedB";
+            this.acclimatizedB.Size = new System.Drawing.Size(15, 14);
+            this.acclimatizedB.TabIndex = 115;
+            this.acclimatizedB.UseVisualStyleBackColor = true;
+            // 
+            // acclimatizedA
+            // 
+            this.acclimatizedA.AutoSize = true;
+            this.acclimatizedA.Location = new System.Drawing.Point(225, 207);
+            this.acclimatizedA.Name = "acclimatizedA";
+            this.acclimatizedA.Size = new System.Drawing.Size(15, 14);
+            this.acclimatizedA.TabIndex = 114;
+            this.acclimatizedA.UseVisualStyleBackColor = true;
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(32, 207);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(66, 13);
+            this.label36.TabIndex = 113;
+            this.label36.Text = "Acclimatized";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1004, 956);
+            this.ClientSize = new System.Drawing.Size(1004, 983);
+            this.Controls.Add(this.acclimatizedB);
+            this.Controls.Add(this.acclimatizedA);
+            this.Controls.Add(this.label36);
             this.Controls.Add(this.weather);
             this.Controls.Add(this.label35);
             this.Controls.Add(this.button3);
@@ -1316,6 +1349,9 @@ namespace VoronoiTacticsCombatCalculator
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox weather;
         private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.CheckBox acclimatizedB;
+        private System.Windows.Forms.CheckBox acclimatizedA;
+        private System.Windows.Forms.Label label36;
     }
 }
 

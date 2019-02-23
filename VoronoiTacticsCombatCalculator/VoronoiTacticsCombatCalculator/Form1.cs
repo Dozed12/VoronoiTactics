@@ -31,6 +31,7 @@ namespace VoronoiTacticsCombatCalculator
 
             //Unit A setup
             unitA = new Unit(this.CombatLog);
+            unitA.acclimatized = this.acclimatizedA.Checked;
             unitA.maxMen = Int32.Parse(this.menA.Text);
             //TEMPORARY starting = max
             unitA.currentMen = unitA.maxMen;
@@ -63,6 +64,7 @@ namespace VoronoiTacticsCombatCalculator
 
             //Unit B setup
             unitB = new Unit(this.CombatLog);
+            unitB.acclimatized = this.acclimatizedB.Checked;
             unitB.maxMen = Int32.Parse(this.menB.Text);
             //TEMPORARY starting = max
             unitB.currentMen = unitB.maxMen;
