@@ -235,5 +235,20 @@ namespace VoronoiTacticsCombatCalculator
 
         }
 
+        //Recovery of stats(morale, condition)
+        public void Recovery()
+        {
+            //TODO Increment can be precalculated(Always the same)
+            //Recover Condition
+            currentCondition += Combat.conditionRecovery * (1 - (weight - 1));
+            if (currentCondition > 1)
+                currentCondition = 1;
+
+            //Recover Morale
+            currentMorale += moraleRecover;
+            if (currentMorale > currentMaxMorale)
+                currentMorale = currentMaxMorale;
+        }
+
     }
 }

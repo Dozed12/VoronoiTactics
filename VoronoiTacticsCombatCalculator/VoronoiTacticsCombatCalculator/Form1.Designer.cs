@@ -1040,9 +1040,9 @@ namespace VoronoiTacticsCombatCalculator
             this.label34.AutoSize = true;
             this.label34.Location = new System.Drawing.Point(31, 265);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(40, 13);
+            this.label34.Size = new System.Drawing.Size(73, 13);
             this.label34.TabIndex = 105;
-            this.label34.Text = "Usable";
+            this.label34.Text = "Effective Men";
             // 
             // button1
             // 

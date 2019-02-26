@@ -60,21 +60,9 @@ namespace VoronoiTacticsCombatCalculator
             //TODO Terrain and Connection impact on combat
             //TODO Most things should be functions inside Unit.cs
 
-            //TODO Increment can be precalculated(Always the same)
-            attacker.currentCondition += conditionRecovery * (1 - (attacker.weight - 1));
-            if (attacker.currentCondition > 1)
-                attacker.currentCondition = 1;
-            defender.currentCondition += conditionRecovery * (1 - (defender.weight - 1));
-            if (defender.currentCondition > 1)
-                defender.currentCondition = 1;
-
-            //Recover morale based on currentMaxMorale
-            attacker.currentMorale += attacker.moraleRecover;
-            defender.currentMorale += defender.moraleRecover;
-            if (attacker.currentMorale > attacker.currentMaxMorale)
-                attacker.currentMorale = attacker.currentMaxMorale;
-            if (defender.currentMorale > defender.currentMaxMorale)
-                defender.currentMorale = defender.currentMaxMorale;
+            //Recovery functions
+            attacker.Recovery();
+            defender.Recovery();
 
             //Casualities
             int casualtiesAttacker = 0;
