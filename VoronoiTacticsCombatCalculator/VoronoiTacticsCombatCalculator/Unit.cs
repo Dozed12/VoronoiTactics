@@ -68,6 +68,10 @@ namespace VoronoiTacticsCombatCalculator
         public int Fire(Random random, string who, Unit target)
         {
 
+            //Not ranged
+            if (!ranged)
+                return 0;
+
             int kills = 0;
 
             //Check Reload
