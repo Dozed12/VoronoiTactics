@@ -138,9 +138,13 @@ namespace VoronoiTacticsCombatCalculator
         public int Melee(Random random, string who, Unit target, bool charge)
         {
 
-            int kills = 0;
+            //If no melee, use Ranged
+            if (!melee)
+            {
+                return Fire(random, who, target);
+            }
 
-            Console.WriteLine(this.charge);
+            int kills = 0;
 
             //Charge
             if (charge && this.charge)
