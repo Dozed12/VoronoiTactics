@@ -175,7 +175,7 @@ namespace VoronoiTacticsCombatCalculator
             // B
             // 
             this.B.AutoSize = true;
-            this.B.BackColor = System.Drawing.Color.White;
+            this.B.BackColor = System.Drawing.Color.Transparent;
             this.B.Font = new System.Drawing.Font("Arial", 15F);
             this.B.ForeColor = System.Drawing.Color.Blue;
             this.B.Location = new System.Drawing.Point(416, 169);
