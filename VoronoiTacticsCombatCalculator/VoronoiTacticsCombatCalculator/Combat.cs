@@ -112,13 +112,14 @@ namespace VoronoiTacticsCombatCalculator
             //Check Retreat(morale)
             //If attacker fails morale then it stops attack and stays in place
             //If defender fails morale then it retreats
-            //If both fail at same time then it's as if defender failed (if defender retreats attacker would naturally feel encouraged)
+            //If both fail at same time then it's as if defender failed (if defender retreats attacker would naturally feel encouraged even if below morale)
             if (defender.currentMorale < defender.minimumMorale && phase != Phase.CHASE)
             {
                 log.AppendText("Defender retreats");
                 log.AppendText(Environment.NewLine);
 
                 //TODO Actual retreat
+                //TODO Boost Attacker morale
 
                 phase = Phase.CHASE;
             }
@@ -127,7 +128,8 @@ namespace VoronoiTacticsCombatCalculator
                 log.AppendText("Attacker retreats");
                 log.AppendText(Environment.NewLine);
 
-                //TODO Actual retreat
+                //TODO Actual retreat(stop combat since this is attacker)
+                //TODO Boost Defender morale
 
                 phase = Phase.CHASE;
             }            
