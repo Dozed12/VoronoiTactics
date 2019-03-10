@@ -53,8 +53,6 @@ namespace VoronoiTacticsCombatCalculator
             unitA.reloadTimer = unitA.rangedReload;
             unitA.melee = this.meleeA.Checked;
             unitA.meleeAttack = float.Parse(this.meleeAttackA.Text);
-            unitA.meleeTime = Int32.Parse(this.meleeTimeA.Text);
-            unitA.meleeTimer = unitA.meleeTime;
             unitA.rangedDefense = float.Parse(this.rangedDefenseA.Text);
             unitA.meleeDefense = float.Parse(this.meleeDefenseA.Text);
             unitA.chargeDefense = float.Parse(this.chargeDefenseA.Text);
@@ -86,8 +84,6 @@ namespace VoronoiTacticsCombatCalculator
             unitB.reloadTimer = unitB.rangedReload;
             unitB.melee = this.meleeB.Checked;
             unitB.meleeAttack = float.Parse(this.meleeAttackB.Text);
-            unitB.meleeTime = Int32.Parse(this.meleeTimeB.Text);
-            unitB.meleeTimer = unitB.meleeTime;
             unitB.rangedDefense = float.Parse(this.rangedDefenseB.Text);
             unitB.meleeDefense = float.Parse(this.meleeDefenseB.Text);
             unitB.chargeDefense = float.Parse(this.chargeDefenseB.Text);

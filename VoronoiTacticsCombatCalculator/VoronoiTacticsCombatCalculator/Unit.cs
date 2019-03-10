@@ -30,7 +30,6 @@ namespace VoronoiTacticsCombatCalculator
 
         public bool melee;
         public float meleeAttack;
-        public int meleeTime;
 
         public bool charge;
         public float chargeAttack;

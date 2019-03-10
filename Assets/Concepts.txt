@@ -87,7 +87,7 @@ Condition Cost = Base Cost * (1 - (Weight - 1))
 At 0% it reduces/increases things by 25%.
 4% condition lost -> 1% reduction/increase in actions
 Reduces attack values, attack accuracy, speed, melee defense
-Increases reload time, melee time and morale damage
+Increases reload time and morale damage taken (or could increase minimum morale)
 * Armor stat indicating how many hits unit needs to be destroyed(To be hit needs to be hit by unit with HardAttack flag, like artillery)
 Basically have single or low number of tanks in a unit
 Artillery, with HardAttack flag, can bombard these tanks and maybe pennetrate
@@ -116,4 +116,4 @@ Concept is that an anti-tank regiment needs quite a lot of men and guns to penne
 * Units have a value indicating their morale defense, reducing all morale damage (Professionalism or Coesion, something like that)
 * Units getting attacked from multiple directions take a flanking penalty to morale.
 (Each extra enemy adds 20% morale damage to everything)
-(Each extra enemy reduces defender melee/ranged/charge defense by 20%)
+(Each extra enemy reduces defender melee/ranged/charge defense by 20%) (Reducing ranged defense doesn't make much sense)
