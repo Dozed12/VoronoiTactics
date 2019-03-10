@@ -113,22 +113,46 @@ namespace VoronoiTacticsCombatCalculator
             //TODO If both fall morale at same time who retreats?
             //  - The one with lowest morale?
             //  - The one with lowest morale in percentage?
-            if (attacker.currentMorale < attacker.minimumMorale && phase != Phase.CHASE)
+            if(attacker.currentMorale < attacker.minimumMorale && defender.currentMorale < defender.minimumMorale && phase != Phase.CHASE)
+            {
+                float percentMoraleAttacker = Math.Abs(attacker.currentMorale - attacker.minimumMorale) / attacker.minimumMorale;
+                float percentMoraleDefender = Math.Abs(defender.currentMorale - defender.minimumMorale) / defender.minimumMorale;
+
+                if(percentMoraleAttacker > percentMoraleDefender)
+                {
+                    log.AppendText("Attacker retreats");
+                    log.AppendText(Environment.NewLine);
+
+                    //TODO Actual retreat
+                }
+                else
+                {
+                    log.AppendText("Defender retreats");
+                    log.AppendText(Environment.NewLine);
+
+                    //TODO Actual retreat
+                }
+
+                phase = Phase.CHASE;
+            }
+            else if (attacker.currentMorale < attacker.minimumMorale && phase != Phase.CHASE)
             {
                 log.AppendText("Attacker retreats");
                 log.AppendText(Environment.NewLine);
 
+                //TODO Actual retreat
+
                 phase = Phase.CHASE;
             }
-            if (defender.currentMorale < defender.minimumMorale && phase != Phase.CHASE)
+            else if (defender.currentMorale < defender.minimumMorale && phase != Phase.CHASE)
             {
                 log.AppendText("Defender retreats");
                 log.AppendText(Environment.NewLine);
 
+                //TODO Actual retreat
+
                 phase = Phase.CHASE;
             }
-
-            //TODO Apply Condition change
 
             //Increment round
             round++;
