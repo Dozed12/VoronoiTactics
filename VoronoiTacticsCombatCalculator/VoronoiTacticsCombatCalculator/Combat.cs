@@ -110,28 +110,15 @@ namespace VoronoiTacticsCombatCalculator
             }
 
             //Check Retreat(morale)
-            //TODO If both fall morale at same time who retreats?
-            //  - The one with lowest morale?
-            //  - The one with lowest morale in percentage?
-            if(attacker.currentMorale < attacker.minimumMorale && defender.currentMorale < defender.minimumMorale && phase != Phase.CHASE)
+            //If attacker fails morale then it stops attack and stays in place
+            //If defender fails morale then it retreats
+            //If both fail at same time then it's as if defender failed (if defender retreats attacker would naturally feel encouraged)
+            if (defender.currentMorale < defender.minimumMorale && phase != Phase.CHASE)
             {
-                float percentMoraleAttacker = Math.Abs(attacker.currentMorale - attacker.minimumMorale) / attacker.minimumMorale;
-                float percentMoraleDefender = Math.Abs(defender.currentMorale - defender.minimumMorale) / defender.minimumMorale;
+                log.AppendText("Defender retreats");
+                log.AppendText(Environment.NewLine);
 
-                if(percentMoraleAttacker > percentMoraleDefender)
-                {
-                    log.AppendText("Attacker retreats");
-                    log.AppendText(Environment.NewLine);
-
-                    //TODO Actual retreat
-                }
-                else
-                {
-                    log.AppendText("Defender retreats");
-                    log.AppendText(Environment.NewLine);
-
-                    //TODO Actual retreat
-                }
+                //TODO Actual retreat
 
                 phase = Phase.CHASE;
             }
@@ -143,16 +130,7 @@ namespace VoronoiTacticsCombatCalculator
                 //TODO Actual retreat
 
                 phase = Phase.CHASE;
-            }
-            else if (defender.currentMorale < defender.minimumMorale && phase != Phase.CHASE)
-            {
-                log.AppendText("Defender retreats");
-                log.AppendText(Environment.NewLine);
-
-                //TODO Actual retreat
-
-                phase = Phase.CHASE;
-            }
+            }            
 
             //Increment round
             round++;
