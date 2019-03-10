@@ -111,7 +111,18 @@ Concept is that an anti-tank regiment needs quite a lot of men and guns to penne
 
 * Units with Armor (Original value, just because it lost some armor doesnt mean it can engage in melee) stat greater than 0 can't engage or be engaged in melee(makes no sense to do so)
 
-* Height difference impacts a series of specific combat parts based on point difference:
+* Charge attack replaces first melee attack for units with charge
+
+* Ranged/Melee/Charge attacks have a modifier for morale impact (chargeMoraleImpact 1.2 means 20% more morale damage)
+
+* Units have a value indicating their morale defense, reducing all morale damage (Professionalism or Coesion or Organization, something like that)
+
+* Units getting attacked from multiple directions take a flanking penalty to morale.
+(Each extra enemy adds 20% morale damage to everything)
+(Each extra enemy reduces defender melee/ranged/charge defense by 20%) (Reducing ranged defense doesn't make much sense)
+Only first unit occupies the defender tile when combat finishes with win
+
+* Terrain Height difference impacts a series of specific combat parts based on point difference:
     - Charge attack is reduced by 25% per height difference (Hard to do an efficient charge up hill)
     - Melee attack against higher position is reduced by 20% per height difference
     - Melee attack against lower position is increased by 20% per height difference
@@ -120,18 +131,15 @@ Concept is that an anti-tank regiment needs quite a lot of men and guns to penne
     - Melee fatigue against higher position is increased by 20% per height difference
     - Melee fatigue against lower position is decreased by 20% per height difference
 
-* Height difference impacts movement too.
+* Terrain Height difference impacts movement too.
     - Movement fatigue from moving to higher position is increased by 20% per height difference
     - Movement fatigue from moving to lower position is decreased by 20% per height difference
     - Movement speed in moving to higher position is decreased by 20% per height difference
     - Movement speed in moving to lower position is increased by 20% per height difference
 
-* Charge attack replaces first melee attack for those with charge
+* Units have different stealth and spotting capabilities (TODO expand on this)
 
-* Ranged/Melee/Charge attacks have a modifier for morale impact (chargeMoraleImpact 1.2 means 20% more morale damage)
+* Terrain Type has many effects on combat and can deeply affect its result
+Each terrain has cover(increases ranged defense always and melee defense if defending)
 
-* Units have a value indicating their morale defense, reducing all morale damage (Professionalism or Coesion, something like that)
-
-* Units getting attacked from multiple directions take a flanking penalty to morale.
-(Each extra enemy adds 20% morale damage to everything)
-(Each extra enemy reduces defender melee/ranged/charge defense by 20%) (Reducing ranged defense doesn't make much sense)
+* Connection between provinces can have many effects (TODO expand on this)
