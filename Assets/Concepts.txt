@@ -66,28 +66,39 @@ Combat Situations:
 Many concepts:
 
 * If Surrounded by enemies and retreats then it shatters and is captured.
+
 * A man lost is 1 morale point lost
+
 * Max Morale = Current Men ^ 2 / Max Men + Max Men (Inverse Quadratic) (Could express it as percentage)
+
 * Units have Minimum Morale (%), if below that value unit retreats, if Current Max Morale > Max Morale * Minimum Morale unit shatters and disappears completely
+
 * At < Minimum Morale morale a unit retreats to a random vacant or ally(priority to vacant) neighbour. (What happens if it retreats to ally province? Applies the stacking penalties?)
+
 * Weather can affect max morale (some % modifier)
 Can be negated by Acclimatization set to entire army, at expense of some Deployment Points
+
 * Seeing a neighbor retreat reduces morale by some % of max morale
+
 * Condition always recharging to 0% at a base rate, modified by Weight.
 Condition Recover = Base Cost * (1 - (Weight - 1))
+
 * Condition from reloading/marching/running has a base value also modified by Weight.
 Condition Cost = Base Cost * (1 - (Weight - 1))
+
 * Some estimate of base values relation for condition
     - Recovery: 0.001
     - Reload: 0.0015 (Higher than Recovery but not too much)
     - March: 0.002 (About double of Recovery)
     - Run: 0.005 (More than double of March)
     - Melee: 0.003 (Slightly higher than marching)
+
 * Condition has an impact on all actions. Starts at 100% and decreases with every action by a base amount modified by Weight.
 At 0% it reduces/increases things by 25%.
 4% condition lost -> 1% reduction/increase in actions
 Reduces attack values, attack accuracy, speed, melee defense
 Increases reload time and morale damage taken (or could increase minimum morale)
+
 * Armor stat indicating how many hits unit needs to be destroyed(To be hit needs to be hit by unit with HardAttack flag, like artillery)
 Basically have single or low number of tanks in a unit
 Artillery, with HardAttack flag, can bombard these tanks and maybe pennetrate
@@ -97,7 +108,9 @@ This way we can also have anti-tank guns.
 Concept is that an anti-tank regiment needs quite a lot of men and guns to pennetrate a tank(tanks are very heavy, need many hits)
 (How do we keep track which tank was hit? Probably just merge all hits in a tank at a time)
 (Multi hits dont apply when target has Armor > 0 , "rangedTargets" stat)
+
 * Units with Armor (Original value, just because it lost some armor doesnt mean it can engage in melee) stat greater than 0 can't engage or be engaged in melee(makes no sense to do so)
+
 * Height difference impacts a series of specific combat parts based on point difference:
     - Charge attack is reduced by 25% per height difference (Hard to do an efficient charge up hill)
     - Melee attack against higher position is reduced by 20% per height difference
@@ -106,14 +119,19 @@ Concept is that an anti-tank regiment needs quite a lot of men and guns to penne
     - Ranged accuracy against lower position is increased by 10% per height difference
     - Melee fatigue against higher position is increased by 20% per height difference
     - Melee fatigue against lower position is decreased by 20% per height difference
+
 * Height difference impacts movement too.
     - Movement fatigue from moving to higher position is increased by 20% per height difference
     - Movement fatigue from moving to lower position is decreased by 20% per height difference
     - Movement speed in moving to higher position is decreased by 20% per height difference
     - Movement speed in moving to lower position is increased by 20% per height difference
+
 * Charge attack replaces first melee attack for those with charge
+
 * Ranged/Melee/Charge attacks have a modifier for morale impact (chargeMoraleImpact 1.2 means 20% more morale damage)
+
 * Units have a value indicating their morale defense, reducing all morale damage (Professionalism or Coesion, something like that)
+
 * Units getting attacked from multiple directions take a flanking penalty to morale.
 (Each extra enemy adds 20% morale damage to everything)
 (Each extra enemy reduces defender melee/ranged/charge defense by 20%) (Reducing ranged defense doesn't make much sense)
