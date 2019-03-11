@@ -137,7 +137,15 @@ Only first unit occupies the defender tile when combat finishes with win
     - Movement speed in moving to higher position is decreased by 20% per height difference
     - Movement speed in moving to lower position is increased by 20% per height difference
 
-* Units have different stealth and spotting capabilities (TODO expand on this)
+* Units have different stealth and spotting capabilities
+    - Typical Units have base 5 spotting and 1 stealth. (Scouts probably have more spotting and some special units more stealth)
+    - Visibility is calculated as a bresenham line(plenty of ways to optimize) from center to center.
+    - Terrain types can affect spotting distance.
+    - Typical terrain like grassland has Blocking 1 which reduces spotting by 1.
+    - Forest has Blocking 3 for example
+    - High terrain should boost Spotting (HOW?)
+    - Terrain height can block sight
+    - Stealth indicates how much Spotting is needed to spot the unit. (For example a unit with 5 spotting can't spot a unit 3 tiles away if it has 2 stealth)
 
 * Terrain Type has many effects on combat and can deeply affect its result
 Each terrain has cover(increases ranged defense always and melee defense if defending)
