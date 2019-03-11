@@ -143,11 +143,11 @@ Only first unit occupies the defender tile when combat finishes with win
     - Terrain types can affect spotting distance.
     - Typical terrain like grassland has Blocking 1 which reduces spotting by 1.
     - Forest has Blocking 3 for example
-    - High terrain should boost Spotting (HOW?) (maybe just flat increase on spotting) (calculate average height of map and give bonus equal to height difference to average, not very realistic)
+    - High terrain should boost Spotting (HOW?) (maybe just flat increase on spotting) (calculate average height of map and give bonus equal to height difference to average, not very realistic) (alternatively a higher height reduces spot cost for provinces in lower height)
     - Terrain height can block sight (need to detect saliences, if a unit at height 1 and can see height 2 it wont be able to see a height 1 behind it but still see height 2 fine(or not if we consider the angle doesnt allow it))
     - Stealth indicates how much Spotting is needed to spot the unit. (For example a unit with 5 spotting can't spot a unit 3 tiles away if it has 2 stealth)
 
-* Terrain Type has many effects on combat and can deeply affect its result
+* Terrain Type has many effects on combat and can deeply affect its result (TODO expand on this)
 Each terrain has cover(increases ranged defense always and melee defense if defending)
 
 * Connection between provinces can have many effects (TODO expand on this)
