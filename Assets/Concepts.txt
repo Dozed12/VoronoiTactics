@@ -155,4 +155,5 @@ Each terrain has cover(increases ranged defense always and melee defense if defe
     - Fortifications give cover value like terrain type.
     - Fortifications can be built in deployment phase by some special units, to a limited level
     - Rivers between tiles affect movement speed and reduce melee attack and defense of attacker (defender will be at the exit of river ready to attack)
-    - Different type of water streams have different impact and some may be impassable
+    - Different type of water streams have different impact and some may be impassable. (Brooke, Creek, River)
+    - Big height differences may form impassible terrain like cliffs(height 1 to height 3) (Biome file should specify this, incluing name, height difference it happens and decals)
