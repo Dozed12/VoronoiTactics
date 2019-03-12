@@ -239,32 +239,6 @@ public class MapData
 
         for (int j = 0; j < simpleEdges.Count; j++)
         {
-
-            /*Not jittering border doesn't work properly and causes some visual bugs so it's not used
-
-            //Dont jitter map border edges
-            if (simpleEdges[j].start.value.x == 0 && simpleEdges[j].end.value.x == 0)
-            {
-                jitteredEdges.Add(simpleEdges[j]);z
-                continue;
-            }
-            if (simpleEdges[j].start.value.y == 0 && simpleEdges[j].end.value.y == 0)
-            {
-                jitteredEdges.Add(simpleEdges[j]);
-                continue;
-            }
-            if (simpleEdges[j].start.value.x == settings.WIDTH - 1 && simpleEdges[j].end.value.x == settings.WIDTH - 1)
-            {
-                jitteredEdges.Add(simpleEdges[j]);
-                continue;
-            }
-            if (simpleEdges[j].start.value.y == settings.HEIGHT - 1 && simpleEdges[j].end.value.y == settings.HEIGHT - 1)
-            {
-                jitteredEdges.Add(simpleEdges[j]);
-                continue;
-            }
-            */
-
             //Minimum size to jitter
             if (Vector2.Distance(simpleEdges[j].start.value, simpleEdges[j].end.value) < minSize)
             {
