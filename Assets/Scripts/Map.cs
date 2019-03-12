@@ -239,7 +239,7 @@ public class MapData
 
         for (int j = 0; j < simpleEdges.Count; j++)
         {
-            //Minimum size to jitter
+            //Minimum size of edge to jitter
             if (Vector2.Distance(simpleEdges[j].start.value, simpleEdges[j].end.value) < minSize)
             {
                 jitteredEdges.Add(simpleEdges[j]);
