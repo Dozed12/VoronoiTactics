@@ -1,0 +1,18 @@
+Inspiration:
+    https://www.artstation.com/jakubrozalski
+    https://www.artstation.com/nicholas-maxson-francombe
+
+Global nation ideas:
+    - Germanic high tech nation, powerfull artillery, high tech infantry, armor, lack cavalry
+    - French medium tech nation, decent artillery, good infantry, some armor, many good cavalry
+    - Russian medium-low tech nation, decent artillery, poor infantry, lack armor, plenty of cavalry
+    - Horde low tech nation, lack artillery probably old fashioned, poor infantry, very lack armor(probably only 1 or 2 types, captured from enemy), plenty of cavalry
+    - Japanese/Samurai medium tech nation starting to modernize, some artillery, good infantry, lack armor, lack cavalry
+    - Indian medium tech nation, special animal units, some artillery, good infantry, lack armor, some cavalry
+    - African low tech nation, special animal units, some artillery, poor infantry, lack armor, some cavalry
+    - Nordic...
+    - Chinese...
+    - Arab...
+
+Generic notes:
+    - High/medium tech nations can use some colonial units based on other nations(Russian Cossacks/French African Units/etc)
