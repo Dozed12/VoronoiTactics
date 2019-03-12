@@ -151,3 +151,8 @@ Only first unit occupies the defender tile when combat finishes with win
 Each terrain has cover(increases ranged defense always and melee defense if defending)
 
 * Connection between provinces can have many effects (TODO expand on this)
+    - Fortifications exist in a tile facing a specific tile. So they only benefict one of the tiles.
+    - Fortifications give cover value like terrain type.
+    - Fortifications can be built in deployment phase by some special units, to a limited level
+    - Rivers between tiles affect movement speed and reduce melee attack and defense of attacker (defender will be at the exit of river ready to attack)
+    - Different type of water streams have different impact and some may be impassable

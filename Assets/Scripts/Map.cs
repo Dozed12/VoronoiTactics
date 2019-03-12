@@ -240,7 +240,7 @@ public class MapData
         for (int j = 0; j < simpleEdges.Count; j++)
         {
 
-            /*Not jittering edges doesn't work properly and has some bugs so it's not used
+            /*Not jittering border doesn't work properly and causes some visual bugs so it's not used
 
             //Dont jitter map border edges
             if (simpleEdges[j].start.value.x == 0 && simpleEdges[j].end.value.x == 0)
