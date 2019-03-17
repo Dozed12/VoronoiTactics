@@ -43,6 +43,7 @@ namespace VoronoiTacticsCombatCalculator
         public int currentMen;
         public float currentCondition;
         public float currentMorale;
+        public float currentMinimumMorale;
         public float currentMaxMorale;
         public int reloadTimer;
         public int meleeTimer;
@@ -58,7 +59,6 @@ namespace VoronoiTacticsCombatCalculator
         //Calculate max morale given men lost
         public void CalculateMaxMorale()
         {
-            //Max morale from men lost
             int diff = maxMen - currentMen;
             currentMaxMorale = -(float)diff * (float)diff / (float)maxMen / (float)maxMen + 1;
         }
@@ -220,13 +220,14 @@ namespace VoronoiTacticsCombatCalculator
             //Base Morale impact as percentage of total men
             float baseMoraleLost = trueCasualities / (float)maxMen;
 
-            //TODO Apply fatigue to morale
-
             //Apply final morale
             currentMorale -= baseMoraleLost * moraleModifier;
 
             //Recalculate max morale
             CalculateMaxMorale();
+
+            //Recalculate min morale
+            CalculateMinMorale();
 
             //Display in log
             log.AppendText(who + " morale: " + currentMorale);
@@ -249,13 +250,18 @@ namespace VoronoiTacticsCombatCalculator
                 currentMorale = currentMaxMorale;
         }
 
-        //Morale check
-        public bool MoraleCheck()
+        //Calculate situation minimum morale
+        public void CalculateMinMorale()
         {
             //TODO Add weather impact to minimum morale(negated by Acclimatization)
             //TODO Add condition impact on minimum morale
+            currentMinimumMorale = minimumMorale;
+        }
 
-            return (currentMorale < minimumMorale);
+        //Morale check
+        public bool MoraleCheck()
+        {
+            return (currentMorale < currentMinimumMorale);
         }
 
     }

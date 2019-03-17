@@ -73,7 +73,7 @@ Many concepts:
 
 * Units have Minimum Morale (%), if below that value unit retreats, if Current Max Morale > Max Morale * Minimum Morale unit shatters and disappears completely
 
-* At < Minimum Morale morale a unit retreats to a random vacant or ally(priority to vacant) neighbour. (What happens if it retreats to ally province? Applies the stacking penalties?)
+* At < Minimum Morale morale a unit retreats to a random vacant or ally(priority to vacant) neighbour. (no stacking penalty if occupied tile but even bigger morale hit from seeing ally retreat)
 
 * Weather can affect max morale (some % modifier)
 Can be negated by Acclimatization set to entire army, at expense of some Deployment Points
