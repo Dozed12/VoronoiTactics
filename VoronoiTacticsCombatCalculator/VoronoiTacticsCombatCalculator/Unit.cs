@@ -105,6 +105,8 @@ namespace VoronoiTacticsCombatCalculator
                         kills++;
                 }
 
+                //TODO Condition Cost
+
                 //Message for log
                 //TODO Log defended shots
                 //TODO Look at RichTextBox for multi color text box(Color for each side)
@@ -164,6 +166,8 @@ namespace VoronoiTacticsCombatCalculator
                         kills++;
                 }
 
+                //TODO Condition Cost
+
                 //Message for log
                 //TODO Log defended hits
                 //TODO Look at RichTextBox for multi color text box(Color for each side)
@@ -191,6 +195,8 @@ namespace VoronoiTacticsCombatCalculator
                         kills++;
                 }
 
+                //TODO Condition Cost
+
                 //Message for log
                 //TODO Log defended hits
                 //TODO Look at RichTextBox for multi color text box(Color for each side)
@@ -204,7 +210,7 @@ namespace VoronoiTacticsCombatCalculator
         }
 
         //Apply casualities and morale damage
-        public void Casualities(int number, string who, float moraleModifier)
+        public void Casualties(int number, string who, float moraleModifier)
         {
 
             //No Casualities

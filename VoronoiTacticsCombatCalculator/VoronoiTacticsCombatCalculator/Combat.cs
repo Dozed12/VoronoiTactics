@@ -104,8 +104,8 @@ namespace VoronoiTacticsCombatCalculator
             //TODO Different morale modifier
             if (casualtiesAttacker != 0 || casualtiesDefender != 0)
             {
-                attacker.Casualities(casualtiesAttacker, "Attacker", 1);
-                defender.Casualities(casualtiesDefender, "Defender", 1);
+                attacker.Casualties(casualtiesAttacker, "Attacker", 1);
+                defender.Casualties(casualtiesDefender, "Defender", 1);
                 log.AppendText(Environment.NewLine);
             }
 

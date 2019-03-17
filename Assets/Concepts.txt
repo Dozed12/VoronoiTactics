@@ -71,9 +71,9 @@ Many concepts:
 
 * Max Morale = Current Men ^ 2 / Max Men + Max Men (Inverse Quadratic) (Could express it as percentage)
 
-* Units have Minimum Morale (%), if below that value unit retreats, if Current Max Morale > Max Morale * Minimum Morale unit shatters and disappears completely
-
-* At < Minimum Morale morale a unit retreats to a random vacant or ally(priority to vacant) neighbour. (no stacking penalty if occupied tile but even bigger morale hit from seeing ally retreat)
+* Units have Minimum Morale (%), if below that value unit retreats, if Current Max Morale > Max Morale * Minimum Morale unit shatters and retreats until leaving the map
+At < Minimum Morale morale a unit retreats to a random vacant or ally(priority to vacant) neighbour. (no stacking penalty if occupied tile but even bigger morale hit from seeing ally retreat)
+Weather and Condition minimum morale modifiers are only applied when taking casualties so unit wont retreat randomly while reloading
 
 * Weather can affect max morale (some % modifier)
 Can be negated by Acclimatization set to entire army, at expense of some Deployment Points
