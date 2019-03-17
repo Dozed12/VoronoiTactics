@@ -60,6 +60,8 @@ namespace VoronoiTacticsCombatCalculator
             unitA.chargeAttack = float.Parse(this.chargeAttackA.Text);
             unitA.chargeMoraleImpact = float.Parse(this.chargeMoraleImpactA.Text);
 
+            unitA.Setup();
+
             //Unit B setup
             unitB = new Unit(this.CombatLog);
             unitB.acclimatized = this.acclimatizedB.Checked;
@@ -90,6 +92,8 @@ namespace VoronoiTacticsCombatCalculator
             unitB.charge = this.chargeB.Checked;
             unitB.chargeAttack = float.Parse(this.chargeAttackB.Text);
             unitB.chargeMoraleImpact = float.Parse(this.chargeMoraleImpactB.Text);
+
+            unitB.Setup();
 
             //Terrain A setup
             terrainA = new Terrain();

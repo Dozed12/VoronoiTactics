@@ -54,8 +54,7 @@ namespace VoronoiTacticsCombatCalculator
 
         public void Process()
         {
-            //TODO Melee Combat
-            //TODO Charge
+
             //TODO Condition impact on combat
             //TODO Terrain and Connection impact on combat
             //TODO Most things should be functions inside Unit.cs

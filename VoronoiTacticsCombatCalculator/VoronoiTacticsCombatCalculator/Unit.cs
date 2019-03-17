@@ -48,12 +48,22 @@ namespace VoronoiTacticsCombatCalculator
         public int reloadTimer;
         public int meleeTimer;
 
+        //Constants
+        public float conditionRecovery;
+
         //Log
         public TextBox log;
 
         public Unit(TextBox Log)
         {
             log = Log;
+        }
+
+        //Setup specific unit constants
+        public void Setup()
+        {
+            //TODO can replace (1 - (weight - 1)) by (-weight + 2)
+            conditionRecovery = Combat.conditionRecovery * (1 - (weight - 1));
         }
 
         //Calculate max morale given men lost
@@ -244,9 +254,9 @@ namespace VoronoiTacticsCombatCalculator
         //Recovery of stats(morale, condition)
         public void Recovery()
         {
-            //TODO Increment can be precalculated(Always the same)
+
             //Recover Condition
-            currentCondition += Combat.conditionRecovery * (1 - (weight - 1));
+            currentCondition += conditionRecovery;
             if (currentCondition > 1)
                 currentCondition = 1;
 
@@ -254,6 +264,7 @@ namespace VoronoiTacticsCombatCalculator
             currentMorale += moraleRecover;
             if (currentMorale > currentMaxMorale)
                 currentMorale = currentMaxMorale;
+
         }
 
         //Calculate situation minimum morale
