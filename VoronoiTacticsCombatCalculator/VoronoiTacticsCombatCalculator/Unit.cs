@@ -58,7 +58,7 @@ namespace VoronoiTacticsCombatCalculator
         //Calculate max morale given men lost
         public void CalculateMaxMorale()
         {
-            //TODO Add weather impact to max morale(negated by Acclimatization)
+            //Max morale from men lost
             int diff = maxMen - currentMen;
             currentMaxMorale = -(float)diff * (float)diff / (float)maxMen / (float)maxMen + 1;
         }
@@ -247,6 +247,15 @@ namespace VoronoiTacticsCombatCalculator
             currentMorale += moraleRecover;
             if (currentMorale > currentMaxMorale)
                 currentMorale = currentMaxMorale;
+        }
+
+        //Morale check
+        public bool MoraleCheck()
+        {
+            //TODO Add weather impact to minimum morale(negated by Acclimatization)
+            //TODO Add condition impact on minimum morale
+
+            return (currentMorale < minimumMorale);
         }
 
     }

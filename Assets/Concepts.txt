@@ -97,7 +97,7 @@ Condition Cost = Base Cost * (1 - (Weight - 1))
 At 0% it reduces/increases things by 25%.
 4% condition lost -> 1% reduction/increase in actions
 Reduces attack values, attack accuracy, speed, melee defense
-Increases reload time and morale damage taken (or could increase minimum morale)
+Increases reload time and minimum morale
 
 * Armor stat indicating how many hits unit needs to be destroyed(To be hit needs to be hit by unit with HardAttack flag, like artillery)
 Basically have single or low number of tanks in a unit
