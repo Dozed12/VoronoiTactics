@@ -50,6 +50,7 @@ namespace VoronoiTacticsCombatCalculator
 
         //Constants
         public float conditionRecovery;
+        public float conditionCostModifier;
 
         //Log
         public TextBox log;
@@ -64,6 +65,9 @@ namespace VoronoiTacticsCombatCalculator
         {
             //TODO can replace (1 - (weight - 1)) by (-weight + 2)
             conditionRecovery = Combat.conditionRecovery * (1 - (weight - 1));
+
+            //TODO can replace (1 - (weight - 1)) by (-weight + 2)
+            conditionCostModifier = (1 - (weight - 1));
         }
 
         //Calculate max morale given men lost
