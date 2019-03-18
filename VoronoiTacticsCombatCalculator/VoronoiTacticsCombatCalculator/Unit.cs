@@ -259,14 +259,20 @@ namespace VoronoiTacticsCombatCalculator
         {
 
             //Recover Condition
-            currentCondition += conditionRecovery * conditionCostModifier;
-            if (currentCondition > 1)
-                currentCondition = 1;
+            if (currentCondition < 1)
+            {
+                currentCondition += conditionRecovery * conditionCostModifier;
+                if (currentCondition > 1)
+                    currentCondition = 1;
+            }
 
             //Recover Morale
-            currentMorale += moraleRecover;
-            if (currentMorale > currentMaxMorale)
-                currentMorale = currentMaxMorale;
+            if (currentMorale < currentMaxMorale)
+            {
+                currentMorale += moraleRecover;
+                if (currentMorale > currentMaxMorale)
+                    currentMorale = currentMaxMorale;
+            }
 
         }
 
