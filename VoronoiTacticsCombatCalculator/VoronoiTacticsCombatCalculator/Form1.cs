@@ -179,6 +179,11 @@ namespace VoronoiTacticsCombatCalculator
 
         }
 
+        public void Freeze()
+        {
+            this.timer1.Enabled = false;
+        }
+
         private void Resume_Click(object sender, EventArgs e)
         {
             this.timer1.Enabled = true;
@@ -218,7 +223,7 @@ namespace VoronoiTacticsCombatCalculator
         {
 
             //Create combat
-            combat = new Combat(this.CombatLog, unitA, unitB, terrainA, terrainB, connection, Combat.Phase.RANGED);
+            combat = new Combat(this.CombatLog, this, unitA, unitB, terrainA, terrainB, connection, Combat.Phase.RANGED);
 
             //Disable ranged attack buttons
             this.StartRangedA.Enabled = false;
@@ -237,7 +242,7 @@ namespace VoronoiTacticsCombatCalculator
         {
 
             //Create combat
-            combat = new Combat(this.CombatLog, unitA, unitB, terrainA, terrainB, connection, Combat.Phase.MELEE);
+            combat = new Combat(this.CombatLog, this, unitA, unitB, terrainA, terrainB, connection, Combat.Phase.MELEE);
 
             //Disable ranged attack buttons
             this.StartRangedA.Enabled = false;

@@ -27,6 +27,7 @@ namespace VoronoiTacticsCombatCalculator
         }
 
         public TextBox log;
+        public Form1 form;
 
         public Unit attacker;
         public Unit defender;
@@ -42,9 +43,10 @@ namespace VoronoiTacticsCombatCalculator
 
         public bool firstMelee;
 
-        public Combat(TextBox log, Unit A, Unit B, Terrain a, Terrain b, Connection C, Phase Phase)
+        public Combat(TextBox log, Form1 form, Unit A, Unit B, Terrain a, Terrain b, Connection C, Phase Phase)
         {
             this.log = log;
+            this.form = form;
             this.attacker = A;
             this.defender = B;
             this.terrainAttacker = a;
@@ -125,6 +127,8 @@ namespace VoronoiTacticsCombatCalculator
                     //TODO Actual retreat
                     //TODO Boost Attacker morale
 
+                    form.Freeze();
+
                     phase = Phase.CHASE;
                 }
             }
@@ -137,6 +141,8 @@ namespace VoronoiTacticsCombatCalculator
 
                     //TODO Actual retreat(stop combat since this is attacker)
                     //TODO Boost Defender morale
+
+                    form.Freeze();
 
                     phase = Phase.CHASE;
                 }
