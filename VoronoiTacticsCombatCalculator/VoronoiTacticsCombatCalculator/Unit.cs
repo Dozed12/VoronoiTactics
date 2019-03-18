@@ -137,11 +137,8 @@ namespace VoronoiTacticsCombatCalculator
                 //Progress reload
                 reloadTimer++;
 
-                //Reload cost on Condition
-                currentCondition -= Combat.conditionReload * (1 - (weight - 1));
-                if (currentCondition < 0)
-                    currentCondition = 0;
-                currentCondition -= Combat.conditionReload * (1 - (weight - 1));
+                //Condition Cost
+                currentCondition -= Combat.conditionReload * conditionCostModifier;
                 if (currentCondition < 0)
                     currentCondition = 0;
             }
@@ -180,7 +177,8 @@ namespace VoronoiTacticsCombatCalculator
                         kills++;
                 }
 
-                //TODO Condition Cost
+                //Condition Cost
+                currentCondition -= Combat.conditionMelee * conditionCostModifier;
 
                 //Message for log
                 //TODO Log defended hits
@@ -209,7 +207,8 @@ namespace VoronoiTacticsCombatCalculator
                         kills++;
                 }
 
-                //TODO Condition Cost
+                //Condition Cost
+                currentCondition -= Combat.conditionMelee * conditionCostModifier;
 
                 //Message for log
                 //TODO Log defended hits
@@ -260,7 +259,7 @@ namespace VoronoiTacticsCombatCalculator
         {
 
             //Recover Condition
-            currentCondition += conditionRecovery;
+            currentCondition += conditionRecovery * conditionCostModifier;
             if (currentCondition > 1)
                 currentCondition = 1;
 
@@ -274,9 +273,14 @@ namespace VoronoiTacticsCombatCalculator
         //Calculate situation minimum morale
         public void CalculateMinMorale()
         {
-            //TODO Add weather impact to minimum morale(negated by Acclimatization)
-            //TODO Add condition impact on minimum morale
+            //Base value
             currentMinimumMorale = minimumMorale;
+
+            //Add condition impact on minimum morale
+            currentMinimumMorale += (1 - currentCondition) / Combat.conditionMinMoraleDivider;
+
+            //TODO Add weather impact to minimum morale(negated by Acclimatization)
+
         }
 
         //Morale check

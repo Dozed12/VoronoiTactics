@@ -13,6 +13,9 @@ namespace VoronoiTacticsCombatCalculator
         public static float conditionRun = 0.005f;
         public static float conditionMelee = 0.003f;
 
+        //Condition impact on minimum morale
+        public static float conditionMinMoraleDivider = 10;
+
         public enum Phase
         {
             //Ranged fire being exchansed
