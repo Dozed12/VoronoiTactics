@@ -164,6 +164,19 @@ namespace VoronoiTacticsCombatCalculator
             //Process Combat
             if (combat != null)
                 combat.Process();
+
+            //Update UI current stats
+            currentMenA.Text = unitA.currentMen.ToString();
+            currentMenB.Text = unitB.currentMen.ToString();
+            currentMoraleA.Text = unitA.currentMorale.ToString();
+            currentMoraleB.Text = unitB.currentMorale.ToString();
+            currentMaximumMoraleA.Text = unitA.currentMaxMorale.ToString();
+            currentMaximumMoraleB.Text = unitB.currentMaxMorale.ToString();
+            currentMinimumMoraleA.Text = unitA.currentMinimumMorale.ToString();
+            currentMinimumMoraleB.Text = unitB.currentMinimumMorale.ToString();
+            currentConditionA.Text = unitA.currentCondition.ToString();
+            currentConditionB.Text = unitB.currentCondition.ToString();
+
         }
 
         private void Resume_Click(object sender, EventArgs e)

@@ -139,6 +139,23 @@ namespace VoronoiTacticsCombatCalculator
             this.acclimatizedB = new System.Windows.Forms.CheckBox();
             this.acclimatizedA = new System.Windows.Forms.CheckBox();
             this.label36 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.currentMenB = new System.Windows.Forms.TextBox();
+            this.currentMenA = new System.Windows.Forms.TextBox();
+            this.label38 = new System.Windows.Forms.Label();
+            this.currentMoraleB = new System.Windows.Forms.TextBox();
+            this.currentMoraleA = new System.Windows.Forms.TextBox();
+            this.label39 = new System.Windows.Forms.Label();
+            this.currentMinimumMoraleB = new System.Windows.Forms.TextBox();
+            this.currentMinimumMoraleA = new System.Windows.Forms.TextBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.currentConditionB = new System.Windows.Forms.TextBox();
+            this.currentConditionA = new System.Windows.Forms.TextBox();
+            this.label41 = new System.Windows.Forms.Label();
+            this.currentMaximumMoraleB = new System.Windows.Forms.TextBox();
+            this.currentMaximumMoraleA = new System.Windows.Forms.TextBox();
+            this.label42 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Begin
@@ -153,12 +170,12 @@ namespace VoronoiTacticsCombatCalculator
             // 
             // CombatLog
             // 
-            this.CombatLog.Location = new System.Drawing.Point(572, 12);
+            this.CombatLog.Location = new System.Drawing.Point(572, 207);
             this.CombatLog.Multiline = true;
             this.CombatLog.Name = "CombatLog";
             this.CombatLog.ReadOnly = true;
             this.CombatLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.CombatLog.Size = new System.Drawing.Size(420, 934);
+            this.CombatLog.Size = new System.Drawing.Size(420, 739);
             this.CombatLog.TabIndex = 2;
             // 
             // A
@@ -1090,11 +1107,186 @@ namespace VoronoiTacticsCombatCalculator
             this.label36.TabIndex = 113;
             this.label36.Text = "Acclimatized";
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.Transparent;
+            this.label11.Font = new System.Drawing.Font("Arial", 15F);
+            this.label11.ForeColor = System.Drawing.Color.Blue;
+            this.label11.Location = new System.Drawing.Point(893, 12);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(23, 23);
+            this.label11.TabIndex = 117;
+            this.label11.Text = "B";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Font = new System.Drawing.Font("Arial", 15F);
+            this.label37.ForeColor = System.Drawing.Color.Red;
+            this.label37.Location = new System.Drawing.Point(782, 12);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(23, 23);
+            this.label37.TabIndex = 116;
+            this.label37.Text = "A";
+            // 
+            // currentMenB
+            // 
+            this.currentMenB.Location = new System.Drawing.Point(870, 45);
+            this.currentMenB.Name = "currentMenB";
+            this.currentMenB.ReadOnly = true;
+            this.currentMenB.Size = new System.Drawing.Size(64, 20);
+            this.currentMenB.TabIndex = 120;
+            this.currentMenB.Text = "500";
+            // 
+            // currentMenA
+            // 
+            this.currentMenA.Location = new System.Drawing.Point(760, 45);
+            this.currentMenA.Name = "currentMenA";
+            this.currentMenA.ReadOnly = true;
+            this.currentMenA.Size = new System.Drawing.Size(64, 20);
+            this.currentMenA.TabIndex = 119;
+            this.currentMenA.Text = "500";
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(619, 48);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(65, 13);
+            this.label38.TabIndex = 118;
+            this.label38.Text = "Current Men";
+            // 
+            // currentMoraleB
+            // 
+            this.currentMoraleB.Location = new System.Drawing.Point(870, 76);
+            this.currentMoraleB.Name = "currentMoraleB";
+            this.currentMoraleB.ReadOnly = true;
+            this.currentMoraleB.Size = new System.Drawing.Size(64, 20);
+            this.currentMoraleB.TabIndex = 123;
+            this.currentMoraleB.Text = "1.0";
+            // 
+            // currentMoraleA
+            // 
+            this.currentMoraleA.Location = new System.Drawing.Point(760, 76);
+            this.currentMoraleA.Name = "currentMoraleA";
+            this.currentMoraleA.ReadOnly = true;
+            this.currentMoraleA.Size = new System.Drawing.Size(64, 20);
+            this.currentMoraleA.TabIndex = 122;
+            this.currentMoraleA.Text = "1.0";
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(619, 79);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(76, 13);
+            this.label39.TabIndex = 121;
+            this.label39.Text = "Current Morale";
+            // 
+            // currentMinimumMoraleB
+            // 
+            this.currentMinimumMoraleB.Location = new System.Drawing.Point(870, 140);
+            this.currentMinimumMoraleB.Name = "currentMinimumMoraleB";
+            this.currentMinimumMoraleB.ReadOnly = true;
+            this.currentMinimumMoraleB.Size = new System.Drawing.Size(64, 20);
+            this.currentMinimumMoraleB.TabIndex = 126;
+            this.currentMinimumMoraleB.Text = "0.4";
+            // 
+            // currentMinimumMoraleA
+            // 
+            this.currentMinimumMoraleA.Location = new System.Drawing.Point(760, 140);
+            this.currentMinimumMoraleA.Name = "currentMinimumMoraleA";
+            this.currentMinimumMoraleA.ReadOnly = true;
+            this.currentMinimumMoraleA.Size = new System.Drawing.Size(64, 20);
+            this.currentMinimumMoraleA.TabIndex = 125;
+            this.currentMinimumMoraleA.Text = "0.4";
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(619, 143);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(120, 13);
+            this.label40.TabIndex = 124;
+            this.label40.Text = "Current Minimum Morale";
+            // 
+            // currentConditionB
+            // 
+            this.currentConditionB.Location = new System.Drawing.Point(870, 171);
+            this.currentConditionB.Name = "currentConditionB";
+            this.currentConditionB.ReadOnly = true;
+            this.currentConditionB.Size = new System.Drawing.Size(64, 20);
+            this.currentConditionB.TabIndex = 129;
+            this.currentConditionB.Text = "1.0";
+            // 
+            // currentConditionA
+            // 
+            this.currentConditionA.Location = new System.Drawing.Point(760, 171);
+            this.currentConditionA.Name = "currentConditionA";
+            this.currentConditionA.ReadOnly = true;
+            this.currentConditionA.Size = new System.Drawing.Size(64, 20);
+            this.currentConditionA.TabIndex = 128;
+            this.currentConditionA.Text = "1.0";
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(619, 174);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(88, 13);
+            this.label41.TabIndex = 127;
+            this.label41.Text = "Current Condition";
+            // 
+            // currentMaximumMoraleB
+            // 
+            this.currentMaximumMoraleB.Location = new System.Drawing.Point(870, 107);
+            this.currentMaximumMoraleB.Name = "currentMaximumMoraleB";
+            this.currentMaximumMoraleB.ReadOnly = true;
+            this.currentMaximumMoraleB.Size = new System.Drawing.Size(64, 20);
+            this.currentMaximumMoraleB.TabIndex = 132;
+            this.currentMaximumMoraleB.Text = "0.4";
+            // 
+            // currentMaximumMoraleA
+            // 
+            this.currentMaximumMoraleA.Location = new System.Drawing.Point(760, 107);
+            this.currentMaximumMoraleA.Name = "currentMaximumMoraleA";
+            this.currentMaximumMoraleA.ReadOnly = true;
+            this.currentMaximumMoraleA.Size = new System.Drawing.Size(64, 20);
+            this.currentMaximumMoraleA.TabIndex = 131;
+            this.currentMaximumMoraleA.Text = "0.4";
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(619, 110);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(123, 13);
+            this.label42.TabIndex = 130;
+            this.label42.Text = "Current Maximum Morale";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1004, 958);
+            this.Controls.Add(this.currentMaximumMoraleB);
+            this.Controls.Add(this.currentMaximumMoraleA);
+            this.Controls.Add(this.label42);
+            this.Controls.Add(this.currentConditionB);
+            this.Controls.Add(this.currentConditionA);
+            this.Controls.Add(this.label41);
+            this.Controls.Add(this.currentMinimumMoraleB);
+            this.Controls.Add(this.currentMinimumMoraleA);
+            this.Controls.Add(this.label40);
+            this.Controls.Add(this.currentMoraleB);
+            this.Controls.Add(this.currentMoraleA);
+            this.Controls.Add(this.label39);
+            this.Controls.Add(this.currentMenB);
+            this.Controls.Add(this.currentMenA);
+            this.Controls.Add(this.label38);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label37);
             this.Controls.Add(this.acclimatizedB);
             this.Controls.Add(this.acclimatizedA);
             this.Controls.Add(this.label36);
@@ -1318,6 +1510,23 @@ namespace VoronoiTacticsCombatCalculator
         private System.Windows.Forms.CheckBox acclimatizedB;
         private System.Windows.Forms.CheckBox acclimatizedA;
         private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.TextBox currentMoraleB;
+        private System.Windows.Forms.TextBox currentMoraleA;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.TextBox currentMinimumMoraleB;
+        private System.Windows.Forms.TextBox currentMinimumMoraleA;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.TextBox currentMenA;
+        private System.Windows.Forms.TextBox currentMenB;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox currentConditionB;
+        private System.Windows.Forms.TextBox currentConditionA;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.TextBox currentMaximumMoraleB;
+        private System.Windows.Forms.TextBox currentMaximumMoraleA;
+        private System.Windows.Forms.Label label42;
     }
 }
 

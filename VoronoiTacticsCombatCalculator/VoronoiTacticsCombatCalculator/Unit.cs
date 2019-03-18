@@ -63,6 +63,9 @@ namespace VoronoiTacticsCombatCalculator
         //Setup specific unit constants
         public void Setup()
         {
+
+            currentCondition = 1;
+
             //TODO can replace (1 - (weight - 1)) by (-weight + 2)
             conditionRecovery = Combat.conditionRecovery * (1 - (weight - 1));
 
