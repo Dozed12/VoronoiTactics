@@ -22,10 +22,15 @@ Generic notes:
     Thaubia / Thaubian
 
 *Name: Thaubian Confederation
+
 *Politics: 
+
 Many rich free city states with relative independence.
 Bigger kingdoms fight for control of the Confederation.
 One kingdom ruler is elected by the free city states to rule the Confederation.
 The goal of the Confederation is to protect its members from outside threats and lead the entire Confederation to progress
 Power struggle between the kingdoms may lead to so called Confederation Ruleship Wars(CAMPAIGN SCENARIO)
 Later in history a Unification War insues to bring the Confederation stronger together and permanently(CAMPAIGN SCENARIO)
+
+*Units:
+
