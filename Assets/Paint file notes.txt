@@ -1,0 +1,4 @@
+Unit cards:
+
+1 - Noise(Intensity 20 Saturation 0 Coverage 100)
+2 - InnerShadow(Angle 135 Length 3 Blur 2 Strength 0.8)
