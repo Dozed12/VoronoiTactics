@@ -252,7 +252,7 @@ namespace VoronoiTacticsCombatCalculator
             CalculateMinMorale();
 
             //Display in log
-            log.AppendText(who + " morale: " + currentMorale);
+            log.AppendText(who + " morale: " + currentMorale + " minimum: " + currentMinimumMorale);
             log.AppendText(Environment.NewLine);
 
         }
