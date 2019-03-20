@@ -95,7 +95,7 @@ namespace VoronoiTacticsCombatCalculator
             {
 
                 //Number of fires
-                int fires = usable;
+                int fires = usable * rangedTargets;
                 if (currentMen < usable)
                     fires = currentMen;
 
