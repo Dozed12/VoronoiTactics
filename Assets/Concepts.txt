@@ -99,6 +99,8 @@ At 0% it reduces/increases things by 25%.
 Reduces attack values, attack accuracy, speed, melee defense
 Increases reload time and minimum morale
 
+* Guns defines the gun pieces to use, if 0 then every soldier has a gun, artillery has 10 for example.
+
 * Armor stat indicating how many hits unit needs to be destroyed(To be hit needs to be hit by unit with HardAttack flag, like artillery)
 Basically have single or low number of tanks in a unit
 Artillery, with HardAttack flag, can bombard these tanks and maybe pennetrate
