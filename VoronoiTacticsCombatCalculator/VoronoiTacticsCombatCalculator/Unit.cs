@@ -108,7 +108,11 @@ namespace VoronoiTacticsCombatCalculator
                 //Gun pieces
                 else
                 {
-                    fires *= guns;
+                    int possibleGuns = (int)(currentMen / menPerGun);
+                    if (guns < possibleGuns)
+                        fires *= guns;
+                    else
+                        fires *= possibleGuns;
                 }
 
                 Console.WriteLine(fires);
