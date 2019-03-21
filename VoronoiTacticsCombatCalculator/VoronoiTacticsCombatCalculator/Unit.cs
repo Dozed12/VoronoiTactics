@@ -95,9 +95,23 @@ namespace VoronoiTacticsCombatCalculator
             {
 
                 //Number of fires
-                int fires = usable * rangedTargets;
-                if (currentMen < usable)
-                    fires = currentMen;
+                int fires = rangedTargets;
+
+                //No guns, every man has a gun
+                if(guns == 0)
+                {
+                    if (currentMen < usable)
+                        fires *= currentMen;
+                    else
+                        fires *= usable;                    
+                }
+                //Gun pieces
+                else
+                {
+                    fires *= guns;
+                }
+
+                Console.WriteLine(fires);
 
                 //Number of hits
                 int hits = 0;
