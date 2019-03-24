@@ -98,12 +98,12 @@ namespace VoronoiTacticsCombatCalculator
                 int fires = rangedTargets;
 
                 //No guns, every man has a gun
-                if(guns == 0)
+                if (guns == 0)
                 {
                     if (currentMen < usable)
                         fires *= currentMen;
                     else
-                        fires *= usable;                    
+                        fires *= usable;
                 }
                 //Gun pieces
                 else
@@ -114,8 +114,6 @@ namespace VoronoiTacticsCombatCalculator
                     else
                         fires *= possibleGuns;
                 }
-
-                Console.WriteLine(fires);
 
                 //Number of hits
                 int hits = 0;
